@@ -16,12 +16,12 @@ public class WishListDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 마이페이지_찜 목록
-	private static final String SELECTALL = "SELECT W.WISHLIST_PK, W.MEMBER_ID, W.PRODUCT_PK, P.PRODUCT_IMG, P.PRODUCT_NAME FROM WISHLIST W "
+	private static final String SELECTALL = "SELECT W.WISHLIST_PK, W.MEMBER_ID, P.PRODUCT_PK, P.PRODUCT_IMG, P.PRODUCT_NAME FROM WISHLIST W "
 			+ "JOIN PRODUCT P ON (W.PRODUCT_PK = P.PRODUCT_PK) WHERE MEMBER_ID = ?";
 	// ?
 	private static final String SELECTONE = "SELECT WISHLIST_PK, MEMBER_ID, PRODUCT_PK FROM WISHLIST WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
 	// 상품 찜 추가
-	private static final String INSERT = "INSERT INTO WISHLIST (WISHLIST_PK, MEMBER_ID, PRODUCT_PK) VALUES ((SELECT NVL(MAX(WISHLIST_PK), 0) + 1 FROM WISHLIST), ?, ?)";
+	private static final String INSERT = "INSERT INTO WISHLIST (MEMBER_ID, PRODUCT_PK) VALUES (?, ?);";
 //	private static final String UPDATE = "";
 	// 상품 찜 취소
 	private static final String DELETE = "DELETE FROM WISHLIST WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
@@ -78,6 +78,7 @@ public class WishListDAO {
 
 }
 
+// selectAll
 class WishListRowMapper1 implements RowMapper<WishListDTO> {
 	@Override
 	public WishListDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -91,6 +92,7 @@ class WishListRowMapper1 implements RowMapper<WishListDTO> {
 	}
 }
 
+// selectOne
 class WishListRowMapper2 implements RowMapper<WishListDTO> {
 	@Override
 	public WishListDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

@@ -21,15 +21,15 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.selectOne(productDTO);
 	}
 
-//	@Override
-//	public boolean insert(ProductDTO productDTO) {
-//		return productDAO.insert(productDTO);
-//	}
+	@Override
+	public boolean insert(ProductDTO productDTO) {
+		return productDAO.insert(productDTO);
+	}
 
-//	@Override
-//	public boolean update(ProductDTO productDTO) {
-//		return productDAO.update(productDTO);
-//	}
+	@Override
+	public boolean update(ProductDTO productDTO) {
+		return productDAO.update(productDTO);
+	}
 
 //	@Override
 //	public boolean delete(ProductDTO productDTO) {

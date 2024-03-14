@@ -15,70 +15,63 @@ public class ProductDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	// 상품 판매량순
-	private static final String SELECTALL_SALES = "SELECT\r\n"
-			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG,\r\n"
-			+ "	MAX(CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END) AS HasWPK,\r\n"
-			+ "	SUM(B.BUYPRODUCT_CNT) AS SALES\r\n"
-			+ "FROM PRODUCT P\r\n"
-			+ "LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"
-			+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
-			+ "GROUP BY P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG\r\n"
-			+ "ORDER BY SALES DESC, P.PRODUCT_PK DESC";
-	// 상품 등록일순
-	private static final String SELECTALL_REGDATE = "SELECT\r\n"
-			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG,\r\n"
-			+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
-			+ "FROM PRODUCT P\r\n"
-			+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
-			+ "ORDER BY PRODUCT_REGDATE DESC, P.PRODUCT_PK DESC";
-	// 상품 찜순
-	private static final String SELECTALL_WISH = "SELECT ROWNUM, A.HasWPK, A.PRODUCT_PK, A.PRODUCT_NAME, A.PRODUCT_PRICE, A.PRODUCT_IMG, A.CNT\r\n"
-			+ "FROM (SELECT CASE WHEN WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK,\r\n"
-			+ "P.PRODUCT_PK, P.PRODUCT_NAME,  P.PRODUCT_PRICE, P.PRODUCT_IMG, W.CNT FROM PRODUCT P\r\n"
-			+ "LEFT OUTER JOIN (SELECT PRODUCT_PK, COUNT(PRODUCT_PK) CNT\r\n"
-			+ "FROM WISHLIST GROUP BY PRODUCT_PK) W ON P.PRODUCT_PK = W.PRODUCT_PK\r\n"
-			+ "LEFT OUTER JOIN WISHLIST ON W.PRODUCT_PK = P.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
-			+ "ORDER BY NVL(W.CNT, 0) DESC, P.PRODUCT_PK DESC) A WHERE ROWNUM <= 8"; // 8개만 찜 목록 보여줌
-	// 상품 낮은가격순
-	private static final String SELECTALL_LOWPRICE = "SELECT\r\n"
-			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, NVL(W.CNT, 0) AS WCNT,\r\n"
-			+ "	CASE WHEN MYW.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
-			+ "FROM PRODUCT P\r\n"
-			+ "LEFT JOIN (SELECT PRODUCT_PK, COUNT(WISHLIST_PK) AS CNT FROM WISHLIST W GROUP BY PRODUCT_PK) W ON P.PRODUCT_PK = W.PRODUCT_PK \r\n"
-			+ "LEFT JOIN WISHLIST MYW ON P.PRODUCT_PK = MYW.PRODUCT_PK AND MYW.MEMBER_ID = 'oni' \r\n"
-			+ "ORDER BY P.PRODUCT_PRICE ASC, P.PRODUCT_PK DESC";
-	// 상품 이름 검색
-	private static final String SELECTALL_SEARCHNAME = "SELECT\r\n"
-			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, \r\n"
-			+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
-			+ "FROM PRODUCT P \r\n"
-			+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
-			+ "WHERE P.PRODUCT_NAME LIKE '%'||?||'%' ORDER BY P.PRODUCT_PK DESC";
-	// 상품 상세페이지
-	private static final String SELECTONE_DETAIL = "SELECT\r\n"
-			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_DETAILIMG, \r\n"
-			+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
-			+ "FROM PRODUCT P \r\n"
-			+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
-			+ "WHERE P.PRODUCT_PK = ?";
-
-//	private static final String INSERT = "";
-//	private static final String UPDATE = "";
+	private static final String INSERT = "INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
 //	private static final String DELETE = "";
+	
+	// 정렬별 상품목록 쿼리문 반환 함수
+	private static String selectAllQuery(String sortType, int limitNum) {
+		String query = "WITH WS AS (SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT FROM WISHLIST GROUP BY PRODUCT_PK LIMIT " + limitNum + "),\r\n"
+				+ "BS AS ( SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) SALES FROM BUYPRODUCT GROUP BY PRODUCT_PK LIMIT " + limitNum + ")\r\n"
+				+ "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_REGDATE, BS.SALES, WS.CNT,\r\n"
+				+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
+				+ "FROM PRODUCT P\r\n"
+				+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
+				+ "LEFT JOIN  BS ON P.PRODUCT_PK = BS.PRODUCT_PK\r\n"
+				+ "LEFT JOIN WS ON P.PRODUCT_PK = WS.PRODUCT_PK\r\n"
+				+ "ORDER BY\r\n";
+		// 판매량순_메인페이지, 상품목록페이지
+		if(sortType.equals("sales")) {
+			query += "BS.SALES DESC,";
+		}
+		// 신상순_상품목록페이지
+		else if(sortType.equals("regdate")) {
+			query += "P.PRODUCT_REGDATE DESC,";
+		}
+		// 찜순_메인페이지
+		else if(sortType.equals("wish")) {
+			query += "WS.CNT DESC,";
+		}
+		// 낮은 가격순_상품목록페이지
+		else if(sortType.equals("rowPrice")) {
+			query += "P.PRODUCT_PRICE ASC,";
+		}
+		query += "P.PRODUCT_PK DESC LIMIT " + limitNum;
+		
+		return query;
+	}
+	
+	// 상품 이름 검색
+	private static final String SELECTALL_SEARCHNAME = "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
+			+ "FROM PRODUCT P LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
+			+ "WHERE P.PRODUCT_NAME LIKE '%'||?||'%' ORDER BY P.PRODUCT_PK DESC";
+	// 상품상세페이지
+	private static final String SELECTONE_DETAIL = "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_DETAILIMG, CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
+			+ "FROM PRODUCT P LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
+			+ "WHERE P.PRODUCT_PK = ?";
 
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
 		Object[] args1 = { productDTO.getMemberID() };
 		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
 		try {
 			if (productDTO.getSearchCondition().equals("sales")) {
-				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_SALES, args1, new ProductRowMapper1());
+				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("sales", 100), args1, new ProductRowMapper1());
 			} else if (productDTO.getSearchCondition().equals("regdate")) {
-				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_REGDATE, args1, new ProductRowMapper1());
+				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("regdate", 100), args1, new ProductRowMapper1());
 			} else if (productDTO.getSearchCondition().equals("wish")) {
-				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_WISH, args1, new ProductRowMapper1());
+				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("wish", 8), args1, new ProductRowMapper1());
 			} else if (productDTO.getSearchCondition().equals("rowPrice")) {
-				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_LOWPRICE, args1, new ProductRowMapper1());
+				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("rowPrice", 100), args1, new ProductRowMapper1());
 			} else if (productDTO.getSearchCondition().equals("searchName")) {
 				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductRowMapper1());
 			}
@@ -99,13 +92,37 @@ public class ProductDAO {
 		}
 	}
 
-//	private boolean insert(ProductDTO productDTO) {
-//		return false;
-//	}
+	public boolean insert(ProductDTO productDTO) {
+		try {
+			int result = jdbcTemplate.update(INSERT, productDTO.getProductName(), productDTO.getProductPrice(),
+					productDTO.getProductDetailImg(), productDTO.getProductImg(), productDTO.getProductStatus(),
+					productDTO.getProductQuantity());
+			if (result <= 0) {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 
-//	private boolean update(ProductDTO productDTO) {
-//		return false;
-//	}
+		return true;
+	}
+	
+	public boolean update(ProductDTO productDTO) {
+		try {
+			int result = jdbcTemplate.update(UPDATE, productDTO.getProductName(), productDTO.getProductPrice(),
+					productDTO.getProductDetailImg(), productDTO.getProductImg(), productDTO.getProductStatus(),
+					productDTO.getProductQuantity(), productDTO.getProductPK());
+			if (result <= 0) {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
 
 //	private boolean delete(ProductDTO productDTO) {
 //		return false;
@@ -113,6 +130,7 @@ public class ProductDAO {
 
 }
 
+// selectAll
 class ProductRowMapper1 implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -126,6 +144,7 @@ class ProductRowMapper1 implements RowMapper<ProductDTO> {
 	}
 }
 
+// selectOne
 class ProductRowMapper2 implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
