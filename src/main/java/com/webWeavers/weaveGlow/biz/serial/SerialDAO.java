@@ -15,7 +15,7 @@ public class SerialDAO {
 //	private static final String SELECTALL = "";
 //	private static final String SELECTONE = "";
 
-	private static final String INSERT = "INSERT INTO SERIAL (SERIAL_PK, MEMBER_ID, SERIAL_DELIVERYADDRESS) VALUES ((SELECT NVL(MAX(SERIAL_PK), 0) + 1 FROM SERIAL), ?, ?)";
+	private static final String INSERT = "INSERT INTO SERIAL (MEMBER_ID, SERIAL_DELIVERYADDRESS) VALUES (?, ?)";
 //	private static final String UPDATE = "";
 //	private static final String DELETE = "";
 
