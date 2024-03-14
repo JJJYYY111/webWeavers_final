@@ -31,8 +31,19 @@ public class ReviewDAO {
 			+ "	P.PRODUCT_PK = ?\r\n"
 			+ "ORDER BY R.REVIEW_REGDATE DESC";
 	// 마이페이지_리뷰 목록
-	private static final String SELECTALL_MYREVIEW = "SELECT B.BUYPRODUCT_PK, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG PRODUCT_IMG, R.REVIEW_PK, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG FROM REVIEW R\r\n"
-			+ "JOIN BUYPRODUCT B ON (R.BUYPRODUCT_PK = B.BUYPRODUCT_PK) JOIN PRODUCT P ON (B.PRODUCT_PK = P.PRODUCT_PK) WHERE R.MEMBER_ID = ? ORDER BY R.REVIEW_REGDATE DESC";
+	private static final String SELECTALL_MYREVIEW = "SELECT\r\n"
+			+ "	B.BUYPRODUCT_PK, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG\r\n"
+			+ "FROM MEMBER M\r\n"
+			+ "LEFT JOIN SERIAL S ON\r\n"
+			+ "	M.MEMBER_ID = S.MEMBER_ID\r\n"
+			+ "INNER JOIN BUYPRODUCT B ON\r\n"
+			+ "	S.SERIAL_PK = B.SERIAL_PK\r\n"
+			+ "INNER JOIN PRODUCT P ON\r\n"
+			+ "	B.PRODUCT_PK = P.PRODUCT_PK \r\n"
+			+ "INNER JOIN REVIEW R ON\r\n"
+			+ "	B.BUYPRODUCT_PK = R.BUYPRODUCT_PK\r\n"
+			+ "WHERE M.MEMBER_ID = ?\r\n"
+			+ "ORDER BY R.REVIEW_REGDATE";
 	// ?
 	private static final String SELECTONE = "SELECT R.REVIEW_PK, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG FROM REVIEW R\r\n"
 			+ "JOIN BUYPRODUCT B ON (R.BUYPRODUCT_PK = B.BUYPRODUCT_PK) JOIN PRODUCT P ON (B.PRODUCT_PK = P.PRODUCT_PK) WHERE R.BUYPRODUCT_PK = ?";
@@ -121,11 +132,10 @@ class ReviewRowMapper2 implements RowMapper<ReviewDTO> {
 	@Override
 	public ReviewDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ReviewDTO data = new ReviewDTO();
-		data.setReviewPK(rs.getInt("REVIEW_PK"));
-		data.setBuyProductPK(rs.getInt("BUYPRODUCT_PK"));
+		data.setBuyProductPK(rs.getInt("BUYPRODUCT_PK"));	
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
-		data.setProductImg(rs.getString("PRODUCT_IMG"));
 		data.setProductName(rs.getString("PRODUCT_NAME"));
+		data.setProductImg(rs.getString("PRODUCT_IMG"));
 		data.setReviewRegdate(rs.getDate("REVIEW_REGDATE"));
 		data.setReviewScope(rs.getInt("REVIEW_SCOPE"));
 		data.setReviewContent(rs.getString("REVIEW_CONTENT"));

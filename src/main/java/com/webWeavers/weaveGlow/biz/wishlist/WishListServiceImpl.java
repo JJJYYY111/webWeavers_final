@@ -26,10 +26,10 @@ public class WishListServiceImpl implements WishListService {
 		return wishListDAO.insert(wishListDTO);
 	}
 
-	@Override
-	public boolean update(WishListDTO wishListDTO) {
-		return wishListDAO.update(wishListDTO);
-	}
+//	@Override
+//	public boolean update(WishListDTO wishListDTO) {
+//		return wishListDAO.update(wishListDTO);
+//	}
 
 	@Override
 	public boolean delete(WishListDTO wishListDTO) {

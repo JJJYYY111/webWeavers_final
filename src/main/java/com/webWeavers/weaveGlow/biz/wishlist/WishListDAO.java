@@ -22,7 +22,7 @@ public class WishListDAO {
 	private static final String SELECTONE = "SELECT WISHLIST_PK, MEMBER_ID, PRODUCT_PK FROM WISHLIST WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
 	// 상품 찜 추가
 	private static final String INSERT = "INSERT INTO WISHLIST (WISHLIST_PK, MEMBER_ID, PRODUCT_PK) VALUES ((SELECT NVL(MAX(WISHLIST_PK), 0) + 1 FROM WISHLIST), ?, ?)";
-	private static final String UPDATE = "";
+//	private static final String UPDATE = "";
 	// 상품 찜 취소
 	private static final String DELETE = "DELETE FROM WISHLIST WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
 
@@ -59,18 +59,9 @@ public class WishListDAO {
 		return true;
 	}
 
-	public boolean update(WishListDTO wishListDTO) {
-		try {
-			int result = jdbcTemplate.update(UPDATE);
-			if (result <= 0) {
-				return false;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
+//	private boolean update(WishListDTO wishListDTO) {
+//		return false;
+//	}
 
 	public boolean delete(WishListDTO wishListDTO) {
 		try {

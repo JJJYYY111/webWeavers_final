@@ -7,6 +7,6 @@ public interface WishListService {
 	WishListDTO selectOne(WishListDTO wishListDTO);
 	
 	boolean insert(WishListDTO wishListDTO);
-	boolean update(WishListDTO wishListDTO);
+//	boolean update(WishListDTO wishListDTO);
 	boolean delete(WishListDTO wishListDTO);
 }
