@@ -1,0 +1,321 @@
+#navbarSupportedContent {
+	font-weight: 600;
+}
+
+#login {
+	width: 110px;
+	padding: 10px;
+	text-align: center;
+	height: 45px;
+	font-weight: 600;
+}
+
+#register {
+	width: 110px;
+	padding: 10px;
+	text-align: center;
+	height: 45px;
+	font-weight: 600;
+}
+
+#searchName {
+	border: 1px solid #000;
+	height: 45px;
+	border-radius: 30px;
+	padding: 0 10px;
+}
+
+#searchName input,
+#searchName input:focus {
+	outline: none;
+	border: unset !important;
+}
+
+#searchName i {
+	line-height: 36px;
+}
+
+.nav-shop li:last-child {
+    margin-left: 0px !important;
+}
+
+/* ------------------------ 회원가입 ------------------------*/
+/* 라벨, 스클롤바 디자인 */
+
+.label-text{
+    float: left;
+    padding: 7px;
+    padding-right: 30px;
+    text-align: right;
+}
+
+.col-lg-10 {
+  overflow-y: auto;
+  scrollbar-width: thin; /* 스크롤바 너비 조절, thin은 얇은 스크롤바 */
+}
+
+.col-lg-10::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.col-lg-10::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바 색상 지정 */
+  border-radius: 4px; /* 스크롤바 모서리를 둥글게 만듦 */
+}
+textarea.col-lg-10{
+    border-radius: 6px;
+    border-color: #b8b8b8;
+}
+
+.no-border {
+  border: 0;
+}
+/* ------------------------ 상품목록 ------------------------*/
+/*  */
+
+.sidebar-filter {
+    margin-top: 0px !important;
+}
+
+.card-product__price{
+	color:black;
+}
+
+/*------------------------ 회원가입 ------------------------*/
+div.popup{
+	background-color: rgb(255 255 255 / 50%);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+div.popup > div.popup-box{
+    background-color: rgb(255 255 255);
+    width: 50%;
+    height: 50%;
+    left: 25%;
+    position: absolute;
+    top: 25%;
+    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+    border-radius: 12px;
+}
+
+/*------------------------ 마이페이지 ------------------------*/
+.mypage-button{
+	height: 150px;
+    text-align: center;
+    line-height: 150px;
+    font-size: 25px;
+    font-weight: 500;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px #8b98a785;
+    background-color: #e1e8f347;
+    overflow: hidden;
+}
+.mypage-button > a{
+	width: 100%;
+}
+
+.mypage-button > a:hover{
+	background-color: #e1e8f347;
+	font-size: 27px;
+    transition: all .3s ease;
+}
+
+.profil-card{
+    position: relative;
+    z-index: 2000;
+}
+
+.profil-card > img{
+    top: -60px;
+    position: relative;
+}
+
+.profil-card > .profil-contant{
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.profil-card > .custom-button{
+    display: inline-block;
+    float: right;
+    margin-top: 30px;
+    height: 36px;
+    width: 100px;
+    text-align: center;
+    line-height: 36px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 18px;
+    overflow: hidden;
+    
+}
+
+.profil-card > .custom-button > a{
+    width: 100%;
+    height: 36px;
+    border-radius: 18px;
+	border: rgb(238, 238, 238) 2px solid;
+}
+
+.profil-card > .custom-button > a:hover{
+    border: 1px solid #384aeb;
+    transition: all .3s ease;
+}
+
+
+
+/*------------------------ 모달창 ------------------------*/
+#modal.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #modal .modal-window {
+            background: rgba( 69, 139, 197, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 400px;
+            height: 500px;
+            position: relative;
+            top: -100px;
+            padding: 10px;
+        }
+        #modal .title {
+            padding-left: 10px;
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+            
+        }
+        #modal .title h2 {
+            display: inline;
+        }
+        #modal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        /* ====================별점 api======================= */
+.stars {
+	display: flex;
+	align-items: center;
+}
+
+.stars button {
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.stars button:hover {
+	color: gold;
+}
+
+.stars .status {
+	margin-left: 10px;
+	font-size: 16px;
+	color: red;
+}
+
+.selected {
+	color: gold;
+}
+
+.review-description {
+	margin-top: 20px;
+	font-size: 18px;
+}
+
+
+  /* 테두리 없애기 */
+
+.cart-delete-button {
+    border: none;
+  }
+  
+.billing_details .contact_form .form-group .form-control {
+    border-color: #EEEEEE;
+    font-size: 14px;
+    color: #777777;
+    background-color: white;
+}
+
+.addressModalInput {
+	width:-webkit-fill-available;
+}
+
+/* a button {
+    color: #212121; 옅은 회색
+    font-size: 25px; 원하는 크기로 조절
+    padding: 10px 10px; 원하는 패딩 값으로 조절
+    
+  } */
+/*============배송지 모달=============*/
+
+.checkInput:checked+label{
+	border: 2px groove #D9EDFF;
+	background-color: aliceblue;
+	border-radius: 10px;
+}
+
+.modal-body{
+	max-height: 400px;
+	overflow-y: auto;
+}
+
+.modal-header{
+	position: relative;
+	z-index: 300;
+}
+
+#modalUpdate_apk, #modalDelete_apk {
+	display: inline;
+}
+
+#cartProduct{
+	color: black;
+}
+
+#myStarRating_selectedRatingDescription{
+	margin-top:9px;
+	margin-bottom:0px;
+	margin-left:-5px;
+}
+
+/*============Sweet Alert2=============*/
+
+.swal2-popup {
+	font-size: 10px;
+	font-family: sans-serif;
+}
+
