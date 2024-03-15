@@ -6,17 +6,20 @@ import lombok.Data;
 
 @Data
 public class BuyProductDTO {
+	
 	private int buyProductPK;
 	private int productPK;
 	private int serialPK;
+	private int buyProductCnt;
+	
+	// 구매목록페이지
+	private String memberID;
 	private Date serialRegdate;
+	private String serialDeliveryAddress;
 	private String productName;
 	private int productPrice;
 	private String productImg;
-	private String memberID;
-	private String serialDeliveryAddress;
 	
-	private int cartCnt;
 	private int reviewCheck;
 	private String searchCondition;
 	
