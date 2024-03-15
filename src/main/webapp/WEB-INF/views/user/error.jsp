@@ -27,7 +27,7 @@
                 <br></br>
                 <h2 style = "text-align: center;">
                 <a onclick='history.go(-1)' class="button button-blog">이전으로</a>
-                <a href="main.do" class="button button-blog">메인으로</a>
+                <a href="main" class="button button-blog">메인으로</a>
                 </h2>
             </div>
         </div>

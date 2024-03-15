@@ -26,7 +26,7 @@
 					회원탈퇴가 완료되었습니다.<br> 그 동안 weaveGlow를 이용해주셔서 감사합니다.
 				</p>
 				<h2 style="text-align: center;">
-					<a href="/main" class="button button-blog">메인으로</a>
+					<a href="main" class="button button-blog">메인으로</a>
 				</h2>
 			</div>
 		</div>

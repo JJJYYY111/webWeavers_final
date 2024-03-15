@@ -22,7 +22,7 @@
 						<div class="hover">
 							<h4>WeaveGlow - Register</h4>
 							<p>위브글로우 회원이 되어 다양한 혜택을 누려보세요.</p>
-							<a class="button button-account" href="/register">회원가입</a>
+							<a class="button button-account" href="register">회원가입</a>
 						</div>
 					</div>
 				</div>
@@ -30,7 +30,7 @@
 					<div class="login_form_inner">
 						<h3>Log In</h3>
 						<form name=loginForm; class="row login_form"
-							action="/memberSelectOne" id="contactForm" method="POST">
+							action="memberSelectOne" id="contactForm" method="POST">
 							<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="mid" name="memberID"
 									placeholder="아이디 입력" onfocus="this.placeholder = ''"
@@ -48,8 +48,8 @@
 								<button type="submit" value="submit" class="button button-login w-100">로그인</button>
 							</div>
 							<!-- 로그인 실패 문구 -->
-							<c:set var="asd" value="${msg}" />
-							<p style="color: red; text-align: center;" id="message">${asd}</p>
+							<c:set var="loginFail" value="${msg}" />
+							<p style="color: red; text-align: center;" id="message">${loginFail}</p>
 							<!-- /로그인 실패 문구 -->
 						</form>
 					</div>

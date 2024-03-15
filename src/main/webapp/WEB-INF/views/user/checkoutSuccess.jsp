@@ -26,11 +26,11 @@
 						<table class="order-rable">
 							<tr>
 								<td>주문 번호</td>
-								<td>: &nbsp; ${bdatas[0].spk}</td>
+								<td>: &nbsp; ${bdatas[0].serialPK}</td>
 							</tr>
 							<tr>
 								<td>주문 날짜</td>
-								<td>: &nbsp; ${bdatas[0].regdate}</td>
+								<td>: &nbsp; ${bdatas[0].serialRegdate}</td>
 							</tr>
 							<tr>
 								<td>합계</td>
@@ -53,15 +53,15 @@
 							</colgroup>
 							<tr>
 								<td>우편번호</td>
-								<td>: <span>${aDTO.zonecode} </span></td>
+								<td>: <span>${addressDTO.addressZonecode} </span></td>
 							</tr>
 							<tr>
 								<td>도로명주소</td>
-								<td>: <span>${aDTO.roadaddress} </span></td>
+								<td>: <span>${addressDTO.addressRoad} </span></td>
 							</tr>
 							<tr>
 								<td>상세주소</td>
-								<td>: <span>${aDTO.detail} </span></td>
+								<td>: <span>${addressDTO.addressDetail} </span></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -94,16 +94,16 @@
 								<c:forEach var='data' items='${bdatas}'>
 									<tr>
 										<td>
-											<p>${data.pname}</p>
+											<p>${data.productName}</p>
 										</td>
 										<td>
-											<p><fmt:formatNumber value="${data.price}" currencyCode="KRW" />원</p>
+											<p><fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />원</p>
 										</td>
 										<td>
-											<p>${data.cnt}</p>
+											<p>${data.cartCnt}</p>
 										</td>
 										<td>
-											<p><span class="productPrice"><fmt:formatNumber value="${data.price*data.cnt}" currencyCode="KRW" /></span>원</p>
+											<p><span class="productPrice"><fmt:formatNumber value="${data.productPrice*data.cartCnt}" currencyCode="KRW" /></span>원</p>
 										</td>
 									</tr>
 								</c:forEach>
@@ -126,8 +126,8 @@
 					</table>
 				</div>
 				<div class="bottom-right box" style="display: flex; justify-content: flex-end; margin-top: 30px;">
-					<a href="/checkoutList" class="button button-blog">구매내역</a>
-					<a href="/main" class="button button-blog">메인으로</a>
+					<a href="checkoutList" class="button button-blog">구매내역</a>
+					<a href="main" class="button button-blog">메인으로</a>
 				</div>
 			</div>
 		</div>

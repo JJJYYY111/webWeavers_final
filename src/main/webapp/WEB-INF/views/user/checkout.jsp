@@ -149,33 +149,33 @@
 		<div class="container">
 			<div class="billing_details">
 				<div class="row">
-					<form class="row contact_form" id="checkoutForm" onsubmit="return checkoutSubmit()" action="/checkoutSuccess"
+					<form class="row contact_form" id="checkoutForm" onsubmit="return checkoutSubmit()" action="checkoutSuccess"
 						method="post" style="margin: auto;">
 						<!-- 주문자 정보 -->
 						<div class="col-lg-7">
 							<h3>Billing Details</h3>
 							<div class="col-md-12 form-group p_star">
 								<input type="text" class="form-control checkoutInfo" id="checkoutName"
-									name="memberName" placeholder="이름" value="${name}" required readonly>
+									name="memberName" placeholder="이름" value="${memberName}" required readonly>
 							</div>
 
 							<div class="col-md-12 form-group p_star">
 								<input type="text" class="form-control checkoutInfo" id="checkoutPhone"
-									name="memberPhone" placeholder="연락처" value="${phone}" required readonly>
+									name="memberPhone" placeholder="연락처" value="${memberPhone}" required readonly>
 							</div>
 
 							<div class="col-md-12 form-group p_star">
 								<input type="text" class="form-control checkoutInfo" id="checkoutEmail"
-									name="memberEmail" placeholder="이메일" value="${email}" required readonly>
+									name="memberEmail" placeholder="이메일" value="${memberEmail}" required readonly>
 							</div>
 
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
-								<c:if test="${marketing > 0}">
+								<c:if test="${memberMarketing > 0}">
 									<input type="checkbox" id="f-option3" name="memberMarketing" checked>
 									<label for="f-option3">이메일로 영수증을 받으시려면 체크 해주세요</label>
 								</c:if>
-								<c:if test="${marketing == 0}">
+								<c:if test="${memberMarketing == 0}">
 									<input type="checkbox" id="f-option3" name="memberMarketing">
 									<label for="f-option3">이메일로 영수증을 받으시려면 체크 해주세요</label>
 								</c:if>
@@ -226,8 +226,8 @@
 									<c:if test="${fn:length(cdatas) > 0}">
 										<c:forEach var='data' items='${cdatas}'>
 											<li>
-											<span style="width: 70%; display: inline-block;">${data.pname} x ${data.cnt}</span> 
-											<span class="last" style="float: right;"><span class="productPrice"><fmt:formatNumber value="${data.price*data.cnt}" currencyCode="KRW" /></span>원</span>
+											<span style="width: 70%; display: inline-block;">${data.productName} x ${data.cartCnt}</span> 
+											<span class="last" style="float: right;"><span class="productPrice"><fmt:formatNumber value="${data.productPrice*data.cartCnt}" currencyCode="KRW" /></span>원</span>
 											</li>
 										</c:forEach>
 									</c:if>

@@ -16,7 +16,7 @@
    <section class="login_box_area section-margin">
       <div class="container">
          <div class="row">
-            <form class="col-lg-12 row login_form" action="/unregisterSuccess" method="POST" id="unregister_form" name="unregisterForm">
+            <form class="col-lg-12 row login_form" action="unregisterSuccess" method="POST" id="unregister_form" name="unregisterForm">
                <div class="col-lg-12">
                   <div class="login_form_inner register_form_inner">
                      <h3>약관 동의</h3>

@@ -43,25 +43,25 @@
 										<td style="text-align: left;">
 											<div class="media">
 												<div class="d-flex">
-													<a href="/productDetail?ppk=${data.ppk}"><img src="${data.img}" alt="${data.ppk}번 상품사진" style="width: 150px;"></a>
+													<a href="/productDetail?productPK=${data.productPK}"><img src="${data.productImg}" alt="${data.productPK}번 상품사진" style="width: 150px;"></a>
 												</div>
 												<div class="media-body">
-													<a href="/productDetail?ppk=${data.ppk}" id="cartProduct"><p>${data.pname}</p></a>
+													<a href="/productDetail?productPK=${data.productPK}" id="cartProduct"><p>${data.productName}</p></a>
 												</div>
 											</div>
 										</td>
 										<td>
-											<h5 id="cartProductPrice_${data.ppk}"><fmt:formatNumber value="${data.price}" currencyCode="KRW" />원</h5>
+											<h5 id="cartProductPrice_${data.productPK}"><fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />원</h5>
 										</td>
 										<!-- 장바구니 수량 변경 -->
 										<td style="padding-left: 3rem; padding-right: 0;">
 											<div class="product_count">
-												<input type="text" name="cartCnt" id="qty_${data.ppk}" maxlength="12" value="${data.cnt}" title="Quantity:" class="input-text qty"
-													onchange="updateQuantity('${data.ppk}', ${data.price});" readonly>
-												<button onclick="updateQuantity('${data.ppk}', '1', ${data.price})" class="increase items-count" type="button">
+												<input type="text" name="cartCnt" id="qty_${data.productPK}" maxlength="12" value="${data.cartCnt}" title="Quantity:" class="input-text qty"
+													onchange="updateQuantity('${data.productPK}', ${data.productPrice});" readonly>
+												<button onclick="updateQuantity('${data.productPK}', '1', ${data.productPrice})" class="increase items-count" type="button">
 													<i class="lnr lnr-chevron-up"></i>
 												</button>
-												<button onclick="updateQuantity('${data.ppk}', '0', ${data.price})" class="reduced items-count" type="button">
+												<button onclick="updateQuantity('${data.productPK}', '0', ${data.productPrice})" class="reduced items-count" type="button">
 													<i class="lnr lnr-chevron-down"></i>
 												</button>
 											</div>
@@ -69,13 +69,13 @@
 										<!-- /장바구니 수량 변경 -->
 										<td>
 											<h5>
-												<span class="productPrice" id="total_${data.ppk}"><fmt:formatNumber value="${data.price * data.cnt}" currencyCode="KRW" /></span>원
+												<span class="productPrice" id="total_${data.productPK}"><fmt:formatNumber value="${data.productPrice * data.cartCnt}" currencyCode="KRW" /></span>원
 											</h5>
 										</td>
 										<td>
 											<input type="button" name="close" id="close" style="display: none;">
 											<label for="close"> 
-											<a href="/cartDelete?ppk=${data.ppk}"><img src="img/close.png" alt="닫기버튼" style="width: 20px; height: 20px"></a>
+											<a href="cartDelete?productPK=${data.productPK}"><img src="img/close.png" alt="닫기버튼" style="width: 20px; height: 20px"></a>
 											</label>
 										</td>
 									</tr>
@@ -103,8 +103,8 @@
 								<td></td>
 								<td>
 									<div class="checkout_btn_inner d-flex align-items-center">
-										<a class="gray_btn" href="/productList">쇼핑하기</a> 
-										<a class="gray_btn ml-2" href="/checkout">구매하기</a>
+										<a class="gray_btn" href="productList">쇼핑하기</a> 
+										<a class="gray_btn ml-2" href="checkout">구매하기</a>
 									</div>
 								</td>
 							</tr>

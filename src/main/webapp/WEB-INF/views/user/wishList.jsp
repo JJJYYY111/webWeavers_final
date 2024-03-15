@@ -29,20 +29,20 @@
 					<c:if test="${fn:length(wdatas) > 0}">							<!-- 찜목록에 상품이 1개 이상이라면 -->
 						<c:forEach var='data' items='${wdatas}'> <!-- 찜목록 배열을 순회하며 있다면 출력 -->
 						
-							<div class="col-md-6 col-lg-4 col-xl-3" id='${data.ppk}'>
+							<div class="col-md-6 col-lg-4 col-xl-3" id='${data.productPK}'>
 								<div class="card text-center card-product"
-									data-product-pk="${data.ppk}">
+									data-product-pk="${data.productPK}">
 									<div class="card-product__img">
-										<a href="productDetail.do?ppk=${data.ppk}"><img class="card-img" 
-											src="${data.img}" alt="${data.ppk}번 상품사진"></a> <!-- 상품 사진을 누르면 해당ppk번 상품 사진으로 이동 -->
+										<a href="productDetail?productPK=${data.productPK}"><img class="card-img" 
+											src="${data.productImg}" alt="${data.productPK}번 상품사진"></a> <!-- 상품 사진을 누르면 해당ppk번 상품 사진으로 이동 -->
 										<ul class="card-product__imgOverlay">
 											<li>
 											<!-- 찜 버튼 -->
-												<button onclick="wishClick(${data.ppk},'${sessionMid}')" class="product-btn-${data.ppk}">
-													<c:if test="${data.ppk > 0}">
+												<button onclick="wishClick(${data.productPK},'${sessionMid}')" class="product-btn-${data.productPK}">
+													<c:if test="${data.productPK > 0}">
 														<i class="ti-heart" style="color: red;"></i> <!-- 해당상품 상품번호가 0보다 크다면 빨간색 하트 -->
 													</c:if>
-													<c:if test="${data.ppk <= 0}">
+													<c:if test="${data.productPK <= 0}">
 														<i class="ti-heart" style="color: #fff;"></i> <!-- 해당상품 상품번호가 0보다 작다면 하얀색 하트 -->
 													</c:if>
 												</button>
@@ -51,7 +51,7 @@
 									</div>
 									<div class="card-body">
 										<h4 class="card-product__title">
-											<a href="productDetail.do?ppk=${data.ppk}">${data.pname}</a> <!-- 상품 이름을 누르면 상품 상세정보 페이지로 이동 -->
+											<a href="productDetail?productPK=${data.productPK}">${data.productName}</a> <!-- 상품 이름을 누르면 상품 상세정보 페이지로 이동 -->
 										</h4>
 									</div>
 								</div>

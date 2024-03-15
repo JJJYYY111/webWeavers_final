@@ -28,15 +28,15 @@
 								<c:forEach var='data' items='${datas}'>	<!-- 데이터를 순회하며 상품을 가져옴 -->
 									<div class="col-md-6 col-lg-4 col-xl-3">
 										<div class="card text-center card-product"
-											data-product-pk="${data.ppk}">	
+											data-product-pk="${data.productPK}">	
 											<div class="card-product__img">
-												<a href="productDetail.do?ppk=${data.ppk}"><img 
-													class="card-img" src="${data.img}" alt="${data.ppk}번 상품사진"></a> <!-- 상품 사진을 누를경우 상품 상세 페이지로 이동 -->
+												<a href="productDetail?productPK=${data.productPK}"><img 
+													class="card-img" src="${data.productImg}" alt="${data.productPK}번 상품사진"></a> <!-- 상품 사진을 누를경우 상품 상세 페이지로 이동 -->
 												<ul class="card-product__imgOverlay">
 													<li>
 													
 													<!-- 상품 찜하기 기능 -->
-														<button onclick="wishClick(${data.ppk})" class="product-btn-${data.ppk}"> 
+														<button onclick="wishClick(${data.productPK})" class="product-btn-${data.productPK}"> 
 															<c:if test="${data.wish == 1}"><i class="ti-heart" style="color: red;"></i></c:if>
 															<c:if test="${data.wish == 0}"><i class="ti-heart" style="color: #fff;"></i></c:if>
 														</button>
@@ -45,9 +45,9 @@
 											</div>
 											<div class="card-body">
 												<h4 class="card-product__title">
-													<a href="productDetail.do?ppk=${data.ppk}">${data.pname}</a> <!-- 상품 이름을 클릭시 상세정보 페이지로 이동 -->
+													<a href="productDetail?productPK=${data.productPK}">${data.productName}</a> <!-- 상품 이름을 클릭시 상세정보 페이지로 이동 -->
 												</h4>
-												<p class="card-product__price"><fmt:formatNumber value="${data.price}" currencyCode="KRW" />원</p>
+												<p class="card-product__price"><fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />원</p>
 											</div>
 										</div>
 									</div>

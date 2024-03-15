@@ -29,23 +29,23 @@
 					<c:if test="${fn:length(wdatas) > 0}">
 						<!-- <div class="row"> -->
 						<c:forEach var='data' items='${wdatas}'>
-							<%--  <c:out value="${data.ppk}" /> --%>
+							<%--  <c:out value="${data.productPK}" /> --%>
 							<!-- <div class="row"></div> -->
 
 							<div class="col-md-6 col-lg-4 col-xl-3">
 								<div class="card text-center card-product"
-									data-product-pk="${data.ppk}">
+									data-product-pk="${data.productPK}">
 									<div class="card-product__img">
 										<!-- 					<script>
-  								  alert("data.ppk value: ${data.ppk}");
+  								  alert("data.ppk value: ${data.productPK}");
 									</script> -->
-										<a href="/productDetail?ppk=${data.ppk}"><img
-											class="card-img" src="${data.img}" alt=""></a>
+										<a href="productDetail?productPK=${data.productPK}"><img
+											class="card-img" src="${data.productImg}" alt=""></a>
 
 										<ul class="card-product__imgOverlay">
 											<li>
-												<button onclick="wishClick(${data.ppk},'${sessionMid}')"
-													class="product-btn-${data.ppk}">
+												<button onclick="wishClick(${data.productPK},'${sessionMid}')"
+													class="product-btn-${data.productPK}">
 													<c:if test="${data.wish == 1}">
 														<i class="ti-heart" style="color: red;"></i>
 													</c:if>
@@ -58,9 +58,9 @@
 									</div>
 									<div class="card-body">
 										<h4 class="card-product__title">
-											<a href="/productDetail?ppk=${data.ppk}">${data.pname}</a>
+											<a href="productDetail?productPK=${data.productPK}">${data.productName}</a>
 										</h4>
-										<p class="card-product__price"><fmt:formatNumber value="${data.price}" currencyCode="KRW" />원</p>
+										<p class="card-product__price"><fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />원</p>
 									</div>
 								</div>
 
@@ -91,14 +91,14 @@
 						<!-- <div class="row"> -->
 						<c:forEach var="data" items="${sdatas}">
 							<div class="card text-center card-product"
-								data-product-pk="${data.ppk}">
+								data-product-pk="${data.productPK}">
 								<div class="card-product__img">
-									<a href="/productDetail?ppk=${data.ppk}"><img
-										class="card-img" src="${data.img}" alt="${data.img}번 상품사진"></a>
+									<a href="productDetail?ppk=${data.productPK}"><img
+										class="card-img" src="${data.productImg}" alt="${data.productImg}번 상품사진"></a>
 									<ul class="card-product__imgOverlay">
 										<li>
-											<button onclick="wishClick(${data.ppk},'${sessionMid}')"
-												class="product-btn-${data.ppk}">
+											<button onclick="wishClick(${data.productPK},'${sessionMid}')"
+												class="product-btn-${data.productPK}">
 												<c:if test="${data.wish == 1}">
 													<i class="ti-heart" style="color: red;"></i>
 												</c:if>
@@ -111,9 +111,9 @@
 								</div>
 								<div class="card-body">
 									<h4 class="card-product__title">
-										<a href="/productDetail?ppk=${data.ppk}">${data.pname}</a>
+										<a href="productDetail?productPK=${data.productPK}">${data.productName}</a>
 									</h4>
-									<p class="card-product__price"><fmt:formatNumber value="${data.price}" currencyCode="KRW" />원</p>
+									<p class="card-product__price"><fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />원</p>
 								</div>
 							</div>
 						</c:forEach>

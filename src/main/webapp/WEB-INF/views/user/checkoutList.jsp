@@ -25,8 +25,8 @@
 		<div style="border: 5px #7eb1ed6b solid; padding: 20px; margin: 20px 0px 20px 0px" class="comment-list">
 		<!-- 주문 기본 정보 -->
 		<h4 style="display:inline-block; text-align:left; margin-bottom: 10px;">주문번호: ${entry.key}</h4><br>
-		<span>주문일: ${entry.value[0].regdate}</span><br>
-		<span style="display:inline-block; margin-bottom: 30px;">배송지: ${entry.value[0].deliveryAddress}</span><br>
+		<span>주문일: ${entry.value[0].serialRegdate}</span><br>
+		<span style="display:inline-block; margin-bottom: 30px;">배송지: ${entry.value[0].serialDeliveryAddress}</span><br>
 		<!-- /주문 기본 정보 -->
 		
 			<!-- 주문번호별 상품 -->
@@ -34,20 +34,20 @@
 			<div class="single-comment justify-content-between d-flex">
 				<div class="user justify-content-between d-flex">
 					<div class="thumb">
-						<a href="/productDetail?ppk=${data.ppk}"><img src="${data.img}" alt="${data.ppk}번 상품사진" style="width: 60px;"></a>
+						<a href="productDetail?productPK=${data.productPK}"><img src="${data.productImg}" alt="${data.productPK}번 상품사진" style="width: 60px;"></a>
 					</div>
 					<div class="desc">
-						<h5><a href="/productDetail?ppk=${data.ppk}">${data.pname}</a></h5>
-						<p class="comment">상품가격: <fmt:formatNumber value="${data.price}" currencyCode="KRW" />원</p>
-						<p class="comment">구매수량: ${data.cnt}</p>
+						<h5><a href="productDetail?productPK=${data.productPK}">${data.productName}</a></h5>
+						<p class="comment">상품가격: <fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />원</p>
+						<p class="comment">구매수량: ${data.cartCnt}</p>
 					</div>
 				</div>
 				<div class="reply-btn">
 				<c:if test="${data.reviewCheck <= 0}">
-					<a style="display:inline;" href="/review?bpk=${data.bpk}" class="btn-reply text-uppercase">리뷰작성</a>
+					<a style="display:inline;" href="review?buyProductPK=${data.buyProductPK}" class="btn-reply text-uppercase">리뷰작성</a>
 				</c:if>
 				<c:if test="${data.reviewCheck > 0}">
-					<a style="display:inline;" href="/review?bpk=${data.bpk}" class="btn-reply text-uppercase">리뷰수정</a>
+					<a style="display:inline;" href="review?buyProductPK=${data.buyProductPK}" class="btn-reply text-uppercase">리뷰수정</a>
 				</c:if>
 				</div>
 			</div>

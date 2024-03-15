@@ -18,7 +18,7 @@
 		<div class="login_form_inner">
 			<h3>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 확인합니다.  </h3>
 			<!-- action type : 회원정보수정/회원탈퇴 페이지 전달 -->
-			<form class="row login_form" action="/${type}" id="contactForm" name="pwCheckForm" method="POST">	
+			<form class="row login_form" action="" id="contactForm" name="pwCheckForm" method="POST">	
 				<div class="col-md-12 form-group">
 					<input type="text" class="form-control" id="ConfirmMid" name="memberID" value="${sessionMid}" readonly>
 				</div>

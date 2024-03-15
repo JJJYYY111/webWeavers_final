@@ -18,7 +18,7 @@
 			<div class="row">
 
 				<form name="joinForm" class="col-lg-12 row login_form"
-					action="/registerSuccess" method="POST" id="register_form">
+					action="registerSuccess" method="POST" id="register_form">
 					<!-- 약관동의 -->
 					<div class="col-lg-6">
 						<div class="login_form_inner register_form_inner">

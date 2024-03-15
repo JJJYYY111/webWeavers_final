@@ -31,10 +31,10 @@ public class CommonController {
 		return "index";
 	}
 	
-//	@RequestMapping("/error")
-//	public String error() {
-//		return "error";
-//	}
+	@RequestMapping("/error2")
+	public String error() {
+		return "error";
+	}
 	
 //	@RequestMapping("/mailSend")
 //	public String mailSend(Model model) {
@@ -149,6 +149,8 @@ public class CommonController {
 	
 	@RequestMapping("/main")
 	public String main(ProductDTO productDTO, HttpSession session, Model model) {
+		System.out.println("메인 인덱스 진입");
+		
 		// 메인페이지에 호출되는 전체상품의 정렬방식을 구분하기위해 작성
 		// 해당 방식은 찜의 개수로 순서를 정함
 		productDTO.setSearchCondition("추천순");

@@ -17,24 +17,24 @@
 	<common:banner bannerText='상품상세' />
 
 	<!--================ 상품 기본정보 =================-->
-	<div class="product_image_area" data-ppk="${ppk}">
+	<div class="product_image_area" data-ppk="${productPK}">
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="owl-carousel owl-theme s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="${img}" alt="${ppk}번 상품사진">
+							<img class="img-fluid" src="${productImg}" alt="${productPK}번 상품사진">
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h4>${pname}</h4>
+						<h4>${productName}</h4>
 						<h2>
-							<fmt:formatNumber value="${price}" currencyCode="KRW" />
+							<fmt:formatNumber value="${productPrice}" currencyCode="KRW" />
 							원
 						</h2>
-						<p>${detail}</p>
+						<p>${productDetailImg}</p>
 
 						<div class="product_count" style="width: 160px">
 							<label for="qty">수량:</label> <input type="text" name="cartCnt"
@@ -62,12 +62,12 @@
 							
 							<!-- 찜추가버튼 추가하면 빨강 취소하면 흰색 -->
 							<button onclick="wishClick(getProductPPK(),'${sessionMid}')"
-								class="product-btn-${ppk}" style="border: unset;">
-								<c:if test="${like == 1}">
+								class="product-btn-$productPK}" style="border: unset;">
+								<c:if test="$like == 1}">
 									<i class="fa-solid fa-heart" style="color:red; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: gray;" ></i>
 									<!-- <i class="ti-heart" style="color: red; "></i> -->
 								</c:if>
-								<c:if test="${like == 0}">
+								<c:if test="$like == 0}">
 									<i class="fa-solid fa-heart" style="color:white; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: gray;"></i>
 									<!-- <i class="ti-heart" style="color: #fff; "></i> -->
 								</c:if>
@@ -136,7 +136,7 @@
 									<div class="box_total">
 										<h5>별점</h5>
 										<h4 id="avgScore"></h4> 				<!-- 별점 평균 점수 -->
-										<h6>리뷰: ${fn:length(rdatas)}개</h6>	<!-- 리뷰 총 갯수 -->
+										<h6>리뷰: $fn:length(rdatas)}개</h6>	<!-- 리뷰 총 갯수 -->
 									</div>
 								</div>
 								<div class="col-9">
@@ -168,8 +168,8 @@
 								</div>
 							</div>
 							<div class="review_list">
-							<c:if test="${fn:length(rdatas) <= 0}"><br><br><h4 style="text-align:center;">리뷰가 없습니다.</h4><br><br></c:if> <!-- 리뷰가 없을 경우 -->
-							<c:forEach var='data' items='${rdatas}'>
+							<c:if test="$fn:length(rdatas) <= 0}"><br><br><h4 style="text-align:center;">리뷰가 없습니다.</h4><br><br></c:if> <!-- 리뷰가 없을 경우 -->
+							<c:forEach var='data' items='$rdatas}'>
 							
 							<hr><br>
 							
@@ -178,27 +178,27 @@
 								<div class="review_item">
 									<div class="media">
 										<div class="media-body">
-										<c:if test="${data.gpk == 5}"><h4>탈퇴한 회원의 리뷰입니다.</h4></c:if> <!-- 리뷰리스트에서 리뷰를 작성한 회원이 탈퇴하였을 경우 해당 리뷰는 탈퇴한 회원이라는 문구로 표시 -->
-										<c:if test="${data.gpk != 5}">
-										<span>${data.regdate}</span><br><br>
-											<h4>작성자 : ${data.nickname}</h4>	</c:if><br>	
-											<input class="starValue" type="hidden" name="reviewScope" id="scope_${data.rpk}" value="${data.scope}"> <!-- 해당 회원이 작성한 리뷰 별점 	-->
-											<star:star id="${data.rpk}" defaultRating="${data.scope}" />
+										<c:if test="${data.gradePK == 5}"><h4>탈퇴한 회원의 리뷰입니다.</h4></c:if> <!-- 리뷰리스트에서 리뷰를 작성한 회원이 탈퇴하였을 경우 해당 리뷰는 탈퇴한 회원이라는 문구로 표시 -->
+										<c:if test="${data.gradePK != 5}">
+										<span>${data.reviewRegdate}</span><br><br>
+											<h4>작성자 : ${data.memberNickname}</h4>	</c:if><br>	
+											<input class="starValue" type="hidden" name="reviewScope" id="scope_${data.reviewPK}" value="${data.reviewScope}"> <!-- 해당 회원이 작성한 리뷰 별점 	-->
+											<star:star id="${data.reviewPK}" defaultRating="${data.reviewScope}" />
 										</div>
 										<div class="d-flex">
-											<c:if test="${data.img == null}">
+											<c:if test="${data.reviewImg == null}">
 											</c:if>
-											<c:if test="${data.img != null}">
+											<c:if test="${data.reviewImg != null}">
 												<div class="feature-img">
 													<img style="max-width: 200%; max-height: 200px;"
-												class="img-fluid" src="uploadimg/${data.img}" alt="리뷰작성 이미지"> <!-- 리뷰 작성할때 사용자가 등록한 이미지 -->
+												class="img-fluid" src="uploadimg/${data.reviewImg}" alt="리뷰작성 이미지"> <!-- 리뷰 작성할때 사용자가 등록한 이미지 -->
 												</div>
 											</c:if>
 										</div>
 									</div><br>
 										<div>
 											<textarea class="col-lg-12" rows="3" name="reviewContent"
-												placeholder="리뷰 내용" readonly style="resize:none; border:2px solid gray; border-radius:5px; line-height: 2; font-size:large;">${data.content}
+												placeholder="리뷰 내용" readonly style="resize:none; border:2px solid gray; border-radius:5px; line-height: 2; font-size:large;">${data.reviewContent}
 											</textarea>
 										</div>
 									</div>

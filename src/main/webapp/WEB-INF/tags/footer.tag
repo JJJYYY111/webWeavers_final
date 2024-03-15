@@ -19,8 +19,8 @@
 					<div class="single-footer-widget tp_widgets">
 						<h4 class="footer_title">Quick Links</h4>
 						<ul class="list">
-							<li><a href="productList.do">상품목록</a></li>
-							<li><a href="contact.do">회사정보</a></li>
+							<li><a href="productList">상품목록</a></li>
+							<li><a href="contact">회사정보</a></li>
 						</ul>
 					</div>
 				</div>

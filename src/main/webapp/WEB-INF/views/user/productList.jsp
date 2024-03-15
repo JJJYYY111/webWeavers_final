@@ -61,22 +61,22 @@
 				<div class="list-area">
 					<ul class="grid-container">
 						<li><a
-							href="/subcategory_product_list?i_sCategorycd1=L01&amp;i_sCategorynm1=기초&amp;i_sCategorycd2=L01M03&amp;i_sCategorynm2=마스크, 팩"
+							href="subcategory_product_list?i_sCategorycd1=L01&amp;i_sCategorynm1=기초&amp;i_sCategorycd2=L01M03&amp;i_sCategorynm2=마스크, 팩"
 							id="" class="ctgr_box active"
 							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">전체</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
 						<li><a id="L01M03S01"
-							href="/subcategory_product_list?i_sCategorycd1=L01&amp;i_sCategorynm1=기초&amp;i_sCategorycd2=L01M03&amp;i_sCategorynm2=마스크, 팩&amp;i_sCategorycd3=L01M03S01&amp;i_sCategorynm3=마사지/워시오프 팩"
+							href="subcategory_product_list?i_sCategorycd1=L01&amp;i_sCategorynm1=기초&amp;i_sCategorycd2=L01M03&amp;i_sCategorynm2=마스크, 팩&amp;i_sCategorycd3=L01M03S01&amp;i_sCategorynm3=마사지/워시오프 팩"
 							class="ctgr_box "
 							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">스킨케어</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
 						<li><a id="L01M03S02"
-							href="/subcategory_product_list?i_sCategorycd1=L01&amp;i_sCategorynm1=기초&amp;i_sCategorycd2=L01M03&amp;i_sCategorynm2=마스크, 팩&amp;i_sCategorycd3=L01M03S02&amp;i_sCategorynm3=필링/스크럽"
+							href="subcategory_product_list?i_sCategorycd1=L01&amp;i_sCategorynm1=기초&amp;i_sCategorycd2=L01M03&amp;i_sCategorynm2=마스크, 팩&amp;i_sCategorycd3=L01M03S02&amp;i_sCategorynm3=필링/스크럽"
 							class="ctgr_box "
 							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">클렌징</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
 						<li><a id="L01M03S03"
-							href="/subcategory_product_listi_sCategorycd1=L01&amp;i_sCategorynm1=기초&amp;i_sCategorycd2=L01M03&amp;i_sCategorynm2=마스크, 팩&amp;i_sCategorycd3=L01M03S03&amp;i_sCategorynm3=시트마스크"
+							href="subcategory_product_listi_sCategorycd1=L01&amp;i_sCategorynm1=기초&amp;i_sCategorycd2=L01M03&amp;i_sCategorynm2=마스크, 팩&amp;i_sCategorycd3=L01M03S03&amp;i_sCategorynm3=시트마스크"
 							class="ctgr_box ">마스크,팩</a></li>
 					</ul>
 				</div>

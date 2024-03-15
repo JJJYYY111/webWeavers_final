@@ -27,8 +27,8 @@
 					회원가입 절차가 완료되었습니다.<br> 로그인 후 더 다양한 기능을 만나보실 수 있습니다.
 				</p>
 				<h2 style="text-align: center;">
-					<a href="/main" class="button button-blog">메인페이지</a> 
-					<a href="/login" class="button button-blog">로그인</a>
+					<a href="main" class="button button-blog">메인페이지</a> 
+					<a href="login" class="button button-blog">로그인</a>
 				</h2>
 			</div>
 		</div>
