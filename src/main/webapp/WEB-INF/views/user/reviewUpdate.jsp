@@ -25,16 +25,16 @@
 
 		<div class="comment-form">
 		<!-- 리뷰를 작성하지 않은 상품일 경우 작성하기 버튼 -->
-			<c:if test="${data.rpk == 0}"> 
+		<%-- 	<c:if test="${data.rpk == 0}"> 
 				<form id="reviewForm" onsubmit="submitForm(event)"
-					action="reviewInsert.do" method="POST" enctype="multipart/form-data"> 								
+					action="/reviewInsert" method="POST" enctype="multipart/form-data"> 								
 					
-			</c:if>
-		<!-- 리뷰를 작성한 상품일 경우 작성하기 버튼 -->
-			<%-- <c:if test="${data.rpk != 0}">
-				<form id="reviewForm" onsubmit="submitForm(event)"
-					action="reviewUpdate.do" method="POST" enctype="multipart/form-data">								
 			</c:if> --%>
+		<!-- 리뷰를 작성한 상품일 경우 작성하기 버튼 -->
+			<c:if test="${data.rpk != 0}">
+				<form id="reviewForm" onsubmit="submitForm(event)"
+					action="/reviewUpdate" method="POST" enctype="multipart/form-data">								
+			</c:if>
 				<a href="productDetail.do?ppk=${data.ppk}"> <img
 					class="card-img" src="${data.pimg}" alt="구매한 상품 이미지"></a><br> 
 				<br>
