@@ -54,6 +54,6 @@ public class WishlistController {
 		// request에 해당유저의 찜목록을 저장
 		model.addAttribute("wdatas", wdatas);
 		
-		return "wishList";
+		return "user/wishList";
 	}
 }

@@ -22,19 +22,19 @@ public class CommonController {
 	@RequestMapping("/contact")
 	public String contact() {
 		System.out.println("contact진입");
-		return "contact";
+		return "user/contact";
 	}
 	
 	@RequestMapping("/")
 	public String root() {
 		System.out.println("로그 : index진입");
-		return "index";
+		return "user/index";
 	}
-	
-	@RequestMapping("/error2")
-	public String error() {
-		return "error";
-	}
+//	
+//	@RequestMapping("/error")
+//	public String error() {
+//		return "error";
+//	}
 	
 //	@RequestMapping("/mailSend")
 //	public String mailSend(Model model) {
@@ -169,6 +169,6 @@ public class CommonController {
 		// 판매량순으로 정렬된 상품정보를 리스트에 저장
 		List<ProductDTO> sdatas = productService.selectAll(productDTO);
 		model.addAttribute("sdatas", sdatas);
-		return "main";
+		return "user/main";
 	}
 }

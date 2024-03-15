@@ -57,7 +57,7 @@ public class MemberController {
 
 	@RequestMapping("/login")
 	public String login() {
-		return "login";
+		return "user/login";
 
 	}
 
@@ -76,7 +76,7 @@ public class MemberController {
 		// 확인된 사용자 정보가 비어있거나 사용자의 등급이 5등급 인 경우
 		if (memberDTO == null || memberDTO.getGradePK() == 5) {
 			model.addAttribute("msg", "잘못입력하셨거나 없는 회원입니다.");
-			return "login";
+			return "user/login";
 		}
 		// 확인된 사용자 정보가 있거나 사용자의 등급이 5등급 아닌 경우
 		else {
@@ -113,18 +113,18 @@ public class MemberController {
 		// 확인된 사용자 정보가 있는 경우
 		else {
 			model.addAttribute("data", memberDTO);
-			return "mypage";
+			return "user/mypage";
 		}
 	}
 
 	@RequestMapping("/passwordCheckProfileChange")
 	public String passwordCheckProfileChange() {
-		return "passwordCheckProfileChange";
+		return "user/passwordCheckProfileChange";
 	}
 
 	@RequestMapping("/passwordCheckUnregister")
 	public String passwordCheckUnregister() {
-		return "passwordCheckUnregister";
+		return "user/passwordCheckUnregister";
 	}
 
 	@RequestMapping("/profileChange")
@@ -148,12 +148,12 @@ public class MemberController {
 		model.addAttribute("nickname", memberDTO.getMemberNickname());
 		model.addAttribute("email", memberDTO.getMemberEmail());
 		model.addAttribute("marketing", memberDTO.getMemberMarketing());
-		return "profileChange";
+		return "user/profileChange";
 	}
 
 	@RequestMapping("/register")
 	public String register() {
-		return "register";
+		return "user/register";
 	}
 
 	@RequestMapping("/registerSuccess")
@@ -174,7 +174,7 @@ public class MemberController {
 		}
 		// 입력받은 정보의 추가가 된 경우
 		if (!memberService.insert(memberDTO)) {
-			return "register";
+			return "user/register";
 		}
 		addressDTO.setAddressName("기본배송지");
 		// 상세주소를 입력하지 않은 경우
@@ -183,9 +183,9 @@ public class MemberController {
 		}
 
 		if (addressService.insert(addressDTO)) {
-			return "register";
+			return "user/register";
 		}
-		return "registerSuccess";
+		return "user/registerSuccess";
 
 	}
 
@@ -194,9 +194,9 @@ public class MemberController {
 		// 유저의 정보를 담는 mDTO에 id와 pw, 검색조건을 설정
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		if (memberService.selectOne(memberDTO) == null) { // 해당 유저가 존재하지 않는다면
-			return "error";
+			return "redirect:/error";
 		}
-		return "unregister";
+		return "user/unregister";
 	}
 
 	@RequestMapping("/unregisterSuccess")
@@ -206,9 +206,9 @@ public class MemberController {
 		memberDTO.setSearchCondition("회원탈퇴");
 
 		if (!memberService.update(memberDTO)) { // 탈퇴에 성공했다면 세션에서 사용자의 id를 삭제
-			return "error";
+			return "redirect:/error";
 		}
 		session.removeAttribute("sessionMid");
-		return "unregisterSuccess";
+		return "user/unregisterSuccess";
 	}
 }

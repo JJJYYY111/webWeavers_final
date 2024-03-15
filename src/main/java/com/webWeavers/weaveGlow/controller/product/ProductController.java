@@ -94,19 +94,19 @@ public class ProductController {
 		// 리뷰 리스트의 저장된 리뷰가 없는 경우
 		if(rdatas.size() <= 0) {
 			model.addAttribute("msg", "등록된 리뷰가 없습니다");
-			return "productDetail";
+			return "user/productDetail";
 		}
 		// 리뷰 리스트의 저장된 리뷰가 있는 경우
 		else {
 			// 해당 리뷰를 전달
 			model.addAttribute("rdatas", rdatas);
-			return "productDetail";
+			return "user/productDetail";
 		}
 	}
 	
 	@RequestMapping("/productList")
 	public String productList() {
-		return "productList";
+		return "user/productList";
 	}
 	
 	@RequestMapping("/searchProductName")
@@ -120,7 +120,7 @@ public class ProductController {
 		
 		model.addAttribute("productName",  productDTO.getProductName());
 		
-		return "searchProductName";
+		return "user/searchProductName";
 
 	}
 	

@@ -24,12 +24,12 @@ public class ReviewController {
 		
 		reviewDTO = reviewService.selectOne(reviewDTO); // rDTO를 사용하여 rDAO의 검색기능인 R(selectOne)기능을 사용하여 해당 상품이 존재하는 확인
 		if(reviewService.selectOne(reviewDTO) != null) { // 만약 해당 상품이 없다면 => 리뷰작성버튼으로 현재 action으로 들어왔다면
-			return "error";
+			return "redirect:/error";
 		}
 
 		buyProductDTO = buyProductService.selectOne(buyProductDTO); // bDTO를 사용하여 bDAO의 검색기능인 R(selectOne)기능을 사용하여 해당 구매한 상품이 존재하는지 확인
 		if(buyProductDTO == null) { // 만약 해당 구매한 상품이 존재하지 않는다면
-			return "error"; // 에러페이지로 경로를 설정하며 return으로 아래의 코드를 즉시 종료
+			return "redirect:/error"; // 에러페이지로 경로를 설정하며 return으로 아래의 코드를 즉시 종료
 		}
 		// 구매한 상품이 존재한다면
 		reviewDTO.setBuyProductPK(buyProductDTO.getBuyProductPK()); // data객체에 bpk(구매한상품의 PK번호)를 저장
@@ -38,17 +38,17 @@ public class ReviewController {
 		reviewDTO.setProductName(buyProductDTO.getProductName()); // data객체에 bDTO의 pname(제품명)을 저장
 		model.addAttribute("reviewDTO", reviewDTO);	//해당 data객체를 request에 저장
 		
-		return "reviewInsert";
+		return "user/reviewInsert";
 	}
 	
 	@RequestMapping("/reviewModify")
 	public String reviewModify(ReviewDTO reviewDTO, Model model) {
 		if(reviewService.selectOne(reviewDTO) == null) {
-			return "error";
+			return "redirect:/error";
 		}
 		model.addAttribute("reviewDTO", reviewDTO);
 		
-		return "reviewUpdate";
+		return "user/reviewUpdate";
 	}
 	
 	

@@ -81,11 +81,11 @@ public class CartController {
 		List<CartDTO> cdatas = cartService.selectAll(cartDTO);
 		if(cdatas.isEmpty()) { // 장바구니에 물품이 없을경우 메세지를 보냄
 			model.addAttribute("msg", "장바구니가 비었습니다.");
-			return "cart";
+			return "user/cart";
 		}
 		else { // 장바구니에 물건이 존재할경우 해당 목록을 보냄
 			model.addAttribute("cdatas", cdatas);
-			return "cart";
+			return "user/cart";
 		}
 	}
 	
@@ -103,11 +103,11 @@ public class CartController {
 		// 받아온 flag의 값으로 구분하여 성공 여부를 판단
 		if(cartService.delete(cartDTO)) {
 			//성공하였을 경우 장바구니로 이동
-			return "cart";
+			return "user/cart";
 		}
 		else {
 			//실패하였을 경우 에러페이지로 이동
-			return "error";
+			return "redirect:/error";
 		}
 	}
 	
