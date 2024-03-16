@@ -2,22 +2,20 @@ package com.webWeavers.weaveGlow.biz.product;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-// Test 주석
+
 @Repository("productDAO")
 public class ProductDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
-	private static final String INSERT = "INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
-//	private static final String DELETE = "";
 	
 	// 정렬별 상품목록 쿼리문 반환 함수
 	private static String selectAllQuery(String sortType, int limitNum) {
@@ -59,21 +57,44 @@ public class ProductDAO {
 	private static final String SELECTONE_DETAIL = "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_DETAILIMG, CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
 			+ "FROM PRODUCT P LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
 			+ "WHERE P.PRODUCT_PK = ?";
+	
+	// 관리자페이지_상품현황
+	private static final String SELECTALL_ADMINPRODUCTLIST = "SELECT\r\n"
+			+ "P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_REGDATE, P.PRODUCT_DETAILIMG, P.PRODUCT_IMG, P.PRODUCT_STATUS, P.PRODUCT_QUANTITY, \r\n"
+			+ "C.CATEGORY_NAME, SC.SUBCATEGORY_NAME\r\n"
+			+ "FROM PRODUCT P\r\n"
+			+ "LEFT JOIN CATEGORYZATION CZ ON P.PRODUCT_PK = CZ.PRODUCT_PK\r\n"
+			+ "LEFT JOIN SUBCATEGORY SC ON CZ.SUBCATEGORY_PK = SC.SUBCATEGORY_PK\r\n"
+			+ "LEFT JOIN CATEGORY C ON SC.CATEGORY_PK = C.CATEGORY_PK\r\n"
+			+ "ORDER BY P.PRODUCT_PK\r\n"
+			+ "LIMIT ?, 10";	// 페이징처리 (앞단 페이지 번호 필요)
+	
+	private static final String INSERT = "INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
+//	private static final String DELETE = "";
 
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
 		Object[] args1 = { productDTO.getMemberID() };
 		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
 		try {
 			if (productDTO.getSearchCondition().equals("sales")) {
-				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("sales", 100), args1, new ProductRowMapper1());
+				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("sales", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("regdate")) {
-				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("regdate", 100), args1, new ProductRowMapper1());
+				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("regdate", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("wish")) {
-				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("wish", 8), args1, new ProductRowMapper1());
+				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("wish", 8), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("rowPrice")) {
-				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("rowPrice", 100), args1, new ProductRowMapper1());
+				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("rowPrice", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("searchName")) {
-				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductRowMapper1());
+				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
+			} else if (productDTO.getSearchCondition().equals("adminProductList")) {
+				int pageNum = 0;
+				if(productDTO.getOption().containsKey("pageNum")) {
+					pageNum = (int)productDTO.getOption().get("pageNum") - 1;
+				}
+				Object[] args3 = { pageNum };
+				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_ADMINPRODUCTLIST, args3, new ProductListAdminRowMapper());
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +106,7 @@ public class ProductDAO {
 	public ProductDTO selectOne(ProductDTO productDTO) {
 		Object[] args = { productDTO.getMemberID(), productDTO.getProductPK() };
 		try {
-			return jdbcTemplate.queryForObject(SELECTONE_DETAIL, args, new ProductRowMapper2());
+			return jdbcTemplate.queryForObject(SELECTONE_DETAIL, args, new ProductRowMapper());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -130,8 +151,8 @@ public class ProductDAO {
 
 }
 
-// selectAll
-class ProductRowMapper1 implements RowMapper<ProductDTO> {
+// selectAll_User_MainPage, ProductListPage, ProductSearchPage
+class ProductListUserRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
@@ -144,8 +165,30 @@ class ProductRowMapper1 implements RowMapper<ProductDTO> {
 	}
 }
 
-// selectOne
-class ProductRowMapper2 implements RowMapper<ProductDTO> {
+// selectAll_Admin_ProductListPage > ProductUpdatePage
+class ProductListAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		data.setProductName(rs.getString("PRODUCT_NAME"));
+		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		data.setProductDetailImg(rs.getString("PRODUCT_DETAILIMG"));
+		data.setProductImg(rs.getString("PRODUCT_IMG"));
+		data.setProductStatus(rs.getInt("PRODUCT_STATUS"));
+		data.setProductQuantity(rs.getInt("PRODUCT_QUANTITY"));
+		
+		Map<String, Object> option = new HashMap<>();
+		option.put("categoryName", rs.getString("CATEGORY_NAME"));
+		option.put("subCategoryName", rs.getString("SUBCATEGORY_NAME"));
+		data.setOption(option);
+		
+		return data;
+	}
+}
+
+// selectOne_User_ProductDetailPage
+class ProductRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
