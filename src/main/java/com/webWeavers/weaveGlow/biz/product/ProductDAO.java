@@ -49,7 +49,7 @@ public class ProductDAO {
 		return query;
 	}
 	
-	// 상품 이름 검색
+	// 상품이름검색
 	private static final String SELECTALL_SEARCHNAME = "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
 			+ "FROM PRODUCT P LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
 			+ "WHERE P.PRODUCT_NAME LIKE '%'||?||'%' ORDER BY P.PRODUCT_PK DESC";
@@ -58,7 +58,7 @@ public class ProductDAO {
 			+ "FROM PRODUCT P LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
 			+ "WHERE P.PRODUCT_PK = ?";
 	
-	// 관리자페이지_상품현황
+	// 상품목록_관리자상품현황페이지
 	private static final String SELECTALL_ADMINPRODUCTLIST = "SELECT\r\n"
 			+ "P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_REGDATE, P.PRODUCT_DETAILIMG, P.PRODUCT_IMG, P.PRODUCT_STATUS, P.PRODUCT_QUANTITY, \r\n"
 			+ "C.CATEGORY_NAME, SC.SUBCATEGORY_NAME\r\n"
@@ -68,8 +68,9 @@ public class ProductDAO {
 			+ "LEFT JOIN CATEGORY C ON SC.CATEGORY_PK = C.CATEGORY_PK\r\n"
 			+ "ORDER BY P.PRODUCT_PK\r\n"
 			+ "LIMIT ?, 10";	// 페이징처리 (앞단 페이지 번호 필요)
-	
+	// 상품등록_관리자상품등록페이지
 	private static final String INSERT = "INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
+	// 상품정보수정_관리자상품수정페이지
 	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
 //	private static final String DELETE = "";
 
@@ -78,22 +79,22 @@ public class ProductDAO {
 		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
 		try {
 			if (productDTO.getSearchCondition().equals("sales")) {
-				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("sales", 100), args1, new ProductListUserRowMapper());
+				return (List<ProductDTO>)jdbcTemplate.query(selectAllQuery("sales", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("regdate")) {
-				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("regdate", 100), args1, new ProductListUserRowMapper());
+				return (List<ProductDTO>)jdbcTemplate.query(selectAllQuery("regdate", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("wish")) {
-				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("wish", 8), args1, new ProductListUserRowMapper());
+				return (List<ProductDTO>)jdbcTemplate.query(selectAllQuery("wish", 8), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("rowPrice")) {
-				return (List<ProductDTO>) jdbcTemplate.query(selectAllQuery("rowPrice", 100), args1, new ProductListUserRowMapper());
+				return (List<ProductDTO>)jdbcTemplate.query(selectAllQuery("rowPrice", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("searchName")) {
-				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
+				return (List<ProductDTO>)jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("adminProductList")) {
 				int pageNum = 0;
 				if(productDTO.getOption().containsKey("pageNum")) {
 					pageNum = (int)productDTO.getOption().get("pageNum") - 1;
 				}
 				Object[] args3 = { pageNum };
-				return (List<ProductDTO>) jdbcTemplate.query(SELECTALL_ADMINPRODUCTLIST, args3, new ProductListAdminRowMapper());
+				return (List<ProductDTO>)jdbcTemplate.query(SELECTALL_ADMINPRODUCTLIST, args3, new ProductListAdminRowMapper());
 				
 			}
 		} catch (Exception e) {
