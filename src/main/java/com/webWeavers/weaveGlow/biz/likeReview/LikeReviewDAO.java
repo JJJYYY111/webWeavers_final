@@ -1,4 +1,4 @@
-package com.webWeavers.weaveGlow.biz.address;
+package com.webWeavers.weaveGlow.biz.likeReview;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository("addressDAO")
-public class AddressDAO {
+public class LikeReviewDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
@@ -21,11 +21,11 @@ public class AddressDAO {
 	private static final String UPDATE = "UPDATE ADDRESS SET ADDRESS_ZONECODE=?, ADDRESS_JIBUN=?, ADDRESS_ROAD=?, ADDRESS_DETAIL=?, ADDRESS_NAME=? WHERE ADDRESS_PK=?";
 	private static final String DELETE = "DELETE FROM ADDRESS WHERE ADDRESS_PK=?";
 	
-	public List<AddressDTO> selectAll(AddressDTO addressDTO) {
-		return (List<AddressDTO>)jdbcTemplate.query(SELECTALL, new AddressRowMapper1());
+	public List<LikeReviewDTO> selectAll(LikeReviewDTO addressDTO) {
+		return (List<LikeReviewDTO>)jdbcTemplate.query(SELECTALL, new AddressRowMapper1());
 	}
 
-	public AddressDTO selectOne(AddressDTO addressDTO) {
+	public LikeReviewDTO selectOne(LikeReviewDTO addressDTO) {
 		Object[] args = { addressDTO.getAddressPK() };
 		try {
 			return jdbcTemplate.queryForObject(SELECTONE, args, new AddressRowMapper2());
@@ -35,7 +35,7 @@ public class AddressDAO {
 		}
 	}
 
-	public boolean insert(AddressDTO addressDTO) {
+	public boolean insert(LikeReviewDTO addressDTO) {
 		int result = jdbcTemplate.update(INSERT,addressDTO.getMemberID(),addressDTO.getAddressZonecode(),addressDTO.getAddressJibun(),addressDTO.getAddressRoad(),addressDTO.getAddressDetail(),addressDTO.getAddressName());
 		if(result<=0) {
 			return false;
@@ -43,7 +43,7 @@ public class AddressDAO {
 		return true;
 	}
 
-	public boolean update(AddressDTO addressDTO) {
+	public boolean update(LikeReviewDTO addressDTO) {
 		int result = jdbcTemplate.update(UPDATE,addressDTO.getAddressPK(),addressDTO.getAddressZonecode(),addressDTO.getAddressJibun(),addressDTO.getAddressRoad(),addressDTO.getAddressDetail(),addressDTO.getAddressName());
 		if(result<=0) {
 			return false;
@@ -51,7 +51,7 @@ public class AddressDAO {
 		return true;
 	}
 
-	public boolean delete(AddressDTO addressDTO) {
+	public boolean delete(LikeReviewDTO addressDTO) {
 		int result = jdbcTemplate.update(DELETE,addressDTO.getAddressPK());
 		if(result<=0) {
 			return false;
@@ -61,11 +61,11 @@ public class AddressDAO {
 
 }
 
-class AddressRowMapper1 implements RowMapper<AddressDTO> {
+class AddressRowMapper1 implements RowMapper<LikeReviewDTO> {
 	@Override
-	public AddressDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		AddressDTO data = new AddressDTO();
-		data.setAddressPK(rs.getInt("ADDRESSPK"));
+	public LikeReviewDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		LikeReviewDTO data = new LikeReviewDTO();
+		data.setAddressPK(rs.getInt("AddressPK"));
 		data.setAddressZonecode(rs.getString("ADDRESS_ZONECODE"));
 		data.setAddressJibun(rs.getString("ADDRESS_JIBUN"));
 		data.setAddressRoad(rs.getString("ADDRESS_ROAD"));
@@ -76,10 +76,10 @@ class AddressRowMapper1 implements RowMapper<AddressDTO> {
 	}
 }
 
-class AddressRowMapper2 implements RowMapper<AddressDTO> {
+class AddressRowMapper2 implements RowMapper<LikeReviewDTO> {
 	@Override
-	public AddressDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		AddressDTO data = new AddressDTO();
+	public LikeReviewDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		LikeReviewDTO data = new LikeReviewDTO();
 		data.setAddressPK(rs.getInt("ADDRESS_PK"));
 		return data;
 	}
