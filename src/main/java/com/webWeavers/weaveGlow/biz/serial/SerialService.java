@@ -7,6 +7,6 @@ public interface SerialService {
 //	SerialDTO selectOne(SerialDTO serialDTO);
 	
 	boolean insert(SerialDTO serialDTO);
-	boolean update(SerialDTO serialDTO);
+//	boolean update(SerialDTO serialDTO);
 //	boolean delete(SerialDTO serialDTO);
 }

@@ -10,6 +10,7 @@ public class BuyProductDTO {
 	private int buyProductPK;
 	private int productPK;
 	private int serialPK;
+	private String buyProductStatus;
 	private int buyProductCnt;
 	
 	// 구매목록페이지

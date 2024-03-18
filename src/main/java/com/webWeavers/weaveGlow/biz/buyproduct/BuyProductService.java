@@ -7,6 +7,6 @@ public interface BuyProductService {
 	BuyProductDTO selectOne(BuyProductDTO buyProductDTO);
 	
 	boolean insert(BuyProductDTO buyProductDTO);
-//	boolean update(BuyProductDTO buyProductDTO);
+	boolean update(BuyProductDTO buyProductDTO);
 //	boolean delete(BuyProductDTO buyProductDTO);
 }

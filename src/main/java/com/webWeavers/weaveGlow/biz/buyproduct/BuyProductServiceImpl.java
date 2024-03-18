@@ -27,13 +27,14 @@ public class BuyProductServiceImpl implements BuyProductService {
 		return buyProductDAO.insert(buyProductDTO);
 	}
 
-//	@Override
-//	public boolean update(BuyProductDTO buyProductDTO) {
-//		return buyProductDAO.update(buyProductDTO);
-//	}
-//
+	@Override
+	public boolean update(BuyProductDTO buyProductDTO) {
+		return buyProductDAO.update(buyProductDTO);
+	}
+
 //	@Override
 //	public boolean delete(BuyProductDTO buyProductDTO) {
 //		return buyProductDAO.delete(buyProductDTO);
 //	}
+	
 }
