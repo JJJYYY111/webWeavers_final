@@ -1,4 +1,4 @@
-package com.webWeavers.weaveGlow.biz.reviewLike;
+package com.webWeavers.weaveGlow.biz.reviewlike;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
