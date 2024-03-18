@@ -142,7 +142,7 @@ public class CheckoutController {
 	      try {
 	         for(int i=0; i<datas.size(); i++) {      // 장바구니 배열 사이즈만큼 반복문 진행
 	            buyProductDTO.setProductPK(datas.get(i).getProductPK());   // bDTO에 배열의 i번째 pk를 저장
-	            buyProductDTO.setCartCnt(datas.get(i).getCartCnt());   // bDTO에 배열의 i번째 cnt를 저장
+	            buyProductDTO.setBuyProductCnt(datas.get(i).getCartCnt());   // bDTO에 배열의 i번째 cnt를 저장
 	            flag = buyProductService.insert(buyProductDTO);         // insert를 해준다
 	            if(!flag) { // 구매상품테이블에 데이터 저장을 실패했다면 
 	               break; // 반복문 정지
