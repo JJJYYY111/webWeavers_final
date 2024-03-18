@@ -1,4 +1,4 @@
- package com.webWeavers.weaveGlow.biz.categorization;
+package com.webWeavers.weaveGlow.biz.categorization;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,14 +15,14 @@ import com.webWeavers.weaveGlow.biz.product.ProductDTO;
 public class CategorizationDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-	private static final String SELECTALL = "CATEGORIZATION_PK, PRODUCT_PK, SUBCATEGORY_PK";
+
+	private static final String SELECTALL = "";
 	private static final String SELECTONE = "";
-	
-	private static final String INSERT = "";
+
+	private static final String INSERT = "INSERT INTO CATEGORIZATION (PRODUCT_PK, SUBCATEGORY_PK) VALUES (?,?)";
 	private static final String UPDATE = "";
 	private static final String DELETE = "";
-	
+
 //	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
 //		return (List<CategorizationDTO>)jdbcTemplate.query(SELECTALL, new CategorizationRowMapper1());
 //	}
@@ -32,35 +32,37 @@ public class CategorizationDAO {
 //	}
 
 	public boolean insert(CategorizationDTO categorizationDTO) {
-		int result = jdbcTemplate.update(INSERT,categorizationDTO.getCategorization_PK(),categoryDTO.getProductPK(),categoryDTO.getMemberName(),(categoryDTO.getMemberBirth().getTime()),categoryDTO.getMemberPhone(),categoryDTO.getMemberNickname(),categoryDTO.getMemberEmail(),categoryDTO.getMemberMarketing());
-		if(result<=0) {
+		int result = jdbcTemplate.update(INSERT, categorizationDTO.getProductPK(), categorizationDTO.getSubcategoryPK());
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
 
 	public boolean update(CategorizationDTO categorizationDTO) {
-		
+		int result = jdbcTemplate.update(UPDATE, categorizationDTO.getProductPK(), categorizationDTO.getSubcategoryPK());
+		if (result <= 0) {
+			return false;
+		}
+		return true;
 	}
 
 	public boolean delete(CategorizationDTO categorizationDTO) {
-		
+		int result = jdbcTemplate.update(DELETE, categorizationDTO.getProductPK(), categorizationDTO.getSubcategoryPK());
+		if (result <= 0) {
+			return false;
+		}
+		return true;
 	}
 
 }
 
-class CategorizationRowMapper1 implements RowMapper<CategorizationDTO> {
+class CategorizationRowMapper implements RowMapper<CategorizationDTO> {
 	@Override
 	public CategorizationDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		CategorizationDTO data = new CategorizationDTO();
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
-		data.setSubcategoryPK(rs.getInt("SUBCATEGORY")); 
+		data.setSubcategoryPK(rs.getInt("SUBCATEGORY"));
 		return data;
- }
-}
-class CategorizationRowMapper2 implements RowMapper<CategorizationDTO> {
-	@Override
-	public CategorizationDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		
 	}
 }

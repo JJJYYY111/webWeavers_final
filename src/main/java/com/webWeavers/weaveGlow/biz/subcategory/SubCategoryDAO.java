@@ -22,31 +22,31 @@ public class SubCategoryDAO {
 	private static final String DELETE = "";
 	
 	public List<SubCategoryDTO> selectAll(SubCategoryDTO SubCategoryDTO) {
-		return (List<SubCategoryDTO>)jdbcTemplate.query(SELECTALL, new SubCategoryRowMapper1());
+		return (List<SubCategoryDTO>)jdbcTemplate.query(SELECTALL, new SubCategoryRowMapper());
 	}
 
 	public SubCategoryDTO selectOne(SubCategoryDTO subCategoryDTO) {
-		
+		return null;
 	}
 
 	public boolean insert(SubCategoryDTO subCategoryDTO) {
-		
+		return false;
 	}
 
 	public boolean update(SubCategoryDTO subCategoryDTO) {
-		
+		return false;
 	}
 
 	public boolean delete(SubCategoryDTO subCategoryDTO) {
-		
+		return false;
 	}
 
 }
 
-class SubCategoryRowMapper1 implements RowMapper<SubCategoryDTO> {
+class SubCategoryRowMapper implements RowMapper<SubCategoryDTO> {
 	@Override
 	public SubCategoryDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		
+		return null;
 	}
 }
 
