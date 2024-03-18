@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.webWeavers.weaveGlow.biz.category.CategoryDTO;
+
 @Repository("gradeDAO")
 public class GradeDAO {
 	@Autowired
@@ -21,32 +23,44 @@ public class GradeDAO {
 	private static final String UPDATE = "";
 	private static final String DELETE = "";
 	
-	public List<GradeDTO> selectAll(GradeDTO gradeDTO) {
-		return (List<GradeDTO>)jdbcTemplate.query(SELECTALL, new GradeRowMapper1());
-	}
+//	public List<GradeDTO> selectAll(GradeDTO gradeDTO) {
+//		return (List<GradeDTO>)jdbcTemplate.query(SELECTALL, new GradeRowMapper());
+//	}
+//
+//	public GradeDTO selectOne(GradeDTO gradeDTO) {
+//		
+//	}
 
-	public GradeDTO selectOne(GradeDTO gradeDTO) {
-		
-	}
+//	public boolean insert(GradeDTO gradeDTO) {
+//		int result = jdbcTemplate.update(UPDATE,gradeDTO.getGradePK(),gradeDTO.getGradeName(),gradeDTO.getGradeDiscountRate());
+//		if(result<=0) {
+//			return false;
+//		}
+//		return true;
+//	}
 
-	public boolean insert(GradeDTO gradeDTO) {
-		
-	}
+//	public boolean update(GradeDTO gradeDTO) {
+//		int result = jdbcTemplate.update(UPDATE,gradeDTO.getGradePK(),gradeDTO.getGradeName(),gradeDTO.getGradeDiscountRate());
+//		if(result<=0) {
+//			return false;
+//		}
+//		return true;
+//	}
 
-	public boolean update(GradeDTO gradeDTO) {
-		
-	}
-
-	public boolean delete(GradeDTO gradeDTO) {
-		
-	}
+//	public boolean delete(GradeDTO gradeDTO) {
+//		
+//	}
 
 }
 
-class GradeRowMapper1 implements RowMapper<GradeDTO> {
+class GradeRowMapper implements RowMapper<GradeDTO> {
 	@Override
 	public GradeDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		
+		GradeDTO data = new GradeDTO();
+		data.setGradePK(rs.getInt("GRADE_PK"));
+		data.setGradeName(rs.getString("GRADE_NAME"));
+		data.setGradeDiscountRate(rs.getInt("GRADE_DISCOUNTRATE"));
+		return data;
 	}
 }
 

@@ -37,7 +37,7 @@ public class ReviewLikeDAO {
 		return true;
 	}
 
-	private boolean delete(ReviewLikeDTO reviewLikeDTOO) {
+	public boolean delete(ReviewLikeDTO reviewLikeDTOO) {
 		return true;
 	}	
 	

@@ -14,7 +14,7 @@ public class MemberDTO {
 	private String memberNickname;
 	private String memberEmail;
 	private int memberMarketing;
-	private int memberRegday;
+	private int memberRegdate;
 	private int gradePK;
 	private String gradeName;
 	private String searchCondition;

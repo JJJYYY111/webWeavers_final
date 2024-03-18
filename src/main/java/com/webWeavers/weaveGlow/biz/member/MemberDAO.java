@@ -43,8 +43,7 @@ public class MemberDAO {
 	private static final String DELETE = "";
 
 	public List<MemberDTO> selectAll(MemberDTO memberDTO) {
-		return null;
-		//return (List<MemberDTO>)jdbcTemplate.query(SELECTALL, new MemberRowMapper1());
+		return (List<MemberDTO>)jdbcTemplate.query(SELECTALL, new MemberRowMapper6());
 	}
 
 	public MemberDTO selectOne(MemberDTO memberDTO) {
@@ -167,6 +166,21 @@ public class MemberDAO {
 			data.setMemberName(rs.getString("MEMBER_NAME"));
 			data.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
 			data.setMemberMarketing(rs.getInt("MEMBER_MARKETING"));
+			data.setGradePK(rs.getInt("GRADE_PK"));
+			data.setGradeName(rs.getString("GRADE_NAME"));
+			return data;
+		}
+	}
+	
+	class MemberRowMapper6 implements RowMapper<MemberDTO> {
+		@Override
+		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+			MemberDTO data = new MemberDTO();
+			data.setMemberID(rs.getString("MEMBER_ID"));
+			data.setMemberName(rs.getString("MEMBER_NAME"));
+			data.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
+			data.setMemberMarketing(rs.getInt("MEMBER_MARKETING"));
+			data.setMemberRegdate(rs.getInt("MEMBER_REGDATE"));
 			data.setGradePK(rs.getInt("GRADE_PK"));
 			data.setGradeName(rs.getString("GRADE_NAME"));
 			return data;

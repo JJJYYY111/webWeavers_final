@@ -51,7 +51,7 @@ public class BuyProductDAO {
 		return true;
 	}
 
-	private boolean update(BuyProductDTO buyProductDTO) {
+	public boolean update(BuyProductDTO buyProductDTO) {
 		try {
 			int result = jdbcTemplate.update(UPDATE, buyProductDTO.getBuyProductStatus(), buyProductDTO.getBuyProductPK());
 			if (result <= 0) {

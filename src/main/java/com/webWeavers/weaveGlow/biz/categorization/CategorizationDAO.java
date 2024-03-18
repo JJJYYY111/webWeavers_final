@@ -23,25 +23,29 @@ public class CategorizationDAO {
 	private static final String UPDATE = "";
 	private static final String DELETE = "";
 	
-	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
-		return (List<CategorizationDTO>)jdbcTemplate.query(SELECTALL, new CategorizationRowMapper1());
-	}
+//	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
+//		return (List<CategorizationDTO>)jdbcTemplate.query(SELECTALL, new CategorizationRowMapper1());
+//	}
 
-	public CategorizationDTO selectOne(CategorizationDTO categorizationDTO) {
-		
-	}
+//	public CategorizationDTO selectOne(CategorizationDTO categorizationDTO) {
+//		
+//	}
 
 	public boolean insert(CategorizationDTO categorizationDTO) {
+		int result = jdbcTemplate.update(INSERT,categorizationDTO.getCategorization_PK(),categoryDTO.getProductPK(),categoryDTO.getMemberName(),(categoryDTO.getMemberBirth().getTime()),categoryDTO.getMemberPhone(),categoryDTO.getMemberNickname(),categoryDTO.getMemberEmail(),categoryDTO.getMemberMarketing());
+		if(result<=0) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean update(CategorizationDTO categorizationDTO) {
 		
 	}
 
-//	public boolean update(CategorizationDTO categorizationDTO) {
-//		
-//	}
-
-//	public boolean delete(CategorizationDTO categorizationDTO) {
-//		
-//	}
+	public boolean delete(CategorizationDTO categorizationDTO) {
+		
+	}
 
 }
 
@@ -50,7 +54,7 @@ class CategorizationRowMapper1 implements RowMapper<CategorizationDTO> {
 	public CategorizationDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		CategorizationDTO data = new CategorizationDTO();
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
-		data.setSubcategoriPK(rs.getInt("")); 
+		data.setSubcategoryPK(rs.getInt("SUBCATEGORY")); 
 		return data;
  }
 }

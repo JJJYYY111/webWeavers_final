@@ -6,5 +6,5 @@ import lombok.Data;
 public class CategorizationDTO {
 	private int categorizationPK;
 	private int productPK;
-	private int subcategoriPK;
+	private int subcategoryPK;
 }

@@ -3,10 +3,10 @@ package com.webWeavers.weaveGlow.biz.grade;
 import java.util.List;
 
 public interface GradeService {
-	List<GradeDTO> selectAll(GradeDTO gradeDTO);
-	GradeDTO selectOne(GradeDTO gradeDTO);
+//	List<GradeDTO> selectAll(GradeDTO gradeDTO);
+//	GradeDTO selectOne(GradeDTO gradeDTO);
 	
-	boolean insert(GradeDTO gradeDTO);
-	boolean update(GradeDTO gradeDTO);
-	boolean delete(GradeDTO gradeDTO);
+//	boolean insert(GradeDTO gradeDTO);
+//	boolean update(GradeDTO gradeDTO);
+//	boolean delete(GradeDTO gradeDTO);
 }
