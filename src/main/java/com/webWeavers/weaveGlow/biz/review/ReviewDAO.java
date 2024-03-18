@@ -17,39 +17,29 @@ public class ReviewDAO {
 	
 	// 상품상세페이지_리뷰 목록
 	private static final String SELECTALL_PRODUCTREVIEW = "SELECT\r\n"
-			+ "	R.REVIEW_PK, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG, M.MEMBER_NICKNAME, M.GRADE_PK\r\n"
+			+ "	P.PRODUCT_PK, R.REVIEW_PK, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG, M.MEMBER_NICKNAME, M.GRADE_PK\r\n"
 			+ "FROM PRODUCT P\r\n"
-			+ "LEFT JOIN BUYPRODUCT B ON\r\n"
-			+ "	P.PRODUCT_PK = B.PRODUCT_PK\r\n"
-			+ "INNER JOIN SERIAL S ON\r\n"
-			+ "	B.SERIAL_PK = S.SERIAL_PK\r\n"
-			+ "LEFT JOIN MEMBER M ON\r\n"
-			+ "	S.MEMBER_ID = M.MEMBER_ID\r\n"
-			+ "INNER JOIN REVIEW R ON\r\n"
-			+ "	B.BUYPRODUCT_PK = R.BUYPRODUCT_PK\r\n"
-			+ "WHERE\r\n"
-			+ "	P.PRODUCT_PK = ?\r\n"
+			+ "LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"
+			+ "INNER JOIN SERIAL S ON B.SERIAL_PK = S.SERIAL_PK\r\n"
+			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
+			+ "INNER JOIN REVIEW R ON B.BUYPRODUCT_PK = R.BUYPRODUCT_PK\r\n"
+			+ "WHERE P.PRODUCT_PK = ?\r\n"
 			+ "ORDER BY R.REVIEW_REGDATE DESC";
 	// 마이페이지_리뷰 목록
 	private static final String SELECTALL_MYREVIEW = "SELECT\r\n"
 			+ "	B.BUYPRODUCT_PK, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG\r\n"
 			+ "FROM MEMBER M\r\n"
-			+ "LEFT JOIN SERIAL S ON\r\n"
-			+ "	M.MEMBER_ID = S.MEMBER_ID\r\n"
-			+ "INNER JOIN BUYPRODUCT B ON\r\n"
-			+ "	S.SERIAL_PK = B.SERIAL_PK\r\n"
-			+ "INNER JOIN PRODUCT P ON\r\n"
-			+ "	B.PRODUCT_PK = P.PRODUCT_PK \r\n"
-			+ "INNER JOIN REVIEW R ON\r\n"
-			+ "	B.BUYPRODUCT_PK = R.BUYPRODUCT_PK\r\n"
+			+ "LEFT JOIN SERIAL S ON M.MEMBER_ID = S.MEMBER_ID\r\n"
+			+ "INNER JOIN BUYPRODUCT B ON S.SERIAL_PK = B.SERIAL_PK\r\n"
+			+ "INNER JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK \r\n"
+			+ "INNER JOIN REVIEW R ON B.BUYPRODUCT_PK = R.BUYPRODUCT_PK\r\n"
 			+ "WHERE M.MEMBER_ID = ?\r\n"
-			+ "ORDER BY R.REVIEW_REGDATE";
+			+ "ORDER BY R.REVIEW_REGDATE DESC";
 	// ?
 	private static final String SELECTONE = "SELECT R.REVIEW_PK, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG FROM REVIEW R\r\n"
 			+ "JOIN BUYPRODUCT B ON (R.BUYPRODUCT_PK = B.BUYPRODUCT_PK) JOIN PRODUCT P ON (B.PRODUCT_PK = P.PRODUCT_PK) WHERE R.BUYPRODUCT_PK = ?";
 	// 리뷰 등록
-	private static final String INSERT = "INSERT INTO REVIEW (REVIEW_PK, BUYPRODUCT_PK, REVIEW_SCOPE, REVIEW_CONTENT, REVIEW_IMG)\r\n"
-			+ "VALUES ((SELECT NVL(MAX(REVIEW_PK), 0) + 1 FROM REVIEW), ?, ?, ? ,?)";
+	private static final String INSERT = "INSERT INTO REVIEW (BUYPRODUCT_PK, REVIEW_SCOPE, REVIEW_CONTENT, REVIEW_IMG) VALUES (?, ?, ?, ?)";
 	// 리뷰 수정
 	private static final String UPDATE = "UPDATE REVIEW SET REVIEW_SCOPE = ?, REVIEW_CONTENT = ?, REVIEW_IMG = ? WHERE REVIEW_PK = ?";
 	
@@ -59,7 +49,7 @@ public class ReviewDAO {
 		Object[] args1 = { reviewDTO.getProductPK() };
 		Object[] args2 = { reviewDTO.getMemberID() };
 		try {
-			if (reviewDTO.getSearchCondition().equals("productDetailReview")) {
+			if (reviewDTO.getSearchCondition().equals("productReview")) {
 				return (List<ReviewDTO>)jdbcTemplate.query(SELECTALL_PRODUCTREVIEW, args1, new ReviewRowMapper1());
 			} else if (reviewDTO.getSearchCondition().equals("myReview")) {
 				return (List<ReviewDTO>)jdbcTemplate.query(SELECTALL_MYREVIEW, args2, new ReviewRowMapper2());

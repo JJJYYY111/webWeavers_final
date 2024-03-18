@@ -15,10 +15,13 @@ public class ReviewLikeDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	// 리뷰별 좋아요 개수
 	private static final String SELECTALL = "";
-	private static final String SELECTONE = "";
+//	private static final String SELECTONE = "";
+	// 리뷰 좋아요 추가
 	private static final String INSERT = "";
-	private static final String UPDATE = "";
+//	private static final String UPDATE = "";
+	// 리뷰 좋아요 취소
 	private static final String DELETE = ""; 
 	
 	public List<ReviewLikeDTO> selectAll(ReviewLikeDTO reviewLikeDTO) {
@@ -37,7 +40,7 @@ public class ReviewLikeDAO {
 		return true;
 	}
 
-	private boolean delete(ReviewLikeDTO reviewLikeDTOO) {
+	public boolean delete(ReviewLikeDTO reviewLikeDTOO) {
 		return true;
 	}	
 	
