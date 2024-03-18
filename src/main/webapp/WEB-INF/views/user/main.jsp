@@ -13,10 +13,10 @@
 .carousel {
 	position: relative;
 	overflow: hidden;
-	width: 100%; /* 이미지의 폭에 맞게 조절하세요 */
-	height: 300px; /* 이미지의 높이에 맞게 조절하세요 */
+	width: 100%; 
+	height: 300px; 
 	margin: 0 auto; /* 수평 가운데 정렬 */
-	text-align: center; /* 이미지를 가운데 정렬하기 위해 */
+	text-align: center; 
 }
 
 .carousel img {
@@ -47,10 +47,10 @@
 }
 
 .carousel img {
-	display: inline-block; /* 이미지를 인라인 블록 요소로 표시하여 가운데 정렬 */
-	vertical-align: middle; /* 수직 가운데 정렬 */
-	max-width: 100%; /* 이미지가 부모 요소를 넘지 않도록 */
-	max-height: 100%; /* 이미지가 부모 요소를 넘지 않도록 */
+	display: inline-block; 
+	vertical-align: middle; 
+	max-width: 100%; 
+	max-height: 100%; 
 }
 </style>
 
