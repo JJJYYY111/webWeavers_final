@@ -24,7 +24,7 @@ public class AddressDAO {
 	public List<AddressDTO> selectAll(AddressDTO addressDTO) {
 		return (List<AddressDTO>)jdbcTemplate.query(SELECTALL, new AddressRowMapper1());
 	}
-	
+
 	public AddressDTO selectOne(AddressDTO addressDTO) {
 		Object[] args = { addressDTO.getAddressPK() };
 		try {
@@ -60,12 +60,12 @@ public class AddressDAO {
 	}
 
 }
-	
+
 class AddressRowMapper1 implements RowMapper<AddressDTO> {
 	@Override
 	public AddressDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		AddressDTO data = new AddressDTO();
-		data.setAddressPK(rs.getInt("AddressPK"));
+		data.setAddressPK(rs.getInt("ADDRESSPK"));
 		data.setAddressZonecode(rs.getString("ADDRESS_ZONECODE"));
 		data.setAddressJibun(rs.getString("ADDRESS_JIBUN"));
 		data.setAddressRoad(rs.getString("ADDRESS_ROAD"));
