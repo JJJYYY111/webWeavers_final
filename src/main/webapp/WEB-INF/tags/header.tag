@@ -27,21 +27,31 @@
 
 							</div>
 						</li>
-						<li class="nav-item"><a href="cart">
-								<i class="ti-shopping-cart"></i></a></li>
 						
-						<c:if test="${not empty sessionMid}">
-							<li class="nav-item"><a class="button button-header"
-								href="logout" id="logout">로그아웃</a></li>
-							<li class="nav-item"><a class="button button-header"
-								href="mypage" id="mypage">마이페이지</a></li>
-						</c:if>
-						<c:if test="${empty sessionMid}">
-							<li class="nav-item"><a class="button button-header"
-								href="login" id="login">로그인</a></li>
-							<li class="nav-item"><a class="button button-header"
-								href="register" id="register">회원가입</a></li>
-						</c:if>
+			
+							<c:if test="${empty sessionMid || not empty sessionMid}">
+								<li class="nav-item"><a href="cart"><i
+										class="ti-shopping-cart"></i></a></li>
+							</c:if>
+									
+							<c:if test="${not empty sessionMid && grade==2}">
+								<li class="nav-item"><a href="adminDashboard"><i
+										class="ti-user"></i></a></li>
+							</c:if>	
+							
+							
+							<c:if test="${not empty sessionMid}">
+								<li class="nav-item"><a class="button button-header"
+									href="logout" id="logout">로그아웃</a></li>
+								<li class="nav-item"><a class="button button-header"
+									href="mypage" id="mypage">마이페이지</a></li>
+							</c:if>
+							<c:if test="${empty sessionMid}">
+								<li class="nav-item"><a class="button button-header"
+									href="login" id="login">로그인</a></li>
+								<li class="nav-item"><a class="button button-header"
+									href="register" id="register">회원가입</a></li>
+							</c:if>
 						
 					</ul>
 				</div>
