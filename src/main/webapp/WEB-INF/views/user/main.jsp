@@ -61,12 +61,13 @@
 
 		<!-- 캐러쉘  -->
 		<div class="carousel">
-			<img src="uploadimg/carousel/slide1.jpg" alt="Image 1" style="object-fit: contain"> 
 			<img src="uploadimg/carousel/slide2.jpg" alt="Image 2" style="object-fit: contain"> 
 			<img src="uploadimg/carousel/slide3.jpg" alt="Image 3" style="object-fit: contain">
+			<img src="uploadimg/carousel/slide4.jpg" alt="Image 3" style="object-fit: contain">
 			<button class="prev" onclick="prevSlide()">&#10094;</button>
 			<button class="next" onclick="nextSlide()">&#10095;</button>
 		</div>
+		<br>
 		<!-- ================ 추천 상품 ================= -->
 		<div class="container">
 			<div class="section-intro pb-60px">
