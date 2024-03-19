@@ -39,7 +39,7 @@ public class CommonController {
 		if (datas.size() <= 0) {
 			return "redirect:/crawling";
 		}
-		return "user/index";
+		return "redirect:/main";
 	}
 
 	@RequestMapping("/crawling")
