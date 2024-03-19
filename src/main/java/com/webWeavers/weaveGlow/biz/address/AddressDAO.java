@@ -13,18 +13,22 @@ import org.springframework.stereotype.Repository;
 public class AddressDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	private static final String SELECTALL = "SELECT ADDRESS_PK, ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME FROM ADDRESS WHERE MEMBER_ID = ?";
 	private static final String SELECTONE = "SELECT ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME FROM ADDRESS WHERE ADDRESS_PK = ?";
-	
+
 	private static final String INSERT = "INSERT INTO ADDRESS (ADDRESS_PK, MEMBER_ID, ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME) VALUES (SELECT IFNULL(MAX(APK), 0) + 1 FROM ADDRESS), ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "UPDATE ADDRESS SET ADDRESS_ZONECODE=?, ADDRESS_JIBUN=?, ADDRESS_ROAD=?, ADDRESS_DETAIL=?, ADDRESS_NAME=? WHERE ADDRESS_PK=?";
 	private static final String DELETE = "DELETE FROM ADDRESS WHERE ADDRESS_PK=?";
-	
-	public List<AddressDTO> selectAll(AddressDTO addressDTO) {
-		return (List<AddressDTO>)jdbcTemplate.query(SELECTALL, new AddressRowMapper1());
-	}
 
+	public List<AddressDTO> selectAll(AddressDTO addressDTO) {
+	try {
+		return (List<AddressDTO>)jdbcTemplate.query(SELECTALL, new AddressRowMapper1());
+	} catch (Exception e) {
+		e.printStackTrace();
+		return null;
+	}
+}
 	public AddressDTO selectOne(AddressDTO addressDTO) {
 		Object[] args = { addressDTO.getAddressPK() };
 		try {
@@ -36,24 +40,28 @@ public class AddressDAO {
 	}
 
 	public boolean insert(AddressDTO addressDTO) {
-		int result = jdbcTemplate.update(INSERT,addressDTO.getMemberID(),addressDTO.getAddressZonecode(),addressDTO.getAddressJibun(),addressDTO.getAddressRoad(),addressDTO.getAddressDetail(),addressDTO.getAddressName());
-		if(result<=0) {
+		int result = jdbcTemplate.update(INSERT, addressDTO.getMemberID(), addressDTO.getAddressZonecode(),
+				addressDTO.getAddressJibun(), addressDTO.getAddressRoad(), addressDTO.getAddressDetail(),
+				addressDTO.getAddressName());
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
 
 	public boolean update(AddressDTO addressDTO) {
-		int result = jdbcTemplate.update(UPDATE,addressDTO.getAddressPK(),addressDTO.getAddressZonecode(),addressDTO.getAddressJibun(),addressDTO.getAddressRoad(),addressDTO.getAddressDetail(),addressDTO.getAddressName());
-		if(result<=0) {
+		int result = jdbcTemplate.update(UPDATE, addressDTO.getAddressPK(), addressDTO.getAddressZonecode(),
+				addressDTO.getAddressJibun(), addressDTO.getAddressRoad(), addressDTO.getAddressDetail(),
+				addressDTO.getAddressName());
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
 
 	public boolean delete(AddressDTO addressDTO) {
-		int result = jdbcTemplate.update(DELETE,addressDTO.getAddressPK());
-		if(result<=0) {
+		int result = jdbcTemplate.update(DELETE, addressDTO.getAddressPK());
+		if (result <= 0) {
 			return false;
 		}
 		return true;

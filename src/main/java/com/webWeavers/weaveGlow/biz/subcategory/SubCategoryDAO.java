@@ -1,4 +1,4 @@
- package com.webWeavers.weaveGlow.biz.subcategory;
+package com.webWeavers.weaveGlow.biz.subcategory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,28 +9,36 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-
 @Repository("subcategoryDAO")
 public class SubCategoryDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-	private static final String SELECTALL = "SELECT S.SUBCATEGORY_PK, S.SUBCATEGORY_NAME, C.CATEGORY_PK FROM SUBCATEGORY S JOIN CATEGORY C ON S.CATEGORY_FK = C.CATEGORY_PK"; 
+
+	private static final String SELECTALL = "SELECT S.SUBCATEGORY_PK, S.SUBCATEGORY_NAME, C.CATEGORY_PK FROM SUBCATEGORY S JOIN CATEGORY C ON S.CATEGORY_FK = C.CATEGORY_PK";
 	private static final String SELECTONE = "SELECT SUBCATEGORY_PK, SUBCATEGORY_NAME FROM SUBCATEGORY WHERE SUBCATEGORY_PK = ?";
-	
+
 	private static final String INSERT = "";
 	private static final String UPDATE = "";
 	private static final String DELETE = "";
-	
+
 	public List<SubCategoryDTO> selectAll(SubCategoryDTO SubCategoryDTO) {
-		return (List<SubCategoryDTO>)jdbcTemplate.query(SELECTALL, new SubCategoryRowMapper());
+		try {
+			return (List<SubCategoryDTO>) jdbcTemplate.query(SELECTALL, new SubCategoryRowMapper());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public SubCategoryDTO selectOne(SubCategoryDTO subCategoryDTO) {
 		Object[] args = { subCategoryDTO.getSubcategoryPK(), subCategoryDTO.getSubcategoryName() };
-		return jdbcTemplate.queryForObject(SELECTONE, args, new SubCategoryRowMapper());
+		try {
+			return jdbcTemplate.queryForObject(SELECTONE, args, new SubCategoryRowMapper());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-
 	public boolean insert(SubCategoryDTO subCategoryDTO) {
 		return false;
 	}
@@ -55,4 +63,3 @@ class SubCategoryRowMapper implements RowMapper<SubCategoryDTO> {
 		return data;
 	}
 }
-

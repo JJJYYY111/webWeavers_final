@@ -18,100 +18,101 @@ public class MemberDAO {
 	private static final String SELECTALL = "";
 	// 관리자페이지 회원현황 - 회원검색
 	private static final String SELECTALL_USERSEARCH = "SELECT MEMBER_ID, MEMBER_NAME, MEMBER_BIRTH, MEMBER_MARKETING, MEMBER_REGDAY, GRADE_PK, GRADE_NAME"
-														+ "  FROM MEMBER WHERE MEMBER_NAME=? OR MEMBER_ID=?";
+			+ "  FROM MEMBER WHERE MEMBER_NAME=? OR MEMBER_ID=?";
 	// 회원 로그인
 	private static final String SELECTONE_LOGIN = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, "
-														+ " MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_PASSWORD=?";
+			+ " MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_PASSWORD=?";
 	// 회원 닉네임 중복체크
 	private static final String SELECTONE_MEMBER_NICKNAMECHECK = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, "
-														+ " MEMBER_EMAIL, MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_NICKNAME=?";
+			+ " MEMBER_EMAIL, MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_NICKNAME=?";
 	// 회원정보 조회
 	private static final String SELECTONE_MEMBERINFO = "SELECT M.MEMBER_ID, M.MEMBER_PASSWORD, M.MEMBER_NAME, M.MEMBER_BIRTH, M.MEMBER_PHONE, M.MEMBER_NICKNAME, "
-														+ " M.MEMBER_EMAIL, M.MEMBER_MARKETING, M.GRADE_PK,  G.GRADE_NAME"
-														+ " FROM MEMBER M JOIN GRADE G " + "   ON (M.GRADE_PK = G.GRADE_PK) WHERE M.MEMBER_ID=?";
+			+ " M.MEMBER_EMAIL, M.MEMBER_MARKETING, M.GRADE_PK,  G.GRADE_NAME" + " FROM MEMBER M JOIN GRADE G "
+			+ "   ON (M.GRADE_PK = G.GRADE_PK) WHERE M.MEMBER_ID=?";
 	// 회원ID 중복체크
 	private static final String SELECTONE_IDCHECK = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, "
-														+ " MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_ID=?";
+			+ " MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_ID=?";
 	// 회원 가입
 	private static final String INSERT = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_MARKETING)"
-														+ " VALUES (?,?,?,?,?,?,?,?)";
+			+ " VALUES (?,?,?,?,?,?,?,?)";
 	// 회원 정보수정(사용자)
 	private static final String UPDATE = "UPDATE MEMBER SET MEMBER_EMAIL=?, MEMBER_NICKNAME=?, MEMBER_PHONE=?, MEMBER_PASSWORD=? WHERE MEMBER_ID=?";
 	// 회원 정보수정(관리자)
 	private static final String UPDATE_ADMIN = "UPDATE MEMBER SET MEMBER_PASSWORD=?, MEMBER_NAME=?, MEMBER_BIRTH=?, MEMBER_PHONE=?, MEMBER_NICKNAME=?, "
-														+ " MEMBER_EMAIL=?, GRADE_PK=? WHERE MEMBER_ID=?";
-	// 회원 휴면상태(탈퇴)						
+			+ " MEMBER_EMAIL=?, GRADE_PK=? WHERE MEMBER_ID=?";
+	// 회원 휴면상태(탈퇴)
 	private static final String UPDATE_UNREGISTER = "UPDATE MEMBER SET GRADE_PK=5 WHERE MEMBER_ID=?";
 
 	private static final String DELETE = "";
-	
+
 	public List<MemberDTO> selectAll(MemberDTO memberDTO) {
-		return (List<MemberDTO>)jdbcTemplate.query(SELECTALL, new MemberRowMapper6());
+		try {
+			return (List<MemberDTO>) jdbcTemplate.query(SELECTALL, new MemberRowMapper6());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public MemberDTO selectOne(MemberDTO memberDTO) {
-
-		if (memberDTO.getSearchCondition().equals("login")) {
-			Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberPassword() };
-			try {
-				return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapper2());				
+		try {
+			if (memberDTO.getSearchCondition().equals("login")) {
+				Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberPassword() };
+				return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapper2());
+			} else if (memberDTO.getSearchCondition().equals("memberUserSearch")) {
+				Object[] args = { memberDTO.getMemberNickname() };
+				return jdbcTemplate.queryForObject(SELECTALL_USERSEARCH, args, new MemberRowMapper5());
+			} else if (memberDTO.getSearchCondition().equals("memberNickNameCheck")) {
+				Object[] args = { memberDTO.getMemberNickname() };
+				return jdbcTemplate.queryForObject(SELECTONE_MEMBER_NICKNAMECHECK, args, new MemberRowMapper2());
+			} else if (memberDTO.getSearchCondition().equals("memberInfo")) {
+				Object[] args = { memberDTO.getMemberID() };
+				return jdbcTemplate.queryForObject(SELECTONE_MEMBERINFO, args, new MemberRowMapper1());
+			} else if (memberDTO.getSearchCondition().equals("idCheck")) {
+				Object[] args = { memberDTO.getMemberID() };
+				return jdbcTemplate.queryForObject(SELECTONE_IDCHECK, args, new MemberRowMapper2());
 			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		else if(memberDTO.getSearchCondition().equals("memberUserSearch")) {
-			Object[] args = { memberDTO.getMemberNickname() };
-			return jdbcTemplate.queryForObject(SELECTALL_USERSEARCH, args, new MemberRowMapper5());
-		}
-		else if(memberDTO.getSearchCondition().equals("memberNickNameCheck")) {
-			Object[] args = { memberDTO.getMemberNickname() };
-			return jdbcTemplate.queryForObject(SELECTONE_MEMBER_NICKNAMECHECK, args, new MemberRowMapper2());
-		}
-		else if(memberDTO.getSearchCondition().equals("memberInfo")) {
-			Object[] args = { memberDTO.getMemberID() };
-			return jdbcTemplate.queryForObject(SELECTONE_MEMBERINFO, args, new MemberRowMapper1());
-		}
-		else if(memberDTO.getSearchCondition().equals("idCheck")) {
-			Object[] args = { memberDTO.getMemberID() };
-			return jdbcTemplate.queryForObject(SELECTONE_IDCHECK, args, new MemberRowMapper2());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 		return null;
 	}
-	
+
 	public boolean insert(MemberDTO memberDTO) {
-		int result = jdbcTemplate.update(INSERT,memberDTO.getMemberID(),memberDTO.getMemberPassword(),memberDTO.getMemberName(),(memberDTO.getMemberBirth().getTime()),memberDTO.getMemberPhone(),memberDTO.getMemberNickname(),memberDTO.getMemberEmail(),memberDTO.getMemberMarketing());
-		if(result<=0) {
+		int result = jdbcTemplate.update(INSERT, memberDTO.getMemberID(), memberDTO.getMemberPassword(),
+				memberDTO.getMemberName(), (memberDTO.getMemberBirth().getTime()), memberDTO.getMemberPhone(),
+				memberDTO.getMemberNickname(), memberDTO.getMemberEmail(), memberDTO.getMemberMarketing());
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
+
 	public boolean update(MemberDTO memberDTO) {
 		int result;
 		if (memberDTO.getSearchCondition().equals("updateInfo")) {
 			result = jdbcTemplate.update(UPDATE, memberDTO.getMemberID(), memberDTO.getMemberPassword());
-			if(result <= 0) {
+			if (result <= 0) {
 				return false;
 			}
-		} 
-		else if(memberDTO.getSearchCondition().equals("unregisterUpdateInfo")) {
+		} else if (memberDTO.getSearchCondition().equals("unregisterUpdateInfo")) {
 			Object[] args = { memberDTO.getMemberNickname() };
 			result = jdbcTemplate.update(UPDATE_UNREGISTER, memberDTO.getMemberNickname());
-			if(result <= 0) {
+			if (result <= 0) {
 				return false;
 			}
 		}
-		return true;		
+		return true;
 	}
-	
-	
+
 	private boolean delete(MemberDTO memberDTO) {
-		
+
 		return false;
 	}
 
 	// RowMapper 인터페이스 사용
-	
+
 	class MemberRowMapper1 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -129,6 +130,7 @@ public class MemberDAO {
 			return data;
 		}
 	}
+
 	class MemberRowMapper2 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -145,6 +147,7 @@ public class MemberDAO {
 			return data;
 		}
 	}
+
 	class MemberRowMapper3 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -157,6 +160,7 @@ public class MemberDAO {
 			return data;
 		}
 	}
+
 	class MemberRowMapper4 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -165,7 +169,7 @@ public class MemberDAO {
 			return data;
 		}
 	}
-	
+
 	class MemberRowMapper5 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -179,7 +183,7 @@ public class MemberDAO {
 			return data;
 		}
 	}
-	
+
 	class MemberRowMapper6 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

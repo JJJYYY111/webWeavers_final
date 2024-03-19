@@ -24,7 +24,12 @@ public class GradeDAO {
 	private static final String DELETE = "";
 	
 	public List<GradeDTO> selectAll(GradeDTO gradeDTO) {
-		return (List<GradeDTO>)jdbcTemplate.query(SELECTALL, new GradeRowMapper());
+		try {
+			return (List<GradeDTO>)jdbcTemplate.query(SELECTALL, new GradeRowMapper());
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public GradeDTO selectOne(GradeDTO gradeDTO) {
