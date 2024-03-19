@@ -70,8 +70,8 @@ public class MemberController {
 
 	@RequestMapping("/memberSelectOne")
 	public String memberSelectOne(MemberDTO memberDTO, HttpSession session, Model model) {
-		System.out.println("memberSelectOne 진입");
 		memberDTO.setSearchCondition("login");
+		System.out.println(memberDTO);
 		memberDTO = memberService.selectOne(memberDTO);
 
 		// 확인된 사용자 정보가 비어있거나 사용자의 등급이 5등급 인 경우

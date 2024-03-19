@@ -50,6 +50,7 @@ public class ReviewDAO {
 		Object[] args2 = { reviewDTO.getMemberID() };
 		try {
 			if (reviewDTO.getSearchCondition().equals("productReview")) {
+				System.out.println("프로덕트리뷰진입");
 				return (List<ReviewDTO>)jdbcTemplate.query(SELECTALL_PRODUCTREVIEW, args1, new ReviewRowMapper1());
 			} else if (reviewDTO.getSearchCondition().equals("myReview")) {
 				return (List<ReviewDTO>)jdbcTemplate.query(SELECTALL_MYREVIEW, args2, new ReviewRowMapper2());
@@ -107,6 +108,7 @@ class ReviewRowMapper1 implements RowMapper<ReviewDTO> {
 	@Override
 	public ReviewDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ReviewDTO data = new ReviewDTO();
+		System.out.println("rowmapper1시작");
 		data.setReviewPK(rs.getInt("REVIEW_PK"));
 		data.setReviewRegdate(rs.getDate("REVIEW_REGDATE"));
 		data.setReviewScope(rs.getInt("REVIEW_SCOPE"));
@@ -114,6 +116,7 @@ class ReviewRowMapper1 implements RowMapper<ReviewDTO> {
 		data.setReviewImg(rs.getString("REVIEW_IMG"));
 		data.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
 		data.setGradePK(rs.getInt("GRADE_PK"));
+		System.out.println("rowmapper1끝");
 		return data;
 	}
 }

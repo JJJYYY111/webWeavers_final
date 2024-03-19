@@ -41,6 +41,7 @@ public class WishListDAO {
 		try {
 			return jdbcTemplate.queryForObject(SELECTONE, args, new WishListRowMapper2());
 		} catch (Exception e) {
+			System.out.println("wishlist selectOne 오류진입");
 			e.printStackTrace();
 			return null;
 		}

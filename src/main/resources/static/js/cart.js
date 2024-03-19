@@ -37,15 +37,15 @@ function updateQuantity(ppk, updown, price) {
 
     // jQuery를 사용하여 AJAX POST 요청을 보냄
     $.ajax({
-        url: 'cartUpdate.asy',
+        url: 'async/cartUpdate',
         type: 'POST',
         data: {
-            ppk: ppk,
-            updown: updown
+            productPK: ppk,
+            cartCnt: qty
         },
         success: function(response) {
             // 성공적으로 처리된 경우에는 클라이언트 측에서 수량을 업데이트함
-            if (updown === '1') {
+            if (updown.equals('true')) {
                 result.val(parseInt(qty) + 1);
             } else {
                 result.val(parseInt(qty) - 1);
@@ -88,6 +88,7 @@ function updateSubtotal() {
 /* 장바구니 추가 */
 // addToCart 함수: 장바구니에 제품 추가하는 함수
 function addToCart() {
+	console.log('addToCart진입');
     // getProductPPK 함수를 통해 동적으로 설정된 데이터 속성 'data-ppk' 값을 가져옴
     var ppk = getProductPPK();  
 
@@ -102,11 +103,11 @@ function addToCart() {
 
     $.ajax({
         type: 'POST',
-        url: 'cartInsert.asy',  
+        url: 'async/cartInsert',  
         data: data,
         success: function(response) {
             // 서버 응답에 따라 알림 표시
-            if (response === '1') {
+            if (response.equals("true")) {
                /* alert('상품이 장바구니에 추가되었습니다.');*/
                Swal.fire({
 						hideClass : {

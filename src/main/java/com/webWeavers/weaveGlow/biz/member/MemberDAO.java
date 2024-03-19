@@ -53,7 +53,12 @@ public class MemberDAO {
 
 		if (memberDTO.getSearchCondition().equals("login")) {
 			Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberPassword() };
-			return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapper2());
+			try {
+				return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapper2());				
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		else if(memberDTO.getSearchCondition().equals("memberUserSearch")) {
 			Object[] args = { memberDTO.getMemberNickname() };

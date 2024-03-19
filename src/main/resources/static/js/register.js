@@ -138,8 +138,8 @@ function registFromPageCheck(){
 	const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/
 	
 	// 함수 사용
-	registTextCheck(registIdEl, 'idCheck', 'idCheck.asy', 'ID')					// 함수 사용 (아이디 중복 검사)
-	registTextCheck(registNickEl, 'nickCheck', 'nickNameCheck.asy', '닉네임')		// 함수 사용 (닉네임 중복 검사)
+	registTextCheck(registIdEl, 'idCheck', 'async/idCheck', 'ID')					// 함수 사용 (아이디 중복 검사)
+	registTextCheck(registNickEl, 'nickCheck', 'async/nickNameCheck', '닉네임')		// 함수 사용 (닉네임 중복 검사)
 	registFormCheck(registPhoneEl, 'phoneCheck', phoneRegex, '올바른 형식이 아닙니다. 다시 입력해주세요')	// 함수 사용 (휴대폰 형식 유효성)
 	registFormCheck(registEmailEl, 'emailCheck', emailRegex, '올바른 이메일 형식을 입력하세요')			// 함수 사용 (이메일 형식 유효성)
 	registFormCheck(registPwEl, 'pwCheck', passwordRegex, '영문,숫자,특수문자가 포함된 8 ~ 12글자로 입력하세요')	// 함수 사용 (비밀번호 형식 유효성)
@@ -208,7 +208,7 @@ function registTextCheck(element, innerTextId, url, text) {
 			$.ajax({
 				type: "POST",
 				url: url,														// 매개변수로 전달받은 url
-				data: { 'param': registUserText },								// 백단에 사용자가 입력한값 넘겨주기
+				data: { 'check': registUserText },								// 백단에 사용자가 입력한값 넘겨주기
 				dataType: 'text',
 				success: function(data) {
 					if (data == 1) {											// 백단에서 응답한 값이 1이면 중복 x 사용 가능

@@ -4,7 +4,7 @@
 function getAddressList(){	// 비동기처리로 DB의 배송지들을 출력 (DAO => SELECTALL)										
 	$.ajax({																	
 		type: "GET",
-		url: 'addressSelectAll.asy',
+		url: 'async/addressSelectAll',
 		data: {},												
 		success: function(datas) {												
 			if (datas.length > 0) {
@@ -92,7 +92,7 @@ function addSubmit() { // 비동기처리로 DB에 주소를 추가 (DAO => INSE
 	}
 	$.ajax({																	
 		type: "POST",
-		url: 'addressInsert.asy',
+		url: 'async/addressInsert',
 		data: { 'zondecode' : modalInsert_zonecode.value,				
 				'roadAddress' : modalInsert_roadAddress.value,
 				'jibunAddress' : modalInsert_jibunAddress.value,
@@ -150,7 +150,7 @@ function changeSubmit(){ // 비동기처리로 DB에 주소를 변경 (DAO => UP
 	}
 	$.ajax({																	
 		type: "POST",
-		url: 'addressUpdate.asy',
+		url: 'async/addressUpdate',
 		data: { 'apk' : modalUpdate_apk.innerText,
 				'aname' : modalUpdate_aname.value,
 				'zondecode' : modalUpdate_zonecode.value,
@@ -188,7 +188,7 @@ function addressDeleteSetting(apk, aname){
 function deleteSubmit(){ // 비동기처리로 DB에 주소를 삭제 (DAO => DELETE)
 	$.ajax({																	
 		type: "POST",
-		url: 'addressDelete.asy',
+		url: 'async/addressDelete',
 		data: { 'apk' : modalDelete_apk.value
 			  },												
 		success: function(data) {
@@ -225,7 +225,7 @@ var addressSelected = [];
 function selectOneAddress(){ // 비동기처리로 DB에서 선택한 주소를 출력 (DAO => SELECTONE)
 	$.ajax({																	
 		type: "POST",
-		url: 'addressSelectOne.asy',
+		url: 'async/addressSelectOne',
 		data: { 'apk' : document.querySelector('input[name="addressformcheck"]:checked').value
 			  },												
 		success: function(data) {
