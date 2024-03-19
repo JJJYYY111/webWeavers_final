@@ -29,10 +29,14 @@ public class CartDAO {
 	private static final String INSERT = "INSERT INTO CART (MEMBER_ID, PRODUCT_PK, CART_CNT) VALUES (?, ?, ?)";
 	// 장바구니 개수 추가 (기존 수량 + 추가 수량)_상품상세페이지
 	private static final String UPDATE_ADD = "UPDATE CART SET CART_CNT = CART_CNT + ? WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
-	// 장바구니 개별 상품 수량 증가_장바구니페이지
-	private static final String UPDATE_UP = "UPDATE CART SET CART_CNT = CART_CNT + 1 WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
-	// 장바구니 개별 상품 수량 감소_장바구니페이지
-	private static final String UPDATE_DOWN = "UPDATE CART SET CART_CNT = CART_CNT - 1 WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
+	
+//	 장바구니 개별 상품 수량 증가_장바구니페이지
+//	private static final String UPDATE_UP = "UPDATE CART SET CART_CNT = CART_CNT + 1 WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
+//	 장바구니 개별 상품 수량 감소_장바구니페이지
+//	private static final String UPDATE_DOWN = "UPDATE CART SET CART_CNT = CART_CNT - 1 WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
+	
+	// 장바구니 개별 상품 수량,감소_장바구니 페이지
+	private static final String UPDATE_CNT= "UPDATE CART SET CART_CNT = ? WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
 	// 장바구니 상품 개별 삭제_장바구니페이지
 	private static final String DELETE_ONE = "DELETE FROM CART WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
 	// 장바구니 비우기_장바구 페이지
@@ -76,11 +80,16 @@ public class CartDAO {
 		try {
 			if (cartDTO.getSearchCondition().equals("cntAdd")) {
 				result = jdbcTemplate.update(UPDATE_ADD, cartDTO.getCartCnt(), cartDTO.getMemberID(), cartDTO.getProductPK());
-			} else if (cartDTO.getSearchCondition().equals("cntUp")) {
-				result = jdbcTemplate.update(UPDATE_UP, cartDTO.getMemberID(), cartDTO.getProductPK());
-			} else if (cartDTO.getSearchCondition().equals("cntDown")) {
-				result = jdbcTemplate.update(UPDATE_DOWN, cartDTO.getMemberID(), cartDTO.getProductPK());
-			} else {
+			}
+			else if (cartDTO.getSearchCondition().equals("cntUpdate")) {
+				result = jdbcTemplate.update(UPDATE_CNT, cartDTO.getMemberID(), cartDTO.getProductPK());
+			} 
+//			else if (cartDTO.getSearchCondition().equals("cntUp")) {
+//				result = jdbcTemplate.update(UPDATE_UP, cartDTO.getMemberID(), cartDTO.getProductPK());
+//			} else if (cartDTO.getSearchCondition().equals("cntDown")) {
+//				result = jdbcTemplate.update(UPDATE_DOWN, cartDTO.getMemberID(), cartDTO.getProductPK());
+//			} 
+			else {
 				return false;
 			}
 		} catch (Exception e) {
