@@ -52,7 +52,7 @@ public class CheckoutController {
 		
 		// 사용자 DTO에 'id'와 검색조건'회원정보'설정
 		memberDTO.setMemberID((String)session.getAttribute("sessionMid"));
-		memberDTO.setSearchCondition("회원정보");
+		memberDTO.setSearchCondition("memberInfo");
 		if(memberService.selectOne(memberDTO) == null) { // 해당 사용자가 존재하지 않는다면
 			return "redirect:/error";
 		} else { // 사용자가 존재한다면 사용자의 이름, 이메일, 전화번호, 마케팅(이메일수신) 정보를 request에 저장해서 checkout.jsp로 전송
@@ -70,7 +70,7 @@ public class CheckoutController {
 	@RequestMapping("/checkoutList")
 	public String checkoutList(BuyProductDTO buyProductDTO, HttpSession session, Model model) {
 		buyProductDTO.setMemberID((String)session.getAttribute("sessionMid"));
-		buyProductDTO.setSearchCondition("전체구매내역");
+		buyProductDTO.setSearchCondition("checkoutList");
 		
 		// 값이 저장된 bDTO를 검색기능인 R(selectAll)기능을 통해서 해당 사용자의 구매내역을 받아옴
 		List<BuyProductDTO> datas = buyProductService.selectAll(buyProductDTO);
@@ -182,7 +182,7 @@ public class CheckoutController {
 	      // 최근구매한 상품들을 출력해서 결제완료페이지에 보내줘야하므로
 	      // bDTO에 id와 검색조건을 설정하여 검색기능인 R(selectAll)기능을 사용하여 최근 구매한 상품목록을 받아옴 
 	      buyProductDTO.setMemberID(mid);
-	      buyProductDTO.setSearchCondition("최근구매내역");
+	      buyProductDTO.setSearchCondition("checkoutSuccess");
 	      List<BuyProductDTO> bdatas = buyProductService.selectAll(buyProductDTO);
 	      model.addAttribute("bdatas", bdatas); // request에 최근 구매한 상품목록을 저장
 	      

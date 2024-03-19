@@ -27,7 +27,7 @@ public class MemberController {
 	@RequestMapping("/async/idCheck")
 	public @ResponseBody String idCheck(MemberDTO memberDTO) {
 
-		memberDTO.setSearchCondition("ID중복검사"); // memberDTO에 검색조건 저장
+		memberDTO.setSearchCondition("idCheck"); // memberDTO에 검색조건 저장
 
 		if (memberService.selectOne(memberDTO) == null) { // memberDTO가 null인 경우(중복x)
 			return "1"; // 1 응답
@@ -40,7 +40,7 @@ public class MemberController {
 	@RequestMapping("/async/nickNameCheck")
 	public @ResponseBody String nickNameCheck(MemberDTO memberDTO, HttpSession session) {
 
-		memberDTO.setSearchCondition("닉네임중복체크"); // mDTO에 검색조건 저장
+		memberDTO.setSearchCondition("memberNickNameCheck"); // mDTO에 검색조건 저장
 
 		memberDTO = memberService.selectOne(memberDTO); // selectOne()을 통해 리턴값(객체) 저장
 
@@ -70,7 +70,8 @@ public class MemberController {
 
 	@RequestMapping("/memberSelectOne")
 	public String memberSelectOne(MemberDTO memberDTO, HttpSession session, Model model) {
-		memberDTO.setSearchCondition("로그인");
+		System.out.println("memberSelectOne 진입");
+		memberDTO.setSearchCondition("login");
 		memberDTO = memberService.selectOne(memberDTO);
 
 		// 확인된 사용자 정보가 비어있거나 사용자의 등급이 5등급 인 경우
@@ -89,7 +90,7 @@ public class MemberController {
 	@RequestMapping("/memberUpdate")
 	public String memberUpdate(MemberDTO memberDTO, HttpSession session) {
 
-		memberDTO.setSearchCondition("정보수정");
+		memberDTO.setSearchCondition("updateInfo");
 
 		if (memberService.update(memberDTO)) { // 성공했으면 mypage로 이동
 			return "redirect:/mypage";
@@ -98,10 +99,10 @@ public class MemberController {
 		}
 	}
 
-	@RequestMapping("/myPage")
+	@RequestMapping("/mypage")
 	public String myPage(MemberDTO memberDTO, HttpSession session, Model model) {
 		// 서버에서 입력 받은 사용자정보의 사용방식을 구분하기위해 작성
-		memberDTO.setSearchCondition("회원정보");
+		memberDTO.setSearchCondition("memberInfo");
 
 		// 서버로부터 사용자 ID 정보를 받아와 MemberDTO에 저장
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
@@ -132,7 +133,7 @@ public class MemberController {
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 
 		// 서버에서 입력 받은 사용자정보의 사용방식을 구분하기위해 작성
-		memberDTO.setSearchCondition("로그인");
+		memberDTO.setSearchCondition("login");
 		memberDTO = memberService.selectOne(memberDTO);
 
 		// 확인된 사용자 정보가 비어있는 경우
@@ -203,7 +204,7 @@ public class MemberController {
 	public String unregisterSuccess(MemberDTO memberDTO, HttpSession session) {
 		// 유저의 정보를 담는 mDTO에 id와 검색조건을 설정
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
-		memberDTO.setSearchCondition("회원탈퇴");
+		memberDTO.setSearchCondition("unregisterUpdateInfo");
 
 		if (!memberService.update(memberDTO)) { // 탈퇴에 성공했다면 세션에서 사용자의 id를 삭제
 			return "redirect:/error";
