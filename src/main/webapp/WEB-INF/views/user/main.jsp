@@ -112,7 +112,7 @@
 								</div>
 								<div class="card-body">
 									<h4 class="card-product__title">
-										<a href="/productDetail?ppk=${data.productPK}">${data.productName}</a>
+										<a href="productDetail?productPK=${data.productPK}">${data.productName}</a>
 									</h4>
 									<p class="card-product__price">
 										<fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />
@@ -150,7 +150,7 @@
 							<div class="card text-center card-product"
 								data-product-pk="${data.productPK}">
 								<div class="card-product__img">
-									<a href="/productDetail?productPK=${data.productPK}"><img
+									<a href="productDetail?productPK=${data.productPK}"><img
 										class="card-img" src="${data.productImg}" alt="${data.productImg}번 상품사진"></a>
 									<ul class="card-product__imgOverlay">
 										<li>
@@ -168,7 +168,7 @@
 								</div>
 								<div class="card-body">
 									<h4 class="card-product__title">
-										<a href="/productDetail?productPK=${data.productPK}">${data.productName}</a>
+										<a href="productDetail?productPK=${data.productPK}">${data.productName}</a>
 									</h4>
 									<p class="card-product__price">
 										<fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />

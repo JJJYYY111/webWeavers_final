@@ -34,20 +34,21 @@ function updateQuantity(ppk, updown, price) {
     if (updown === '0' && parseInt(qty) <= 1) {
         return; // 더 이상 수량을 감소하지 않음
     }
-
+		console.log(qty);
     // jQuery를 사용하여 AJAX POST 요청을 보냄
     $.ajax({
         url: 'async/cartUpdate',
         type: 'POST',
         data: {
             productPK: ppk,
-            cartCnt: qty
+            cartCnt: (updown == 1 ? parseInt(qty)+1 : parseInt(qty)-1)
         },
-        success: function(response) {
+        success: function(data) {
+			console.log(qty);
             // 성공적으로 처리된 경우에는 클라이언트 측에서 수량을 업데이트함
-            if (updown.equals('true')) {
+            if (data == 'true' && updown == 1) {
                 result.val(parseInt(qty) + 1);
-            } else {
+            } else if(data == 'true' && updown == 0) {
                 result.val(parseInt(qty) - 1);
             }
 
@@ -97,17 +98,17 @@ function addToCart() {
 
     // AJAX를 사용하여 서버에 데이터 전송
     var data = {
-        ppk: ppk,
-        cnt: quantity
+        productPK: ppk,
+        cartCnt: quantity
     };
 
     $.ajax({
         type: 'POST',
         url: 'async/cartInsert',  
         data: data,
-        success: function(response) {
+        success: function(data) {
             // 서버 응답에 따라 알림 표시
-            if (response.equals("true")) {
+            if (data == "true") {
                /* alert('상품이 장바구니에 추가되었습니다.');*/
                Swal.fire({
 						hideClass : {

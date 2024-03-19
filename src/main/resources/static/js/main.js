@@ -37,7 +37,7 @@ function wishClick(ppk, mid) {
 		$.ajax({
 			type: "POST",										// POST 방식
 			url: "async/likeButton",								// 서블릿 url
-			data: { 'pk': ppk },								// pk 전달
+			data: { 'productPK': ppk },								// pk 전달
 			dataType: "text",									// back단에서 text형태로 받음
 			success: function(data) {							// 성공했다면,
 				// data가 1이면 찜 성공

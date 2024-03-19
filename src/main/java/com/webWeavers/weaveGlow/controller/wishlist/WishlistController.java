@@ -24,12 +24,19 @@ public class WishlistController {
 		wishListDTO.setMemberID((String)session.getAttribute("sessionMid"));	// wDTO에 세션ID 저장 (로그인 상태, 로그아웃 상태 체크)
 		WishListDTO data = wishListService.selectOne(wishListDTO);					// selectOne()을 통해 리턴값(객체) 저장
 		if(data == null) {								// 찜이 안된 상태라면
-			return String.valueOf(wishListService.insert(wishListDTO));
+			//return String.valueOf(wishListService.insert(wishListDTO));
+			if(!wishListService.insert(wishListDTO)) {
+				return "0";
+			}
+			return "1";
 		}
+		
 		else {
-			return String.valueOf(wishListService.delete(wishListDTO));
+			if(!wishListService.delete(wishListDTO)) {
+				return "0";
+			}
+			return "2";
 		}
-
 	}
 	
 	@RequestMapping("/wishList")

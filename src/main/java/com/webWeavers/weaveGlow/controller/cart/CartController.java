@@ -25,35 +25,29 @@ public class CartController {
 	public @ResponseBody String cartInsert(CartDTO cartDTO, HttpSession session) {
 		System.out.println("async/cartInsert진입");
 		cartDTO.setMemberID((String)session.getAttribute("sessionMid"));
+		System.out.println(cartDTO);
 		CartDTO data = cartService.selectOne(cartDTO);
 		
 		if(data == null) { // 만약 검색한 상품이 장바구니 테이블에 존재하지 않는다면
-			return String.valueOf(cartService.insert(cartDTO));
+			String a = String.valueOf(cartService.insert(cartDTO));
+			System.out.println(a);
+			return a;
 		}
 		else { // 만약 검색한 상품이 장바구니 테이블에 존재한다면
 			cartDTO.setSearchCondition("cntAdd"); // cDTO에 검색조건을 저장
-			return String.valueOf(cartService.update(cartDTO));
+			String b = String.valueOf(cartService.update(cartDTO));
+			System.out.println(b);
+			return b;
 		}
 	}
 	
 	// 기능고장 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 	
-	@RequestMapping("/async/cartUpdate/")// ("/async/idcheck" 혹은 "/async/pwcheck")
-	public @ResponseBody String cartUpdate(CartDTO cartDTO, HttpSession session, @PathVariable String updown) {
-        // cDTO객체에 사용자의 id와 ppk(상품의PK번호)를 저장
+	@RequestMapping("/async/cartUpdate")// ("/async/idcheck" 혹은 "/async/pwcheck")
+	public @ResponseBody String cartUpdate(CartDTO cartDTO, HttpSession session) {
 		cartDTO.setMemberID((String)session.getAttribute("sessionMid"));
-        if ("1".equals(updown)) {
-        	cartDTO.setSearchCondition("수량증가");
-        } else { // 'updown'이 1이 아니면 cDTO 객체에 검색조건을 '수량감소'로 설정한다. => 0인경우 장바구니 상품개수 감소
-        	cartDTO.setSearchCondition("수량감소");
-        }
-        
-        if(cartService.update(cartDTO)) { // 만약 장바구니 테이블에 수량이 정상적으로 수정되었다면
-        	return "1";	// 1을 출력
-		}
-		else { // 장바구니 테이블에 수량을 수정하는데 실패했다면
-			return "0";	// 0을 출력
-		}
+		cartDTO.setSearchCondition("cntUpdate");
+        return String.valueOf(cartService.update(cartDTO));
 		
 	}
 	

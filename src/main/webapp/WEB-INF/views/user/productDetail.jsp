@@ -62,7 +62,7 @@
 
 													<!-- 찜추가버튼 추가하면 빨강 취소하면 흰색 -->
 													<button onclick="wishClick(getProductPPK(),'${sessionMid}')"
-														class="product-btn-$productPK}" style="border: unset;">
+														class="product-btn-${productPK}" style="border: unset;">
 														<c:if test="${like == 1}">
 															<i class="fa-solid fa-heart"
 																style="color:red; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: gray;"></i>
