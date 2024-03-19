@@ -9,13 +9,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+
 @Repository("subcategoryDAO")
 public class SubCategoryDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private static final String SELECTALL = "";
-	private static final String SELECTONE = "";
+	private static final String SELECTALL = "SELECT S.SUBCATEGORY_PK, S.SUBCATEGORY_NAME, C.CATEGORY_PK FROM SUBCATEGORY S JOIN CATEGORY C ON S.CATEGORY_FK = C.CATEGORY_PK"; 
+	private static final String SELECTONE = "SELECT SUBCATEGORY_PK, SUBCATEGORY_NAME FROM SUBCATEGORY WHERE SUBCATEGORY_PK = ?";
 	
 	private static final String INSERT = "";
 	private static final String UPDATE = "";
@@ -26,7 +27,8 @@ public class SubCategoryDAO {
 	}
 
 	public SubCategoryDTO selectOne(SubCategoryDTO subCategoryDTO) {
-		return null;
+		Object[] args = { subCategoryDTO.getSubcategoryPK(), subCategoryDTO.getSubcategoryName() };
+		return jdbcTemplate.queryForObject(SELECTONE, args, new SubCategoryRowMapper());
 	}
 
 	public boolean insert(SubCategoryDTO subCategoryDTO) {
@@ -46,7 +48,11 @@ public class SubCategoryDAO {
 class SubCategoryRowMapper implements RowMapper<SubCategoryDTO> {
 	@Override
 	public SubCategoryDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		return null;
+		SubCategoryDTO data = new SubCategoryDTO();
+		data.setSubcategoryPK(rs.getInt("SUBCATEGORY_PK"));
+		data.setSubcategoryName(rs.getString("SUBCATEGORY_NAME"));
+		data.setCategoryPK(rs.getInt("CATEGORY_PK"));
+		return data;
 	}
 }
 

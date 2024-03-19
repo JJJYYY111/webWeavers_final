@@ -23,33 +23,33 @@ public class GradeDAO {
 	private static final String UPDATE = "";
 	private static final String DELETE = "";
 	
-//	public List<GradeDTO> selectAll(GradeDTO gradeDTO) {
-//		return (List<GradeDTO>)jdbcTemplate.query(SELECTALL, new GradeRowMapper());
-//	}
-//
-//	public GradeDTO selectOne(GradeDTO gradeDTO) {
-//		
-//	}
+	public List<GradeDTO> selectAll(GradeDTO gradeDTO) {
+		return (List<GradeDTO>)jdbcTemplate.query(SELECTALL, new GradeRowMapper());
+	}
 
-//	public boolean insert(GradeDTO gradeDTO) {
-//		int result = jdbcTemplate.update(UPDATE,gradeDTO.getGradePK(),gradeDTO.getGradeName(),gradeDTO.getGradeDiscountRate());
-//		if(result<=0) {
-//			return false;
-//		}
-//		return true;
-//	}
+	public GradeDTO selectOne(GradeDTO gradeDTO) {
+		return null;
+	}
 
-//	public boolean update(GradeDTO gradeDTO) {
-//		int result = jdbcTemplate.update(UPDATE,gradeDTO.getGradePK(),gradeDTO.getGradeName(),gradeDTO.getGradeDiscountRate());
-//		if(result<=0) {
-//			return false;
-//		}
-//		return true;
-//	}
+	public boolean insert(GradeDTO gradeDTO) {
+		int result = jdbcTemplate.update(UPDATE,gradeDTO.getGradePK(),gradeDTO.getGradeName(),gradeDTO.getGradeDiscountRate());
+		if(result<=0) {
+			return false;
+		}
+		return true;
+	}
 
-//	public boolean delete(GradeDTO gradeDTO) {
-//		
-//	}
+	public boolean update(GradeDTO gradeDTO) {
+		int result = jdbcTemplate.update(UPDATE,gradeDTO.getGradePK(),gradeDTO.getGradeName(),gradeDTO.getGradeDiscountRate());
+		if(result<=0) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean delete(GradeDTO gradeDTO) {
+		return false;
+	}
 
 }
 

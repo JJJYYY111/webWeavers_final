@@ -16,24 +16,24 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDAO.selectAll(categoryDTO);
 	}
 
-//	@Override
-//	public CategoryDTO selectOne(CategoryDTO categoryDTO) {
-//		return categoryDAO.selectOne(categoryDTO);
-//	}
-//
-//	@Override
-//	public boolean insert(CategoryDTO categoryDTO) {
-//		return categoryDAO.insert(categoryDTO);
-//	}
-//
-//	@Override
-//	public boolean update(CategoryDTO categoryDTO) {
-//		return categoryDAO.update(categoryDTO);
-//	}
-//
-//	@Override
-//	public boolean delete(CategoryDTO categoryDTO) {
-//		return categoryDAO.delete(categoryDTO);
-//	}
+	@Override
+	public CategoryDTO selectOne(CategoryDTO categoryDTO) {
+		return categoryDAO.selectOne(categoryDTO);
+	}
+
+	@Override
+	public boolean insert(CategoryDTO categoryDTO) {
+		return categoryDAO.insert(categoryDTO);
+	}
+
+	@Override
+	public boolean update(CategoryDTO categoryDTO) {
+		return categoryDAO.update(categoryDTO);
+	}
+
+	@Override
+	public boolean delete(CategoryDTO categoryDTO) {
+		return categoryDAO.delete(categoryDTO);
+	}
 
 }

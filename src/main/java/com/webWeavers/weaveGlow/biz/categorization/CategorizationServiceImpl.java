@@ -11,15 +11,15 @@ public class CategorizationServiceImpl implements CategorizationService {
 	@Autowired
 	private CategorizationDAO categorizationDAO;
 
-//	@Override
-//	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
-//		return categorizationDAO.selectAll(categorizationDTO);
-//	}
-//
-//	@Override
-//	public CategorizationDTO selectOne(CategorizationDTO categorizationDTO) {
-//		return categorizationDAO.selectOne(categorizationDTO);
-//	}
+	@Override
+	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
+		return categorizationDAO.selectAll(categorizationDTO);
+	}
+
+	@Override
+	public CategorizationDTO selectOne(CategorizationDTO categorizationDTO) {
+		return categorizationDAO.selectOne(categorizationDTO);
+	}
 
 	@Override
 	public boolean insert(CategorizationDTO categorizationDTO) {

@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.webWeavers.weaveGlow.biz.address.AddressDTO;
 
 @Repository("categoryDAO")
 public class CategoryDAO {
@@ -17,7 +16,7 @@ public class CategoryDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	private static final String SELECTALL = "SELECT CATEGORY_NAME, CATEGORY_PK FROM CATEGORY"; 
-	private static final String SELECTONE = "";
+	private static final String SELECTONE = "SELECT CATEGORY_NAME, CATEGORY_PK FROM CATEGORY WHERE CATEGORY_PK = ?";
 	
 	private static final String INSERT = "";
 	private static final String UPDATE = "";
@@ -27,21 +26,22 @@ public class CategoryDAO {
 		return (List<CategoryDTO>)jdbcTemplate.query(SELECTALL, new CategoryRowMapper());
 	}
 
-//	public CategoryDTO selectOne(CategoryDTO categoryDTO) {
-//		
-//	}
+	public CategoryDTO selectOne(CategoryDTO categoryDTO) {
+		Object[] args = { categoryDTO.getCategoryPK(), categoryDTO.getCategoryName() };
+		return jdbcTemplate.queryForObject(SELECTONE, args, new CategoryRowMapper());
+	}
 
-//	public boolean insert(CategoryDTO categoryDTO) {
-//		
-//	}
-//
-//	public boolean update(CategoryDTO categoryDTO) {
-//		
-//	}
-//
-//	public boolean delete(CategoryDTO categoryDTO) {
-//		
-//	}
+	public boolean insert(CategoryDTO categoryDTO) {
+		return false;
+	}
+
+	public boolean update(CategoryDTO categoryDTO) {
+		return false;
+	}
+
+	public boolean delete(CategoryDTO categoryDTO) {
+		return false;
+	}
 
 }
 

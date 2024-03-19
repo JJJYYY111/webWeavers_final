@@ -20,16 +20,16 @@ public class CategorizationDAO {
 	private static final String SELECTONE = "";
 
 	private static final String INSERT = "INSERT INTO CATEGORIZATION (PRODUCT_PK, SUBCATEGORY_PK) VALUES (?,?)";
-	private static final String UPDATE = "";
+	private static final String UPDATE = "UPDATE CATEGORIZATION SET SUBCATEGORYPK = ? WHERE PRODUCTPK = ?";
 	private static final String DELETE = "";
+   
+	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
+		return null;
+	}
 
-//	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
-//		return (List<CategorizationDTO>)jdbcTemplate.query(SELECTALL, new CategorizationRowMapper1());
-//	}
-
-//	public CategorizationDTO selectOne(CategorizationDTO categorizationDTO) {
-//		
-//	}
+	public CategorizationDTO selectOne(CategorizationDTO categorizationDTO) {
+		return null;
+	}
 
 	public boolean insert(CategorizationDTO categorizationDTO) {
 		int result = jdbcTemplate.update(INSERT, categorizationDTO.getProductPK(), categorizationDTO.getSubcategoryPK());
@@ -48,11 +48,7 @@ public class CategorizationDAO {
 	}
 
 	public boolean delete(CategorizationDTO categorizationDTO) {
-		int result = jdbcTemplate.update(DELETE, categorizationDTO.getProductPK(), categorizationDTO.getSubcategoryPK());
-		if (result <= 0) {
-			return false;
-		}
-		return true;
+		return false;
 	}
 
 }
@@ -60,9 +56,9 @@ public class CategorizationDAO {
 class CategorizationRowMapper implements RowMapper<CategorizationDTO> {
 	@Override
 	public CategorizationDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		CategorizationDTO data = new CategorizationDTO();
-		data.setProductPK(rs.getInt("PRODUCT_PK"));
-		data.setSubcategoryPK(rs.getInt("SUBCATEGORY"));
-		return data;
+//		CategorizationDTO data = new CategorizationDTO();
+//		data.setProductPK(rs.getInt("PRODUCT_PK"));
+//		data.setSubcategoryPK(rs.getInt("SUBCATEGORY"));
+		return null;
 	}
 }
