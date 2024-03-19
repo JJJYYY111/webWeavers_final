@@ -14,13 +14,14 @@ public class ReviewDTO {
 	private String reviewContent;
 	private String reviewImg;
 
+	private String searchCondition;
+	
+	private int reviewLikeCnt;
 	private String memberID;
 	private String memberNickname;
 	private int gradePK;
 	private int productPK;
 	private String productName;
 	private String productImg;
-
-	private String searchCondition;
 
 }

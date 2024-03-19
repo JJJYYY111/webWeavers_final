@@ -2,9 +2,7 @@ package com.webWeavers.weaveGlow.biz.product;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -89,13 +87,16 @@ public class ProductDAO {
 			} else if (productDTO.getSearchCondition().equals("searchName")) {
 				return (List<ProductDTO>)jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("adminProductList")) {
-				int pageNum = 0;
-				if(productDTO.getOption().containsKey("pageNum")) {
-					pageNum = (int)productDTO.getOption().get("pageNum") - 1;
+//				int pageNum = 0;
+//				if(productDTO.getOption().containsKey("pageNum")) {
+//					pageNum = (int)productDTO.getOption().get("pageNum") - 1;
+//				}
+				int pageNum = productDTO.getPageNum();
+				if(productDTO.getPageNum() != 0) {
+					pageNum = productDTO.getPageNum() - 1;
 				}
 				Object[] args3 = { pageNum };
 				return (List<ProductDTO>)jdbcTemplate.query(SELECTALL_ADMINPRODUCTLIST, args3, new ProductListAdminRowMapper());
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,6 +114,7 @@ public class ProductDAO {
 			return null;
 		}
 	}
+
 
 	public boolean insert(ProductDTO productDTO) {
 		try {
@@ -178,12 +180,8 @@ class ProductListAdminRowMapper implements RowMapper<ProductDTO> {
 		data.setProductImg(rs.getString("PRODUCT_IMG"));
 		data.setProductStatus(rs.getInt("PRODUCT_STATUS"));
 		data.setProductQuantity(rs.getInt("PRODUCT_QUANTITY"));
-		
-		Map<String, Object> option = new HashMap<>();
-		option.put("categoryName", rs.getString("CATEGORY_NAME"));
-		option.put("subCategoryName", rs.getString("SUBCATEGORY_NAME"));
-		data.setOption(option);
-		
+		data.setCategoryName(rs.getString("CATEGORY_NAME"));
+		data.setSubCategoryName(rs.getString("SUBCATEGORY_NAME"));
 		return data;
 	}
 }

@@ -1,7 +1,6 @@
 package com.webWeavers.weaveGlow.biz.serial;
 
 import java.util.Date;
-import java.util.Map;
 
 import lombok.Data;
 
@@ -13,7 +12,13 @@ public class SerialDTO {
 	private Date serialRegdate;
 	private String serialDeliveryAddress;
 	
-	// 데이터 전달용 멤버변수
-	private Map<String, Object> option;
-
+	private int buyProductPK;
+	private String buyProductStatus;
+	private int productPK;
+	private String productName;
+	private int productStatus;
+	private int productPrice;
+	private int buyProductCnt;
+	private int totalprice;
+	
 }

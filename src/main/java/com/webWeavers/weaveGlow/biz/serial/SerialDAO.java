@@ -2,11 +2,7 @@ package com.webWeavers.weaveGlow.biz.serial;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-//import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -80,16 +76,14 @@ class SerialListAdminRowMapper implements RowMapper<SerialDTO>{
 		data.setSerialRegdate(rs.getDate("SERIAL_REGDATE"));
 		data.setSerialDeliveryAddress(rs.getString("SERIAL_DELIVERYADDRESS"));
 		
-		Map<String, Object> option = new HashMap<>();
-		option.put("buyProductPK", "BUYPRODUCT_PK");
-		option.put("buyProductStatus", "BUYPRODUCT_STATUS");
-		option.put("productPK", rs.getInt("PRODUCT_PK"));
-		option.put("productName", rs.getString("PRODUCT_NAME"));
-		option.put("productStatus", rs.getInt("PRODUCT_STATUS"));
-		option.put("productPrice", rs.getInt("PRODUCT_PRICE"));
-		option.put("buyProductCnt", rs.getInt("BUYPRODUCT_CNT"));
-		option.put("totalprice", rs.getInt("TOTALPRICE"));
-		data.setOption(option);
+		data.setBuyProductPK(rs.getInt("BUYPRODUCT_PK"));
+		data.setBuyProductStatus(rs.getString("BUYPRODUCT_STATUS"));
+		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		data.setProductName(rs.getString("PRODUCT_NAME"));
+		data.setProductStatus(rs.getInt("PRODUCT_STATUS"));
+		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		data.setBuyProductCnt(rs.getInt("BUYPRODUCT_CNT"));
+		data.setTotalprice(rs.getInt("TOTALPRICE"));
 		
 		return data;
 	}
