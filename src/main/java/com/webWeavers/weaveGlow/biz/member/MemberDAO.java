@@ -44,7 +44,7 @@ public class MemberDAO {
 	private static final String UPDATE_UNREGISTER = "UPDATE MEMBER SET GRADE_PK=5 WHERE MEMBER_ID=?";
 
 	private static final String DELETE = "";
-
+// 이건 테스트야
 	public List<MemberDTO> selectAll(MemberDTO memberDTO) {
 		return (List<MemberDTO>)jdbcTemplate.query(SELECTALL, new MemberRowMapper6());
 	}
