@@ -82,7 +82,7 @@ public class CartDAO {
 				result = jdbcTemplate.update(UPDATE_ADD, cartDTO.getCartCnt(), cartDTO.getMemberID(), cartDTO.getProductPK());
 			}
 			else if (cartDTO.getSearchCondition().equals("cntUpdate")) {
-				result = jdbcTemplate.update(UPDATE_CNT, cartDTO.getMemberID(), cartDTO.getProductPK());
+				result = jdbcTemplate.update(UPDATE_CNT, cartDTO.getCartCnt(), cartDTO.getMemberID(), cartDTO.getProductPK());
 			} 
 //			else if (cartDTO.getSearchCondition().equals("cntUp")) {
 //				result = jdbcTemplate.update(UPDATE_UP, cartDTO.getMemberID(), cartDTO.getProductPK());
