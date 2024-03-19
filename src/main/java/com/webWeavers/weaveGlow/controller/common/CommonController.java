@@ -31,6 +31,7 @@ public class CommonController {
 		return "user/contact";
 	}
 
+	
 	@RequestMapping("/")
 	public String root(ProductDTO productDTO) {
 		System.out.println("로그 : index진입");
