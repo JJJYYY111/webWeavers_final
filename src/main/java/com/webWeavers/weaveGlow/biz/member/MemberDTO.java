@@ -13,7 +13,7 @@ public class MemberDTO {
 	private String memberPhone;
 	private String memberNickname;
 	private String memberEmail;
-	private int memberMarketing;
+	private String memberMarketing;
 	private int memberRegdate;
 	private int gradePK;
 	private String gradeName;

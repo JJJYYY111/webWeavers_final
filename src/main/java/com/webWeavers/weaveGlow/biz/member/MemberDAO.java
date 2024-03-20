@@ -123,7 +123,7 @@ public class MemberDAO {
 			data.setMemberPhone(rs.getString("MEMBER_PHONE"));
 			data.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
 			data.setMemberEmail(rs.getString("MEMBER_EMAIL"));
-			data.setMemberMarketing(rs.getInt("MEMBER_MARKETING"));
+			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
 			data.setGradePK(rs.getInt("GRADE_PK"));
 			data.setGradeName(rs.getString("GRADE_NAME"));
 			return data;
@@ -141,7 +141,7 @@ public class MemberDAO {
 			data.setMemberPhone(rs.getString("MEMBER_PHONE"));
 			data.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
 			data.setMemberEmail(rs.getString("MEMBER_EMAIL"));
-			data.setMemberMarketing(rs.getInt("MEMBER_MARKETING"));
+			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
 			data.setGradePK(rs.getInt("GRADE_PK"));
 			return data;
 		}
@@ -176,7 +176,7 @@ public class MemberDAO {
 			data.setMemberID(rs.getString("MEMBER_ID"));
 			data.setMemberName(rs.getString("MEMBER_NAME"));
 			data.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
-			data.setMemberMarketing(rs.getInt("MEMBER_MARKETING"));
+			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
 			data.setGradePK(rs.getInt("GRADE_PK"));
 			data.setGradeName(rs.getString("GRADE_NAME"));
 			return data;
@@ -190,7 +190,7 @@ public class MemberDAO {
 			data.setMemberID(rs.getString("MEMBER_ID"));
 			data.setMemberName(rs.getString("MEMBER_NAME"));
 			data.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
-			data.setMemberMarketing(rs.getInt("MEMBER_MARKETING"));
+			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
 			data.setMemberRegdate(rs.getInt("MEMBER_REGDATE"));
 			data.setGradePK(rs.getInt("GRADE_PK"));
 			data.setGradeName(rs.getString("GRADE_NAME"));
