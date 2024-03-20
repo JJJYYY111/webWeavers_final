@@ -12,6 +12,7 @@ public class SerialDTO {
 	private Date serialRegdate;
 	private String serialDeliveryAddress;
 	
+	private String memberName;
 	private int buyProductPK;
 	private String buyProductStatus;
 	private int productPK;

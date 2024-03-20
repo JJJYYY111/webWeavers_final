@@ -17,12 +17,14 @@ public class SerialDAO {
 	
 	// 주문번호별 주문현황_(관리자)주문관리페이지
 	private static final String SELECTALL = "SELECT\r\n"
-			+ "	S.SERIAL_PK, S.MEMBER_ID, B.BUYPRODUCT_PK, B.BUYPRODUCT_STATUS, S.SERIAL_REGDATE, S.SERIAL_DELIVERYADDRESS,\r\n"
+			+ "	S.SERIAL_PK, M.MEMBER_ID, M.MEMBER_NAME,"
+			+ " B.BUYPRODUCT_PK, B.BUYPRODUCT_STATUS, S.SERIAL_REGDATE, S.SERIAL_DELIVERYADDRESS,\r\n"
 			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_STATUS,\r\n"
 			+ "	P.PRODUCT_PRICE, B.BUYPRODUCT_CNT, P.PRODUCT_PRICE * B.BUYPRODUCT_CNT AS TOTALPRICE\r\n"
 			+ "FROM SERIAL S\r\n"
 			+ "INNER JOIN BUYPRODUCT B ON S.SERIAL_PK = B.SERIAL_PK\r\n"
 			+ "LEFT JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
+			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
 			+ "ORDER BY S.SERIAL_PK DESC";
 //	private static final String SELECTONE = "";
 	// 주문추가_(관리자)주문관리페이지
@@ -76,6 +78,7 @@ class SerialListAdminRowMapper implements RowMapper<SerialDTO>{
 		data.setSerialRegdate(rs.getDate("SERIAL_REGDATE"));
 		data.setSerialDeliveryAddress(rs.getString("SERIAL_DELIVERYADDRESS"));
 		
+		data.setMemberName(rs.getString("MEMBER_NAME"));
 		data.setBuyProductPK(rs.getInt("BUYPRODUCT_PK"));
 		data.setBuyProductStatus(rs.getString("BUYPRODUCT_STATUS"));
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
