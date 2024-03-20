@@ -99,15 +99,15 @@
 									</form>
 								</div>
 							</li>
-							<c:if test="${not empty sessionMid && admin==2} ">
-								<!-- 관리자이며 로그인이 되어 있는 경우 -->
-								<li class="nav-item"><a href="/adminDashboard"><i
-										class="ti-user"></i></a></li>
-							</c:if>
-							<c:if test="${empty sessionMid || not empty sessionMid}">
+							<c:if test="${ empty sessionMid || ( grade != 2 && not empty sessionMid)}">
 								<li class="nav-item"><a href="cart"><i
 										class="ti-shopping-cart"></i></a></li>
 							</c:if>
+							<c:if test="${not empty sessionMid && grade==2}">
+                                <li class="nav-item"><a href="adminDashboard"><i
+                                        class="ti-user"></i></a></li>
+							</c:if>
+							
 							<c:if test="${not empty sessionMid}">
 								<li class="nav-item"><a class="button button-header"
 									href="logout" id="logout">로그아웃</a></li>

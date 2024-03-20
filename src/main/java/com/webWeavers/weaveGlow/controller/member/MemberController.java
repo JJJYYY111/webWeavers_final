@@ -82,7 +82,8 @@ public class MemberController {
 		// 확인된 사용자 정보가 있거나 사용자의 등급이 5등급 아닌 경우
 		else {
 			session.setAttribute("sessionMid", memberDTO.getMemberID());
-			return "redirect:/main";
+			session.setAttribute("grade", memberDTO.getGradePK());
+ 			return "redirect:/main";
 		}
 
 	}
