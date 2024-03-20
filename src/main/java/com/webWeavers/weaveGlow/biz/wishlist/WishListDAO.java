@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository("wishListDAO")
 public class WishListDAO {
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -39,9 +39,11 @@ public class WishListDAO {
 	public WishListDTO selectOne(WishListDTO wishListDTO) {
 		Object[] args = { wishListDTO.getMemberID(), wishListDTO.getProductPK() };
 		try {
-			return jdbcTemplate.queryForObject(SELECTONE, args, new WishListRowMapper2());
+			if (wishListDTO.getMemberID() != null && !wishListDTO.getMemberID().isEmpty()) {
+				return jdbcTemplate.queryForObject(SELECTONE, args, new WishListRowMapper2());
+			}
+			return null;
 		} catch (Exception e) {
-			System.out.println("wishlist selectOne 오류진입");
 			e.printStackTrace();
 			return null;
 		}
@@ -101,6 +103,7 @@ class WishListRowMapper2 implements RowMapper<WishListDTO> {
 		data.setWishListPK(rs.getInt("WISHLIST_PK"));
 		data.setMemberID(rs.getString("MEMBER_ID"));
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		System.out.println("로그2 : " + data);
 		return data;
 	}
 }
