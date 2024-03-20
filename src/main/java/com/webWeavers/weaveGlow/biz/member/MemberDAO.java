@@ -97,8 +97,7 @@ public class MemberDAO {
 				return false;
 			}
 		} else if (memberDTO.getSearchCondition().equals("unregisterUpdateInfo")) {
-			Object[] args = { memberDTO.getMemberNickname() };
-			result = jdbcTemplate.update(UPDATE_UNREGISTER, memberDTO.getMemberNickname());
+			result = jdbcTemplate.update(UPDATE_UNREGISTER, memberDTO.getMemberID());
 			if (result <= 0) {
 				return false;
 			}
