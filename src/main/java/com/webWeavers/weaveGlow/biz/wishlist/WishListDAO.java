@@ -29,7 +29,7 @@ public class WishListDAO {
 	public List<WishListDTO> selectAll(WishListDTO wishListDTO) {
 		Object[] args = { wishListDTO.getMemberID() };
 		try {
-			return (List<WishListDTO>) jdbcTemplate.query(SELECTALL, args, new WishListRowMapper1());
+			return jdbcTemplate.query(SELECTALL, args, new WishListRowMapper1());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

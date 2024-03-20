@@ -77,15 +77,15 @@ public class ProductDAO {
 		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
 		try {
 			if (productDTO.getSearchCondition().equals("sales")) {
-				return (List<ProductDTO>)jdbcTemplate.query(selectAllQuery("sales", 100), args1, new ProductListUserRowMapper());
+				return jdbcTemplate.query(selectAllQuery("sales", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("regdate")) {
-				return (List<ProductDTO>)jdbcTemplate.query(selectAllQuery("regdate", 100), args1, new ProductListUserRowMapper());
+				return jdbcTemplate.query(selectAllQuery("regdate", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("wish")) {
-				return (List<ProductDTO>)jdbcTemplate.query(selectAllQuery("wish", 8), args1, new ProductListUserRowMapper());
+				return jdbcTemplate.query(selectAllQuery("wish", 8), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("rowPrice")) {
-				return (List<ProductDTO>)jdbcTemplate.query(selectAllQuery("rowPrice", 100), args1, new ProductListUserRowMapper());
+				return jdbcTemplate.query(selectAllQuery("rowPrice", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("searchName")) {
-				return (List<ProductDTO>)jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
+				return jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("adminProductList")) {
 //				int pageNum = 0;
 //				if(productDTO.getOption().containsKey("pageNum")) {
@@ -96,7 +96,7 @@ public class ProductDAO {
 					pageNum = productDTO.getPageNum() - 1;
 				}
 				Object[] args3 = { pageNum };
-				return (List<ProductDTO>)jdbcTemplate.query(SELECTALL_ADMINPRODUCTLIST, args3, new ProductListAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_ADMINPRODUCTLIST, args3, new ProductListAdminRowMapper());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

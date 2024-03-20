@@ -45,7 +45,7 @@ public class CartDAO {
 	public List<CartDTO> selectAll(CartDTO cartDTO) {
 		Object[] arg = { cartDTO.getMemberID() };
 		try {
-			return (List<CartDTO>) jdbcTemplate.query(SELECTALL, arg, new CartRowMapper());
+			return jdbcTemplate.query(SELECTALL, arg, new CartRowMapper());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

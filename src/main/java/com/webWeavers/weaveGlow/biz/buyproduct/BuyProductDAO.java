@@ -31,9 +31,9 @@ public class BuyProductDAO {
 		Object[] args = { buyProductDTO.getMemberID() };
 		try {
 			if (buyProductDTO.getSearchCondition().equals("checkoutList")) {
-				return (List<BuyProductDTO>)jdbcTemplate.query(SELECTALL_CHECKOUTLIST, args, new BuyProductRowMapper1());
+				return jdbcTemplate.query(SELECTALL_CHECKOUTLIST, args, new BuyProductRowMapper1());
 			} else if (buyProductDTO.getSearchCondition().equals("checkoutSuccess")) {
-				return (List<BuyProductDTO>)jdbcTemplate.query(SELECTALL_CHECKOUTSUCCESS, args, new BuyProductRowMapper2());
+				return jdbcTemplate.query(SELECTALL_CHECKOUTSUCCESS, args, new BuyProductRowMapper2());
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

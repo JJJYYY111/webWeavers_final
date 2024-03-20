@@ -32,7 +32,7 @@ public class SerialDAO {
 
 	public List<SerialDTO> selectAll(SerialDTO serialDTO) {
 		try {
-			return (List<SerialDTO>)jdbcTemplate.query(SELECTALL, new SerialListAdminRowMapper());
+			return jdbcTemplate.query(SELECTALL, new SerialListAdminRowMapper());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
