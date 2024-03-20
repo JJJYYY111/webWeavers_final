@@ -75,7 +75,6 @@ public class ProductController {
 		if(wishListDTO.getMemberID()== null) {
 			wishListDTO.setMemberID("");
 		}
-		System.out.println(wishListDTO);
 		if (wishListService.selectOne(wishListDTO) == null) {
 			model.addAttribute("like", 0);
 		} else {
@@ -84,9 +83,8 @@ public class ProductController {
 		
 		reviewDTO.setSearchCondition("regdate");
 		List<ReviewDTO> rdatas = reviewService.selectAll(reviewDTO);
-
 		// 리뷰 리스트의 저장된 리뷰가 없는 경우
-		if (rdatas == null || rdatas.size() <= 0) {
+		if ( rdatas == null || rdatas.size() <= 0) {
 			System.out.println("해당 상품에 저장된 리뷰가 없음");
 			model.addAttribute("msg", "등록된 리뷰가 없습니다");
 			return "user/productDetail";

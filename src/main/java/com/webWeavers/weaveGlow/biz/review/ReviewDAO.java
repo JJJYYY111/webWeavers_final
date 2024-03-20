@@ -77,13 +77,14 @@ public class ReviewDAO {
 		Object[] args2 = { reviewDTO.getMemberID() };
 		try {
 			if (reviewDTO.getSearchCondition().equals("regdate")) {
-				return (List<ReviewDTO>)jdbcTemplate.query(selectAllQuery("regdate"), args1, new ReviewListRowMapper());
+				return jdbcTemplate.query(selectAllQuery("regdate"), args1, new ReviewListRowMapper());
 			} else if(reviewDTO.getSearchCondition().equals("reviewLike")) {
-				return (List<ReviewDTO>)jdbcTemplate.query(selectAllQuery("reviewLike"), args1, new ReviewListRowMapper());
+				return jdbcTemplate.query(selectAllQuery("reviewLike"), args1, new ReviewListRowMapper());
 			} else if (reviewDTO.getSearchCondition().equals("myReview")) {
-				return (List<ReviewDTO>)jdbcTemplate.query(SELECTALL_MYREVIEW, args2, new ReviewMyListRowMapper());
+				return jdbcTemplate.query(SELECTALL_MYREVIEW, args2, new ReviewMyListRowMapper());
 			}
 		} catch (Exception e) {
+			System.out.println("reviewSelectAll오류진입");
 			e.printStackTrace();
 			return null;
 		}
