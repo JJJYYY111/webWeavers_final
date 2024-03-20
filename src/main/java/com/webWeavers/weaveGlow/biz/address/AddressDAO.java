@@ -17,7 +17,8 @@ public class AddressDAO {
 	private static final String SELECTALL = "SELECT ADDRESS_PK, ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME FROM ADDRESS WHERE MEMBER_ID = ?";
 	private static final String SELECTONE = "SELECT ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME FROM ADDRESS WHERE ADDRESS_PK = ?";
 
-	private static final String INSERT = "INSERT INTO ADDRESS (MEMBER_ID, ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String INSERT = "INSERT INTO ADDRESS (ADDRESS_PK, MEMBER_ID, ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME)"
+										+ " SELECT IFNULL(MAX(ADDRESS_PK), 0) + 1 , ?, ?, ?, ?, ?, ? FROM ADDRESS";
 	private static final String UPDATE = "UPDATE ADDRESS SET ADDRESS_ZONECODE=?, ADDRESS_JIBUN=?, ADDRESS_ROAD=?, ADDRESS_DETAIL=?, ADDRESS_NAME=? WHERE ADDRESS_PK=?";
 	private static final String DELETE = "DELETE FROM ADDRESS WHERE ADDRESS_PK=?";
 
@@ -89,7 +90,11 @@ class AddressRowMapper2 implements RowMapper<AddressDTO> {
 	@Override
 	public AddressDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		AddressDTO data = new AddressDTO();
-		data.setAddressPK(rs.getInt("ADDRESS_PK"));
+		data.setAddressZonecode(rs.getString("ADDRESS_ZONECODE"));
+		data.setAddressJibun(rs.getString("ADDRESS_JIBUN"));
+		data.setAddressRoad(rs.getString("ADDRESS_ROAD"));
+		data.setAddressDetail(rs.getString("ADDRESS_DETAIL"));
+		data.setAddressName(rs.getString("ADDRESS_NAME"));
 		return data;
 	}
 }
