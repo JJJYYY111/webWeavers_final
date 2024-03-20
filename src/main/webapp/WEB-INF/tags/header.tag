@@ -69,28 +69,28 @@
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
-					<a class="navbar-brand logo_h" href="main.do"><img
+					<a class="navbar-brand logo_h" href="main"><img
 						src="img/WgLogo.png" alt="" style="width: 200px;"></a>
 					<div class="collapse navbar-collapse offset"
 						id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto mr-auto">
 							<li class="nav-item"><a class="nav-link"
-								href="productList.do" onmouseover="showDropdownMenu()">상품목록</a>
+								href="productList" onmouseover="showDropdownMenu()">상품목록</a>
 								<div class="dropdown-menu popover" id="productDropdownMenu"
 									onmouseleave="hideDropdownMenu()">
-									<a href="productList.do" class="dropdown-item">전체</a>
+									<a href="productList" class="dropdown-item">전체</a>
 									<div class="dropdown-divider"></div>
 									<!-- 선 추가 -->
-									<a href="skincareProductList.do" class="dropdown-item">스킨케어</a>
-									<a href="cleangingProductList.do" class="dropdown-item">클렌징</a>
+									<a href="skincareProductList" class="dropdown-item">스킨케어</a>
+									<a href="cleangingProductList" class="dropdown-item">클렌징</a>
 									<a href="packProductList.jsp" class="dropdown-item">마스크 팩</a>
 								</div></li>
-							<li class="nav-item"><a class="nav-link" href="contact.do">회사정보</a></li>
+							<li class="nav-item"><a class="nav-link" href="contact">회사정보</a></li>
 						</ul>
 						<ul class="nav-shop">
 							<li class="nav-item">
 								<div id="searchName">
-									<form action="searchProductName.do" id="insertForm"
+									<form action="searchProductName" id="insertForm"
 										method="GET" onsubmit="removeSpace()">
 										<input id="searchNameText" type="text" name="content" />
 										<button type="submit">
@@ -105,20 +105,20 @@
 										class="ti-user"></i></a></li>
 							</c:if>
 							<c:if test="${empty sessionMid || not empty sessionMid}">
-								<li class="nav-item"><a href="cart.do"><i
+								<li class="nav-item"><a href="cart"><i
 										class="ti-shopping-cart"></i></a></li>
 							</c:if>
 							<c:if test="${not empty sessionMid}">
 								<li class="nav-item"><a class="button button-header"
-									href="logout.do" id="logout">로그아웃</a></li>
+									href="logout" id="logout">로그아웃</a></li>
 								<li class="nav-item"><a class="button button-header"
-									href="mypage.do" id="mypage">마이페이지</a></li>
+									href="mypage" id="mypage">마이페이지</a></li>
 							</c:if>
 							<c:if test="${empty sessionMid}">
 								<li class="nav-item"><a class="button button-header"
-									href="login.do" id="login">로그인</a></li>
+									href="login" id="login">로그인</a></li>
 								<li class="nav-item"><a class="button button-header"
-									href="register.do" id="register">회원가입</a></li>
+									href="register" id="register">회원가입</a></li>
 							</c:if>
 						</ul>
 					</div>
@@ -149,7 +149,7 @@
 		function adjustPopoverPosition() {
 			var dropdownMenu = document.getElementById("productDropdownMenu");
 			var productListLink = document
-					.querySelector('.nav-link[href="productList.do"]');
+					.querySelector('.nav-link[href="productList"]');
 
 			dropdownMenu.style.top = productListLink.offsetHeight + "px";
 		}

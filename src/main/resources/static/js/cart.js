@@ -89,7 +89,6 @@ function updateSubtotal() {
 /* 장바구니 추가 */
 // addToCart 함수: 장바구니에 제품 추가하는 함수
 function addToCart() {
-	console.log('addToCart진입');
     // getProductPPK 함수를 통해 동적으로 설정된 데이터 속성 'data-ppk' 값을 가져옴
     var ppk = getProductPPK();  
 

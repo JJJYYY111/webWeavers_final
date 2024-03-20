@@ -21,12 +21,12 @@
 					<h4>${data.memberNickname}</h4>
 					<p>${data.memberEmail}</p>
 				</div>
-				<div class="custom-button"><a class="mypage-menu" href="passwordCheck" style="color: black !important;">회원탈퇴</a></div>
+				<div class="custom-button"><a class="mypage-menu" href="unregisterpasswordCheck" style="color: black !important;">회원탈퇴</a></div>
 			</div>	
 			<!-- /회원 기본정보 및 회원탈퇴 버튼-->
 			<div class="row" style="margin-bottom: 100px">
 				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
-					<div class="mypage-button"><a class="mypage-menu" href="passwordCheck" style="color: black !important;">개인정보수정</a></div>
+					<div class="mypage-button"><a class="mypage-menu" href="profileChangepasswordCheck" style="color: black !important;">개인정보수정</a></div>
 				</div>
 				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
 					<div class="mypage-button"><a class="mypage-menu" href="checkoutList" style="color: black !important;">구매내역</a></div>
