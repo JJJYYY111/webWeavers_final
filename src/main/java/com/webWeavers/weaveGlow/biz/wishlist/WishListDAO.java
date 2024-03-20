@@ -39,10 +39,7 @@ public class WishListDAO {
 	public WishListDTO selectOne(WishListDTO wishListDTO) {
 		Object[] args = { wishListDTO.getMemberID(), wishListDTO.getProductPK() };
 		try {
-			if (wishListDTO.getMemberID() != null && !wishListDTO.getMemberID().isEmpty()) {
-				return jdbcTemplate.queryForObject(SELECTONE, args, new WishListRowMapper2());
-			}
-			return null;
+			return jdbcTemplate.queryForObject(SELECTONE, args, new WishListRowMapper2());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
