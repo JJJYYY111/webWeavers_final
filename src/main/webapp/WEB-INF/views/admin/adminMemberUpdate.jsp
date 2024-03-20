@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/admin/assets/images/favicon.png">
+    <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
+    <!-- Custom CSS -->
+    <link href="/admin/dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin6">
+            <nav class="navbar top-navbar navbar-expand-md">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-brand">
+                        <!-- Logo icon -->
+                        <a href="/admin/index.jsp">
+                            <b class="logo-icon">
+                                <!-- Dark Logo icon -->
+                                <img src="/admin/assets/images/logo_small.png" width=40; alt="homepage" class="dark-logo" />
+                                <!-- Light Logo icon -->
+                                <img src="/admin/assets/imageslogo_small.png" alt="homepage" class="light-logo" />
+                            </b>
+                            <!--End Logo icon -->
+                            <!-- Logo text -->
+                            <span class="logo-text">
+                                <!-- dark Logo text -->
+                                <img src="/admin/assets/images/weaveGlow_logo1.png" width=165; alt="homepage"
+                                    class="dark-logo" />
+                                <!-- Light Logo text -->
+                                <img src="/admin/assets/images/light-logo 1.png" class="light-logo" alt="homepage" />
+                            </span>
+                        </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                            class="ti-more"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+                        <!-- Notification -->
+                        <li class="nav-item dropdown">
+                            <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
+                                <ul class="list-style-none">
+                                    <li>
+                                        <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
+                                            <strong>Check all notifications</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-right">
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <img src="/admin/assets/images/weaveglow_logo_small1.jpg" alt="user" class="rounded-circle"
+                                    width="40">
+                                <span class="ml-2 d-none d-lg-inline-block"><span style="color:black;">Web</span> <span
+                                        class="text-dark">weavers</span> <i data-feather="chevron-down" class="svg-icon"
+                                        style="color: black;"></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-sm-right ">
+                                <div class="p-2"> <a href="javascript:void(0)" class="btn btn-sm btn-info"
+                                        style="width: 100%;"> Logout
+                                    </a> </div>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/adminDashboard.jsp"
+                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
+                                    class="hide-menu">메인</span></a></li>
+                        <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link" href="/admin/adminMemberStatus .jsp"
+                                aria-expanded="false"><i data-feather="tag" class="feather-icon"></i><span
+                                    class="hide-menu">회원관리
+                                </span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
+                                    class="hide-menu">상품관리
+                                </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"><a href="/admin/adminProductStatus.jsp" class="sidebar-link">
+                                        <span class="hide-menu"> 상품현황
+                                        </span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="adminProductRegistration.jsp" class="sidebar-link">
+                                        <span class="hide-menu"> 상품등록
+                                        </span></a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/adminOrderStatus.jsp"
+                                aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
+                                    class="hide-menu">주문관리</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
+                                    class="hide-menu">매출관리
+                                </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"><a href="/admin/salesStatus.jsp" class="sidebar-link"><span
+                                            class="hide-menu"> 매출현황
+                                        </span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="/admin/daliySalesStatus.jsp" class="sidebar-link"><span
+                                            class="hide-menu"> 일별매출
+                                        </span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="/admin/monthlySalesStatus.jsp" class="sidebar-link"><span
+                                            class="hide-menu">
+                                            월별매출
+                                        </span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="/admin/annualSalesStatus.jsp" class="sidebar-link"><span
+                                            class="hide-menu">
+                                            연간매출
+                                        </span></a>
+                                </li>
+                            </ul>
+                        <li class="list-divider"></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/authentication-login1.jsp"
+                                aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span
+                                    class="hide-menu">로그아웃</span></a></li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-7 align-self-center">
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원 수정 페이지</h4>
+                        <div class="d-flex align-items-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb m-0 p-0">
+                                    <li class="breadcrumb-item"><a href="/admin/index.jsp" class="text-muted">Home</a></li>
+                                    <li class="breadcrumb-item text-muted active" aria-current="page">Library</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">회원정보수정</h4>
+                                <hr>
+                                <form name="profileChangeForm" class="col-lg-12 row login_form" action="/admin/memberUpdate"
+                                    method="POST" id="profileChange_form">
+                                    <!-- 개인정보수정 -->
+                                    <!-- 3.12 자세한 내용 수정예정 column명  -->
+                                    <div class="col-lg-12">
+                                        <div class="login_form_inner register_form_inner">
+                                            <h3>회원정보</h3>
+                                            <hr>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-lg-2"
+                                                        style="margin-top: 7px; margin-bottom: 4px;">아이디</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <input type="text" class="form-control col-md-12"
+                                                                    id="registMid" name="memberId" placeholder="아이디 입력"
+                                                                    onfocus="this.placeholder = ''"
+                                                                    onblur="this.placeholder = '아이디 입력'"
+                                                                    style="display: inline-block;" value="${sessionMid}"
+                                                                    disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12"
+                                                style="text-align: left; font-size: 13px; padding: 3px">
+                                                <div class="col-md-3 label-text"></div>
+                                                <span class="col-md-9" id="idCheck"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-lg-2"
+                                                        style="margin-top: 7px; margin-bottom: 4px;">비밀번호</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <input type="password" class="form-control col-md-12"
+                                                                    id="registMpw" name="memberPassword"
+                                                                    placeholder="비밀번호 입력"
+                                                                    onfocus="this.placeholder = ''"
+                                                                    onblur="this.placeholder = '비밀번호 입력'"
+                                                                    style="display: inline-block;"
+                                                                    value="${memberPassword}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12"
+                                                style="text-align: left; font-size: 13px; padding: 3px">
+                                                <div class="col-md-4 label-text"></div>
+                                                <span class="col-md-9" id="pwCheck"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-lg-2"
+                                                        style="margin-top: 7px; margin-bottom: 4px;">비밀번호 확인</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <input type="password" class="form-control col-md-12"
+                                                                    id="confirmMpw" name="confirmMemberpasswoed"
+                                                                    placeholder="비밀번호 확인"
+                                                                    onfocus="this.placeholder = ''"
+                                                                    onblur="this.placeholder = '비밀번호 확인'"
+                                                                    style="display: inline-block;"
+                                                                    value="${memberPassword}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12"
+                                                style="text-align: left; font-size: 13px; padding: 3px">
+                                                <div class="col-md-4 label-text"></div>
+                                                <span class="col-md-9" id="confirmPwCheck"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-lg-2"
+                                                        style="margin-top: 7px; margin-bottom: 4px;">이름</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <input type="text" class="form-control col-md-12"
+                                                                    id="registName" name="name" placeholder="이름 입력"
+                                                                    onfocus="this.placeholder = ''"
+                                                                    onblur="this.placeholder = '이름 입력'"
+                                                                    style="display: inline-block;" value="${name}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12"
+                                                style="text-align: left; font-size: 13px; padding: 3px">
+                                                <div class="col-md-4 label-text"></div>
+                                                <span class="col-md-9"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-lg-2"
+                                                        style="margin-top: 7px; margin-bottom: 4px;">생년월일</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <input type="date" class="form-control col-md-12"
+                                                                    id="registBirth" name="birth" placeholder="생년월일"
+                                                                    onfocus="this.placeholder = ''"
+                                                                    onblur="this.placeholder = '생년월일'"
+                                                                    style="display: inline-block;" value="${birth}"
+                                                                    disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12"
+                                                style="text-align: left; font-size: 13px; padding: 3px">
+                                                <div class="col-md-4 label-text"></div>
+                                                <span class="col-md-9"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-lg-2"
+                                                        style="margin-top: 7px; margin-bottom: 4px;">전화번호</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <input type="text" class="form-control col-md-12"
+                                                                    id="registPhone" name="phone" placeholder="전화번호 입력"
+                                                                    onfocus="this.placeholder = ''"
+                                                                    onblur="this.placeholder = '전화번호 입력'"
+                                                                    style="display: inline-block;" value="${phone}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12"
+                                                style="text-align: left; font-size: 13px; padding: 3px">
+                                                <div class="col-md-4 label-text"></div>
+                                                <span class="col-md-9" id="phoneCheck"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-lg-2"
+                                                        style="margin-top: 7px; margin-bottom: 4px;">닉네임</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <input type="text" class="form-control col-md-12"
+                                                                    id="registNickname" name="nickname"
+                                                                    placeholder="닉네임 입력" onfocus="this.placeholder = ''"
+                                                                    onblur="this.placeholder = '닉네임 입력'"
+                                                                    style="display: inline-block;" value="${nickname}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12"
+                                                style="text-align: left; font-size: 13px; padding: 3px">
+                                                <div class="col-md-4 label-text"></div>
+                                                <span class="col-md-9" id="nickCheck"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-lg-2"
+                                                        style="margin-top: 7px; margin-bottom: 4px;">이메일</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <input type="text" class="form-control col-md-12"
+                                                                    id="registEmail" name="email" placeholder="e-mail"
+                                                                    onfocus="this.placeholder = ''"
+                                                                    onblur="this.placeholder = 'e-mail'"
+                                                                    style="display: inline-block;" value="${email}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12"
+                                                style="text-align: left; font-size: 13px; padding: 3px">
+                                                <div class="col-md-4 label-text"></div>
+                                                <span class="col-md-9" id="emailCheck"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-lg-2"
+                                                        style="margin-top: 7px; margin-bottom: 4px;">회원등급</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <select class="custom-select mr-sm-2"
+                                                                    id="inlineFormCustomSelect">
+                                                                    <option selected>선택</option>
+                                                                    <option value="1">브론즈</option>
+                                                                    <option value="2">실버</option>
+                                                                    <option value="3">골드</option>
+                                                                    <option value="4">탈퇴</option>
+                                                                    <option value="5">관리자</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="text-right">
+                                                <button type="submit" class="btn btn-info">완료</button>
+                                                <button type="button" class="btn btn-dark">취소</button>
+                                                <button type="reset" class="btn btn-outline-dark float-left">리셋</button>
+                                            </div>                                        
+                                        </div>
+                                        <!-- <div class="col-md-12 form-group">
+                                            <button type="submit" value="submit"
+                                                class="button button-register w-100">확인</button>
+                                        </div> -->
+                                    </div>
+                            </div>
+                            <!-- 개인정보수정 -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center text-muted">
+            All Rights Reserved by Adminmart. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script src="dist/js/app-style-switcher.js"></script>
+    <script src="dist/js/feather.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <!-- themejs -->
+    <!--Menu sidebar -->
+    <script src="dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="dist/js/custom.min.js"></script>
+</body>
+
+</html>
