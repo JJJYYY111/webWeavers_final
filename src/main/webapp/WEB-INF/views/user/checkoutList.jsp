@@ -39,7 +39,7 @@
 					<div class="desc">
 						<h5><a href="productDetail?productPK=${data.productPK}">${data.productName}</a></h5>
 						<p class="comment">상품가격: <fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />원</p>
-						<p class="comment">구매수량: ${data.cartCnt}</p>
+						<p class="comment">구매수량: ${data.buyProductCnt}</p>
 					</div>
 				</div>
 				<div class="reply-btn">

@@ -90,14 +90,12 @@ public class MemberController {
 
 	@RequestMapping("/memberUpdate")
 	public String memberUpdate(MemberDTO memberDTO, HttpSession session) {
-
 		memberDTO.setSearchCondition("updateInfo");
 
-		if (memberService.update(memberDTO)) { // 성공했으면 mypage로 이동
-			return "redirect:/mypage";
-		} else { // 실패했으면 다시 에러페이지로 이동
+		if (!memberService.update(memberDTO)) { // 성공했으면 mypage로 이동
 			return "redirect:/error";
 		}
+		return "redirect:/mypage";
 	}
 
 	@RequestMapping("/mypage")

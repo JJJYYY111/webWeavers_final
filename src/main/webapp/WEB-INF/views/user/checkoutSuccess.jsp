@@ -100,10 +100,10 @@
 											<p><fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />원</p>
 										</td>
 										<td>
-											<p>${data.cartCnt}</p>
+											<p>${data.buyProductCnt}</p>
 										</td>
 										<td>
-											<p><span class="productPrice"><fmt:formatNumber value="${data.productPrice*data.cartCnt}" currencyCode="KRW" /></span>원</p>
+											<p><span class="productPrice"><fmt:formatNumber value="${data.productPrice*data.buyProductCnt}" currencyCode="KRW" /></span>원</p>
 										</td>
 									</tr>
 								</c:forEach>

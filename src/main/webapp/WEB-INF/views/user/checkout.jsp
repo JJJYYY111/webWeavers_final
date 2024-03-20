@@ -186,7 +186,7 @@
 							<div class="col-md-10 form-group">
 								<div class="input-group">
 									<input type="text" class="form-control" id="checkout_zonecode"
-										name="checkout_zonecode" placeholder="우편번호"
+										name="addressZonecode" placeholder="우편번호"
 										style="display: inline-block; background-color: #fff" readonly>
 									<div class="input-group-append">
 										<button type="button" class="btn btn-primary"
@@ -197,7 +197,7 @@
 							</div>
 							<div class="col-md-10 form-group">
 								<input type="text" class="form-control"
-									id="checkout_roadAddress" name="addressZonecode"
+									id="checkout_roadAddress" name="addressRoad"
 									placeholder="도로명주소" 
 									style="display: inline-block; background-color: #fff" readonly>
 							</div>

@@ -47,24 +47,19 @@ public class CheckoutController {
 		if(cdatas.isEmpty()) { // 장바구니에 물품이 없을경우 유효성검사	
 			return "user/cart";
 		}
-		// 결제 페이지에 구매할 물품들을 출력하기위해 전달
-		model.addAttribute("cartDatas", cdatas);
+		model.addAttribute("cdatas", cdatas);
 		
-		// 사용자 DTO에 'id'와 검색조건'회원정보'설정
 		memberDTO.setMemberID((String)session.getAttribute("sessionMid"));
 		memberDTO.setSearchCondition("memberInfo");
-		if(memberService.selectOne(memberDTO) == null) { // 해당 사용자가 존재하지 않는다면
+		memberDTO = memberService.selectOne(memberDTO);
+		if(memberDTO == null) { // 해당 사용자가 존재하지 않는다면
 			return "redirect:/error";
-		} else { // 사용자가 존재한다면 사용자의 이름, 이메일, 전화번호, 마케팅(이메일수신) 정보를 request에 저장해서 checkout.jsp로 전송
-			model.addAttribute("name", memberDTO.getMemberName());
-			model.addAttribute("email", memberDTO.getMemberEmail());
-			model.addAttribute("phone", memberDTO.getMemberPhone());
-			model.addAttribute("marketing", memberDTO.getMemberMarketing());
-			
-			//  request에 저장된 값이 존재하기 때문에 forward를 false로 설정
-			// 결제페이지로 이동
-			return "user/checkout";
 		}
+		model.addAttribute("memberName", memberDTO.getMemberName());
+		model.addAttribute("memberPhone", memberDTO.getMemberEmail());
+		model.addAttribute("memberEmail", memberDTO.getMemberPhone());
+		model.addAttribute("memberMarketing", memberDTO.getMemberMarketing());
+		return "user/checkout";
 	}
 	
 	@RequestMapping("/checkoutList")
@@ -104,10 +99,8 @@ public class CheckoutController {
 	public String checkoutSuccess(CartDTO cartDTO, AddressDTO addressDTO, SerialDTO serialDTO, BuyProductDTO buyProductDTO, ProductDTO pDTO, MemberDTO memberDTO, HttpSession session, Model model) {
 	      String mid = (String)session.getAttribute("sessionMid");
 	      
-	      // 유효성검사를 위한 flag변수 선언 및 초기화;
 	      boolean flag = false;
 	      
-	      // 장바구니DTO에 사용자 id를 저장하여 검색기능인 R(selectAll) 기능을 사용하여 해당 유저의 장바구니목록을 받아옴
 	      cartDTO.setMemberID(mid);
 	      List<CartDTO> datas = cartService.selectAll(cartDTO);
 	      
@@ -120,12 +113,9 @@ public class CheckoutController {
 	      }
 	      model.addAttribute("addressDTO", addressDTO);// 파라미터값을 저장한 aDTO를 request에 저장   
 	      
-	      // 주문번호에 저장할 배송지 ( 주소와는 별개로 지정해야함 ), 주소로 배송지를 저장한다면? => 이사해서 주소를 변경할 경우 과거의 배송지도 같이 변경되는 경우가 발생!
-	      // 배송지는 request로 값들을 받아와서 한줄의 문자열로 저장
 	      String address = "["+addressDTO.getAddressName()+"] "+addressDTO.getAddressRoad()+" "+ addressDTO.getAddressDetail();
 	      
 	      try {
-	         // 주문번호DTO에 사용자 id와 사용자의 배송지를 입력하여 주문번호DAO의 Insert기능을 수행 ( 주문번호를 테이블에 저장 ) 
 	         serialDTO.setMemberID(mid);
 	         serialDTO.setSerialDeliveryAddress(address);
 	         if(serialService.insert(serialDTO)) {    // 테이블에 데이터가 성공적으로 저장이 됐다면
@@ -164,7 +154,7 @@ public class CheckoutController {
 	      try {
 	         // 장바구니DTO에 사용자의 id와 '전체삭제'조건을 입력
 	         cartDTO.setMemberID(mid);
-	         cartDTO.setSearchCondition("전체삭제");
+	         cartDTO.setSearchCondition("deleteAll");
 	         flag = cartService.delete(cartDTO); // 장바구니DTO를 사용하여 삭제기능인 D(DELETE)기능을 사용하여 해당유저의 장바구니의 모든 상품 삭제
 	         if(flag) { // 장바구니 테이블에서 데이터 삭제가 성공했다면
 	            System.out.println("CART 테이블에 데이터 삭제 성공!"); // 삭제성공문구 출력

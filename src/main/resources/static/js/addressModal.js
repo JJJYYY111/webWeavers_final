@@ -32,21 +32,21 @@ function addressListForm(data){
 	<tr>
 		<td style="text-align: left;">
 		<br>
-	<input class="checkInput" type="radio" name="addressformcheck" id="addressNum_${data.apk}" style="display:none;" value="${data.apk}">
-	<label class="checkLabel offset-lg-1 col-lg-10" for="addressNum_${data.apk}">
+	<input class="checkInput" type="radio" name="addressformcheck" id="addressNum_${data.addressPK}" style="display:none;" value="${data.addressPK}">
+	<label class="checkLabel offset-lg-1 col-lg-10" for="addressNum_${data.addressPK}">
 			<div class="media">
 				<div class="media-body" style="color:black;">
-					<h3 class="billing-title">${data.aname}</h3>
-					<p id="modalSelectAll_zonecode">우편번호 : &nbsp; ${data.zonecode}</p>
-					<p id="modalSelectAll_jibunAddress">지번주소 : &nbsp; ${data.jibunaddress?data.jibunaddress:''}</p>
-					<p id="modalSelectAll_roadAddress">도로명주소 : &nbsp; ${data.roadaddress}</p>
-					<p id="modalSelectAll_detail">상세주소 : &nbsp; ${data.detail?data.detail:''}</p>
-					<input type="hidden" id="modalSelectAll_apk" value="${data.apk}">
+					<h3 class="billing-title">${data.addressName}</h3>
+					<p id="modalSelectAll_zonecode">우편번호 : &nbsp; ${data.addressZonecode}</p>
+					<p id="modalSelectAll_jibunAddress">지번주소 : &nbsp; ${data.addressJibun?data.addressJibun:''}</p>
+					<p id="modalSelectAll_roadAddress">도로명주소 : &nbsp; ${data.addressRoad}</p>
+					<p id="modalSelectAll_detail">상세주소 : &nbsp; ${data.addressDetail?data.addressDetail:''}</p>
+					<input type="hidden" id="modalSelectAll_apk" value="${data.addressPK}">
 				</div>
 			</div>
 			<div>
-				<button data-bs-target="#modalboxUpdate" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-primary" onclick='addressUpdateSetting("${data.apk}", "${data.zonecode}", "${data.jibunaddress?data.jibunaddress:''}", "${data.roadaddress}", "${data.detail?data.detail:''}", "${data.aname}")'>수정</button> &nbsp;
-				<button data-bs-target="#modalboxDelete" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-secondary" onclick='addressDeleteSetting("${data.apk}", "${data.aname}")'>삭제</button>
+				<button data-bs-target="#modalboxUpdate" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-primary" onclick='addressUpdateSetting("${data.addressPK}", "${data.addressZonecode}", "${data.addressJibun?data.addressJibun:''}", "${data.addressRoad}", "${data.addressDetail?data.addressDetail:''}", "${data.addressName}")'>수정</button> &nbsp;
+				<button data-bs-target="#modalboxDelete" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-secondary" onclick='addressDeleteSetting("${data.addressPK}", "${data.addressName}")'>삭제</button>
 			</div>
 	</label>
 	<br>
@@ -93,14 +93,14 @@ function addSubmit() { // 비동기처리로 DB에 주소를 추가 (DAO => INSE
 	$.ajax({																	
 		type: "POST",
 		url: 'async/addressInsert',
-		data: { 'zondecode' : modalInsert_zonecode.value,				
-				'roadAddress' : modalInsert_roadAddress.value,
-				'jibunAddress' : modalInsert_jibunAddress.value,
-				'detail' : modalInsert_detail.value,
-				'aname' : modalInsert_aname.value
+		data: { 'addressZonecode' : modalInsert_zonecode.value,				
+				'addressRoad' : modalInsert_roadAddress.value,
+				'addressJibun' : modalInsert_jibunAddress.value,
+				'addressDetail' : modalInsert_detail.value,
+				'addressName' : modalInsert_aname.value
 			  },												
 		success: function(data) {
-			if(data == 1){ // 1을 받아왔다면 주소테이블에 주소 추가 성공
+			if(data == true){ // 1을 받아왔다면 주소테이블에 주소 추가 성공
 				console.log('성공');
 				deleteList(); // 주소 목록을 전부 비우기
 				getAddressList(); // 주소목록을 다시 세팅해주기
@@ -151,15 +151,15 @@ function changeSubmit(){ // 비동기처리로 DB에 주소를 변경 (DAO => UP
 	$.ajax({																	
 		type: "POST",
 		url: 'async/addressUpdate',
-		data: { 'apk' : modalUpdate_apk.innerText,
-				'aname' : modalUpdate_aname.value,
-				'zondecode' : modalUpdate_zonecode.value,
-				'roadAddress' : modalUpdate_roadAddress.value,
-				'jibunAddress' : modalUpdate_jibunAddress.value,
-				'detail' : modalUpdate_detail.value
+		data: { 'addressPK' : modalUpdate_apk.innerText,
+				'addressName' : modalUpdate_aname.value,
+				'addressZonecode' : modalUpdate_zonecode.value,
+				'addressRoad' : modalUpdate_roadAddress.value,
+				'addressJibun' : modalUpdate_jibunAddress.value,
+				'addressDetail' : modalUpdate_detail.value
 			  },												
 		success: function(data) {
-			if(data == 1){
+			if(data == true){
 				console.log('성공');
 				deleteList();
 				getAddressList();
@@ -189,10 +189,10 @@ function deleteSubmit(){ // 비동기처리로 DB에 주소를 삭제 (DAO => DE
 	$.ajax({																	
 		type: "POST",
 		url: 'async/addressDelete',
-		data: { 'apk' : modalDelete_apk.value
+		data: { 'addressPK' : modalDelete_apk.value
 			  },												
 		success: function(data) {
-			if(data == 1){ // 1을 받아왔다면 주소삭제에 성공 
+			if(data == true){ // 1을 받아왔다면 주소삭제에 성공 
 				console.log('성공');
 				deleteList(); // 주소 목록을 전부 비우기
 				getAddressList(); // 주소목록을 다시 세팅해주기
@@ -226,7 +226,7 @@ function selectOneAddress(){ // 비동기처리로 DB에서 선택한 주소를 
 	$.ajax({																	
 		type: "POST",
 		url: 'async/addressSelectOne',
-		data: { 'apk' : document.querySelector('input[name="addressformcheck"]:checked').value
+		data: { 'addressPK' : document.querySelector('input[name="addressformcheck"]:checked').value
 			  },												
 		success: function(data) {
 			addressSelected = JSON.parse(data); // 받아온 데이터를 json타입으로 변환

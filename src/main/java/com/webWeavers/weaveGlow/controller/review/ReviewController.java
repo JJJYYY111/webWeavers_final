@@ -61,7 +61,7 @@ public class ReviewController {
 		reviewDTO.setSearchCondition("myReview");
 		
 		model.addAttribute("rdatas", reviewService.selectAll(reviewDTO));
-		return "reviewList";
+		return "user/reviewList";
 	}
 	
 	
