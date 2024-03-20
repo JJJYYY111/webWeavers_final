@@ -75,7 +75,6 @@
 					<div id="messageError" class="error"></div>
 				</div>
 
-
 				<div style="display: flex; justify-content: flex-end;">
 					<button type="submit"
 						class="button button-postComment button--active"	
@@ -85,7 +84,6 @@
 								style="margin-left: 20px"> 취 소</a>			<!-- 취소 버튼을 누르면 이전페이지로 이동 -->	
 				</div>
 			</form>
-
 		</div>
 	</div>
 	<!-- ================ 내용 ================= -->

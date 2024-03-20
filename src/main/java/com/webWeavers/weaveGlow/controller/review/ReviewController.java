@@ -1,6 +1,8 @@
 package com.webWeavers.weaveGlow.controller.review;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,8 @@ import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductDTO;
 import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductService;
 import com.webWeavers.weaveGlow.biz.review.ReviewDTO;
 import com.webWeavers.weaveGlow.biz.review.ReviewService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ReviewController {
@@ -49,6 +53,15 @@ public class ReviewController {
 		model.addAttribute("reviewDTO", reviewDTO);
 		
 		return "user/reviewUpdate";
+	}
+	
+	@RequestMapping("/reviewList")
+	public String reviewList(ReviewDTO reviewDTO, HttpSession session, Model model) {
+		reviewDTO.setMemberID((String)session.getAttribute("sessionMid"));
+		reviewDTO.setSearchCondition("myReview");
+		
+		model.addAttribute("rdatas", reviewService.selectAll(reviewDTO));
+		return "reviewList";
 	}
 	
 	

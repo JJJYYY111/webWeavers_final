@@ -119,36 +119,34 @@ public class MemberController {
 		}
 	}
 
-	@RequestMapping("/passwordCheckProfileChange")
-	public String passwordCheckProfileChange() {
-		return "user/passwordCheckProfileChange";
+	@RequestMapping("/profileChangePasswordCheck")
+	public String profileChangePasswordCheck() {
+		return "user/profileChangePasswordCheck";
 	}
 
-	@RequestMapping("/passwordCheckUnregister")
-	public String passwordCheckUnregister() {
-		return "user/passwordCheckUnregister";
+	@RequestMapping("/unregisterPasswordCheck")
+	public String unregisterPasswordCheck() {
+		return "user/unregisterPasswordCheck";
 	}
 
 	@RequestMapping("/profileChange")
 	public String profileChange(MemberDTO memberDTO, HttpSession session, Model model) {
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 
-		// 서버에서 입력 받은 사용자정보의 사용방식을 구분하기위해 작성
 		memberDTO.setSearchCondition("login");
+		System.out.println(memberDTO);
 		memberDTO = memberService.selectOne(memberDTO);
 
-		// 확인된 사용자 정보가 비어있는 경우
 		if (memberDTO == null) {
 			return "redirect:/passwordCheckProfileChange";
 		}
 		// 확인한 사용자 정보가 있는 경우
-		model.addAttribute("mid", memberDTO.getMemberID());
-		model.addAttribute("mpw", memberDTO.getMemberPassword());
-		model.addAttribute("name", memberDTO.getMemberName());
-		model.addAttribute("birth", memberDTO.getMemberBirth());
-		model.addAttribute("phone", memberDTO.getMemberPhone());
-		model.addAttribute("nickname", memberDTO.getMemberNickname());
-		model.addAttribute("email", memberDTO.getMemberEmail());
+		model.addAttribute("memberPassword", memberDTO.getMemberPassword());
+		model.addAttribute("memberName", memberDTO.getMemberName());
+		model.addAttribute("memberBirth", memberDTO.getMemberBirth());
+		model.addAttribute("memberPhone", memberDTO.getMemberPhone());
+		model.addAttribute("memberNickname", memberDTO.getMemberNickname());
+		model.addAttribute("memberEmail", memberDTO.getMemberEmail());
 		model.addAttribute("marketing", memberDTO.getMemberMarketing());
 		return "user/profileChange";
 	}
@@ -193,8 +191,8 @@ public class MemberController {
 
 	@RequestMapping("/unregister")
 	public String unregister(MemberDTO memberDTO, HttpSession session) {
-		// 유저의 정보를 담는 mDTO에 id와 pw, 검색조건을 설정
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
+		memberDTO.setSearchCondition("login");
 		if (memberService.selectOne(memberDTO) == null) { // 해당 유저가 존재하지 않는다면
 			return "redirect:/error";
 		}
@@ -208,9 +206,10 @@ public class MemberController {
 		memberDTO.setSearchCondition("unregisterUpdateInfo");
 
 		if (!memberService.update(memberDTO)) { // 탈퇴에 성공했다면 세션에서 사용자의 id를 삭제
-			return "redirect:/error";
+			return "redirect:/unregisterPasswordCheck";
 		}
 		session.removeAttribute("sessionMid");
+		session.removeAttribute("grade");
 		return "user/unregisterSuccess";
 	}
 }

@@ -59,7 +59,7 @@
 									id="confirmMpw" name="confirmMpw" placeholder="비밀번호 확인"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '비밀번호 확인'"
-									style="display: inline-block;" value="${confirmMpw}">
+									style="display: inline-block;" value="${memberPassword}">
 							</div>
 							<div class="col-md-12" style="text-align: left; font-size: 13px; padding: 3px">
 								<div class="col-md-4 label-text"></div>
