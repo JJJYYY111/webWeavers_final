@@ -15,8 +15,8 @@ public class SerialDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	// 주문번호별 주문현황_(관리자)주문관리페이지
-	private static final String SELECTALL = "SELECT\r\n"
+	// 전체 주문현황_(관리자)주문관리페이지
+	private static final String SELECTALL_ORDERLIST = "SELECT\r\n"
 			+ "	S.SERIAL_PK, M.MEMBER_ID, M.MEMBER_NAME,"
 			+ " B.BUYPRODUCT_PK, B.BUYPRODUCT_STATUS, S.SERIAL_REGDATE, S.SERIAL_DELIVERYADDRESS,\r\n"
 			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_STATUS,\r\n"
@@ -26,6 +26,18 @@ public class SerialDAO {
 			+ "LEFT JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
 			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
 			+ "ORDER BY S.SERIAL_PK DESC";
+	// 주문번호별 상품현황_(관리자)주문관리페이지
+	private static final String SELECTALL_ORDERPRODUCT = "SELECT\r\n"
+			+ "	S.SERIAL_PK, M.MEMBER_ID, M.MEMBER_NAME,"
+			+ " B.BUYPRODUCT_PK, B.BUYPRODUCT_STATUS, S.SERIAL_REGDATE, S.SERIAL_DELIVERYADDRESS,\r\n"
+			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_STATUS,\r\n"
+			+ "	P.PRODUCT_PRICE, B.BUYPRODUCT_CNT, P.PRODUCT_PRICE * B.BUYPRODUCT_CNT AS TOTALPRICE\r\n"
+			+ "FROM SERIAL S\r\n"
+			+ "INNER JOIN BUYPRODUCT B ON S.SERIAL_PK = B.SERIAL_PK\r\n"
+			+ "LEFT JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
+			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
+			+ "WHERE S.SERIAL_PK = ?\r\n"
+			+ "ORDER BY S.SERIAL_PK DESC";	
 //	private static final String SELECTONE = "";
 	// 주문추가_(관리자)주문관리페이지
 	private static final String INSERT = "INSERT INTO SERIAL (MEMBER_ID, SERIAL_DELIVERYADDRESS) VALUES (?, ?)";
@@ -33,12 +45,18 @@ public class SerialDAO {
 //	private static final String DELETE = "";
 
 	public List<SerialDTO> selectAll(SerialDTO serialDTO) {
+		Object args[] = { serialDTO.getSerialPK() };
 		try {
-			return jdbcTemplate.query(SELECTALL, new SerialListAdminRowMapper());
+			if(serialDTO.getSearchCondition().equals("orderList"))
+			return jdbcTemplate.query(SELECTALL_ORDERLIST, new SerialListAdminRowMapper());
+			else if(serialDTO.getSearchCondition().equals("orderProduct")) {
+				return jdbcTemplate.query(SELECTALL_ORDERPRODUCT, args, new SerialListAdminRowMapper());				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+		return null;
 	}
 
 //	private SerialDTO selectOne(SerialDTO serialDTO) {
