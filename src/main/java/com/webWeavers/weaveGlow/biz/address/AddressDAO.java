@@ -24,7 +24,7 @@ public class AddressDAO {
 	public List<AddressDTO> selectAll(AddressDTO addressDTO) {
 		Object[] args = { addressDTO.getMemberID() };
 		try {
-			return jdbcTemplate.query(SELECTALL, new AddressRowMapper1());
+			return jdbcTemplate.query(SELECTALL, args, new AddressRowMapper1());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
