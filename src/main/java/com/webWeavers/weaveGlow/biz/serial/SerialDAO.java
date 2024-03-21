@@ -37,7 +37,7 @@ public class SerialDAO {
 			+ "LEFT JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
 			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
 			+ "WHERE S.SERIAL_PK = ?\r\n"
-			+ "ORDER BY S.SERIAL_PK DESC";	
+			+ "ORDER BY S.SERIAL_PK DESC";
 //	private static final String SELECTONE = "";
 	// 주문추가_(관리자)주문관리페이지
 	private static final String INSERT = "INSERT INTO SERIAL (MEMBER_ID, SERIAL_DELIVERYADDRESS) VALUES (?, ?)";
@@ -104,7 +104,7 @@ class SerialListAdminRowMapper implements RowMapper<SerialDTO>{
 		data.setProductStatus(rs.getInt("PRODUCT_STATUS"));
 		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
 		data.setBuyProductCnt(rs.getInt("BUYPRODUCT_CNT"));
-		data.setTotalprice(rs.getInt("TOTALPRICE"));
+		data.setTotalPrice(rs.getInt("TOTALPRICE"));
 		
 		return data;
 	}

@@ -22,6 +22,6 @@ public class SerialDTO {
 	private int productStatus;
 	private int productPrice;
 	private int buyProductCnt;
-	private int totalprice;
+	private int totalPrice;
 	
 }
