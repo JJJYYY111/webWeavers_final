@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -247,8 +248,7 @@ th, td {
 }
 
 /* 애니메이션 효과 */
-@
-keyframes animatetop {from { top:-300px;
+@keyframes animatetop {from { top:-300px;
 	opacity: 0
 }
 
@@ -293,34 +293,26 @@ to {
 </head>
 
 <body>
-	<!-- ============================================================== -->
-	<!-- Preloader - style you can find in spinners.css -->
-	<!-- ============================================================== -->
+	<!-- =======로딩======== -->
 	<div class="preloader">
 		<div class="lds-ripple">
 			<div class="lds-pos"></div>
 			<div class="lds-pos"></div>
 		</div>
 	</div>
-	<!-- ============================================================== -->
-	<!-- Main wrapper - style you can find in pages.scss -->
-	<!-- ============================================================== -->
+	<!-- =========테마 색상========== -->
 	<div id="main-wrapper" data-theme="light" data-layout="vertical"
 		data-navbarbg="skin6" data-sidebartype="full"
 		data-sidebar-position="fixed" data-header-position="fixed"
 		data-boxed-layout="full">
-		<!-- ============================================================== -->
-		<!-- Topbar header - style you can find in pages.scss -->
-		<!-- ============================================================== -->
+		<!-- ==========사이드바============= -->
 		<header class="topbar" data-navbarbg="skin6">
 			<nav class="navbar top-navbar navbar-expand-md">
 				<div class="navbar-header" data-logobg="skin6">
 					<!-- This is for the sidebar toggle which is visible on mobile only -->
 					<a class="nav-toggler waves-effect waves-light d-block d-md-none"
 						href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-					<!-- ============================================================== -->
-					<!-- Logo -->
-					<!-- ============================================================== -->
+					<!-- ========로고========== -->
 					<div class="navbar-brand">
 						<!-- Logo icon -->
 						<a href="index.html"> <b class="logo-icon"> <!-- Dark Logo icon -->
@@ -337,12 +329,7 @@ to {
 						</span>
 						</a>
 					</div>
-					<!-- ============================================================== -->
-					<!-- End Logo -->
-					<!-- ============================================================== -->
-					<!-- ============================================================== -->
-					<!-- Toggle which is visible on mobile only -->
-					<!-- ============================================================== -->
+					<!-- =============사이드바아이콘==================== -->
 					<a class="topbartoggler d-block d-md-none waves-effect waves-light"
 						href="javascript:void(0)" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
@@ -350,11 +337,7 @@ to {
 						aria-label="Toggle navigation"><i class="ti-more"></i></a>
 				</div>
 				<!-- ============================================================== -->
-				<!-- End Logo -->
-				<!-- ============================================================== -->
 				<div class="navbar-collapse collapse" id="navbarSupportedContent">
-					<!-- ============================================================== -->
-					<!-- toggle and nav items -->
 					<!-- ============================================================== -->
 					<ul class="navbar-nav float-left mr-auto ml-3 pl-1">
 						<!-- Notification -->
@@ -371,12 +354,8 @@ to {
 						</li>
 					</ul>
 					<!-- ============================================================== -->
-					<!-- Right side toggle and nav items -->
-					<!-- ============================================================== -->
 					<ul class="navbar-nav float-right">
-						<!-- ============================================================== -->
-						<!-- User profile and search -->
-						<!-- ============================================================== -->
+						<!-- =============오른쪽 프로필================== -->
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="javascript:void(0)"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -393,22 +372,13 @@ to {
 										style="width: 100%;"> Logout </a>
 								</div>
 							</div></li>
-						<!-- ============================================================== -->
-						<!-- User profile and search -->
-						<!-- ============================================================== -->
 					</ul>
 				</div>
 			</nav>
 		</header>
-		<!-- ============================================================== -->
-		<!-- End Topbar header -->
-		<!-- ============================================================== -->
-		<!-- Left Sidebar - style you can find in sidebar.scss  -->
-		<!-- ============================================================== -->
+		<!-- =======사이드바======== -->
 		<aside class="left-sidebar" data-sidebarbg="skin6">
-			<!-- Sidebar scroll-->
 			<div class="scroll-sidebar" data-sidebarbg="skin6">
-				<!-- Sidebar navigation-->
 				<nav class="sidebar-nav">
 					<ul id="sidebarnav">
 						<li class="sidebar-item"><a class="sidebar-link sidebar-link"
@@ -456,9 +426,6 @@ to {
 								<li class="sidebar-item"><a href="monthlySalesStatus.html"
 									class="sidebar-link"><span class="hide-menu"> 월별매출 </span></a>
 								</li>
-								<li class="sidebar-item"><a href="annualSalesStatus.html"
-									class="sidebar-link"><span class="hide-menu"> 연간매출 </span></a>
-								</li>
 							</ul>
 						<li class="list-divider"></li>
 						<li class="sidebar-item"><a class="sidebar-link sidebar-link"
@@ -467,58 +434,39 @@ to {
 								class="hide-menu">로그아웃</span></a></li>
 					</ul>
 				</nav>
-				<!-- End Sidebar navigation -->
+				<!-- 사이드바 -->
 			</div>
-			<!-- End Sidebar scroll-->
 		</aside>
-		<!-- ============================================================== -->
-		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-		<!-- ============================================================== -->
-		<!-- Page wrapper  -->
-		<!-- ============================================================== -->
 		<div class="page-wrapper">
-			<!-- ============================================================== -->
-			<!-- Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-7 align-self-center"></div>
 				</div>
 			</div>
-			<!-- ============================================================== -->
-			<!-- End Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- Container fluid  -->
-			<!-- ============================================================== -->
-			<script>console.log('확인');</script>
 			<div class="container-fluid">
-			<script>console.log('확인 1');</script>
 				<!-- ============================================================== -->
-				<!-- Start Page Content -->
+				<!-- 페이지 시작 -->
 				<!-- ============================================================== -->
-				<!-- basic table -->
 				<div class="row">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body">
+					<div class="col-12" >
+						<div class="card" style="width: 100%">
+							<div class="card-body" style="width: 100%">
 								<h1 class="card-title">주문관리</h1>
 								<br>
-	<script>console.log('확인 2');</script>
 								<div class="row">
-									<form>
+									<form style="width: 100%">
 										<div class="col-12">
 											<div class="card">
 												<div class="card-body">
 													<div class="table-responsive">
-
+											
 														<div class='cur-row' style="color: #000000">
 															<div>주문상태</div>
-															<div class="col-md-8">
-																<select class="custom-select mr-sm-2" id="productStatus"
-																	style="color: black">
-																	<option value="1">주문접수</option>
-																	<option value="2">배송완료</option>
+															<div class="col-md-8" id="hi">
+																<select class="custom-select mr-sm-2" id="buyProductStatus" name="buyProductStatus"
+																	style="color: black; width: 30%">
+																	<option value="receipt" >주문접수</option>
+																	<option value="finish">배송완료</option>
 																</select>
 															</div>
 														</div>
@@ -527,36 +475,93 @@ to {
 															<div>회원이름</div>
 															<div class="col-md-3">
 																<input type="text" class="form-control"
-																	placeholder="ex) 홍길동" style="width: 120%;">
+																	placeholder="ex) 홍길동" id="memberName" name="memberName" style="width: 70%">
 															</div>
 															<div>회원아이디</div>
 															<div class="col-md-3">
 																<input type="text" class="form-control"
-																	placeholder="ex) weaveGlow" style="width: 150%;">
+																	placeholder="ex) weaveGlow" id="memberID" name="memberID" style="width: 70%">
 															</div>
 														</div>
 														<br>
 													</div>
-
 												</div>
-
 											</div>
 											<div class="row"></div>
 
 											<div class="row justify-content-center">
 												<div class="col-md-6 text-center">
-													<button type="button" class="btn btn-primary"">
-														<i
-															class=" fas
+													<button type="button" class="btn btn-primary" id="search">
+														<i class=" fas
                                                     fa-check"></i>
 														검색
 													</button>
 												</div>
 											</div>
+											<!-- 필터검색 -->
+											<script>
+											
+											$("#search").on("click", function() {
+												console.log('들어옴')
+												var selectElement = document.getElementById("buyProductStatus"); // select 요소 가져오기
+												var buyProductStatus = selectElement.options[selectElement.selectedIndex].value; // 선택된 option의 값 가져오기
+												
+												console.log(buyProductStatus);
+												//var productStatus = document.getElementById("productStatus").value;
+												var memberName = document.getElementById("memberName").value;
+												
+												console.log('로그1'+memberName);
+												var memberID= document.getElementById("memberID").value;
+												//memberId의 위에서 value를 가져온다.
+												console.log('로그2'+memberID);
+												
+												$.ajax({
+													
+													type: "POST",
+													url: "/admin/searchSerial",
+													data: {
+                                                        'buyProductStatus': buyProductStatus,
+                                                        'memberName': memberName,
+                                                       'memberID': memberID
+                                                        
+                                                    },
+                                                    
+                                                    dataType: 'json',
+                                                    	
+                                                    	success:function(datas) {
+                                                    		console.log('콘솔'+datas);
+                                                    	    var tableHTML = "<table id='products' border='1'>";
+                                                    	    tableHTML += "<thead><tr><th>주문번호</th><th>주문날짜</th><th>주문자</th><th>상품명</th><th>총결제금액</th><th>주문상태</th><th>배송지</th></tr></thead>";
+                                                    	    tableHTML += "<tbody>";
+                                                    	    for (var i = 0; i < datas.length; i++) {
+                                                    	        tableHTML += "<tr class='productName' id="+datas[i].serialPK+">";
+                                                    	        tableHTML += "<td>" + datas[i].serialPK + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].serialRegdate + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].memberName + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].productName + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].totalPrice + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].buyProductStatus + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].serialDeliveryAddress + "</td>";
+                                                    	        tableHTML += "</tr>";
+                                                    	    }
+                                                    	    tableHTML += "</tbody></table>";
+                                                    	    $("#products").html(tableHTML);
+                                                    	   
+                                                    },
+                                                    error: function (error) {
+                                                    	
+                                                        console.log('에러의 종류:' + error)
+                                                    }
+												});
+												
+											
+											});
+											
+											
+											</script>
 										</div>
-									</form>
+									
 									<div class='cur-row' style="color: #000000;">
-                                        <div>검색결과</div>
                                         <br>
                                         <div class="table-wrapper">
                                             <table id="products" border="1">
@@ -572,48 +577,75 @@ to {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                               
                                                     <!-- tr이 반복됨-그 tr에 id=${productpd} -->
-                                                    <tr style="color: #000000;" class="productName" id="1001">
-                                                        <td >주문번호:값받아오기</td>
-                                                        <td>주문날짜:값받아오기</td>
-                                                        <td>값받아오기</td>
-                                                        <td>datas[0]외
-                                                            data-1개</td>
-                                                        <td>값받아오기</td>
+                                                    <script>console.log('들어옴');</script>
+                                                    <script>console.log(`${serialDatas}`);</script>
+                                                    <c:forEach var="data" items="${serialDatas}">
+                                                    
+                                                    <tr style="color: #000000;" class="productName" id="${serialPK}">
+                                                        <td>${data.serialPK}</td>
+                                                        <td>${data.serialRegdate}</td>
+                                                        <td>${data.memberName}</td>
+                                                        <td>${data.productName}외
+                                                           <c:if test="${fn:length(data.productName) > 1}">${fn:length(data.productName) - 1}</c:if>개</td>
+                                                        <td>${data.totalPrice}</td>
                                                         <td>
                                                             <select class="custom-select mr-sm-2"
                                                                 id="inlineFormCustomSelect" style="color: #000000;">
-                                                                <option value="1">접수</option>
-                                                                <option value="2">완료</option>
+                                                                <option value="receipt">접수</option>
+                                                                <option value="finish">완료</option>
                                                             </select>
                                                         </td>
-                                                        <td>값받아오기</td>
+                                                        <td>${data.serialDeliveryAddress}</td>
                                                     </tr>
+                                                     </c:forEach> 
                                                 </tbody>
+                                                
                                             </table>
                                             <div id="nav">
                                             </div>
+                                          
 
                                             <!-- 모달 -->
                                             <div id="myModal" class="modal">
                                                 <!-- 모달 내용 -->
                                                 <div class="modal-content">
                                                     <span class="close">&times;</span>
-                                                    <p id="productNameModal"></p> <!-- 상품명을 보여줄 요소 -->
+                                                    <p id="productNameModal">
+                                                    
+                                                    <table id="products" border="1" style="width: 100%;">
+                                                                    <tr style="color: #000000;">
+                                                                        <th style="width: 30%;">주문날짜</th>
+                                                                        <td style="width: 70%;" id="regdate"></td>
+                                                                        
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width: 30%;">주문자</th>
+                                                                        <td id="member"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width: 30%;">상품명</th>
+                                                                        <td id="productName"></td>
+                                                                    </tr>                                                  
+                                                                    <tr>
+                                                                        <th style="width: 30%;">총결제금액</th>
+                                                                        <td id="totalprice"></td>
+                                                                    </tr>
+                                                                </table>
+                                                    </p> <!-- 상품명을 보여줄 요소 -->
                                                 </div>
                                             </div>
 
                                             <script>
                                                 // 상품명이 클릭되었을 때 모달을 표시하는 함수
-                                                // 상품명이 클릭되었을 때 모달을 표시하는 함수
-                                                document.querySelectorAll('.productName').forEach(function (productName) {
-                                                    productName.addEventListener('click', function () {
+                                                
+                                                    $(document).on('click','.productName', function () {
                                                         var serialPK = $(this).prop('id');
                                                         var modal = document.getElementById("myModal");
                                                         var productNameModal = document.getElementById("productNameModal");
                                                         console.log('들어옴 :'+serialPK);
-                                                        var tableHTML='';
-                                                        // 표 생
+                                                        
                                                         $.ajax({
                                                             type: "POST",
                                                             url: "/admin/getOrderList",
@@ -621,29 +653,19 @@ to {
                                                                 'serialPK': serialPK
                                                             },
                                                             dataType: 'json',
-                                                            success: function (data) {
-                                                            	console.log(data);
-                                                                tableHTML = `
-                                                        <table id="products" border="1" style="width: 100%;">
-   															 <tr style="color: #000000;">
-    									    <th style="width: 30%;">주문날짜</th>
-    									    <td style="width: 70%;">${data.memberName}</td>
-   										 </tr>
-   										 <tr>
-     											   <th style="width: 30%;">주문자</th>
-    											    <td>${data.memberName}</td>
-   																 </tr>
-    																 <tr>
-                                                                        <th style="width: 30%;">상품명</th>
-                                                                        <td>
-                                                                            ${data.productName}</td>
-                                                                    </tr>                                                  
-   																	 <tr>
-     														   <th style="width: 30%;">총결제금액</th>
-       																	 <td>${data.Totalprice}</td>
-   																						 </tr>
-																		</table>`;
+                                                            success: function(data) {
+                                                                console.log(data);
+                                                                $("#regdate").text(data[0].serialRegdate);
+                                                                $("#member").text(data[0].memberName);
+                                                                for (var i = 0; i < data.length; i++) {
+                                                                    var productName = data[i].productName;
+                                                                    $("#productName").append("<li>" + productName + "</li>");
+                                                                }
+                                                                $("#totalprice").text(data[0].totalPrice);
+                                                                
+                                                                modal.style.display = "block"; // 모달 표시
                                                             },
+
                                                             error: function (error) {
                                                             	
                                                                 console.log('에러의 종류:' + error)
@@ -652,11 +674,9 @@ to {
 
                                                         });
                                                         
-                                                        // 모달에 표 삽입
-                                                       productNameModal.innerHTML = tableHTML; 
-                                                        modal.style.display = "block"; // 모달 표시
+                                                      
                                                     });
-                                                });
+                                                
 
 
                                                 // 모달 닫기 버튼에 이벤트 바인딩
@@ -673,26 +693,24 @@ to {
                                                     }
                                                 }
                                             </script>
-
                                         </div>
+                                        </form>
                                     </div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- 제일 큰 div-->
 				</div>
 			</div>
+			
 		</div>
 	</div>
-	<!-- ============================================================== -->
-	<!-- End Container fluid  -->
+	
 	<!-- ============================================================== -->
 	<!-- footer -->
 	<footer class="footer text-center text-muted">
 		Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
 	</footer>
-	<!-- ============================================================== -->
 	<!-- End footer -->
 	<!-- ============================================================== -->
 	<!-- All Jquery -->
@@ -720,11 +738,5 @@ to {
 	<script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 	<!-- 페이징처리 -->
 	<script src="/admin/dist/js/tablePage.js"></script>
-
-	<!--jquery  -->
-	<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-	
 </body>
-
 </html>
