@@ -498,9 +498,10 @@ to {
 													</button>
 												</div>
 											</div>
+											
+											
 											<!-- 필터검색 -->
 											<script>
-											
 											$("#search").on("click", function() {
 												console.log('들어옴')
 												var selectElement = document.getElementById("buyProductStatus"); // select 요소 가져오기
