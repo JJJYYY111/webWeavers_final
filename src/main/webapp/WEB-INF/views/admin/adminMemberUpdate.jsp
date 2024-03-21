@@ -190,11 +190,6 @@
                                             월별매출
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="/admin/annualSalesStatus.jsp" class="sidebar-link"><span
-                                            class="hide-menu">
-                                            연간매출
-                                        </span></a>
-                                </li>
                             </ul>
                         <li class="list-divider"></li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/authentication-login1.jsp"
