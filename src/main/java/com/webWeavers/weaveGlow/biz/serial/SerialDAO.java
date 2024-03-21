@@ -36,7 +36,7 @@ public class SerialDAO {
 			+ "INNER JOIN BUYPRODUCT B ON S.SERIAL_PK = B.SERIAL_PK\r\n"
 			+ "LEFT JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
 			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
-			+ "WHERE S.SERIAL_PK = ?\r\n"
+			+ "WHERE S.SERIAL_PK = ? \r\n"
 			+ "ORDER BY S.SERIAL_PK DESC";
 //	private static final String SELECTONE = "";
 	// 주문추가_(관리자)주문관리페이지
