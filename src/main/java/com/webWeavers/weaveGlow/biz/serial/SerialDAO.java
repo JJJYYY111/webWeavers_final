@@ -18,17 +18,13 @@ public class SerialDAO {
 	// 전체 주문현황_(관리자)주문관리페이지
 	private static final String SELECTALL_ORDERLIST = "SELECT\r\n"
 			+ "	S.SERIAL_PK, S.SERIAL_REGDATE, S.SERIAL_DELIVERYADDRESS,\r\n"
-			+ "	M.MEMBER_ID, M.MEMBER_NAME, B.BUYPRODUCT_PK, B.BUYPRODUCT_STATUS,\r\n"
-			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_STATUS,\r\n"
-			+ "	P.PRODUCT_PRICE, B.BUYPRODUCT_CNT,\r\n"
-			+ "	P.PRODUCT_PRICE * B.BUYPRODUCT_CNT AS TOTALPRICE\r\n"
+			+ "	B.BUYPRODUCT_STATUS, M.MEMBER_NAME, P.PRODUCT_NAME,\r\n"
+			+ "	SUM(P.PRODUCT_PRICE * B.BUYPRODUCT_CNT) AS TOTALPRICE\r\n"
 			+ "FROM SERIAL S\r\n"
-			+ "INNER JOIN BUYPRODUCT B ON\r\n"
-			+ "	S.SERIAL_PK = B.SERIAL_PK\r\n"
-			+ "LEFT JOIN PRODUCT P ON\r\n"
-			+ "	B.PRODUCT_PK = P.PRODUCT_PK\r\n"
-			+ "LEFT JOIN MEMBER M ON\r\n"
-			+ "	S.MEMBER_ID = M.MEMBER_ID\r\n"
+			+ "INNER JOIN BUYPRODUCT B ON S.SERIAL_PK = B.SERIAL_PK\r\n"
+			+ "LEFT JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
+			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
+			+ "GROUP BY S.SERIAL_PK\r\n"
 			+ "ORDER BY S.SERIAL_PK DESC";
 	// 주문번호별 상품현황_(관리자)주문관리페이지
 	private static final String SELECTALL_ORDERPRODUCT = "SELECT\r\n"
@@ -78,7 +74,7 @@ public class SerialDAO {
 			if (serialDTO.getSearchCondition().equals("orderList")) {
 				return jdbcTemplate.query(SELECTALL_ORDERLIST, new SerialListAdminRowMapper());
 			} else if (serialDTO.getSearchCondition().equals("orderProduct")) {
-				return jdbcTemplate.query(SELECTALL_ORDERPRODUCT, args1, new SerialListAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_ORDERPRODUCT, args1, new SerialDetailListAdminRowMapper());
 			} else if (serialDTO.getSearchCondition().equals("orderSearch")) {
 				return jdbcTemplate.query(SELECTALL_ORDERSEARCH, args2, new SerialListAdminRowMapper());
 			}
@@ -118,6 +114,24 @@ public class SerialDAO {
 
 // selectAll_Admin_SerialListPage
 class SerialListAdminRowMapper implements RowMapper<SerialDTO>{
+	@Override
+	public SerialDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		SerialDTO data = new SerialDTO();
+		data.setSerialPK(rs.getInt("SERIAL_PK"));
+		data.setSerialRegdate(rs.getDate("SERIAL_REGDATE"));
+		data.setSerialDeliveryAddress(rs.getString("SERIAL_DELIVERYADDRESS"));
+		
+		data.setBuyProductStatus(rs.getString("BUYPRODUCT_STATUS"));
+		data.setMemberName(rs.getString("MEMBER_NAME"));
+		data.setProductName(rs.getString("PRODUCT_NAME"));
+		data.setTotalPrice(rs.getInt("TOTALPRICE"));
+		
+		return data;
+	}
+}
+
+//selectAll_Admin_SerialListPage
+class SerialDetailListAdminRowMapper implements RowMapper<SerialDTO>{
 	@Override
 	public SerialDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		SerialDTO data = new SerialDTO();
