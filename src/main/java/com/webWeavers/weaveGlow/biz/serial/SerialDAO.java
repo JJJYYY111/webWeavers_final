@@ -24,7 +24,7 @@ public class SerialDAO {
 			+ "INNER JOIN BUYPRODUCT B ON S.SERIAL_PK = B.SERIAL_PK\r\n"
 			+ "LEFT JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
 			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
-			+ "GROUP BY S.SERIAL_PK\r\n"
+			+ "GROUP BY S.SERIAL_PK, S.SERIAL_REGDATE, S.SERIAL_DELIVERYADDRESS, B.BUYPRODUCT_STATUS, M.MEMBER_NAME\r\n"
 			+ "ORDER BY S.SERIAL_PK DESC";
 	// 주문번호별 상품현황_(관리자)주문관리페이지
 	private static final String SELECTALL_ORDERPRODUCT = "SELECT\r\n"
@@ -112,7 +112,7 @@ public class SerialDAO {
 
 }
 
-// selectAll_Admin_SerialListPage
+// selectAll_관리자_SerialListPage
 class SerialListAdminRowMapper implements RowMapper<SerialDTO>{
 	@Override
 	public SerialDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -130,7 +130,7 @@ class SerialListAdminRowMapper implements RowMapper<SerialDTO>{
 	}
 }
 
-//selectAll_Admin_SerialListPage
+//selectAll_관리자_SerialListPage
 class SerialDetailListAdminRowMapper implements RowMapper<SerialDTO>{
 	@Override
 	public SerialDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
