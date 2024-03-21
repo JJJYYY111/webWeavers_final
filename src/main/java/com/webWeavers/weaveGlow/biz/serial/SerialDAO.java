@@ -61,9 +61,9 @@ public class SerialDAO {
 			+ "LEFT JOIN MEMBER M ON\r\n"
 			+ "	S.MEMBER_ID = M.MEMBER_ID\r\n"
 			+ "WHERE\r\n"
-			+ "	B.BUYPRODUCT_STATUS LIKE '%'||?||'%'\r\n"
-			+ "	AND LOWER(S.MEMBER_ID) LIKE '%'||?||'%'\r\n"
-			+ "	AND M.MEMBER_NAME LIKE '%'||?||'%'\r\n"
+			+ "	B.BUYPRODUCT_STATUS LIKE CONCAT('%',?,'%')\r\n"
+			+ "	AND LOWER(S.MEMBER_ID) LIKE CONCAT('%',?,'%')\r\n"
+			+ "	AND M.MEMBER_NAME LIKE CONCAT('%',?,'%')\r\n"
 			+ "ORDER BY B.BUYPRODUCT_PK DESC";
 //	private static final String SELECTONE = "";
 	// 주문추가_(관리자)주문관리페이지
