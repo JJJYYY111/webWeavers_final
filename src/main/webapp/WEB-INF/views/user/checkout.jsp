@@ -171,11 +171,11 @@
 
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
-								<c:if test="${memberMarketing > 0}">
+								<c:if test="${memberMarketing == 'Y'}">
 									<input type="checkbox" id="f-option3" name="memberMarketing" checked>
 									<label for="f-option3">이메일로 영수증을 받으시려면 체크 해주세요</label>
 								</c:if>
-								<c:if test="${memberMarketing == 0}">
+								<c:if test="${memberMarketing == 'N'}">
 									<input type="checkbox" id="f-option3" name="memberMarketing">
 									<label for="f-option3">이메일로 영수증을 받으시려면 체크 해주세요</label>
 								</c:if>

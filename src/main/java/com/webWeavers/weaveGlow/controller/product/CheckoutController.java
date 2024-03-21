@@ -15,6 +15,7 @@ import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductDTO;
 import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductService;
 import com.webWeavers.weaveGlow.biz.cart.CartDTO;
 import com.webWeavers.weaveGlow.biz.cart.CartService;
+import com.webWeavers.weaveGlow.biz.mail.MailService;
 import com.webWeavers.weaveGlow.biz.member.MemberDTO;
 import com.webWeavers.weaveGlow.biz.member.MemberService;
 import com.webWeavers.weaveGlow.biz.product.ProductDTO;
@@ -25,6 +26,9 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CheckoutController {
+	
+	@Autowired
+	MailService mailService;
 	
 	@Autowired
 	CartService cartService;
@@ -174,13 +178,14 @@ public class CheckoutController {
 	      buyProductDTO.setMemberID(mid);
 	      buyProductDTO.setSearchCondition("checkoutSuccess");
 	      List<BuyProductDTO> bdatas = buyProductService.selectAll(buyProductDTO);
+	      System.out.println(bdatas);
 	      model.addAttribute("bdatas", bdatas); // request에 최근 구매한 상품목록을 저장
 	      
 	      // 이메일 수신동의 했으면 이메일 보내기
 	      // 마케팅 오류날것같음 일단
-	      if(memberDTO.getMemberMarketing() != 0) { // 만약 이메일수신동의를 하지 않았다면 
-	    	 model.addAttribute("email",memberDTO.getMemberEmail());
-	    	 return "redirect:/mailSend";
+	      if(memberDTO.getMemberMarketing() != null) {
+//	    	 model.addAttribute("email",memberDTO.getMemberEmail());
+	    	  mailService.SendMail(addressDTO, bdatas, memberDTO.getMemberEmail());
 	      }
 	      return "user/checkoutSuccess";
 	}

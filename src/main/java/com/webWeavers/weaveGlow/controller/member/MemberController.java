@@ -167,8 +167,8 @@ public class MemberController {
 //			e.printStackTrace();
 //		}
 		// 사용자로부터 마케팅 동의를 받은 경우
-		if (memberDTO.getMemberMarketing() != 0) {
-			memberDTO.setMemberMarketing(1);
+		if (memberDTO.getMemberMarketing() != null) {
+			memberDTO.setMemberMarketing("Y");
 		}
 		// 입력받은 정보의 추가가 된 경우
 		if (!memberService.insert(memberDTO)) {
