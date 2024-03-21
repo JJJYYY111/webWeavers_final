@@ -61,7 +61,7 @@ public class SerialDAO {
 			+ "LEFT JOIN MEMBER M ON\r\n"
 			+ "	S.MEMBER_ID = M.MEMBER_ID\r\n"
 			+ "WHERE\r\n"
-			+ "	B.BUYPRODUCT_STATUS = ?\r\n"
+			+ "	B.BUYPRODUCT_STATUS LIKE '%'||?||'%'\r\n"
 			+ "	AND LOWER(S.MEMBER_ID) LIKE '%'||?||'%'\r\n"
 			+ "	AND M.MEMBER_NAME LIKE '%'||?||'%'\r\n"
 			+ "ORDER BY B.BUYPRODUCT_PK DESC";
