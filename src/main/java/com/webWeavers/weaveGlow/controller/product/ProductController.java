@@ -60,6 +60,7 @@ public class ProductController {
 	public String productDetail(ProductDTO productDTO, ReviewDTO reviewDTO, WishListDTO wishListDTO,
 			HttpSession session, Model model) {
 		productDTO.setMemberID((String) session.getAttribute("sessionMid"));
+		productDTO.setSearchCondition("userProduct");
 		productDTO = productService.selectOne(productDTO);
 
 		if (productDTO == null) {

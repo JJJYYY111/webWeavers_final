@@ -116,7 +116,7 @@
 								<input type="text" class="form-control col-md-8" id="registName"
 									name="memberName" placeholder="이름 입력" onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '이름 입력'"
-									style="display: inline-block;">
+									style="display: inline-block;" required>
 							</div>
 
 							<div class="col-md-12 form-group" style="margin: 0;">
@@ -124,7 +124,7 @@
 								<input type="text" class="form-control col-md-8" id="registMid"
 									name="memberID" placeholder="아이디 입력" onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '아이디 입력'"
-									style="display: inline-block;">
+									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
 								style="text-align: left; font-size: 13px; padding: 3px">
@@ -139,7 +139,7 @@
 									id="registMpw" name="memberPassword" placeholder="비밀번호 입력"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '비밀번호 입력'"
-									style="display: inline-block;">
+									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
 								style="text-align: left; font-size: 13px; padding: 3px">
@@ -154,7 +154,7 @@
 									id="confirmMpw" name="confirmMpw" placeholder="비밀번호 확인"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '비밀번호 확인'"
-									style="display: inline-block;">
+									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
 								style="text-align: left; font-size: 13px; padding: 3px">
@@ -169,7 +169,7 @@
 									id="registNickname" name="memberNickname" placeholder="닉네임 입력"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '닉네임 입력'"
-									style="display: inline-block;">
+									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
 								style="text-align: left; font-size: 13px; padding: 3px">
@@ -223,7 +223,7 @@
 									id="registPhone" name="memberPhone" placeholder="전화번호 입력"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '전화번호 입력'"
-									style="display: inline-block;">
+									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
 								style="text-align: left; font-size: 13px; padding: 3px">
@@ -238,7 +238,7 @@
 									id="registBirth" name="memberBirth" placeholder="생년월일"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '생년월일'"
-									style="display: inline-block;">
+									style="display: inline-block;" required>
 							</div>
 
 							<div class="col-md-12 form-group" style="margin: 0;">
@@ -247,7 +247,7 @@
 									id="registEmail" name="memberEmail" placeholder="e-mail"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'e-mail'"
-									style="display: inline-block;">
+									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
 								style="text-align: left; font-size: 13px; padding: 3px">

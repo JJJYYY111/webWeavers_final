@@ -24,53 +24,31 @@
 	<div class="offset-lg-1 col-lg-10">
 
 		<div class="comment-form">
-		<!-- 리뷰를 작성하지 않은 상품일 경우 작성하기 버튼 -->
-			<c:if test="${data.reviewPK == 0}"> 
 				<form id="reviewForm" onsubmit="submitForm(event)"
 					action="reviewInsert" method="POST" enctype="multipart/form-data"> 								
-					
-			</c:if>
-		<!-- 리뷰를 작성한 상품일 경우 작성하기 버튼 -->
-			<%-- <c:if test="${data.reviewPK != 0}">
-				<form id="reviewForm" onsubmit="submitForm(event)"
-					action="reviewUpdate" method="POST" enctype="multipart/form-data">								
-			</c:if> --%>
-				<a href="productDetail?productPK=${data.productPK}"> <img
-					class="card-img" src="${data.productImg}" alt="구매한 상품 이미지"></a><br> 
+				<a href="productDetail?productPK=${buyProductDTO.productPK}"> <img
+					class="card-img" src="${buyProductDTO.productImg}" alt="구매한 상품 이미지"></a><br> 
 				<br>
-				<h3>${data.productName}</h3> <!-- 리뷰 작성할 구매한 상품 이름 -->
+				<h3>${buyProductDTO.productName}</h3> <!-- 리뷰 작성할 구매한 상품 이름 -->
 				<br><br>				
-				<input type="hidden" name="reviewPK" value="${data.reviewPK}">
-				<input type="hidden" name="buyProductPK" value="${data.buyProductPK}">
+				<input type="hidden" name="buyProductPK" value="${buyProductDTO.buyProductPK}">
 				<div class="form-group">
 					<div class="form-group form-inline">
 					
 					<!-- 구매한 상품 리뷰에 등록할 이미지 -->
-					<c:if test="${empty data.reviewImg}">
 						<img id="preview" style="max-width: 200%; max-height: 200px;"
 							class="img-fluid" src="img/default.jpg" alt="업로드할 이미지"> 
-					</c:if>
-					<c:if test="${not empty data.reviewImg}">
-						<img id="preview" style="max-width: 200%; max-height: 200px;"
-							class="img-fluid" src="uploadimg/${data.reviewImg}" alt="업로드할 이미지">
-					</c:if>
 							<input type="file" 
-							id="uploadimg" name="file" onchange="readURL(this);" value="${data.reviewImg}" accept=".png, .jpeg, .jpg"> 
-						<input type="hidden" id="prevImg" name="prevImg" value="${data.reviewImg}"> <!-- 이미지 미리보기 -->
-						
+							id="uploadimg" name="reviewImgFile" onchange="readURL(this);" accept=".png, .jpeg, .jpg"> 
+						<input type="hidden" id="prevImg" name="reviewImg" value="${reviewDTO.reviewImg}"> <!-- 이미지 미리보기 -->
+						<!-- <div id="file_name"></div> -->
 						<input type="hidden" name="reviewScope" id="scope" value="">
-						<c:if test="${data.reviewScope == 0}">
 						<star:star id="myStarRating" defaultRating="5" />	<!-- 별점이 등록되지 않았으면 기본값은 별5개 -->
-						</c:if>
-						<c:if test="${data.reviewScope > 0}">			
-						<star:star id="myStarRating" defaultRating="${data.reviewScope}" /> <!-- 등록된 별점을 받아와서 출력 -->
-						</c:if>
 						<!-- 리뷰 작성내용 출력 -->
 						<textarea class="form-control mb-10" rows="5" name="reviewContent"
 							id="reviewMessage" placeholder="리뷰 내용"
 							onfocus="this.placeholder =''"
-							
-						onblur="this.placeholder = 'Message'">${data.reviewContent}</textarea>
+						onblur="this.placeholder = 'Message'"></textarea>
 					</div>
 					<div id="messageError" class="error"></div>
 				</div>

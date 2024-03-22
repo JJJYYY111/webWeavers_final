@@ -81,7 +81,7 @@ public class MemberDAO {
 
 	public boolean insert(MemberDTO memberDTO) {
 		int result = jdbcTemplate.update(INSERT, memberDTO.getMemberID(), memberDTO.getMemberPassword(),
-				memberDTO.getMemberName(), (memberDTO.getMemberBirth().getTime()), memberDTO.getMemberPhone(),
+				memberDTO.getMemberName(), memberDTO.getMemberBirth(), memberDTO.getMemberPhone(),
 				memberDTO.getMemberNickname(), memberDTO.getMemberEmail(), memberDTO.getMemberMarketing());
 		if (result <= 0) {
 			return false;

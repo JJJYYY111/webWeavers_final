@@ -2,14 +2,18 @@ package com.webWeavers.weaveGlow.controller.review;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductDTO;
 import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductService;
+import com.webWeavers.weaveGlow.biz.imageupload.ImageService;
 import com.webWeavers.weaveGlow.biz.review.ReviewDTO;
 import com.webWeavers.weaveGlow.biz.review.ReviewService;
 
@@ -22,37 +26,29 @@ public class ReviewController {
 	ReviewService reviewService;
 	@Autowired
 	BuyProductService buyProductService;
+	@Autowired
+	ImageService imageService;
 
 	@RequestMapping("/reviewWrite")
-	public String reviewWrite(ReviewDTO reviewDTO, BuyProductDTO buyProductDTO, Model model) {
-		
-		reviewDTO = reviewService.selectOne(reviewDTO); // rDTO를 사용하여 rDAO의 검색기능인 R(selectOne)기능을 사용하여 해당 상품이 존재하는 확인
-		if(reviewService.selectOne(reviewDTO) != null) { // 만약 해당 상품이 없다면 => 리뷰작성버튼으로 현재 action으로 들어왔다면
-			return "redirect:/error";
-		}
-
+	public String reviewWrite(BuyProductDTO buyProductDTO, Model model) {
 		buyProductDTO = buyProductService.selectOne(buyProductDTO); // bDTO를 사용하여 bDAO의 검색기능인 R(selectOne)기능을 사용하여 해당 구매한 상품이 존재하는지 확인
 		if(buyProductDTO == null) { // 만약 해당 구매한 상품이 존재하지 않는다면
 			return "redirect:/error"; // 에러페이지로 경로를 설정하며 return으로 아래의 코드를 즉시 종료
 		}
-		// 구매한 상품이 존재한다면
-		reviewDTO.setBuyProductPK(buyProductDTO.getBuyProductPK()); // data객체에 bpk(구매한상품의 PK번호)를 저장
-		reviewDTO.setProductPK(buyProductDTO.getProductPK()); // data객체에 bDTO의 ppk(제품의 PK번호)를 저장
-		reviewDTO.setProductImg(buyProductDTO.getProductImg()); // data객체에 bDTO의 img(제품의 이미지명)를 저장
-		reviewDTO.setProductName(buyProductDTO.getProductName()); // data객체에 bDTO의 pname(제품명)을 저장
-		model.addAttribute("reviewDTO", reviewDTO);	//해당 data객체를 request에 저장
-		
-		return "user/reviewInsert";
+		model.addAttribute("buyProductDTO", buyProductDTO);	//해당 data객체를 request에 저장
+		return "user/reviewWrite";
 	}
 	
-	@RequestMapping("/reviewModify")
-	public String reviewModify(ReviewDTO reviewDTO, Model model) {
-		if(reviewService.selectOne(reviewDTO) == null) {
+	@RequestMapping("/reviewEdit")
+	public String reviewEdit(ReviewDTO reviewDTO, Model model) {
+		System.out.println(reviewDTO);
+		reviewDTO = reviewService.selectOne(reviewDTO);
+		if(reviewDTO == null) {
 			return "redirect:/error";
 		}
 		model.addAttribute("reviewDTO", reviewDTO);
 		
-		return "user/reviewUpdate";
+		return "user/reviewEdit";
 	}
 	
 	@RequestMapping("/reviewList")
@@ -65,10 +61,37 @@ public class ReviewController {
 	}
 	
 	
+	@RequestMapping("/reviewInsert")
+	public String reviewInsert(ReviewDTO reviewDTO, @RequestParam("reviewImgFile") MultipartFile multipartFile) {
+		reviewDTO.setReviewImg(imageService.imageInsert(multipartFile));
+		if(!reviewService.insert(reviewDTO)) {
+			return "redirect:/error";
+		}
+		return "redirect:/reviewList";
+	}
+	
+	@RequestMapping("/reviewUpdate")
+	public String reviewUpdate(ReviewDTO reviewDTO, @RequestParam("reviewImgFile") MultipartFile multipartFile) {
+		reviewDTO.setReviewImg(imageService.imageInsert(multipartFile));
+		System.out.println(reviewDTO);
+		if(!reviewService.update(reviewDTO)) {
+			return "redirect:/error";
+		}
+		return "redirect:/reviewList";
+	}
+	
+	
 //	@RequestMapping("/reviewInsert")
-//	public String reviewInsert(ReviewDTO reviewDTO, HttpSession session) {
-//		
-//		String path = "D:\\JY_java\\workspace\\weaveGlow_ver0.3.6\\src\\main\\webapp\\uploadimg";// 본인 uploadimg 폴더 경로 지정
+//	public String reviewInsert(ReviewDTO reviewDTO, HttpSession session, @RequestPart List<MultipartFile> files) throws Exception{
+//			List<String> list = new ArrayList<>();
+//			for (MultipartFile file : files) {
+//				String originalfileName = file.getOriginalFilename();
+//				File dest = new File("C:/Image/" + originalfileName);
+//				file.transferTo(dest);
+//				// TODO
+//			}
+//			return list;
+//	}
 //		int size = 10 * 1024 * 1024; // 10MB 
 //		
 //		// 파일을 멀티파트로 인코딩해서 받아오기 때문에 멀티파트 객체를 생성해서 변수로 저장
@@ -100,7 +123,7 @@ public class ReviewController {
 //			return "error";
 //		}
 //		return "reviewList";
-//	}
+	}
 //	
 //	@RequestMapping("/reviewUpdate")
 //	public String reviewUpdate(ReviewDTO reviewDTO) {
@@ -156,4 +179,3 @@ public class ReviewController {
 //		return "reviewList";
 //	}
 	
-}

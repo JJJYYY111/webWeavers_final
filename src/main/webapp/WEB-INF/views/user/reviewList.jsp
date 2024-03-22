@@ -47,7 +47,7 @@
 							</textarea>														<!-- 상품에 작성 되어있던 리뷰내용-->
 						</div>
 						<div style="display: flex; justify-content: flex-end;">
-							<a href="review.dobpk=${data.buyProductPK}"
+							<a href="reviewEdit?buyProductPK=${data.buyProductPK}"
 								class="button button-postComment button--active">수정하기</a>
 						</div>
 					</form>

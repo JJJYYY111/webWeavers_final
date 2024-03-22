@@ -30,9 +30,6 @@ public class CommonController {
 
 	@Autowired
 	ProductService productService;
-	
-	@Autowired
-	MailService mailservice;
 
 	@RequestMapping("/contact")
 	public String contact() {
@@ -99,61 +96,6 @@ public class CommonController {
 		}
 		return "redirect:/main";
 	}
-
-//	
-//	@RequestMapping("/error")
-//	public String error() {
-//		return "error";
-//	}
-
-//	@RequestMapping("/mailSend")
-//	public String mailSend(Model model) {
-//			mailservice.SendMail(model);
-//		return "user/checkoutSuccess";
-//
-//		String user = "wgw1008@gmail.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
-//		String password = "bkrcumodnhxdcfjc"; // 패스워드 bkrcumodnhxdcfjc
-//		
-//		// SMTP 서버 정보를 설정
-//		Properties prop = new Properties(); 
-//		prop.put("mail.smtp.host", "smtp.gmail.com"); // 메일 서버 주소
-//		prop.put("mail.smtp.starttls.enable", "true"); // 두 컴퓨터 사이의 연결 암호화 표준 기술 : TLS라는 보안인증서 활성화
-//		prop.put("mail.smtp.ssl.protocols","TLSv1.2"); // SSL 프로토콜을 TLS1.2로 설정
-//		prop.put("mail.smtp.auth", "true"); // 계정과 비밀번호 넣는 부분으로 사용하겠다는 뜻
-//		prop.put("mail.smtp.port", "587"); // TLS를 통신할 포트 : gmail이므로 587포트
-//		
-//		
-//		
-//		Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
-//			protected PasswordAuthentication getPasswordAuthentication() {
-//				return new PasswordAuthentication(user, password);
-//			}
-//		});
-//		
-//		try {
-//			MimeMessage message = new MimeMessage(session);
-//			message.setFrom(new InternetAddress(user));   // 발신자메일주소
-//			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); //수신자메일주소
-//			// Subject
-//			message.setSubject(subject); //메일 제목을 입력
-//			// Text
-////			message.setText(text);    //메일 내용을 입력
-//			// HTML
-//			 message.setContent(html, "text/html; charset=UTF-8");
-//			
-//			// send the message
-//			Transport.send(message); //// Transport.send()를 통해 메세지 전송
-//			System.out.println("message sent successfully...");
-//			return "checkoutSuccess";
-//			
-//		} catch (AddressException e) {
-//			e.printStackTrace();
-//			return "checkoutSuccess";
-//		} catch (MessagingException e) {
-//			e.printStackTrace();
-//			return "checkoutSuccess";
-//		}
-//	}
 
 	@RequestMapping("/main")
 	public String main(ProductDTO productDTO, HttpSession session, Model model) {

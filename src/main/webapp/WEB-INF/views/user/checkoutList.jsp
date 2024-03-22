@@ -44,10 +44,10 @@
 				</div>
 				<div class="reply-btn">
 				<c:if test="${data.reviewCheck <= 0}">
-					<a style="display:inline;" href="review?buyProductPK=${data.buyProductPK}" class="btn-reply text-uppercase">리뷰작성</a>
+					<a style="display:inline;" href="reviewWrite?buyProductPK=${data.buyProductPK}" class="btn-reply text-uppercase">리뷰작성</a>
 				</c:if>
 				<c:if test="${data.reviewCheck > 0}">
-					<a style="display:inline;" href="review?buyProductPK=${data.buyProductPK}" class="btn-reply text-uppercase">리뷰수정</a>
+					<a style="display:inline;" href="reviewEdit?buyProductPK=${data.buyProductPK}" class="btn-reply text-uppercase">리뷰수정</a>
 				</c:if>
 				</div>
 			</div>

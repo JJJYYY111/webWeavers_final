@@ -1,6 +1,7 @@
 package com.webWeavers.weaveGlow.biz.member;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import lombok.Data;
 
