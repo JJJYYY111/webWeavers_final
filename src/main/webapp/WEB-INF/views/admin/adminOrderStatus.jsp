@@ -289,6 +289,13 @@ to {
 	color: rgb(4, 184, 255);
 }
 </style>
+
+<style>
+    #products th, #products td {
+        width: 25%; /* 각 열의 너비를 25%로 설정합니다. */
+    }
+</style>
+
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 
@@ -581,10 +588,10 @@ to {
                                                
                                                     <!-- tr이 반복됨-그 tr에 id=${productpd} -->
                                                     <script>console.log('들어옴');</script>
-                                                    <script>console.log(`${serialDatas}`);</script>
+                                                    <!-- <script>console.log(`${serialPK}`);</script> -->
                                                     <c:forEach var="data" items="${serialDatas}">
                                                     
-                                                    <tr style="color: #000000;" class="productName" id="${serialPK}">
+                                                    <tr style="color: #000000;" class="productName" id="${data.serialPK}">
                                                         <td>${data.serialPK}</td>
                                                         <td>${data.serialRegdate}</td>
                                                         <td>${data.memberName}</td>
@@ -615,23 +622,29 @@ to {
                                                     <span class="close">&times;</span>
                                                     <p id="productNameModal">
                                                     
-                                                    <table id="products" border="1" style="width: 100%;">
-                                                                    <tr style="color: #000000;">
-                                                                        <th style="width: 30%;">주문날짜</th>
+                                                   <div style="font-size: 30px; white-space: nowrap;">주문자: <span id="modalMemberName"></span></div>
+
+                                                    <div style="font-size: 30px; white-space: nowrap;">주문날짜: <span id="modalMemberDate"></span></div>
+                                                    
+                                                    <br>
+                                                    
+                                                    <table id="productsTable" border="1" style="width: 100%;">
+                                                    
+                                                    
+                                                                   
+                                                                   <!--  <tr id="productTable" style="width: 25%;"> -->
+                                                                    <!--  <td id="productName"></td>
                                                                         <td style="width: 70%;" id="regdate"></td>
-                                                                        
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="width: 30%;">주문자</th>
                                                                         <td id="member"></td>
-                                                                    </tr>
+                                                                         <td id="totalprice"></td> -->
+                                                                    <!-- </tr> -->
                                                                     <tr>
-                                                                        <th style="width: 30%;">상품명</th>
-                                                                        <td id="productName"></td>
+                                                                        
+                                                                       
                                                                     </tr>                                                  
                                                                     <tr>
-                                                                        <th style="width: 30%;">총결제금액</th>
-                                                                        <td id="totalprice"></td>
+                                                                       
+                                                                       
                                                                     </tr>
                                                                 </table>
                                                     </p> <!-- 상품명을 보여줄 요소 -->
@@ -656,14 +669,40 @@ to {
                                                             dataType: 'json',
                                                             success: function(data) {
                                                                 console.log(data);
-                                                                $("#regdate").text(data[0].serialRegdate);
-                                                                $("#member").text(data[0].memberName);
-                                                                for (var i = 0; i < data.length; i++) {
-                                                                    var productName = data[i].productName;
-                                                                    $("#productName").append("<li>" + productName + "</li>");
-                                                                }
-                                                                $("#totalprice").text(data[0].totalPrice);
                                                                 
+                                                                $('#modalMemberName').text(data[0].memberName);
+                                                                $('#modalMemberDate').text(data[0].serialRegdate);
+
+                                                                var totalPriceSum = 0; // 총 금액을 누적하여 저장할 변수 선언
+                                                                var tableHTML = `<tr style="color: #000000;">
+                                                                <th style="width: 25%;">상품명</th>
+                                                                <th style="width: 25%;">수량</th>
+                                                                <th style="width: 25%;">금액</th>
+                                                           </tr> `; // 테이블의 HTML 코드를 저장할 변수 선언
+																
+                                                                
+                                                                // 각 행의 데이터를 테이블에 추가
+                                                                for (var i = 1; i < data.length; i++) {
+                                                                    tableHTML += "<tr>"; // 새로운 <tr> 생성
+                                                                    console.log('data' + data);
+                                                                    tableHTML += "<td>" + data[i].productName + "</td>";
+                                                                    tableHTML += "<td>" + data[i].buyProductCnt+"개" + "</td>";
+                                                                    tableHTML += "<td>" + data[i].totalPrice +"원" + "</td>";
+                                                                    tableHTML += "</tr>"; // <tr> 닫기
+
+                                                                    // totalPrice 값을 누적하여 더함
+                                                                    totalPriceSum += parseInt(data[i].totalPrice);
+                                                                }
+
+                                                                // 총 금액을 하나의 행으로 표시
+                                                                tableHTML += "<tr>";
+                                                                tableHTML += "<td colspan='2'style='font-weight: bold; background-color: #f2f2f2;'>총 금액 </td>";
+                                                                tableHTML += "<td>" + totalPriceSum +"원" + "</td>";
+                                                                tableHTML += "</tr>";
+
+                                                                // 테이블에 HTML 코드 추가
+                                                                $("#productsTable").append(tableHTML);
+
                                                                 modal.style.display = "block"; // 모달 표시
                                                             },
 
@@ -684,6 +723,7 @@ to {
                                                 document.querySelector('.close').addEventListener('click', function () {
                                                     var modal = document.getElementById("myModal");
                                                     modal.style.display = "none"; // 모달 숨김
+                                                    $("#productsTable").empty();
                                                 });
 
                                                 // 모달 영역 밖을 클릭하면 모달 닫기
@@ -691,6 +731,7 @@ to {
                                                     var modal = document.getElementById("myModal");
                                                     if (event.target === modal) {
                                                         modal.style.display = "none"; // 모달 숨김
+                                                        $("#productsTable").empty();
                                                     }
                                                 }
                                             </script>
