@@ -54,7 +54,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="/admin/index.jsp">
+                        <a href="adminDashboard">
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
                                 <img src="/admin/assets/images/logo_small.png" width=40; alt="homepage" class="dark-logo" />
@@ -146,13 +146,13 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/adminDashboard.jsp"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="adminDashboard"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">메인</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href="/admin/adminMemberStatus .jsp"
+                        <li class="sidebar-item"> <a class="sidebar-link" href="adminMemberStatus"
                                 aria-expanded="false"><i data-feather="tag" class="feather-icon"></i><span
                                     class="hide-menu">회원관리
                                 </span></a>
@@ -162,18 +162,18 @@
                                     class="hide-menu">상품관리
                                 </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="/admin/adminProductStatus.jsp" class="sidebar-link">
+                                <li class="sidebar-item"><a href="adminProductStatus" class="sidebar-link">
                                         <span class="hide-menu"> 상품현황
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="/admin/adminProductRegistration.jsp" class="sidebar-link">
+                                <li class="sidebar-item"><a href="adminProductRegistration" class="sidebar-link">
                                         <span class="hide-menu"> 상품등록
                                         </span></a>
                                 </li>
 
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/adminOrderStatus.jsp"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="adminOrderStatus"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
                                     class="hide-menu">주문관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
@@ -181,22 +181,22 @@
                                     class="hide-menu">매출관리
                                 </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="/admin/salesStatus.jsp" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="salesStatus" class="sidebar-link"><span
                                             class="hide-menu"> 매출현황
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="/admin/daliySalesStatus.jsp" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="daliySalesStatus" class="sidebar-link"><span
                                             class="hide-menu"> 일별매출
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="/admin/monthlySalesStatus.jsp" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="monthlySalesStatus" class="sidebar-link"><span
                                             class="hide-menu">
                                             월별매출
                                         </span></a>
                                 </li>
                             </ul>
                         <li class="list-divider"></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/authentication-login1.jsp"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="logout"
                                 aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span
                                     class="hide-menu">로그아웃</span></a></li>
                     </ul>
@@ -222,7 +222,7 @@
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
-                                    <li class="breadcrumb-item"><a href="/admin/index.jsp">좋은하루입니다.</a>
+                                    <li class="breadcrumb-item"><a href="adminDashboard">좋은하루입니다.</a>
                                     </li>
                                 </ol>
                             </nav>

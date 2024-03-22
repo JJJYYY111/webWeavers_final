@@ -70,7 +70,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("sessionMid");
-
+		session.removeAttribute("grade");
 		return "redirect:/main";
 	}
 

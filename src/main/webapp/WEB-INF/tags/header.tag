@@ -103,7 +103,7 @@
 								<li class="nav-item"><a href="cart"><i
 										class="ti-shopping-cart"></i></a></li>
 							</c:if>
-							<c:if test="${not empty sessionMid && grade==2}">
+							<c:if test="${not empty sessionMid && grade == 2}">
                                 <li class="nav-item"><a href="adminDashboard"><i
                                         class="ti-user"></i></a></li>
 							</c:if>
