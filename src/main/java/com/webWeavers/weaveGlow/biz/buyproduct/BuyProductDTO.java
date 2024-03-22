@@ -10,8 +10,9 @@ public class BuyProductDTO {
 	private int buyProductPK;
 	private int productPK;
 	private int serialPK;
-	private String buyProductStatus;
 	private int buyProductCnt;
+	
+	private String searchCondition;	
 	
 	// 구매목록페이지
 	private String memberID;
@@ -20,8 +21,7 @@ public class BuyProductDTO {
 	private String productName;
 	private int productPrice;
 	private String productImg;
-	
 	private int reviewCheck;
-	private String searchCondition;
+
 	
 }

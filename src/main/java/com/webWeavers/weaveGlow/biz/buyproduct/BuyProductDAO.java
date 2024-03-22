@@ -39,9 +39,8 @@ public class BuyProductDAO {
 	private static final String SELECTONE = "SELECT B.BUYPRODUCT_PK, B.BUYPRODUCT_CNT, S.SERIAL_PK, S.SERIAL_REGDATE, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_PK FROM BUYPRODUCT B JOIN SERIAL S ON B.SERIAL_PK=S.SERIAL_PK JOIN PRODUCT P ON B.PRODUCT_PK=P.PRODUCT_PK WHERE B.BUYPRODUCT_PK = ?";
 	// 구매상품추가
 	private static final String INSERT = "INSERT INTO BUYPRODUCT (PRODUCT_PK, SERIAL_PK, BUYPRODUCT_CNT) VALUES (?, (SELECT MAX(SERIAL_PK) FROM SERIAL), ?)";
-	// 구매상품별 주문상태변경_(관리자)주문관리페이지
-	private static final String UPDATE = "UPDATE BUYPRODUCT SET BUYPRODUCT_STATUS = ? WHERE BUYPRODUCT_PK = ?";
-	private static final String DELETE = "";
+//	private static final String UPDATE = "";
+//	private static final String DELETE = "";
 	
 	public List<BuyProductDTO> selectAll(BuyProductDTO buyProductDTO) {
 		Object[] args = { buyProductDTO.getMemberID() };
@@ -76,19 +75,10 @@ public class BuyProductDAO {
 		return true;
 	}
 
-	public boolean update(BuyProductDTO buyProductDTO) {
-		try {
-			int result = jdbcTemplate.update(UPDATE, buyProductDTO.getBuyProductStatus(), buyProductDTO.getBuyProductPK());
-			if (result <= 0) {
-				return false;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-//
+//	public boolean update(BuyProductDTO buyProductDTO) {
+//		return false;
+//	}
+
 //	private boolean delete(BuyProductDTO buyProductDTO) {
 //
 //		return false;
