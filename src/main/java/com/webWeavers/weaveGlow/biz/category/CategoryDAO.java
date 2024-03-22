@@ -23,7 +23,7 @@ public class CategoryDAO {
 
 	public List<CategoryDTO> selectAll(CategoryDTO categoryDTO) {
 		try {
-			return (List<CategoryDTO>) jdbcTemplate.query(SELECTALL, new CategoryRowMapper());
+			return jdbcTemplate.query(SELECTALL, new CategoryRowMapper());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

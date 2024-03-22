@@ -25,7 +25,7 @@ public class GradeDAO {
 	
 	public List<GradeDTO> selectAll(GradeDTO gradeDTO) {
 		try {
-			return (List<GradeDTO>)jdbcTemplate.query(SELECTALL, new GradeRowMapper());
+			return jdbcTemplate.query(SELECTALL, new GradeRowMapper());
 		}catch (Exception e) {
 			e.printStackTrace();
 			return null;

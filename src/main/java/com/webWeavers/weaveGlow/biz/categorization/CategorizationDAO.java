@@ -16,15 +16,21 @@ public class CategorizationDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private static final String SELECTALL = "";
+	private static final String SELECTALL = "SELECT CATEGORIZATION_PK, PRODUCT_PK, SUBCATEGORY_PK FROM CATEGORIZATION WHERE CATEGORIZATION_PK=?";
 	private static final String SELECTONE = "";
 
 	private static final String INSERT = "INSERT INTO CATEGORIZATION (PRODUCT_PK, SUBCATEGORY_PK) VALUES (?,?)";
-	private static final String UPDATE = "UPDATE CATEGORIZATION SET SUBCATEGORYPK = ? WHERE PRODUCTPK = ?";
+	private static final String UPDATE = "UPDATE CATEGORIZATION SET SUBCATEGORY_PK = ? WHERE PRODUCT_PK = ?";
 	private static final String DELETE = "";
-   
+
 	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
-		return null;
+		Object[] args = { categorizationDTO.getCategorizationPK() };
+		try {
+			return jdbcTemplate.query(SELECTALL, args, new CategorizationRowMapper());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public CategorizationDTO selectOne(CategorizationDTO categorizationDTO) {
@@ -32,7 +38,8 @@ public class CategorizationDAO {
 	}
 
 	public boolean insert(CategorizationDTO categorizationDTO) {
-		int result = jdbcTemplate.update(INSERT, categorizationDTO.getProductPK(), categorizationDTO.getSubcategoryPK());
+		int result = jdbcTemplate.update(INSERT, categorizationDTO.getProductPK(),
+				categorizationDTO.getSubcategoryPK());
 		if (result <= 0) {
 			return false;
 		}
@@ -40,7 +47,8 @@ public class CategorizationDAO {
 	}
 
 	public boolean update(CategorizationDTO categorizationDTO) {
-		int result = jdbcTemplate.update(UPDATE, categorizationDTO.getProductPK(), categorizationDTO.getSubcategoryPK());
+		int result = jdbcTemplate.update(UPDATE, categorizationDTO.getProductPK(),
+				categorizationDTO.getSubcategoryPK());
 		if (result <= 0) {
 			return false;
 		}
@@ -56,9 +64,10 @@ public class CategorizationDAO {
 class CategorizationRowMapper implements RowMapper<CategorizationDTO> {
 	@Override
 	public CategorizationDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-//		CategorizationDTO data = new CategorizationDTO();
-//		data.setProductPK(rs.getInt("PRODUCT_PK"));
-//		data.setSubcategoryPK(rs.getInt("SUBCATEGORY"));
+		CategorizationDTO data = new CategorizationDTO();
+		data.setCategorizationPK(rs.getInt("CATEGORIZATION_PK"));
+		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		data.setSubcategoryPK(rs.getInt("SUBCATEGORY_PK"));
 		return null;
 	}
 }
