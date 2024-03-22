@@ -92,8 +92,8 @@ public class MemberDAO {
 	public boolean update(MemberDTO memberDTO) {
 		int result;
 		if (memberDTO.getSearchCondition().equals("updateInfo")) {
-			result = jdbcTemplate.update(UPDATE, memberDTO.getMemberID(), memberDTO.getMemberPassword());
-			if (result <= 0) {
+			result = jdbcTemplate.update(UPDATE,  memberDTO.getMemberEmail(), memberDTO.getMemberNickname(), memberDTO.getMemberPhone(), memberDTO.getMemberPassword(), memberDTO.getMemberID());
+ 			if (result <= 0) {
 				return false;
 			}
 		} else if (memberDTO.getSearchCondition().equals("unregisterUpdateInfo")) {
