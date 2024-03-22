@@ -15,6 +15,7 @@ public class ProductDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	// ------------------------------------- UserPage -------------------------------------
 	// 정렬별 상품목록 쿼리문 반환 함수
 	private static String selectAllQuery(String sortType, int limitNum) {
 		String query = "WITH WS AS (SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT FROM WISHLIST GROUP BY PRODUCT_PK LIMIT " + limitNum + "),\r\n"	// 상품별 찜 개수 (WISHLIST 서브쿼리)
@@ -48,24 +49,35 @@ public class ProductDAO {
 	}
 	
 	// 상품이름검색
-	private static final String SELECTALL_SEARCHNAME = "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
-			+ "FROM PRODUCT P LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
-			+ "WHERE P.PRODUCT_NAME LIKE CONCAT('%',?,'%') ORDER BY P.PRODUCT_PK DESC";
+	private static final String SELECTALL_SEARCHNAME = "SELECT\r\n"
+			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG,\r\n"
+			+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
+			+ "FROM PRODUCT P\r\n"
+			+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
+			+ "WHERE P.PRODUCT_NAME LIKE CONCAT('%',?,'%')\r\n"
+			+ "ORDER BY P.PRODUCT_PK DESC";
 	// 상품상세페이지
-	private static final String SELECTONE_DETAIL = "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_DETAILIMG, CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
-			+ "FROM PRODUCT P LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
+	private static final String SELECTONE_USER_PRODUCT = "SELECT\r\n"
+			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_DETAILIMG,\r\n"
+			+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
+			+ "FROM PRODUCT P\r\n"
+			+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
 			+ "WHERE P.PRODUCT_PK = ?";
 	
+	// ------------------------------------- AdminPage -------------------------------------	
 	// 상품목록_관리자상품현황페이지
-	private static final String SELECTALL_ADMINPRODUCTLIST = "SELECT\r\n"
-			+ "P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_REGDATE, P.PRODUCT_DETAILIMG, P.PRODUCT_IMG, P.PRODUCT_STATUS, P.PRODUCT_QUANTITY, \r\n"
-			+ "C.CATEGORY_NAME, SC.SUBCATEGORY_NAME\r\n"
-			+ "FROM PRODUCT P\r\n"
-			+ "LEFT JOIN CATEGORYZATION CZ ON P.PRODUCT_PK = CZ.PRODUCT_PK\r\n"
-			+ "LEFT JOIN SUBCATEGORY SC ON CZ.SUBCATEGORY_PK = SC.SUBCATEGORY_PK\r\n"
-			+ "LEFT JOIN CATEGORY C ON SC.CATEGORY_PK = C.CATEGORY_PK\r\n"
-			+ "ORDER BY P.PRODUCT_PK\r\n"
-			+ "LIMIT ?, 10";	// 페이징처리 (앞단 페이지 번호 필요)
+	private static final String SELECTALL_ADMIN_PRODUCT = "SELECT\r\n"
+			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY, PRODUCT_STATUS\r\n"
+			+ "FROM PRODUCT\r\n"
+			+ "ORDER BY PRODUCT_PK ASC\r\n"
+			+ "LIMIT ?, 10";	// 페이징처리 (앞단 페이지 번호 필요) (?행부터 10개 데이터 추출)
+	// 상품정보_관리자상품수정페이지
+	private static final String SELECTONE_ADMIN_PRODUCT = "SELECT\r\n"
+			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_REGDATE,\r\n"
+			+ "	PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY\r\n"
+			+ "FROM PRODUCT\r\n"
+			+ "WHERE PRODUCT_PK = ?";
+	
 	// 상품등록_관리자상품등록페이지
 	private static final String INSERT = "INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
 	// 상품정보수정_관리자상품수정페이지
@@ -75,6 +87,7 @@ public class ProductDAO {
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
 		Object[] args1 = { productDTO.getMemberID() };
 		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
+		
 		try {
 			if (productDTO.getSearchCondition().equals("sales")) {
 				return jdbcTemplate.query(selectAllQuery("sales", 100), args1, new ProductListUserRowMapper());
@@ -93,26 +106,36 @@ public class ProductDAO {
 //				}
 				int pageNum = productDTO.getPageNum();
 				if(productDTO.getPageNum() != 0) {
-					pageNum = productDTO.getPageNum() - 1;
+					pageNum = productDTO.getPageNum() - 1;	// 앞단에서 페이지번호 어떻게 넘겨주는지보고 계산 예정
 				}
 				Object[] args3 = { pageNum };
-				return jdbcTemplate.query(SELECTALL_ADMINPRODUCTLIST, args3, new ProductListAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, args3, new ProductListAdminRowMapper());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+		
 		return null;
 	}
 
 	public ProductDTO selectOne(ProductDTO productDTO) {
-		Object[] args = { productDTO.getMemberID(), productDTO.getProductPK() };
+		Object[] args1 = { productDTO.getMemberID(), productDTO.getProductPK() };
+		Object[] args2 = { productDTO.getProductPK() };
+
 		try {
-			return jdbcTemplate.queryForObject(SELECTONE_DETAIL, args, new ProductRowMapper());
+			if (productDTO.getSearchCondition().equals("userProduct")) {
+				return jdbcTemplate.queryForObject(SELECTONE_USER_PRODUCT, args1, new ProductUserRowMapper());
+			} else if (productDTO.getSearchCondition().equals("adminProduct")) {
+				return jdbcTemplate.queryForObject(SELECTONE_ADMIN_PRODUCT, args2, new ProductAdminRowMapper());
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+		
+		return null;
 	}
 
 
@@ -154,7 +177,7 @@ public class ProductDAO {
 
 }
 
-// selectAll_User_MainPage, ProductListPage, ProductSearchPage
+// selectAll_User_메인페이지, 상품목록페이지, 상품이름검색페이지
 class ProductListUserRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -164,30 +187,13 @@ class ProductListUserRowMapper implements RowMapper<ProductDTO> {
 		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
 		data.setProductImg(rs.getString("PRODUCT_IMG"));
 		data.setWish(rs.getInt("HasWPK"));
+		
 		return data;
 	}
 }
 
-// selectAll_Admin_ProductListPage > ProductUpdatePage
-class ProductListAdminRowMapper implements RowMapper<ProductDTO> {
-	@Override
-	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		ProductDTO data = new ProductDTO();
-		data.setProductPK(rs.getInt("PRODUCT_PK"));
-		data.setProductName(rs.getString("PRODUCT_NAME"));
-		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
-		data.setProductDetailImg(rs.getString("PRODUCT_DETAILIMG"));
-		data.setProductImg(rs.getString("PRODUCT_IMG"));
-		data.setProductStatus(rs.getInt("PRODUCT_STATUS"));
-		data.setProductQuantity(rs.getInt("PRODUCT_QUANTITY"));
-		data.setCategoryName(rs.getString("CATEGORY_NAME"));
-		data.setSubCategoryName(rs.getString("SUBCATEGORY_NAME"));
-		return data;
-	}
-}
-
-// selectOne_User_ProductDetailPage
-class ProductRowMapper implements RowMapper<ProductDTO> {
+// selectOne_User_상품상세페이지
+class ProductUserRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
@@ -197,6 +203,40 @@ class ProductRowMapper implements RowMapper<ProductDTO> {
 		data.setProductDetailImg(rs.getString("PRODUCT_DETAILIMG"));
 		data.setProductImg(rs.getString("PRODUCT_IMG"));
 		data.setWish(rs.getInt("HasWPK"));
+		
+		return data;
+	}
+}
+
+//selectAll_Admin_상품현황페이지
+class ProductListAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		data.setProductName(rs.getString("PRODUCT_NAME"));
+		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		data.setProductQuantity(rs.getInt("PRODUCT_QUANTITY"));
+		data.setProductStatus(rs.getInt("PRODUCT_STATUS"));
+		
+		return data;
+	}
+}
+
+// selectOne_Admin_상품상세페이지(상품수정페이지)
+class ProductAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		data.setProductName(rs.getString("PRODUCT_NAME"));
+		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		data.setProductQuantity(rs.getInt("PRODUCT_QUANTITY"));
+		data.setProductStatus(rs.getInt("PRODUCT_STATUS"));
+		data.setProductRegdate(rs.getDate("PRODUCT_REGDATE"));
+		data.setProductDetailImg(rs.getString("PRODUCT_DETAILIMG"));
+		data.setProductImg(rs.getString("PRODUCT_IMG"));
+		
 		return data;
 	}
 }
