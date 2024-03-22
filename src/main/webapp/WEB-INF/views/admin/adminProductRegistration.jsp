@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -62,32 +63,24 @@
 </head>
 
 <body>
-  <!-- ============================================================== -->
-  <!-- Preloader - style you can find in spinners.css -->
-  <!-- ============================================================== -->
+  <!-- =======로딩========= -->
   <div class="preloader">
     <div class="lds-ripple">
       <div class="lds-pos"></div>
       <div class="lds-pos"></div>
     </div>
   </div>
-  <!-- ============================================================== -->
-  <!-- Main wrapper - style you can find in pages.scss -->
-  <!-- ============================================================== -->
+  <!-- =========테마======== -->
   <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-    <!-- ============================================================== -->
-    <!-- Topbar header - style you can find in pages.scss -->
-    <!-- ============================================================== -->
+    <!-- ======헤더====== -->
     <header class="topbar" data-navbarbg="skin6">
       <nav class="navbar top-navbar navbar-expand-md">
         <div class="navbar-header" data-logobg="skin6">
           <!-- This is for the sidebar toggle which is visible on mobile only -->
           <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
               class="ti-menu ti-close"></i></a>
-          <!-- ============================================================== -->
-          <!-- Logo -->
-          <!-- ============================================================== -->
+          <!-- ======로고====== -->
           <div class="navbar-brand">
             <!-- Logo icon -->
             <a href="index.html">
@@ -107,22 +100,13 @@
               </span>
             </a>
           </div>
-          <!-- ============================================================== -->
-          <!-- End Logo -->
-          <!-- ============================================================== -->
-          <!-- ============================================================== -->
-          <!-- Toggle which is visible on mobile only -->
-          <!-- ============================================================== -->
+          <!-- =========토글======== -->
           <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
             data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
         </div>
         <!-- ============================================================== -->
-        <!-- End Logo -->
-        <!-- ============================================================== -->
         <div class="navbar-collapse collapse" id="navbarSupportedContent">
-          <!-- ============================================================== -->
-          <!-- toggle and nav items -->
           <!-- ============================================================== -->
           <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
             <!-- Notification -->
@@ -140,12 +124,8 @@
             </li>
           </ul>
           <!-- ============================================================== -->
-          <!-- Right side toggle and nav items -->
-          <!-- ============================================================== -->
           <ul class="navbar-nav float-right">
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
+            <!-- ======프로필===== -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
@@ -159,19 +139,11 @@
                   </a> </div>
               </div>
             </li>
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
           </ul>
         </div>
       </nav>
     </header>
-    <!-- ============================================================== -->
-    <!-- End Topbar header -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Left Sidebar - style you can find in sidebar.scss  -->
-    <!-- ============================================================== -->
+    <!-- ===========사이드바============ -->
     <aside class="left-sidebar" data-sidebarbg="skin6">
       <!-- Sidebar scroll-->
       <div class="scroll-sidebar" data-sidebarbg="skin6">
@@ -191,12 +163,12 @@
                 aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">상품관리
                 </span></a>
               <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                <li class="sidebar-item"><a href="adminProductRegistration.html" class="sidebar-link"><span
-                      class="hide-menu"> 상품등록
-                    </span></a>
-                </li>
                 <li class="sidebar-item"><a href="adminProductStatus.html" class="sidebar-link"><span class="hide-menu">
                       상품현황
+                    </span></a>
+                </li>
+                <li class="sidebar-item"><a href="adminProductRegistration.html" class="sidebar-link"><span
+                      class="hide-menu"> 상품등록
                     </span></a>
                 </li>
               </ul>
@@ -222,40 +194,20 @@
                   class="hide-menu">로그아웃</span></a></li>
           </ul>
         </nav>
-        <!-- End Sidebar navigation -->
       </div>
-      <!-- End Sidebar scroll-->
     </aside>
     <!-- ============================================================== -->
-    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
     <div class="page-wrapper">
-      <!-- ============================================================== -->
-      <!-- Bread crumb and right sidebar toggle -->
       <!-- ============================================================== -->
       <div class="page-breadcrumb">
         <div class="row">
           <div class="col-7 align-self-center">
-            <!-- <h1 class="page-title text-truncate text-dark font-weight-medium mb-1" >
-                상품 목록
-              </h1> -->
           </div>
         </div>
       </div>
       <!-- ============================================================== -->
-      <!-- End Bread crumb and right sidebar toggle -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Container fluid  -->
-      <!-- ============================================================== -->
       <div class="container-fluid">
         <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
-        <!-- basic table -->
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -270,11 +222,11 @@
                             <div class='cur-row' style="color:#000000; display: flex; ">
                               <div style="width: 7%;">카테고리</div>
                               <div style="margin-right: 1%; width: 100%;">
-                                <input type='radio' class='category' name='category' value='skin'>스킨/로션</input>
+                                <input type='radio' class='category' name='category' value='skin'>스킨/로션
                                 <input type='radio' class='category' name='category' value='cleanging'
-                                  style="margin-left: 1%;">클렌징</input>
+                                  style="margin-left: 1%;">클렌징
                                 <input type='radio' class='category' name='category' value='mask'
-                                  style="margin-left: 1%;">마스크/팩</input>
+                                  style="margin-left: 1%;">마스크/팩
                               </div>
                             </div>
                             <br>
@@ -334,7 +286,7 @@
                                   취소</button>
                               </div>
                               </div>
-                          </form>
+                         
                           <script>
                             ClassicEditor
                               .create(document.querySelector('#classic'))
@@ -342,40 +294,37 @@
                                 console.error(error);
                               });
                           </script>
+                           <div>이미지</div>
+                           <textarea name="contents" class="form-control" id="contents" th:field="*{content}"></textarea>
+	<script>
+		var ckeditor_config = {
+			filebrowserUploadMethod :'form',
+			filebrowserUploadUrl: "/admin/imageUpload",
+			extraPlugins : 'autogrow',
+           	 };
+        
+        CKEDITOR.replace("contents", ckeditor_config);
+	</script>
+        <button class="btn btn-primary">저장</button>
+                           
+                            </form>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div> <!-- end card-body-->
-              </div> <!-- end card-->
-            </div> <!-- end col-->
+                </div> <!-- card-body-->
+              </div> <!--  card-->
+            </div> <!-- col-->
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- ============================================================== -->
-  <!-- End Container fluid  -->
-  <!-- ============================================================== -->
-  <!-- ============================================================== -->
   <!-- footer -->
-  <!-- ============================================================== -->
   <footer class="footer text-center text-muted">
     Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
   </footer>
-  <!-- ============================================================== -->
-  <!-- End footer -->
-  <!-- ============================================================== -->
-  <!-- ============================================================== -->
-  <!-- End Page wrapper  -->
-  <!-- ============================================================== -->
-  <!-- ============================================================== -->
-  <!-- End Wrapper -->
-  <!-- ============================================================== -->
-  <!-- End Wrapper -->
-  <!-- ============================================================== -->
   <!-- All Jquery -->
-  <!-- ============================================================== -->
   <script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap tether Core JavaScript -->
   <script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
@@ -447,6 +396,16 @@
       });
     });
   </script>
+  
+ <!--  <script type="text/javascript">
+$(function(){
+	CKEDITOR.replace('bo_content',{
+		filebrowserUploadUrl: '${pageContext.request.contextPath }/adm/fileupload.do'
+	});
+});
+</script> -->
+
+<script type="text/javascript" src="webapp/ckeditor/ckeditor.js"></script>
 
 </body>
 
