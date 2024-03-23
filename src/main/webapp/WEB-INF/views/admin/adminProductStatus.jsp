@@ -101,7 +101,7 @@
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="javascript:void(0)"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<img src="assets/images/weaveglow_logo_small1.jpg" alt="user"
+								<img src="/admin/assets/images/weaveglow_logo_small1.jpg" alt="user"
 								class="rounded-circle" width="40"> <span
 								class="ml-2 d-none d-lg-inline-block"><span
 									style="color: black;">Web</span> <span class="text-dark">weavers</span>
@@ -236,7 +236,6 @@
 												<td><a href="adminProductUpdate.jsp?">${data.productQuantity}</a></td>
 												
 												<c:choose>
-												<!-- if-else문  -->
 												<c:when test="${data.productStatus==1}">
 												<td><a href="adminProductUpdate.jsp?">판매중</a></td>
 													
