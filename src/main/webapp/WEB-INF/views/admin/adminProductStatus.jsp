@@ -43,14 +43,10 @@
 		</div>
 	</div>
 	<!-- ============================================================== -->
-	<!-- Main wrapper - style you can find in pages.scss -->
-	<!-- ============================================================== -->
 	<div id="main-wrapper" data-theme="light" data-layout="vertical"
 		data-navbarbg="skin6" data-sidebartype="full"
 		data-sidebar-position="fixed" data-header-position="fixed"
 		data-boxed-layout="full">
-		<!-- ============================================================== -->
-		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
 		<header class="topbar" data-navbarbg="skin6">
 			<nav class="navbar top-navbar navbar-expand-md">
@@ -58,9 +54,7 @@
 					<!-- This is for the sidebar toggle which is visible on mobile only -->
 					<a class="nav-toggler waves-effect waves-light d-block d-md-none"
 						href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-					<!-- ============================================================== -->
 					<!-- Logo -->
-					<!-- ============================================================== -->
 					<div class="navbar-brand">
 						<!-- Logo icon -->
 						<a href="index.html"> <b class="logo-icon"> <!-- Dark Logo icon -->
@@ -77,12 +71,7 @@
 						</span>
 						</a>
 					</div>
-					<!-- ============================================================== -->
 					<!-- End Logo -->
-					<!-- ============================================================== -->
-					<!-- ============================================================== -->
-					<!-- Toggle which is visible on mobile only -->
-					<!-- ============================================================== -->
 					<a class="topbartoggler d-block d-md-none waves-effect waves-light"
 						href="javascript:void(0)" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
@@ -90,11 +79,7 @@
 						aria-label="Toggle navigation"><i class="ti-more"></i></a>
 				</div>
 				<!-- ============================================================== -->
-				<!-- End Logo -->
-				<!-- ============================================================== -->
 				<div class="navbar-collapse collapse" id="navbarSupportedContent">
-					<!-- ============================================================== -->
-					<!-- toggle and nav items -->
 					<!-- ============================================================== -->
 					<ul class="navbar-nav float-left mr-auto ml-3 pl-1">
 						<!-- Notification -->
@@ -111,11 +96,7 @@
 						</li>
 					</ul>
 					<!-- ============================================================== -->
-					<!-- Right side toggle and nav items -->
-					<!-- ============================================================== -->
 					<ul class="navbar-nav float-right">
-						<!-- ============================================================== -->
-						<!-- User profile and search -->
 						<!-- ============================================================== -->
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="javascript:void(0)"
@@ -134,17 +115,10 @@
 								</div>
 							</div></li>
 						<!-- ============================================================== -->
-						<!-- User profile and search -->
-						<!-- ============================================================== -->
 					</ul>
 				</div>
 			</nav>
 		</header>
-		<!-- ============================================================== -->
-		<!-- End Topbar header -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Left Sidebar - style you can find in sidebar.scss  -->
 		<!-- ============================================================== -->
 		<aside class="left-sidebar" data-sidebarbg="skin6">
 			<!-- Sidebar scroll-->
@@ -205,41 +179,25 @@
 			<!-- End Sidebar scroll-->
 		</aside>
 		<!-- ============================================================== -->
-		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Page wrapper  -->
-		<!-- ============================================================== -->
 		<div class="page-wrapper">
-			<!-- ============================================================== -->
-			<!-- Bread crumb and right sidebar toggle -->
 			<!-- ============================================================== -->
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-7 align-self-center">
-						<!-- <h1 class="page-title text-truncate text-dark font-weight-medium mb-1" >
-                상품 목록
-              </h1> -->
+              </h1> 
 					</div>
 				</div>
 			</div>
 			<!-- ============================================================== -->
-			<!-- End Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- Container fluid  -->
-			<!-- ============================================================== -->
 			<div class="container-fluid">
 				<!-- ============================================================== -->
-				<!-- Start Page Content -->
-				<!-- ============================================================== -->
-				<!-- basic table -->
 				<div class="row">
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
 								<h1 class="card-title">상품 현황</h1>
 								<br>
+								
 								<div class="table-responsive">
 									<table id="zero_config"
 										class="table table-striped table-bordered no-wrap"
@@ -253,56 +211,62 @@
 												<th class="sorting_asc" style="background-color: #f2f2f2;">판매상태</th>
 											</tr>
 										</thead>
+										
+										<script>
+										console.log('[로그1] 들어오는지 확인');
+										</script>
+										
 										<tbody>
+										
+										<script>
+										console.log('[로그2]데이터 확인 '+ `${productPK}`);
+										</script>
+										
+										<c:forEach var="data" items="${productPK}">
+										
 											<tr>
-												<td><a href="adminProductUpdate.html?">Tiger Nixon</a></td>
-												<td><a href="adminProductUpdate.html">System
-														Architect</a></td>
-												<td><a href="adminProductUpdate.html?">Edinburgh</a></td>
-												<td>2011/04/25</td>
-												<td>320,800</td>
+											<script>
+										console.log('[로그3] forEach문 들어갔는지 확인');
+										</script>
+										
+											<!-- 상품 수정 컨트롤러 생기면 href 수정하기  -->
+												<td><a href="adminProductUpdate.jsp?">${data.productPK}</a></td>
+												<td><a href="adminProductUpdate.jsp">${data.productName}</a></td>
+												<td><a href="adminProductUpdate.jsp?">${data.productPrice}</a></td>
+												<td><a href="adminProductUpdate.jsp?">${data.productQuantity}</a></td>
+												
+												<c:choose>
+												<!-- if-else문  -->
+												<c:when test="${data.productStatus==1}">
+												<td><a href="adminProductUpdate.jsp?">판매중</a></td>
+													
+													</c:when>
+													<c:when test="${data.productStatus==0}">
+													<td><a href="adminProductUpdate.jsp?">판매중단</a></td>
+													</c:when>
+												</c:choose> 
+												
 											</tr>
+											</c:forEach>
 										</tbody>
 									</table>
-
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- ============================================================== -->
-				<!-- End PAge Content -->
-				<!-- ============================================================== -->
 			</div>
-			<!-- ============================================================== -->
-			<!-- End Container fluid  -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
 			<!-- footer -->
-			<!-- ============================================================== -->
 			<footer class="footer text-center text-muted">
 				Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
 			</footer>
-			<!-- ============================================================== -->
-			<!-- End footer -->
-			<!-- ============================================================== -->
 		</div>
-		<!-- ============================================================== -->
-		<!-- End Page wrapper  -->
-		<!-- ============================================================== -->
 	</div>
-	<!-- ============================================================== -->
-	<!-- End Wrapper -->
-	<!-- ============================================================== -->
-	<!-- End Wrapper -->
-	<!-- ============================================================== -->
 	<!-- All Jquery -->
-	<!-- ============================================================== -->
 	<script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap tether Core JavaScript -->
 	<script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 	<script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- apps -->
 	<!-- apps -->
 	<script src="/admin/dist/js/app-style-switcher.js"></script>
 	<script src="/admin/dist/js/feather.min.js"></script>
@@ -310,7 +274,6 @@
 	<script
 		src="/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 	<script src="/admin/assets/extra-libs/sparkline/sparkline.js"></script>
-	<!--Wave Effects -->
 	<!-- themejs -->
 	<!--Menu sidebar -->
 	<script src="/admin/dist/js/sidebarmenu.js"></script>
@@ -321,5 +284,4 @@
 		src="/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 </body>
-
 </html>
