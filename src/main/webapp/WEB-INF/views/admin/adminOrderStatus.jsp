@@ -8,16 +8,15 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1"
-	, viewport-fit=cover " />
+	, viewport-fit="cover " />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <!-- Favicon icon -->
 <link rel="icon" type="/admin/image/png" sizes="16x16"
 	href="/admin/assets/images/favicon.png" />
 <title>주문현황</title>
-<!-- This page plugin CSS -->
+<!-- plugin CSS -->
 <link
 	href="/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
 	rel="stylesheet" />
@@ -27,7 +26,6 @@
 .input {
 	color: #000000;
 	background-color: #ffffff4d;
-	/* 원하는 배경색으로 변경 */
 	border: 3px solid #ffffff;
 }
 
@@ -39,13 +37,9 @@ form .cur-row {
 
 #myModal {
 	position: fixed;
-	/* 고정 위치 설정 */
 	top: 50%;
-	/* 화면 상단에서 절반 위치에 배치 */
 	left: 50%;
-	/* 화면 왼쪽에서 절반 위치에 배치 */
 	transform: translate(-50%, -50%);
-	/* 절반씩 이동해서 가운데로 정렬 */
 }
 </style>
 
@@ -54,20 +48,14 @@ form .cur-row {
 <style>
 .custom {
 	appearance: none;
-	/* 웹킷 브라우저에서 기본 스타일 제거 */
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	background: transparent url('path_to_arrow_icon.png') no-repeat right
 		center;
-	/* 드롭다운 아이콘 설정 */
 	padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-	/* 내부 여백 설정 */
 	border: 1px solid #ced4da;
-	/* 테두리 스타일 설정 */
 	border-radius: 0.25rem;
-	/* 테두리 반경 설정 */
 	line-height: 1.5;
-	/* 줄 높이 설정 */
 	background: url(../../assets/images/custom-select.png) right 1.1rem
 		center no-repeat;
 }
@@ -78,7 +66,6 @@ form .cur-row {
 <style>
 .table-responsive {
 	overflow-x: hidden;
-	/* 가로 스크롤 숨김 */
 	overflow-y: auto;
 	/
 }
@@ -89,14 +76,12 @@ form .cur-row {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* 가운데 정렬 */
 }
 </style>
 
 <style>
 .membertable {
 	border-top: 1px solid #e8eef3;
-	/* 위쪽 테두리에 스타일 줌 */
 }
 </style>
 
@@ -105,7 +90,6 @@ table {
 	width: 100%;
 	border-collapse: collapse;
 	table-layout: fixed;
-	/* 테이블의 너비가 유지되도록 설정 */
 }
 
 th, td {
@@ -153,11 +137,8 @@ th {
 <style>
 #inlineFormCustomSelect {
 	overflow-x: hidden;
-	/* 가로 스크롤 숨김 */
 	overflow-y: auto;
-	/* 세로 스크롤 표시 */
 	width: 100%;
-	/* 선택 요소의 가로 너비 설정 */
 }
 </style>
 
@@ -166,14 +147,12 @@ th {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* 가운데 정렬 */
 }
 </style>
 
 <style>
 .membertable {
 	border-top: 1px solid #e8eef3;
-	/* 위쪽 테두리에 스타일 줌 */
 }
 
 form {
@@ -208,7 +187,6 @@ th, td {
 	color: #000;
 	text-decoration: none;
 	position: relative;
-	/* 상대 위치 지정 */
 }
 
 #nav a.active {
@@ -229,7 +207,6 @@ th, td {
 	height: 100%;
 	overflow: auto;
 	background-color: rgba(157, 157, 157, 0.5);
-	/* 배경색을 반투명하게 설정 */
 }
 
 /* 모달 내용 스타일 */
@@ -451,9 +428,7 @@ to {
 				</div>
 			</div>
 			<div class="container-fluid">
-				<!-- ============================================================== -->
 				<!-- 페이지 시작 -->
-				<!-- ============================================================== -->
 				<div class="row">
 					<div class="col-12" >
 						<div class="card" style="width: 100%">
@@ -515,7 +490,6 @@ to {
 												var buyProductStatus = selectElement.options[selectElement.selectedIndex].value; // 선택된 option의 값 가져오기
 												
 												console.log(buyProductStatus);
-												//var productStatus = document.getElementById("productStatus").value;
 												var memberName = document.getElementById("memberName").value;
 												
 												console.log('로그1'+memberName);
@@ -569,7 +543,6 @@ to {
 											</script>
 										</div>
 									
-									<div class='cur-row' style="color: #000000;">
                                         <br>
                                         <div class="table-wrapper">
                                             <table id="products" border="1">

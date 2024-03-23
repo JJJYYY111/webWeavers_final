@@ -9,23 +9,21 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" , viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" , viewport-fit="cover" />
     <meta name="description" content="" />
     <meta name="author" content="" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png" />
     <title>회원현황</title>
-    <!-- This page plugin CSS -->
-    <link href="assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <!-- plugin CSS -->
+    <link href="/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href="dist/css/style.min.css" rel="stylesheet" />
+    <link href="/admin/dist/css/style.min.css" rel="stylesheet" />
 
     <style>
         .input {
             color: #000000;
             background-color: #ffffff4d;
-            /* 원하는 배경색으로 변경 */
             border: 3px solid #ffffff;
         }
 
@@ -39,7 +37,6 @@
     <style>
         ::placeholder {
             color: #000000;
-            /* Placeholder 색상 변경 */
             font-weight: 100;
         }
     </style>
@@ -47,7 +44,6 @@
     <style>
         .table-responsive {
             overflow-x: hidden;
-            /* 가로 스크롤 숨김 */
             overflow-y: auto;/
         }
     </style>
@@ -57,14 +53,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* 가운데 정렬 */
         }
     </style>
 
     <style>
         .membertable {
             border-top: 1px solid #e8eef3;
-            /* 위쪽 테두리에 스타일 줌 */
         }
     </style>
 
@@ -73,7 +67,6 @@
             width: 100%;
             border-collapse: collapse;
             table-layout: fixed;
-            /* 테이블의 너비가 유지되도록 설정 */
         }
 
         th,
@@ -82,25 +75,17 @@
             padding: 8px;
             text-align: left;
             overflow-x: auto;
-            /* 가로 오버플로우 스크롤 생성 */
-            /* max-width: 200px; */
-            /* 테이블 셀 내부의 최대 너비 설정 */
-            /* overflow: hidden; */
             white-space: nowrap;
 
         }
 
         th {
             background-color: #f2f2f2;
-            /* 테이블 헤더의 배경색 설정 */
         }
 
         @media screen and (max-width: 768px) {
-
-            /* 화면 너비가 768px 이하일 때 스타일 적용 */
             table {
                 font-size: 14px;
-                /* 작은 화면에서 글꼴 크기 조정 */
             }
         }
     </style>
@@ -108,21 +93,14 @@
     <style>
         ::-webkit-scrollbar {
             width: 5px;
-            /* 스크롤 바의 가로 너비 */
         }
 
-        /* Firefox 브라우저에 적용되는 스크롤 바 스타일 */
-        /* Firefox에서는 스크롤 바의 가로 너비만 제어할 수 있습니다. */
-        /* 세로 스크롤 바는 브라우저의 기본 스타일이 적용됩니다. */
         * {
             scrollbar-width: thin;
         }
 
-        /* IE 및 Edge 브라우저(이전 버전)에 적용되는 스크롤 바 스타일 */
-        /* Microsoft Edge(Chromium)에서는 사용되지 않습니다. */
         *::-ms-scrollbar {
             width: 5px;
-            /* 스크롤 바의 가로 너비 */
         }
 
 
@@ -159,7 +137,6 @@
             color: #000;
             text-decoration: none;
             position: relative;
-            /* 상대 위치 지정 */
         }
 
 
@@ -175,9 +152,7 @@
 </head>
 
 <body>
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
+    <!-- =========로딩======== -->
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
@@ -185,59 +160,41 @@
         </div>
     </div>
     <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
     <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md">
                 <div class="navbar-header" data-logobg="skin6">
-                    <!-- This is for the sidebar toggle which is visible on mobile only -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
                             class="ti-menu ti-close"></i></a>
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
+                    <!-- ==========로고=========== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
                         <a href="index.html">
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
-                                <img src="assets/images/logo_small.png" width=40; alt="homepage" class="dark-logo" />
+                                <img src="/admin/assets/images/logo_small.png" width=40; alt="homepage" class="dark-logo" />
                                 <!-- Light Logo icon -->
-                                <img src="assets/imageslogo_small.png" alt="homepage" class="light-logo" />
+                                <img src="/admin/sassets/imageslogo_small.png" alt="homepage" class="light-logo" />
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
                             <span class="logo-text">
-                                <!-- dark Logo text -->
-                                <img src="assets/images/weaveGlow_logo1.png" width=165; alt="homepage"
+                                <img src="/admin/assets/images/weaveGlow_logo1.png" width=165; alt="homepage"
                                     class="dark-logo" />
-                                <!-- Light Logo text -->
-                                <img src="assets/images/light-logo 1.png" class="light-logo" alt="homepage" />
+                                <img src="/admin/assets/images/light-logo 1.png" class="light-logo" alt="homepage" />
                             </span>
                         </a>
                     </div>
-                    <!-- ============================================================== -->
                     <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Toggle which is visible on mobile only -->
-                    <!-- ============================================================== -->
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
                         data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
                             class="ti-more"></i></a>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
                         <!-- Notification -->
@@ -255,16 +212,12 @@
                         </li>
                     </ul>
                     <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img src="assets/images/weaveglow_logo_small1.jpg" alt="user" class="rounded-circle"
+                                <img src="/admin/assets/images/weaveglow_logo_small1.jpg" alt="user" class="rounded-circle"
                                     width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span style="color:black;">Web</span> <span
                                         class="text-dark">weavers</span> <i data-feather="chevron-down" class="svg-icon"
@@ -276,17 +229,10 @@
                                     </a> </div>
                             </div>
                         </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
                     </ul>
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
@@ -354,18 +300,10 @@
                                     class="hide-menu">로그아웃</span></a></li>
                     </ul>
                 </nav>
-                <!-- End Sidebar navigation -->
             </div>
-            <!-- End Sidebar scroll-->
         </aside>
         <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
@@ -374,14 +312,7 @@
                 </div>
             </div>
             <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <!-- basic table -->
                 <div class="row">
@@ -398,7 +329,7 @@
                                                         <div class='cur-row' style="color:#000000">
                                                             <div>회원등급</div>
                                                             <div class="col-md-8">
-                                                                <select class="custom-select mr-sm-2" id="member-grade"
+                                                                <select class="custom-select mr-sm-2" id="gradePK"
                                                                     style="color: black">
                                                                     <option value="3">브론즈</option>
                                                                     <option value="4">실버</option>
@@ -413,12 +344,12 @@
                                                             <div>회원이름</div>
                                                             <div class="col-md-3">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="ex) 홍길동">
+                                                                   id="memberName" name="memberName" placeholder="ex) 홍길동">
                                                             </div>
                                                             <div>회원아이디</div>
                                                             <div class="col-md-3">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="ex) weaveGlow">
+                                                                  id="memberID" name="memberID"  placeholder="ex) weaveGlow">
                                                             </div>
                                                         </div>
                                                     </form>
@@ -432,204 +363,43 @@
 
                                         <div class="row justify-content-center">
                                             <div class="col-md-6 text-center">
-                                                <button type="button" class="btn btn-primary" "><i class=" fas
+                                                <button type="button" class="btn btn-primary" id="search" ><i class=" fas
                                                     fa-check"></i>
                                                     검색</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class='cur-row' style="color: #000000;">
-                                        <div>검색결과</div>
-                                        <br>
-                                        <table id="products" border="1">
-
+                                    	
+											
+                                        <table id="member" border="1">
                                             <thead>
                                                 <tr>
-                                                    <th> ID </th>
+                                                    <th>ID</th>
                                                     <th>이름</th>
                                                     <th>등급</th>
                                                     <th>생일</th>
-                                                    <th>가입일</a></th>
+                                                    <th>가입일</th>
                                                     <th>email 수신 동의</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <!-- for문 돌리기 나중에 -->
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
+                                            <!-- Controller에서 memberDatas로 값 받기 -->
+                                               <c:forEach var="data" items="${memberDatas}">
+                                               <!-- Controller로 넘어갈 때 a태그 안에 ? 뒤에 "${data.memberID}"  -->
+                                                <tr style="color: #000000;" class="memberTable" id="${data.memberID}">
+                                                 <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
+                                                 <!-- 회원 업데이트 컨트롤러 생기면 href 수정하기  -->
+                                                    <td><a href="adminMemberUpdate.jsp">${data.memberID}</a></td>
+                                                    <td><a href="adminMemberUpdate.jsp">${data.memberName}</a> </td>
+                                                    <td><a href="adminMemberUpdate.jsp">${data.gradeName}</a></td>
+                                                    <td><a href="adminMemberUpdate.jsp">${data.memberBirth}</a></td>
+                                                    <td><a href="adminMemberUpdate.jsp">${data.memberRegdate}</a></td>
+                                                    <td><a href="adminMemberUpdate.jsp">${data.memberMarketing}</a></td>
                                                 </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
-                                                <tr style="color: #000000;">
-                                                    <td>1</td>
-                                                    <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                    <td><a href="adminMemberUpdate.html">값받기</a> </td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                    <td><a href="adminMemberUpdate.html">값받기</a></td>
-                                                </tr>
+                                               </c:forEach>
                                             </tbody>
                                         </table>
                                         <div id="nav">
-                                            <!-- </table> -->
                                         </div>
                                     </div>
                                 </div>
@@ -640,43 +410,91 @@
             </div>
         </div>
     </div>
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
     <!-- footer -->
     <footer class="footer text-center text-muted">
         Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
     </footer>
-    <!-- ============================================================== -->
-    <!-- End footer -->
-    </div>
-    </div>
-    <!-- ============================================================== -->
     <!-- All Jquery -->
-    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
     <!-- apps -->
-    <script src="dist/js/app-style-switcher.js"></script>
-    <script src="dist/js/feather.min.js"></script>
+    <script src="/admin/dist/js/app-style-switcher.js"></script>
+    <script src="/admin/dist/js/feather.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/admin/assets/extra-libs/sparkline/sparkline.js"></script>
     <!--Wave Effects -->
-    <!-- themejs -->
     <!--Menu sidebar -->
-    <script src="dist/js/sidebarmenu.js"></script>
+    <script src="/admin/dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="dist/js/custom.min.js"></script>
+    <script src="/admin/dist/js/custom.min.js"></script>
     <!--This page plugins -->
-    <script src="assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="dist/js/pages/datatable/datatable-basic.init.js"></script>
-
-
-    <script src="dist/js/tablePage.js"></script>
+    <script src="/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+ 	<!--페이징처리 -->
+    <script src="/admin/dist/js/tablePage.js"></script>
+    
+    <!-- 필터검색 -->
+											<script>
+											$("#search").on("click", function() {
+												console.log('들어옴')
+												var selectElement = document.getElementById("gradePK"); // select 요소 가져오기
+												var gradePK = selectElement.options[selectElement.selectedIndex].value; // 선택된 option의 값 가져오기
+												
+												//console.log(memberGrade);
+												var memberName = document.getElementById("memberName").value;
+												
+												console.log('로그1'+memberName);
+												var memberID= document.getElementById("memberID").value;
+												//memberId의 위에서 value를 가져온다.
+												console.log('로그2'+memberID);
+												
+												$.ajax({
+													
+													type: "POST",
+													url: "/admin/memberSearch",
+													data: {
+                                                        'gradePK': gradePK,
+                                                        'memberName': memberName,
+                                                       'memberID': memberID
+                                                        
+                                                    },
+                                                    
+                                                    dataType: 'json',
+                                                    	
+                                                    	success:function(datas) {
+                                                    		console.log('콘솔'+datas);
+                                                    	    var tableHTML = "<table id='search' border='1'>";
+                                                    	    tableHTML += "<thead><tr><th>회원ID</th><th>회원이름</th><th>회원등급</th><th>회원생일</th><th>가입일</th><th>이메일수신동의</th></tr></thead>";
+                                                    	    tableHTML += "<tbody>";
+                                                    	    for (var i = 0; i < datas.length; i++) {
+                                                    	    	 <!-- 회원 업데이트 컨트롤러 생기면 href 수정하기  -->
+                                                    	        tableHTML += "<tr class='memberTable' id="+datas[i].memberID+">";
+                                                    	        tableHTML += "<td><a href=adminMemberUpdate.jsp>" + datas[i].memberID + "</a></td>";
+                                                    	        tableHTML += "<td><a href=adminMemberUpdate.jsp>" + datas[i].memberName + "</a></td>";
+                                                    	        tableHTML += "<td><a href=adminMemberUpdate.jsp>" + datas[i].gradeName + "</a></td>";
+                                                    	        tableHTML += "<td><a href=adminMemberUpdate.jsp>" + datas[i].memberBirth + "</a></td>";
+                                                    	        tableHTML += "<td><a href=adminMemberUpdate.jsp>" + datas[i].memberRegdate + "</a></td>";
+                                                    	        tableHTML += "<td><a href=adminMemberUpdate.jsp>" + datas[i].memberMarketing + "</a></td>";
+                                                    	        tableHTML += "</tr>";
+                                                    	    }
+                                                    	    tableHTML += "</tbody></table>";
+                                                    	    $("#memberTable").html(tableHTML);
+                                                    	   
+                                                    },
+                                                    error: function (error) {
+                                                    	
+                                                        console.log('에러의 종류:' + error)
+                                                    }
+												});
+												
+											
+											});
+											
+											
+											</script>
 </body>
-
 </html>
