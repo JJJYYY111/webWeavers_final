@@ -15,10 +15,12 @@ public class MemberDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private static final String SELECTALL = "";
+	private static final String SELECTALL = "SELECT M.MEMBER_ID, M.MEMBER_NAME, G.GRADE_NAME, M.MEMBER_BIRTH, M.MEMBER_REGDATE, M.MEMBER_MARKETING, "
+												+" FROM MEMBER M JOIN GRADE G ON (M.GRADE_PK = G.GRADE_PK) " ;
 	// 관리자페이지 회원현황 - 회원검색
-	private static final String SELECTALL_USERSEARCH = "SELECT MEMBER_ID, MEMBER_NAME, MEMBER_BIRTH, MEMBER_MARKETING, MEMBER_REGDAY, GRADE_PK, GRADE_NAME"
-														+ "  FROM MEMBER WHERE MEMBER_NAME=? OR MEMBER_ID=?";
+	private static final String SELECTALL_USERSEARCH = "SELECT  M.MEMBER_ID, M.MEMBER_NAME, G.GRADE_NAME, M.MEMBER_BIRTH, M.MEMBER_REGDATE, M.MEMBER_MARKETING, "
+														+ " FROM MEMBER M JOIN GRADE G ON (M.GRADE_PK = G.GRADE_PK) "
+														+ " WHERE MEMBER_NAME LIKE CONCAT('%',?,'%') OR MEMBER_ID LIKE CONCAT('%',?,'%') ";
 	// 회원 로그인
 	private static final String SELECTONE_LOGIN = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, "
 														+ " MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_PASSWORD=?";
@@ -47,11 +49,17 @@ public class MemberDAO {
 
 	public List<MemberDTO> selectAll(MemberDTO memberDTO) {
 		try {
-			return jdbcTemplate.query(SELECTALL_USERSEARCH, new MemberRowMapper6());
+			if (memberDTO.getSearchCondition().equals("allMemberInfo")) {
+				return jdbcTemplate.query(SELECTALL, new MemberRowMapper4());
+			} else if (memberDTO.getSearchCondition().equals("userSearch")) {
+				Object[] args = { memberDTO.getMemberName(),memberDTO.getMemberID() };
+				return jdbcTemplate.query(SELECTALL_USERSEARCH, new MemberRowMapper4());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+		return null;
 	}
 
 	public MemberDTO selectOne(MemberDTO memberDTO) {
@@ -59,9 +67,6 @@ public class MemberDAO {
 			if (memberDTO.getSearchCondition().equals("login")) {
 				Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberPassword() };
 				return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapper2());
-			} else if (memberDTO.getSearchCondition().equals("memberUserSearch")) {
-				Object[] args = { memberDTO.getMemberNickname() };
-				return jdbcTemplate.queryForObject(SELECTALL_USERSEARCH, args, new MemberRowMapper5());
 			} else if (memberDTO.getSearchCondition().equals("memberNickNameCheck")) {
 				Object[] args = { memberDTO.getMemberNickname() };
 				return jdbcTemplate.queryForObject(SELECTONE_MEMBER_NICKNAMECHECK, args, new MemberRowMapper2());
@@ -146,16 +151,17 @@ public class MemberDAO {
 			return data;
 		}
 	}
-
+	
 	class MemberRowMapper3 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 			MemberDTO data = new MemberDTO();
 			data.setMemberID(rs.getString("MEMBER_ID"));
-			data.setMemberPassword(rs.getString("MEMBER_PASSWORD"));
-			data.setMemberPhone(rs.getString("MEMBER_PHONE"));
-			data.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
-			data.setMemberEmail(rs.getString("MEMBER_EMAIL"));
+			data.setMemberName(rs.getString("MEMBER_NAME"));
+			data.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
+			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
+			data.setGradePK(rs.getInt("GRADE_PK"));
+			data.setGradeName(rs.getString("GRADE_NAME"));
 			return data;
 		}
 	}
@@ -165,35 +171,11 @@ public class MemberDAO {
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 			MemberDTO data = new MemberDTO();
 			data.setMemberID(rs.getString("MEMBER_ID"));
-			return data;
-		}
-	}
-
-	class MemberRowMapper5 implements RowMapper<MemberDTO> {
-		@Override
-		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-			MemberDTO data = new MemberDTO();
-			data.setMemberID(rs.getString("MEMBER_ID"));
 			data.setMemberName(rs.getString("MEMBER_NAME"));
-			data.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
-			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
-			data.setGradePK(rs.getInt("GRADE_PK"));
 			data.setGradeName(rs.getString("GRADE_NAME"));
-			return data;
-		}
-	}
-
-	class MemberRowMapper6 implements RowMapper<MemberDTO> {
-		@Override
-		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-			MemberDTO data = new MemberDTO();
-			data.setMemberID(rs.getString("MEMBER_ID"));
-			data.setMemberName(rs.getString("MEMBER_NAME"));
 			data.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
-			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
 			data.setMemberRegdate(rs.getInt("MEMBER_REGDATE"));
-			data.setGradePK(rs.getInt("GRADE_PK"));
-			data.setGradeName(rs.getString("GRADE_NAME"));
+			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
 			return data;
 		}
 	}
