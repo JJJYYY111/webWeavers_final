@@ -69,8 +69,8 @@ public class ProductDAO {
 	private static final String SELECTALL_ADMIN_PRODUCT = "SELECT\r\n"
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY, PRODUCT_STATUS\r\n"
 			+ "FROM PRODUCT\r\n"
-			+ "ORDER BY PRODUCT_PK ASC\r\n"
-			+ "LIMIT ?, 10";	// 페이징처리 (앞단 페이지 번호 필요) (?행부터 10개 데이터 추출)
+			+ "ORDER BY PRODUCT_PK ASC\r\n";
+//			+ "LIMIT ?, 10";	// 페이징처리 (앞단 페이지 번호 필요) (?행부터 10개 데이터 추출 / 0,10,20,30,40,... 이렇게 번호 넘어오면 좋을것같음) -> 앞단에서 처리 예정
 	// 상품정보_관리자상품수정페이지
 	private static final String SELECTONE_ADMIN_PRODUCT = "SELECT\r\n"
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_REGDATE,\r\n"
@@ -100,16 +100,13 @@ public class ProductDAO {
 			} else if (productDTO.getSearchCondition().equals("searchName")) {
 				return jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("adminProductList")) {
-//				int pageNum = 0;
-//				if(productDTO.getOption().containsKey("pageNum")) {
-//					pageNum = (int)productDTO.getOption().get("pageNum") - 1;
+//				int pageNum = productDTO.getPageNum();
+//				if(productDTO.getPageNum() != 0) {
+//					pageNum = productDTO.getPageNum() - 1;	// 앞단에서 페이지번호 어떻게 넘겨주는지보고 계산 예정
 //				}
-				int pageNum = productDTO.getPageNum();
-				if(productDTO.getPageNum() != 0) {
-					pageNum = productDTO.getPageNum() - 1;	// 앞단에서 페이지번호 어떻게 넘겨주는지보고 계산 예정
-				}
-				Object[] args3 = { pageNum };
-				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, args3, new ProductListAdminRowMapper());
+//				Object[] args3 = { pageNum };
+//				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, args3, new ProductListAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, new ProductListAdminRowMapper());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
