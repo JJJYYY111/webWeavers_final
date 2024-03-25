@@ -92,7 +92,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">회원정보수정</h4>
                                 <hr>
-                                <form name="profileChangeForm" class="col-lg-12 row login_form" action="/admin/memberUpdate"
+                                <form name="profileChangeForm" class="col-lg-12 row login_form" action="/adminMemberUpdate"
                                     method="POST" id="profileChange_form">
                                     <!-- 개인정보수정 -->
                                     <!-- 3.12 자세한 내용 수정예정 column명  -->
@@ -108,11 +108,11 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <input type="text" class="form-control col-md-12"
-                                                                    id="registMid" name="memberId" placeholder="아이디 입력"
+                                                                    id="registMid" name="memberID" placeholder="아이디 입력"
                                                                     onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = '아이디 입력'"
-                                                                    style="display: inline-block;" value="${sessionMid}"
-                                                                    disabled>
+                                                                    style="display: inline-block;" value="${memberID}"
+                                                                    >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -155,7 +155,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <input type="text" class="form-control col-md-12"
-                                                                    id="registName" name="name" placeholder="이름 입력"
+                                                                    id="registName" name="memberName" placeholder="이름 입력"
                                                                     onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = '이름 입력'"
                                                                     style="display: inline-block;" value="${memberName}">
@@ -177,11 +177,11 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <input type="date" class="form-control col-md-12"
-                                                                    id="registBirth" name="birth" placeholder="생년월일"
+                                                                    id="registBirth" name="memberBirth" placeholder="생년월일"
                                                                     onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = '생년월일'"
                                                                     style="display: inline-block;" value="${memberBirth}"
-                                                                    disabled>
+                                                                    >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -200,7 +200,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <input type="text" class="form-control col-md-12"
-                                                                    id="registPhone" name="phone" placeholder="전화번호 입력"
+                                                                    id="registPhone" name="memberPhone" placeholder="전화번호 입력"
                                                                     onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = '전화번호 입력'"
                                                                     style="display: inline-block;" value="${memberPhone}">
@@ -222,7 +222,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <input type="text" class="form-control col-md-12"
-                                                                    id="registNickname" name="nickname"
+                                                                    id="registNickname" name="memberNickname"
                                                                     placeholder="닉네임 입력" onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = '닉네임 입력'"
                                                                     style="display: inline-block;" value="${memberNickname}">
@@ -244,7 +244,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <input type="text" class="form-control col-md-12"
-                                                                    id="registEmail" name="email" placeholder="e-mail"
+                                                                    id="registEmail" name="memberEmail" placeholder="e-mail"
                                                                     onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = 'e-mail'"
                                                                     style="display: inline-block;" value="${memberEmail}">
@@ -266,7 +266,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <select class="custom-select mr-sm-2"
-                                                                    id="inlineFormCustomSelect" value="${gradePK}">
+                                                                    id="inlineFormCustomSelect" name="gradePK" value="${gradePK}">
                                                                     <option value="1">브론즈</option>
                                                                     <option value="2">실버</option>
                                                                     <option value="3">골드</option>
@@ -282,7 +282,7 @@
                                         <div class="form-actions">
                                             <div class="text-right">
                                                 <button type="submit" class="btn btn-info">완료</button>
-                                                <button type="button" class="btn btn-dark">취소</button>
+                                                <button type="button" class="btn btn-dark" onclick="history.go(-1)">취소</button>
                                                 <button type="reset" class="btn btn-outline-dark float-left">리셋</button>
                                             </div>                                        
                                         </div>

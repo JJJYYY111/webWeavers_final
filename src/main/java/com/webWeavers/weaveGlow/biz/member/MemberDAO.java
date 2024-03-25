@@ -20,7 +20,7 @@ public class MemberDAO {
 	// 관리자페이지 회원현황 - 회원검색
 	private static final String SELECTALL_USERSEARCH = "SELECT  M.MEMBER_ID, M.MEMBER_NAME, G.GRADE_NAME, M.MEMBER_BIRTH, M.MEMBER_REGDATE, M.MEMBER_MARKETING "
 														+ " FROM MEMBER M JOIN GRADE G ON (M.GRADE_PK = G.GRADE_PK) "
-														+ " WHERE MEMBER_NAME LIKE CONCAT('%',?,'%') OR MEMBER_ID LIKE CONCAT('%',?,'%') ";
+														+ " WHERE G.GRADE_NAME LIKE CONCAT('%',?,'%') AND M.MEMBER_NAME LIKE CONCAT('%',?,'%') AND M.MEMBER_ID LIKE CONCAT('%',?,'%') ";
 	// 회원 로그인
 	private static final String SELECTONE_LOGIN = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, "
 														+ " MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_PASSWORD=?";
@@ -54,7 +54,7 @@ public class MemberDAO {
 				Object[] args = {};
 				return jdbcTemplate.query(SELECTALL, args, new MemberRowMapper4());
 			} else if (memberDTO.getSearchCondition().equals("userSearch")) {
-				Object[] args = { memberDTO.getMemberName(),memberDTO.getMemberID() };
+				Object[] args = { memberDTO.getGradeName(), memberDTO.getMemberName(),memberDTO.getMemberID() };
 				return jdbcTemplate.query(SELECTALL_USERSEARCH, args, new MemberRowMapper4());
 			}
 		} catch (Exception e) {
@@ -105,6 +105,14 @@ public class MemberDAO {
 			}
 		} else if (memberDTO.getSearchCondition().equals("unregisterUpdateInfo")) {
 			result = jdbcTemplate.update(UPDATE_UNREGISTER, memberDTO.getMemberID());
+			if (result <= 0) {
+				return false;
+			}
+		} else if (memberDTO.getSearchCondition().equals("adminUpdateMember")) {
+			System.out.println("adminUpdateMember진입");
+			result = jdbcTemplate.update(UPDATE_ADMIN, memberDTO.getMemberPassword(), memberDTO.getMemberName(), 
+										memberDTO.getMemberBirth(), memberDTO.getMemberPhone(), memberDTO.getMemberNickname(),
+										memberDTO.getMemberEmail(), memberDTO.getGradePK(), memberDTO.getMemberID());
 			if (result <= 0) {
 				return false;
 			}
