@@ -49,11 +49,13 @@ public class MemberDAO {
 
 	public List<MemberDTO> selectAll(MemberDTO memberDTO) {
 		try {
+			
 			if (memberDTO.getSearchCondition().equals("allMemberInfo")) {
-				return jdbcTemplate.query(SELECTALL, new MemberRowMapper4());
+				Object[] args = {};
+				return jdbcTemplate.query(SELECTALL, args, new MemberRowMapper4());
 			} else if (memberDTO.getSearchCondition().equals("userSearch")) {
 				Object[] args = { memberDTO.getMemberName(),memberDTO.getMemberID() };
-				return jdbcTemplate.query(SELECTALL_USERSEARCH, new MemberRowMapper4());
+				return jdbcTemplate.query(SELECTALL_USERSEARCH, args, new MemberRowMapper4());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -174,7 +176,7 @@ public class MemberDAO {
 			data.setMemberName(rs.getString("MEMBER_NAME"));
 			data.setGradeName(rs.getString("GRADE_NAME"));
 			data.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
-			data.setMemberRegdate(rs.getInt("MEMBER_REGDATE"));
+			data.setMemberRegdate(rs.getDate("MEMBER_REGDATE"));
 			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
 			return data;
 		}
