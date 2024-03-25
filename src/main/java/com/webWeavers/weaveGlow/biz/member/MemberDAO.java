@@ -47,7 +47,7 @@ public class MemberDAO {
 
 	public List<MemberDTO> selectAll(MemberDTO memberDTO) {
 		try {
-			return jdbcTemplate.query(SELECTALL, new MemberRowMapper6());
+			return jdbcTemplate.query(SELECTALL_USERSEARCH, new MemberRowMapper6());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

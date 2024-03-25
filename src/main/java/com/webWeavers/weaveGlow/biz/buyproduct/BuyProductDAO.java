@@ -75,14 +75,14 @@ public class BuyProductDAO {
 		return true;
 	}
 
-//	public boolean update(BuyProductDTO buyProductDTO) {
-//		return false;
-//	}
+	public boolean update(BuyProductDTO buyProductDTO) {
+		return false;
+	}
 
-//	private boolean delete(BuyProductDTO buyProductDTO) {
-//
-//		return false;
-//	}
+	private boolean delete(BuyProductDTO buyProductDTO) {
+
+		return false;
+	}
 	
 }
 
