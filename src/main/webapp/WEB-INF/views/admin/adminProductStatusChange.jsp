@@ -11,7 +11,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1"
-	, viewport-fit=cover " />
+	, viewport-fit="cover" />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <script
@@ -343,7 +343,7 @@ form .cur-row {
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('들어왔니?');
+    console.log('들어온거 확인');
     // 저장된 카테고리 및 서브 카테고리 가져오기
     var selectedCategory = "${productDTO.categoryName}"; // 서버에서 받은 카테고리 값
     console.log(`${productDTO.categoryName}`);
@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 카테고리 체크 박스 선택
     var categoryRadios = document.querySelectorAll('input[name="categoryName"]');
     categoryRadios.forEach(function (radio) {
-        console.log('들어왔냐고?');
+        console.log('카테고리 체크 확인');
         if (radio.value === selectedCategory) {
             radio.checked = true;
         }
@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const categoryRadios = document.querySelectorAll('.category');
 	categoryRadios.forEach(function (radio) {
         const subCategoryElement = document.querySelector('.sub-category');
-        console.log('ㅁㅇㄹㄴㄹㅇㄻ'+radio.value);
+        console.log('카테고리'+radio.value);
         if (selectedCategory === 'skin') {
             subCategoryElement.innerHTML = `
 <div style="width: 120%;">
@@ -402,11 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //서브카테고리 네임안에 있는 데이터가 데이터가 ,를 기준으로 분리되서 들어가야함.
        // const selectedSubCategories = selectedSubCategory.split(',');
         
-        console.log('로그로그로그로그'+selectedSubCategory);
-        
-        // 선택된 라디오 버튼에 따라 세부카테고리에 해당하는 체크박스 체크
-        // 각각의 서브 카테고리에 해당하는 체크박스를 선택
-        
+        //서브 카테고리 체크박스 선택되는거 비동기
         $.ajax({
 			
 			type: "POST",
@@ -419,6 +415,8 @@ document.addEventListener('DOMContentLoaded', function () {
             dataType: 'json',
             	
             	success:function(datas) {
+            		
+            		console.log('로그'+datas);
         
             		$.each(datas, function(index, data){
             		    
@@ -442,60 +440,59 @@ document.addEventListener('DOMContentLoaded', function () {
  	
         
 	}
-	
-	
+ </script>
 
- function runSecondScript(selectedCategory) {
-    // JavaScript 코드
-    // 라디오 버튼 요소들을 가져옴
-    const categoryRadios = document.querySelectorAll('.category');
-    console.log('상품 수정 로그-스킨');
-    // 라디오 버튼에 대한 이벤트 리스너 추가
-    categoryRadios.forEach(function (radio) {
-        radio.addEventListener('click', function () {
-            // 선택된 라디오 버튼의 값에 따라 세부카테고리 내용 변경
-            const subCategoryElement = document.querySelector('.sub-category');
-            if (radio.value === 'skin') {
-                subCategoryElement.innerHTML = `
-  <div style="width: 120%;">
-    <input type='checkbox' name='subCategoryName' value='subskin' >스킨</input>
-    <input type='checkbox' name='subCategoryName' value='lotion' style="margin-left: 1%;">로션/에멀젼</input>
-    <input type='checkbox' name='subCategoryName' value='essence' style="margin-left: 1%;">에센스/세럼/앰플</input>
-    <input type='checkbox' name='subCategoryName' value='cream' style="margin-left: 1%;">크림</input>
-    <input type='checkbox' name='subCategoryName' value='eyecare' style="margin-left: 1%;">아이케어</input>
-    <input type='checkbox' name='subCategoryName' value='mist' style="margin-left: 1%;">미스트/부스터</input>
-    <input type='checkbox' name='subCategoryName' value='set' style="margin-left: 1%;">세트</input>
-  </div>
+
+ <script>
+   // JavaScript 코드
+   document.addEventListener("DOMContentLoaded", function () {
+
+
+     // 라디오 버튼 요소들을 가져옴
+     const categoryRadios = document.querySelectorAll('.category');
+
+     // 라디오 버튼에 대한 이벤트 리스너 추가
+     categoryRadios.forEach(function (radio) {
+       radio.addEventListener('click', function () {
+         // 선택된 라디오 버튼의 값에 따라 세부카테고리 내용 변경
+         const subCategoryElement = document.querySelector('.sub-category');
+         if (radio.value === 'skin') {
+           subCategoryElement.innerHTML = `
+<div style="width: 120%;">
+<input type='checkbox' name='subCategoryName' value='subskin' >스킨</input>
+<input type='checkbox' name='subCategoryName' value='lotion' style="margin-left: 1%;">로션/에멀젼</input>
+<input type='checkbox' name='subCategoryName' value='essence' style="margin-left: 1%;">에센스/세럼/앰플</input>
+<input type='checkbox' name='subCategoryName' value='cream' style="margin-left: 1%;">크림</input>
+<input type='checkbox' name='subCategoryName' value='eyecare' style="margin-left: 1%;">아이케어</input>
+<input type='checkbox' name='subCategoryName' value='mist' style="margin-left: 1%;">미스트/부스터</input>
+<input type='checkbox' name='subCategoryName' value='set' style="margin-left: 1%;">세트</input>
+</div>
 `;
-            } else if (radio.value === 'cleanging') {
-                subCategoryElement.innerHTML = `
-  <div style="width: 120%;">
-    <input type='checkbox' name='subCategoryName' value='cleanging' >클렌징폼</input>
-    <input type='checkbox' name='subCategoryName' value='cleansingcream' style="margin-left: 1%;">클렌징크림/로션/워터</input>
-    <input type='checkbox' name='subCategoryName' value='cleansinggel' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
-    <input type='checkbox' name='subCategoryName' value='lib' style="margin-left: 1%;">립,아이 리무버</input>
-  </div>
+         } else if (radio.value === 'cleanging') {
+           subCategoryElement.innerHTML = `
+<div style="width: 120%;">
+<input type='checkbox' name='subCategoryName' value='cleanging' >클렌징폼</input>
+<input type='checkbox' name='subCategoryName' value='cleansingcream' style="margin-left: 1%;">클렌징크림/로션/워터</input>
+<input type='checkbox' name='subCategoryName' value='cleansinggel' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
+<input type='checkbox' name='subCategoryName' value='lib' style="margin-left: 1%;">립,아이 리무버</input>
+</div>
 `;
-            } else if (radio.value === 'mask') {
-                subCategoryElement.innerHTML = `
-  <div style="width: 120%;">
-    <input type='checkbox' name='subCategoryName' value='mask' >팩/마스크</input>
-    <input type='checkbox' name='subCategoryName' value='massage' style="margin-left: 1%;">마사지/워시오프 팩</input>
-    <input type='checkbox' name='subCategoryName' value='scrub' style="margin-left: 1%;">필링/스크럽</input>
-    <input type='checkbox' name='subCategoryName' value='sheetmask' style="margin-left: 1%;">시트마스크</input>
-    <input type='checkbox' name='subCategoryName' value='nosepack' style="margin-left: 1%;">코팩</input>
-  </div>
+         } else if (radio.value === 'mask') {
+           subCategoryElement.innerHTML = `
+<div style="width: 120%;">
+<input type='checkbox' name='subCategoryName' value='mask' >팩/마스크</input>
+<input type='checkbox' name='subCategoryName' value='massage' style="margin-left: 1%;">마사지/워시오프 팩</input>
+<input type='checkbox' name='subCategoryName' value='scrub' style="margin-left: 1%;">필링/스크럽</input>
+<input type='checkbox' name='subCategoryName' value='sheetmask' style="margin-left: 1%;">시트마스크</input>
+<input type='checkbox' name='subCategoryName' value='nosepack' style="margin-left: 1%;">코팩</input>
+</div>
 `;
-            }
-            // 선택된 라디오 버튼에 따라 세부카테고리에 해당하는 체크박스 체크
-            const selectedSubCategoryCheckbox = subCategoryElement.querySelector('input[name="subCategoryName"][value="' + selectedCategory + '"]');
-            if (selectedSubCategoryCheckbox !== null) {
-                selectedSubCategoryCheckbox.checked = true;
-            }
-        });
-    });
-}
-</script>
+         }
+       });
+     });
+   });
+ </script>
+
 
 
 
