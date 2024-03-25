@@ -124,14 +124,14 @@
                                 <div class="card-body">
                                   <div class="table-responsive">
 
-                                    <form action="/admin/adminProductStatus" method="POST">
+                                    <form id="myForm" action="/admin/adminProductStatus" method="POST">
                                       <div class='cur-row' style="color:#000000; display: flex; ">
                                         <div style="width: 7%;">카테고리</div>
                                         <div style="margin-right: 1%; width: 100%;">
-                                          <input type='radio' class='category' name='category' value='skin'>스킨/로션
-                                          <input type='radio' class='category' name='category' value='cleanging'
+                                          <input type='radio' class='category' name='categoryName' value='skin'>스킨/로션
+                                          <input type='radio' class='category' name='categoryName' value='cleanging'
                                             style="margin-left: 1%;">클렌징
-                                          <input type='radio' class='category' name='category' value='mask'
+                                          <input type='radio' class='category' name='categoryName' value='mask'
                                             style="margin-left: 1%;">마스크/팩
                                         </div>
                                       </div>
@@ -156,7 +156,7 @@
                                       <div class='cur-row' style="color:#000000; display: flex;">
                                         <div>판매가</div>
                                         <div class="col-md-5" style="margin-left: 15px;">
-                                          <input type="text" class="form-control" placeholder="ex) 25,000">
+                                          <input type="text" class="form-control" name="productPrice" placeholder="ex) 25,000">
                                         </div>
                                       </div>
                                       <br>
@@ -229,7 +229,7 @@
                                       <div class="table-responsive" style="width: 100%">
                                         <div id="editor"></div>
                                       </div>
-                                      <textarea id="editorContent" name="editorContent"
+                                      <textarea id="editorContent" name="productDetailImg"
                                         style="display: none;"></textarea>
 
                                       <script>
@@ -358,32 +358,32 @@
                     if (radio.value === 'skin') {
                       subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategory' value='subskin' >스킨</input>
-<input type='checkbox' name='subCategory' value='lotion' style="margin-left: 1%;">로션/에멀젼</input>
-<input type='checkbox' name='subCategory' value='essence' style="margin-left: 1%;">에센스/세럼/앰플</input>
-<input type='checkbox' name='subCategory' value='cream' style="margin-left: 1%;">크림</input>
-<input type='checkbox' name='subCategory' value='eyecare' style="margin-left: 1%;">아이케어</input>
-<input type='checkbox' name='subCategory' value='mist' style="margin-left: 1%;">미스트/부스터</input>
-<input type='checkbox' name='subCategory' value='set' style="margin-left: 1%;">세트</input>
+<input type='checkbox' name='subCategoryName' value='subskin' >스킨</input>
+<input type='checkbox' name='subCategoryName' value='lotion' style="margin-left: 1%;">로션/에멀젼</input>
+<input type='checkbox' name='subCategoryName' value='essence' style="margin-left: 1%;">에센스/세럼/앰플</input>
+<input type='checkbox' name='subCategoryName' value='cream' style="margin-left: 1%;">크림</input>
+<input type='checkbox' name='subCategoryName' value='eyecare' style="margin-left: 1%;">아이케어</input>
+<input type='checkbox' name='subCategoryName' value='mist' style="margin-left: 1%;">미스트/부스터</input>
+<input type='checkbox' name='subCategoryName' value='set' style="margin-left: 1%;">세트</input>
 </div>
 `;
                     } else if (radio.value === 'cleanging') {
                       subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategory' value='cleanging' >클렌징폼</input>
-<input type='checkbox' name='subCategory' value='cleansingcream' style="margin-left: 1%;">클렌징크림/로션/워터</input>
-<input type='checkbox' name='subCategory' value='cleansinggel' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
-<input type='checkbox' name='subCategory' value='lib' style="margin-left: 1%;">립,아이 리무버</input>
+<input type='checkbox' name='subCategoryName' value='cleanging' >클렌징폼</input>
+<input type='checkbox' name='subCategoryName' value='cleansingcream' style="margin-left: 1%;">클렌징크림/로션/워터</input>
+<input type='checkbox' name='subCategoryName' value='cleansinggel' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
+<input type='checkbox' name='subCategoryName' value='lib' style="margin-left: 1%;">립,아이 리무버</input>
 </div>
 `;
                     } else if (radio.value === 'mask') {
                       subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategory' value='mask' >팩/마스크</input>
-<input type='checkbox' name='subCategory' value='massage' style="margin-left: 1%;">마사지/워시오프 팩</input>
-<input type='checkbox' name='subCategory' value='scrub' style="margin-left: 1%;">필링/스크럽</input>
-<input type='checkbox' name='subCategory' value='sheetmask' style="margin-left: 1%;">시트마스크</input>
-<input type='checkbox' name='subCategory' value='nosepack' style="margin-left: 1%;">코팩</input>
+<input type='checkbox' name='subCategoryName' value='mask' >팩/마스크</input>
+<input type='checkbox' name='subCategoryName' value='massage' style="margin-left: 1%;">마사지/워시오프 팩</input>
+<input type='checkbox' name='subCategoryName' value='scrub' style="margin-left: 1%;">필링/스크럽</input>
+<input type='checkbox' name='subCategoryName' value='sheetmask' style="margin-left: 1%;">시트마스크</input>
+<input type='checkbox' name='subCategoryName' value='nosepack' style="margin-left: 1%;">코팩</input>
 </div>
 `;
                     }
