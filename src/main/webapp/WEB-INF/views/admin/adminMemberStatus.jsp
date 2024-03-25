@@ -251,15 +251,15 @@
                                             <!-- Controller에서 memberDatas로 값 받기 -->
                                                <c:forEach var="data" items="${memberDatas}">
                                                <!-- Controller로 넘어갈 때 a태그 안에 ? 뒤에 "${data.memberID}"  -->
-                                                <tr style="color: #000000;" class="memberTable" id="${data.memberID}">
+                                                <tr onclick="location.href='adminMemberUpdate?memberID=${data.memberID}'" style="color: #000000; cursor:hand;" class="memberTable" id="${data.memberID}">
                                                  <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
                                                  <!-- 회원 업데이트 컨트롤러 생기면 href 수정하기  -->
-                                                    <td><a href="adminMemberUpdate.jsp">${data.memberID}</a></td>
-                                                    <td><a href="adminMemberUpdate.jsp">${data.memberName}</a> </td>
-                                                    <td><a href="adminMemberUpdate.jsp">${data.gradeName}</a></td>
-                                                    <td><a href="adminMemberUpdate.jsp">${data.memberBirth}</a></td>
-                                                    <td><a href="adminMemberUpdate.jsp">${data.memberRegdate}</a></td>
-                                                    <td><a href="adminMemberUpdate.jsp">${data.memberMarketing}</a></td>
+                                                    <td>${data.memberID}</a></td>
+                                                    <td>${data.memberName}</a> </td>
+                                                    <td>${data.gradeName}</a></td>
+                                                    <td>${data.memberBirth}</a></td>
+                                                    <td>${data.memberRegdate}</a></td>
+                                                    <td>${data.memberMarketing}</a></td>
                                                 </tr>
                                                </c:forEach>
                                             </tbody>

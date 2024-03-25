@@ -30,7 +30,6 @@ public class WishlistController {
 			}
 			return "1";
 		}
-		
 		else {
 			if(!wishListService.delete(wishListDTO)) {
 				return "0";

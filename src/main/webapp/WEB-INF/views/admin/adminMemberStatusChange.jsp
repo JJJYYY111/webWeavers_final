@@ -150,30 +150,6 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <label class="col-lg-2"
-                                                        style="margin-top: 7px; margin-bottom: 4px;">비밀번호 확인</label>
-                                                    <div class="col-lg-10">
-                                                        <div class="row">
-                                                            <div class="col-lg-10">
-                                                                <input type="password" class="form-control col-md-12"
-                                                                    id="confirmMpw" name="confirmMemberpasswoed"
-                                                                    placeholder="비밀번호 확인"
-                                                                    onfocus="this.placeholder = ''"
-                                                                    onblur="this.placeholder = '비밀번호 확인'"
-                                                                    style="display: inline-block;"
-                                                                    value="${memberPassword}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12"
-                                                style="text-align: left; font-size: 13px; padding: 3px">
-                                                <div class="col-md-4 label-text"></div>
-                                                <span class="col-md-9" id="confirmPwCheck"></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <label class="col-lg-2"
                                                         style="margin-top: 7px; margin-bottom: 4px;">이름</label>
                                                     <div class="col-lg-10">
                                                         <div class="row">
@@ -182,7 +158,7 @@
                                                                     id="registName" name="name" placeholder="이름 입력"
                                                                     onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = '이름 입력'"
-                                                                    style="display: inline-block;" value="${name}">
+                                                                    style="display: inline-block;" value="${memberName}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -204,7 +180,7 @@
                                                                     id="registBirth" name="birth" placeholder="생년월일"
                                                                     onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = '생년월일'"
-                                                                    style="display: inline-block;" value="${birth}"
+                                                                    style="display: inline-block;" value="${memberBirth}"
                                                                     disabled>
                                                             </div>
                                                         </div>
@@ -227,7 +203,7 @@
                                                                     id="registPhone" name="phone" placeholder="전화번호 입력"
                                                                     onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = '전화번호 입력'"
-                                                                    style="display: inline-block;" value="${phone}">
+                                                                    style="display: inline-block;" value="${memberPhone}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -249,7 +225,7 @@
                                                                     id="registNickname" name="nickname"
                                                                     placeholder="닉네임 입력" onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = '닉네임 입력'"
-                                                                    style="display: inline-block;" value="${nickname}">
+                                                                    style="display: inline-block;" value="${memberNickname}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -271,7 +247,7 @@
                                                                     id="registEmail" name="email" placeholder="e-mail"
                                                                     onfocus="this.placeholder = ''"
                                                                     onblur="this.placeholder = 'e-mail'"
-                                                                    style="display: inline-block;" value="${email}">
+                                                                    style="display: inline-block;" value="${memberEmail}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -290,8 +266,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <select class="custom-select mr-sm-2"
-                                                                    id="inlineFormCustomSelect">
-                                                                    <option selected>선택</option>
+                                                                    id="inlineFormCustomSelect" value="${gradePK}">
                                                                     <option value="1">브론즈</option>
                                                                     <option value="2">실버</option>
                                                                     <option value="3">골드</option>

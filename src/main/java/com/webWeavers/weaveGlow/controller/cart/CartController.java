@@ -37,14 +37,11 @@ public class CartController {
 		return String.valueOf(cartService.update(cartDTO));
 	}
 	
-	// 기능고장 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-	
 	@RequestMapping("/async/cartUpdate")// ("/async/idcheck" 혹은 "/async/pwcheck")
 	public @ResponseBody String cartUpdate(CartDTO cartDTO, HttpSession session) {
 		cartDTO.setMemberID((String)session.getAttribute("sessionMid"));
 		cartDTO.setSearchCondition("cntUpdate");
         return String.valueOf(cartService.update(cartDTO));
-		
 	}
 	
 	@RequestMapping("/cart")
@@ -62,7 +59,6 @@ public class CartController {
 			return "user/cart";
 		}
 	}
-	
 	
 	@RequestMapping("/cartDelete") // ("/async/idcheck" 혹은 "/async/pwcheck")
 	public String cartDelete(CartDTO cartDTO, HttpSession session, Model model) {

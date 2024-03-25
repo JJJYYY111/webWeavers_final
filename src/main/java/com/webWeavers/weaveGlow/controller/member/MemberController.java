@@ -39,9 +39,8 @@ public class MemberController {
 		} else { // mDTO가 null이 아닌 경우(중복o),
 			return "0"; // 0 응답
 		}
-
 	}
-
+	
 	@RequestMapping("/async/nickNameCheck")
 	public @ResponseBody String nickNameCheck(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("닉네임중복검사진입");
@@ -51,10 +50,6 @@ public class MemberController {
 		memberDTO = memberService.selectOne(memberDTO); // selectOne()을 통해 리턴값(객체) 저장
 
 		if (memberDTO == null || memberDTO.getMemberID().equals(session.getAttribute("sessionMid"))) { // mDTO가 null인
-																										// 경우(중복x),
-																										// 개인정보수정에서 기존
-																										// 닉네임을 사용하고 싶은
-																										// 경우
 			return "1"; // 1 응답
 		} else { // mDTO가 null이 아닌 경우(중복o),
 			return "0"; // 0 응답
@@ -64,7 +59,6 @@ public class MemberController {
 	@RequestMapping("/login")
 	public String login() {
 		return "user/login";
-
 	}
 
 	@RequestMapping("/logout")
@@ -91,7 +85,6 @@ public class MemberController {
 			session.setAttribute("grade", memberDTO.getGradePK());
  			return "redirect:/main";
 		}
-
 	}
 
 	@RequestMapping("/memberUpdate")
