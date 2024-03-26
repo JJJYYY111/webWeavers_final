@@ -65,14 +65,6 @@
                 <div class="row">
                     <div class="col-7 align-self-center">
                         <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원 수정 페이지</h4>
-                        <div class="d-flex align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb m-0 p-0">
-                                    <li class="breadcrumb-item"><a href="/admin/index.jsp" class="text-muted">Home</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page">Library</li>
-                                </ol>
-                            </nav>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -90,8 +82,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">회원정보수정</h4>
-                                <hr>
                                 <form name="profileChangeForm" class="col-lg-12 row login_form" action="/adminMemberUpdate"
                                     method="POST" id="profileChange_form">
                                     <!-- 개인정보수정 -->
