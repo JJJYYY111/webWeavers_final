@@ -14,7 +14,7 @@ public class SubCategoryDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private static final String SELECTALL = "SELECT S.SUBCATEGORY_PK, S.SUBCATEGORY_NAME, C.CATEGORY_PK FROM SUBCATEGORY S JOIN CATEGORY C ON S.CATEGORY_PK = C.CATEGORY_PK";
+	private static final String SELECTALL = "SELECT S.SUBCATEGORY_PK, S.SUBCATEGORY_NAME, C.CATEGORY_PK, C.CATEGORY_NAME FROM SUBCATEGORY S JOIN CATEGORY C ON S.CATEGORY_PK = C.CATEGORY_PK";
 	private static final String SELECTONE = "SELECT SUBCATEGORY_PK, SUBCATEGORY_NAME FROM SUBCATEGORY WHERE SUBCATEGORY_PK = ?";
 
 	private static final String INSERT = "";
@@ -60,6 +60,7 @@ class SubCategoryRowMapper implements RowMapper<SubCategoryDTO> {
 		data.setSubcategoryPK(rs.getInt("SUBCATEGORY_PK"));
 		data.setSubcategoryName(rs.getString("SUBCATEGORY_NAME"));
 		data.setCategoryPK(rs.getInt("CATEGORY_PK"));
+		data.setSubcategoryName(rs.getString("CATEGORY_NAME"));
 		return data;
 	}
 }

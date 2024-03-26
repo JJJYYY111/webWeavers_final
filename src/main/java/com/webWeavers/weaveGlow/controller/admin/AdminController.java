@@ -6,9 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.webWeavers.weaveGlow.biz.categorization.CategorizationDTO;
+import com.webWeavers.weaveGlow.biz.categorization.CategorizationService;
+import com.webWeavers.weaveGlow.biz.imageupload.ImageService;
 import com.webWeavers.weaveGlow.biz.member.MemberDTO;
 import com.webWeavers.weaveGlow.biz.member.MemberService;
 import com.webWeavers.weaveGlow.biz.product.ProductDTO;
@@ -16,6 +21,7 @@ import com.webWeavers.weaveGlow.biz.product.ProductService;
 import com.webWeavers.weaveGlow.biz.serial.SerialDTO;
 import com.webWeavers.weaveGlow.biz.serial.SerialService;
 import com.webWeavers.weaveGlow.biz.subcategory.SubCategoryDTO;
+import com.webWeavers.weaveGlow.biz.subcategory.SubCategoryService;
 
 @Controller
 public class AdminController {
@@ -26,6 +32,12 @@ public class AdminController {
 	SerialService serialService;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	SubCategoryService subCategoryService;
+	@Autowired
+	CategorizationService categorizationService;
+	@Autowired
+	ImageService imageService;
 	
 	@RequestMapping("/adminDashboard")
 	public String adminDashboard() {
@@ -95,8 +107,22 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminProductInsert")
-	public String adminProductInsert(SubCategoryDTO subCategoryDTO, ProductDTO productDTO) {
+	public String adminProductInsert(ProductDTO productDTO, CategorizationDTO categorizationDTO, @RequestParam("file") MultipartFile file,@RequestParam("subCategoryName") List<Integer> subCategoryNames) {
+		// 1번기능 상품추가
+		productDTO.setProductImg(imageService.imageInsert(file));
+		productDTO.setProductDetailImg(imageService.imageInsert(file));
+//		productService.insert(productDTO);
 		
+		// 2번기능 방금 등록한 상품 productPK번호 받아와서 카테고리에 추가하도록 사전설정
+//		productDTO.setSearchCondition("productInsert");
+//		categorizationDTO.setProductPK(productService.selectOne(productDTO).getProductPK());
+		
+		// 3번기능 카테고리 추가
+		for(int data: subCategoryNames) {
+			categorizationDTO.setSubcategoryPK(data);
+			System.out.println(categorizationDTO);
+//			categorizationService.insert(categorizationDTO);
+		}
 		
 		return "adminProductStatus";
 	}
