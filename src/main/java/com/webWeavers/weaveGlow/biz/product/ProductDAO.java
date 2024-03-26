@@ -64,7 +64,7 @@ public class ProductDAO {
 			+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
 			+ "WHERE P.PRODUCT_PK = ?";
 	
-	// ------------------------------------- AdminPage -------------------------------------	
+	// ------------------------------------- AdminPage_상품관리 -------------------------------------	
 	// 상품목록_관리자상품현황페이지
 	private static final String SELECTALL_ADMIN_PRODUCT = "SELECT\r\n"
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY, PRODUCT_STATUS\r\n"
@@ -77,13 +77,48 @@ public class ProductDAO {
 			+ "	PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY\r\n"
 			+ "FROM PRODUCT\r\n"
 			+ "WHERE PRODUCT_PK = ?";
-	
 	// 상품등록_관리자상품등록페이지
 	private static final String INSERT = "INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
 	// 상품정보수정_관리자상품수정페이지
 	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
 //	private static final String DELETE = "";
-
+	
+	// ------------------------------------- AdminPage_매출관리 -------------------------------------
+	// 상품별 매출현황_관리자매출관리>매출현황페이지
+	private static final String SELECTALL_ADMIN_PRODUCT_SALES = "WITH \r\n"
+			+ "P_CATEGORY AS (\r\n"	// 상품별 카테고리 CTE
+			+ "    SELECT\r\n"
+			+ "        CZ.PRODUCT_PK,\r\n"
+			+ "        C.CATEGORY_NAME,\r\n"
+			+ "        GROUP_CONCAT(S.SUBCATEGORY_NAME ORDER BY S.SUBCATEGORY_PK) AS SUBCATEGORY_NAME\r\n"
+			+ "    FROM CATEGORYZATION CZ\r\n"
+			+ "    LEFT JOIN SUBCATEGORY S ON CZ.SUBCATEGORY_PK = S.SUBCATEGORY_PK\r\n"
+			+ "    LEFT JOIN CATEGORY C ON S.CATEGORY_PK = C.CATEGORY_PK\r\n"
+			+ "    GROUP BY CZ.PRODUCT_PK, C.CATEGORY_NAME\r\n"
+			+ "),\r\n"
+			+ "P_SALES AS (\r\n"	// 상품별 매출 CTE
+			+ "    SELECT\r\n"
+			+ "        P.PRODUCT_PK,\r\n"
+			+ "        P.PRODUCT_NAME,\r\n"
+			+ "        P.PRODUCT_PRICE,\r\n"
+			+ "        COALESCE(SUM(B.BUYPRODUCT_CNT), 0) AS TOTAL_CNT,\r\n"
+			+ "        COALESCE((P.PRODUCT_PRICE * SUM(B.BUYPRODUCT_CNT)), 0) AS TOTAL_PRICE\r\n"
+			+ "    FROM PRODUCT P\r\n"
+			+ "    LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"
+			+ "    GROUP BY P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE\r\n"
+			+ ")\r\n"
+			+ "SELECT\r\n"
+			+ "    PS.PRODUCT_PK,\r\n"
+			+ "    PS.PRODUCT_NAME,\r\n"
+			+ "    PS.PRODUCT_PRICE,\r\n"
+			+ "    PS.TOTAL_CNT,\r\n"
+			+ "    PS.TOTAL_PRICE,\r\n"
+			+ "    PC.CATEGORY_NAME,\r\n"
+			+ "    PC.SUBCATEGORY_NAME\r\n"
+			+ "FROM P_SALES PS\r\n"	// 상품별 매출 및 카테고리 JOIN
+			+ "LEFT JOIN P_CATEGORY PC ON PS.PRODUCT_PK = PC.PRODUCT_PK\r\n"
+			+ "ORDER BY PS.TOTAL_PRICE DESC";
+	
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
 		Object[] args1 = { productDTO.getMemberID() };
 		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
@@ -107,6 +142,8 @@ public class ProductDAO {
 //				Object[] args3 = { pageNum };
 //				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, args3, new ProductListAdminRowMapper());
 				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, new ProductListAdminRowMapper());
+			} else if (productDTO.getSearchCondition().equals("adminProductSales")) {
+				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT_SALES, new ProductSalesAdminRowMapper());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -201,6 +238,23 @@ class ProductUserRowMapper implements RowMapper<ProductDTO> {
 		data.setProductImg(rs.getString("PRODUCT_IMG"));
 		data.setWish(rs.getInt("HasWPK"));
 		
+		return data;
+	}
+}
+
+//selectAll_Admin_매출관리>매출현황페이지
+class ProductSalesAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		data.setProductName(rs.getString("PRODUCT_NAME"));
+		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		data.setTotalCnt(rs.getInt("TOTAL_CNT"));
+		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+		data.setCategoryName(rs.getString("CATEGORY_NAME"));
+		data.setSubCategoryName(rs.getString("SUBCATEGORY_NAME"));
+
 		return data;
 	}
 }

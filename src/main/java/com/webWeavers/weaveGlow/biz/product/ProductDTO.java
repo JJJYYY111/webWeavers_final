@@ -23,5 +23,7 @@ public class ProductDTO {
 	private int pageNum;
 	private String categoryName;
 	private String subCategoryName;
+	private int totalCnt;	// 매출현황 (총 판매 개수)
+	private int totalPrice;	// 매출현황 (총 판매 금액)
 
 }
