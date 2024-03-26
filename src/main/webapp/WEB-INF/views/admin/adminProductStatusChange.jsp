@@ -235,48 +235,82 @@ form .cur-row {
 														</div>
 
 														<br>
-														<div class='cur-row'
-															style="color: #000000; display: flex;">
-															<div>상세설명</div>
-														</div>
-														<br>
-														<div class="table-responsive" style="width: 100%">
-															<div id="editor"></div>
-														</div>
-														<textarea id="editorContent" name="editorContent"
-															style="display: none;">${productDTO.productDetailImg}</textarea>
+														  <div class='cur-row' style="color:#000000; display: flex;">
+                                        <div>상세설명</div>
+                                      </div>
+                                      <br>
 
+                            <div class="addImage" id="show-image"> <!-- 이미지 띄울 공간 -->
+                            
+                            
+															<img src="/admin/adminImg/${productDTO.productDetailImg}"
+																alt="productDetailImg"
+																style="width: 1000%; height: 70%; object-fit: contain;">
+															<script>
+																console.log('사진 로그');
+																</script>
+																
+																
+                                  </div>
+                                 <input type="file" name="file"  accept="image/*" onchange="DetailloadFile(this)">
+                                    <div class="detailDeleteButton" id="detailDeleteButton" style="color: black;"
+                                          onclick="detailDeleteButton()">
+                                          <br>
+                                          <label
+                                            style="margin-right: auto; color: black; background-color: lightgray;">[사진등록취소]</label>
+                                        </div>
+                 
+                 
+                 
+                 
+                 
+                 <script>
+        function DetailloadFile(input) {
+            let file = input.files[0]; // 선택파일 가져오기
 
-<!-- ck에디터 사진 불러오기 -->
-														<script>
-    // productDTO의 productDetailImg 속성 값이 비어있을 경우 빈 문자열로 설정
-    let productDescription = '${productDTO.productDetailImg}';
+            let newImage = document.createElement("img"); //새 이미지 태그 생성
 
-    ClassicEditor
-        .create(document.querySelector('#editor'), {
-            // 초기 상세설명을 설정
-            initialData: productDescription,
-            ckfinder: {
-                uploadUrl: '/admin/upload'
+            //이미지 source 가져오기
+            newImage.src = URL.createObjectURL(file);
+            newImage.style.width = "100%"; //div에 꽉차게 넣으려고
+            newImage.style.height = "100%";
+            //newImage.style.objectFit = "cover"; // div에 넘치지 않고 들어가게
+            
+             // 이전에 표시된 이미지를 지우기 위해 이미지 표시 div를 찾고, 모든 자식 노드를 삭제합니다.
+        let container = document.getElementById('show-image');
+        container.innerHTML = "";
+
+            //이미지를 image-show div에 추가
+            container.appendChild(newImage);
+            currentImage = newImage; // 현재 이미지를 저장
+            
+        }
+        
+        function detailDeleteButton() {
+            if (currentImage) {
+               currentImage.remove(); // 이미지 삭제
             }
-        })
-        .then(editor => {
-            console.log('Editor was initialized');
-            // 폼 제출 시 CKEditor의 내용을 hidden textarea에 복사
-            document.getElementById('myForm').addEventListener('submit', function () {
-                document.getElementById('editorContent').value = editor.getData();
-            });
-        })
-        .catch(error => {
-            console.error(error);
-        });
+          }
 </script>
 
-													</form>
 
-											
-										<!-- input 태그 사진 불러오기/삭제  -->
-													<script>
+
+                                      <br>
+                                      <div style="text-align: right;">
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>
+                                          완료</button>
+                                        <button class="btn btn-primary"><i class="fas fa-check"></i> 취소</button>
+                                      </div>
+
+
+
+
+                                    </form>
+                                  </div>
+                                  
+                                        
+                           <!-- input 태그 사진 넣는 js  -->
+                                  <script>
                                     function loadFile(input) {
                                       var file = input.files[0]; // 선택된 파일 가져오기
 
@@ -311,6 +345,7 @@ form .cur-row {
                                       }
                                     }
                                   </script>
+
 
 
 												</div>
