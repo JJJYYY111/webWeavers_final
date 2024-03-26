@@ -78,6 +78,8 @@ public class ProductDAO {
 			+ "FROM PRODUCT\r\n"
 			+ "WHERE PRODUCT_PK = ?";
 	// 상품등록_관리자상품등록페이지
+	private static final String SELECTONE_INSERT = "SELECT PRODUCT_PK FROM PRODUCT WHERE PRODUCT_PK = (SELECT MAX(PRODUCT_PK) FROM PRODUCT)";
+	// 상품등록_관리자상품등록페이지
 	private static final String INSERT = "INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
 	// 상품정보수정_관리자상품수정페이지
 	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
@@ -162,6 +164,8 @@ public class ProductDAO {
 				return jdbcTemplate.queryForObject(SELECTONE_USER_PRODUCT, args1, new ProductUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("adminProduct")) {
 				return jdbcTemplate.queryForObject(SELECTONE_ADMIN_PRODUCT, args2, new ProductAdminRowMapper());
+			} else if (productDTO.getSearchCondition().equals("productInsert")) {
+				return jdbcTemplate.queryForObject(SELECTONE_INSERT, new ProductInsertRowMapper());
 			}
 
 		} catch (Exception e) {
@@ -287,6 +291,17 @@ class ProductAdminRowMapper implements RowMapper<ProductDTO> {
 		data.setProductRegdate(rs.getDate("PRODUCT_REGDATE"));
 		data.setProductDetailImg(rs.getString("PRODUCT_DETAILIMG"));
 		data.setProductImg(rs.getString("PRODUCT_IMG"));
+		
+		return data;
+	}
+}
+
+//selectOne_Admin_상품등록페이지
+class ProductInsertRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setProductPK(rs.getInt("PRODUCT_PK"));
 		
 		return data;
 	}
