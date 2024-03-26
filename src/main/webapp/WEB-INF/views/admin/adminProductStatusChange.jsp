@@ -83,7 +83,7 @@ form .cur-row {
 		data-sidebar-position="fixed" data-header-position="fixed"
 		data-boxed-layout="full">
 		<!-- ============================================================== -->
-		<common:adminTopBar />
+		<common:topBar />
 		<!-- =======사이드바========= -->
 		<common:adminSideBar />
 		<!-- ============================================================== -->
@@ -202,8 +202,12 @@ form .cur-row {
 															<p id="fileName"></p>
 														</div>
 														<div id="image-show" class="image-show">
-															<img src="${productDTO.productImg}" alt="Product Image"
+															<img src="/admin/adminImg/${productDTO.productImg}" alt="Product Image"
 																style="width: 70%; height: 70%; object-fit: contain;">
+																<script>
+																console.log('사진 로그');
+																</script>
+																
 														</div>
 														<div class="buttonContainer">
 
@@ -490,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function () {
          }
        });
      });
-   });
+       });
  </script>
 
 
