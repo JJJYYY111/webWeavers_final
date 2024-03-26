@@ -51,8 +51,7 @@ public class MemberDAO {
 		try {
 			
 			if (memberDTO.getSearchCondition().equals("allMemberInfo")) {
-				Object[] args = {};
-				return jdbcTemplate.query(SELECTALL, args, new MemberRowMapper4());
+				return jdbcTemplate.query(SELECTALL, new MemberRowMapper4());
 			} else if (memberDTO.getSearchCondition().equals("userSearch")) {
 				Object[] args = { memberDTO.getGradeName(), memberDTO.getMemberName(),memberDTO.getMemberID() };
 				return jdbcTemplate.query(SELECTALL_USERSEARCH, args, new MemberRowMapper4());

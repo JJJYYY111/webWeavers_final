@@ -64,9 +64,9 @@
                                 </li>
                             </ul>
                         <li class="list-divider"></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="logout"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="main"
                                 aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span
-                                    class="hide-menu">로그아웃</span></a></li>
+                                    class="hide-menu">홈페이지로 이동</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

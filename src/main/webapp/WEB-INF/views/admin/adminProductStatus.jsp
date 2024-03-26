@@ -96,29 +96,29 @@
 										<tbody>
 										
 										<script>
-										console.log('[로그2]데이터 확인 '+ `${productPK}`);
+										console.log('[로그2]데이터 확인 '+ `${productDatas}`);
 										</script>
 										
-										<c:forEach var="data" items="${productPK}">
+										<c:forEach var="data" items="${productDatas}">
 										
-											<tr>
+											<tr onclick="location.href='adminProductStatusChange?productPK=${data.productPK}'" style="cursor: pointer;">
 											<script>
 										console.log('[로그3] forEach문 들어갔는지 확인');
 										</script>
 										
 											<!-- 상품 수정 컨트롤러 생기면 href 수정하기  -->
-												<td><a href="adminProductUpdate.jsp?">${data.productPK}</a></td>
-												<td><a href="adminProductUpdate.jsp">${data.productName}</a></td>
-												<td><a href="adminProductUpdate.jsp?">${data.productPrice}</a></td>
-												<td><a href="adminProductUpdate.jsp?">${data.productQuantity}</a></td>
+												<td>${data.productPK}</td>
+												<td>${data.productName}</td>
+												<td>${data.productPrice}</td>
+												<td>${data.productQuantity}</td>
 												
 												<c:choose>
 												<c:when test="${data.productStatus==1}">
-												<td><a href="adminProductUpdate.jsp?">판매중</a></td>
+												<td>판매중</td>
 													
 													</c:when>
 													<c:when test="${data.productStatus==0}">
-													<td><a href="adminProductUpdate.jsp?">판매중단</a></td>
+													<td>판매중단</td>
 													</c:when>
 												</c:choose> 
 												

@@ -9,15 +9,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.webWeavers.weaveGlow.biz.address.AddressDTO;
 import com.webWeavers.weaveGlow.biz.member.MemberDTO;
 import com.webWeavers.weaveGlow.biz.member.MemberService;
+import com.webWeavers.weaveGlow.biz.product.ProductDTO;
+import com.webWeavers.weaveGlow.biz.product.ProductService;
+import com.webWeavers.weaveGlow.biz.serial.SerialDTO;
+import com.webWeavers.weaveGlow.biz.serial.SerialService;
+import com.webWeavers.weaveGlow.biz.subcategory.SubCategoryDTO;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	SerialService serialService;
+	@Autowired
+	ProductService productService;
 	
 	@RequestMapping("/adminDashboard")
 	public String adminDashboard() {
@@ -28,8 +36,7 @@ public class AdminController {
 	@RequestMapping("/adminMemberStatus")
 	public String adminMemberStatus(MemberDTO memberDTO, Model model) {
 		memberDTO.setSearchCondition("allMemberInfo");
-		List<MemberDTO> memberDatas = memberService.selectAll(memberDTO);
-		model.addAttribute("memberDatas", memberDatas);
+		model.addAttribute("memberDatas", memberService.selectAll(memberDTO));
 		return "admin/adminMemberStatus";
 	}
 	
@@ -76,8 +83,22 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminProductStatus")
-	public String adminProductStatus() {
+	public String adminProductStatus(ProductDTO productDTO, Model model) {
+		productDTO.setSearchCondition("adminProductList");
+		model.addAttribute("productDatas", productService.selectAll(productDTO));
 		return "admin/adminProductStatus";
+	}
+	
+	@RequestMapping("/adminProductStatusChange")
+	public String adminProductStatusChange() {
+		
+		return "admin/adminProductStatusChange";
+	}
+	
+	@RequestMapping("categoryCheckBox")
+	public @ResponseBody String categoryCheckBox(ProductDTO productDTO, Gson gson, SubCategoryDTO subCategoryDTO) {
+		// 서브카테고리 selectAll해서 해당 상품의 카테고리개수들 전부 가져와서 전달;
+		return "";
 	}
 	
 	
@@ -88,7 +109,9 @@ public class AdminController {
 	
 	
 	@RequestMapping("/adminOrderStatus")
-	public String adminOrderStatus() {
+	public String adminOrderStatus(SerialDTO serialDTO, Model model) {
+		serialDTO.setSearchCondition("orderList");
+		model.addAttribute("serialDatas", serialService.selectAll(serialDTO));
 		return "admin/adminOrderStatus";
 	}
 	

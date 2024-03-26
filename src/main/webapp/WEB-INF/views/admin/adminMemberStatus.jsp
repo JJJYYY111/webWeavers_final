@@ -252,15 +252,15 @@
                                             <!-- Controller에서 memberDatas로 값 받기 -->
                                                <c:forEach var="data" items="${memberDatas}">
                                                <!-- Controller로 넘어갈 때 a태그 안에 ? 뒤에 "${data.memberID}"  -->
-                                                <tr onclick="location.href='adminMemberStatusChange?memberID=${data.memberID}'" style="color: #000000; cursor: hand;" class="memberTable" id="${data.memberID}">
+                                                <tr onclick="location.href='adminMemberStatusChange?memberID=${data.memberID}'" style="color: #000000; cursor: pointer;" class="memberTable" id="${data.memberID}">
                                                  <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
                                                  <!-- 회원 업데이트 컨트롤러 생기면 href 수정하기  -->
-                                                    <td>${data.memberID}</a></td>
-                                                    <td>${data.memberName}</a> </td>
-                                                    <td>${data.gradeName}</a></td>
-                                                    <td>${data.memberBirth}</a></td>
-                                                    <td>${data.memberRegdate}</a></td>
-                                                    <td>${data.memberMarketing}</a></td>
+                                                    <td>${data.memberID}</td>
+                                                    <td>${data.memberName}</td>
+                                                    <td>${data.gradeName}</td>
+                                                    <td>${data.memberBirth}</td>
+                                                    <td>${data.memberRegdate}</td>
+                                                    <td>${data.memberMarketing}</td>
                                                 </tr>
                                                </c:forEach>
                                             </tbody>
@@ -343,13 +343,13 @@
                                                     	    tableHTML += "<tbody>";
                                                     	    for (var i = 0; i < datas.length; i++) {
                                                     	    	 <!-- 회원 업데이트 컨트롤러 생기면 href 수정하기  -->
-                                                    	        tableHTML += `<tr class='memberTable' onclick="location.href='adminMemberStatusChange?memberID=${data.memberID}'" id="+datas[i].memberID+">`;
-                                                    	        tableHTML += "<td>" + datas[i].memberID + "</a></td>";
-                                                    	        tableHTML += "<td>" + datas[i].memberName + "</a></td>";
-                                                    	        tableHTML += "<td>" + datas[i].gradeName + "</a></td>";
-                                                    	        tableHTML += "<td>" + datas[i].memberBirth + "</a></td>";
-                                                    	        tableHTML += "<td>" + datas[i].memberRegdate + "</a></td>";
-                                                    	        tableHTML += "<td>" + datas[i].memberMarketing + "</a></td>";
+                                                    	        tableHTML += `<tr class='memberTable' onclick="location.href='adminMemberStatusChange?memberID=${data.memberID}'" id="+datas[i].memberID+" style="cursor: pointer;">`;
+                                                    	        tableHTML += "<td>" + datas[i].memberID + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].memberName + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].gradeName + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].memberBirth + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].memberRegdate + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].memberMarketing + "</td>";
                                                     	        tableHTML += "</tr>";
                                                     	    }
                                                     	    tableHTML += "</tbody></table>";

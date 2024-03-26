@@ -444,8 +444,7 @@ to {
                                                         <td>${data.serialPK}</td>
                                                         <td>${data.serialRegdate}</td>
                                                         <td>${data.memberName}</td>
-                                                        <td>${data.productName}외
-                                                           <c:if test="${fn:length(data.productName) > 1}">${fn:length(data.productName) - 1}</c:if>개</td>
+                                                        <td>${data.productName}외${data.cnt}개</td>
                                                         <td>${data.totalPrice}</td>
                                                         <td>
                                                             <select class="custom-select mr-sm-2"
