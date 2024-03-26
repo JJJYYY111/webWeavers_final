@@ -83,7 +83,7 @@ form .cur-row {
 		data-sidebar-position="fixed" data-header-position="fixed"
 		data-boxed-layout="full">
 		<!-- ============================================================== -->
-		<common:topBar />
+		<common:adminTopBar />
 		<!-- =======사이드바========= -->
 		<common:adminSideBar />
 		<!-- ============================================================== -->
@@ -107,7 +107,8 @@ form .cur-row {
 										<div class="card">
 											<div class="card-body">
 												<div class="table-responsive">
-													<form id="myForm" action="/admin/adminProductStatus" method="POST">
+													<form id="myForm" action="/admin/adminProductStatus"
+														method="POST">
 														<div class='cur-row' style="color: #000000">
 															<div>상품코드</div>
 															<div class="col-md-5">
@@ -170,8 +171,10 @@ form .cur-row {
 															<div class="col-md-5">
 																<select class="custom-select mr-sm-2"
 																	id="registration-salestatus" style="color: black">
-																	<option value="1" selected="${productDTO.productStatus == 1}">판매중</option>
-																	<option value="2" selected="${productDTO.productStatus == 2}">판매완료</option>
+																	<option value="1"
+																		selected="${productDTO.productStatus == 1}">판매중</option>
+																	<option value="2"
+																		selected="${productDTO.productStatus == 2}">판매완료</option>
 																</select>
 															</div>
 														</div>
@@ -202,12 +205,13 @@ form .cur-row {
 															<p id="fileName"></p>
 														</div>
 														<div id="image-show" class="image-show">
-															<img src="/admin/adminImg/${productDTO.productImg}" alt="Product Image"
+															<img src="/admin/adminImg/${productDTO.productImg}"
+																alt="Product Image"
 																style="width: 70%; height: 70%; object-fit: contain;">
-																<script>
+															<script>
 																console.log('사진 로그');
 																</script>
-																
+
 														</div>
 														<div class="buttonContainer">
 
@@ -238,13 +242,13 @@ form .cur-row {
 															<div id="editor"></div>
 														</div>
 														<textarea id="editorContent" name="editorContent"
-															style="display: none;"></textarea>
+															style="display: none;">${productDTO.productDetailImg}</textarea>
 
 
-
+<!-- ck에디터 사진 불러오기 -->
 														<script>
     // productDTO의 productDetailImg 속성 값이 비어있을 경우 빈 문자열로 설정
-    let productDescription = '${productDTO.productDetailImg || ""}';
+    let productDescription = '${productDTO.productDetailImg}';
 
     ClassicEditor
         .create(document.querySelector('#editor'), {
@@ -268,7 +272,8 @@ form .cur-row {
 
 													</form>
 
-
+											
+										<!-- input 태그 사진 불러오기/삭제  -->
 													<script>
                                     function loadFile(input) {
                                       var file = input.files[0]; // 선택된 파일 가져오기
@@ -344,8 +349,8 @@ form .cur-row {
 	<script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
 
-
-<script>
+<!-- 카테고리 선택 받아오기/등록하기  -->
+	<script>
 document.addEventListener('DOMContentLoaded', function () {
     console.log('들어온거 확인');
     // 저장된 카테고리 및 서브 카테고리 가져오기
@@ -447,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function () {
  </script>
 
 
- <script>
+	<script>
    // JavaScript 코드
    document.addEventListener("DOMContentLoaded", function () {
 

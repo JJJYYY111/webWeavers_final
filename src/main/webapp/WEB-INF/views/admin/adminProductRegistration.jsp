@@ -98,7 +98,7 @@
               data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed"
               data-boxed-layout="full">
               <!-- ======헤더====== -->
-              <common:topBar />
+              <common:adminTopBar />
               <!-- ===========사이드바============ -->
               <common:adminSideBar />
               <!-- ============================================================== -->
@@ -231,6 +231,7 @@
                                       <textarea id="editorContent" name="productDetailImg"
                                         style="display: none;"></textarea>
 
+									<!-- ck에디터 사진 등록 -->
                                       <script>
                                         let myEditor;
 
@@ -264,7 +265,9 @@
 
                                     </form>
                                   </div>
-
+                                  
+                                  		
+									<!-- input 태그 사진 넣는 js  -->
                                   <script>
                                     function loadFile(input) {
                                       var file = input.files[0]; // 선택된 파일 가져오기
