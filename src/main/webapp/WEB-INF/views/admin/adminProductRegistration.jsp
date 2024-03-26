@@ -81,6 +81,22 @@
                 visibility: hidden;
               }
             </style>
+            
+            <style>
+        .addImage {
+            width: 100%;
+            height: 300px;
+            background-color: lightyellow;
+            border-radius: 20px 20px / 20px 20px;
+            overflow: hidden;
+            margin: 0px 10px 10px 0px;
+        }
+
+        .inputImg {
+            width: 450px;
+            height: 350px;
+        }
+</style>
 
 
           </head>
@@ -225,34 +241,51 @@
                                       </div>
                                       <br>
 
-                                      <div class="table-responsive" style="width: 100%">
-                                        <div id="editor"></div>
-                                      </div>
-                                      <textarea id="editorContent" name="productDetailImg"
-                                        style="display: none;"></textarea>
+								    <div class="addImage" id="show-image"> <!-- 이미지 띄울 공간 -->
+   										 </div>
+   										<input type="file" name="file"  accept="image/*" onchange="DetailloadFile(this)">
+                 						 <div class="detailDeleteButton" id="detailDeleteButton" style="color: black;"
+                                          onclick="detailDeleteButton()">
+                                          <br>
+                                          <label
+                                            style="margin-right: auto; color: black; background-color: lightgray;">[사진등록취소]</label>
+                                        </div>
+                 
+                 
+                 
+                 
+                 
+                 <script>
+        function DetailloadFile(input) {
+            let file = input.files[0]; // 선택파일 가져오기
 
-									<!-- ck에디터 사진 등록 -->
-                                      <script>
-                                        let myEditor;
+            let newImage = document.createElement("img"); //새 이미지 태그 생성
 
-                                        ClassicEditor
-                                          .create(document.querySelector('#editor'), {
-                                            ckfinder: {
-                                              uploadUrl: '/admin/upload'
-                                            }
-                                          })
-                                          .then(editor => {
-                                            myEditor = editor;
-                                            console.log('Editor was initialized');
-                                          })
-                                          .catch(error => {
-                                            console.error(error);
-                                          });
-                                        // 폼 제출 시 CKEditor의 내용을 hidden textarea에 복사
-                                        document.getElementById('myForm').addEventListener('submit', function () {
-                                          document.getElementById('editorContent').value = myEditor.getData();
-                                        });
-                                      </script>
+            //이미지 source 가져오기
+            newImage.src = URL.createObjectURL(file);
+            newImage.style.width = "100%"; //div에 꽉차게 넣으려고
+            newImage.style.height = "100%";
+            //newImage.style.objectFit = "cover"; // div에 넘치지 않고 들어가게
+            
+             // 이전에 표시된 이미지를 지우기 위해 이미지 표시 div를 찾고, 모든 자식 노드를 삭제합니다.
+        let container = document.getElementById('show-image');
+        container.innerHTML = "";
+
+            //이미지를 image-show div에 추가
+            container.appendChild(newImage);
+            currentImage = newImage; // 현재 이미지를 저장
+            
+        }
+        
+        function detailDeleteButton() {
+            if (currentImage) {
+            	currentImage.remove(); // 이미지 삭제
+            }
+          }
+</script>
+
+
+
                                       <br>
                                       <div style="text-align: right;">
                                         <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>
@@ -266,8 +299,8 @@
                                     </form>
                                   </div>
                                   
-                                  		
-									<!-- input 태그 사진 넣는 js  -->
+                                        
+                           <!-- input 태그 사진 넣는 js  -->
                                   <script>
                                     function loadFile(input) {
                                       var file = input.files[0]; // 선택된 파일 가져오기
@@ -343,7 +376,7 @@
             <script src="/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
             <script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
-			<!-- 카테고리 버튼 스크립트  -->
+         <!-- 카테고리 버튼 스크립트  -->
             <script>
               // JavaScript 코드
               document.addEventListener("DOMContentLoaded", function () {
