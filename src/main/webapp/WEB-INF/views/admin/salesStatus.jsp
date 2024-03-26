@@ -130,7 +130,7 @@
                                                 <div class="col-lg-10">
                                                     <div class="row">
                                                         <div class="col-md-4 text-center">
-                                                            <input type="date" class="form-control col-md-11"
+                                                            <input type="date" class="form-control col-md-12"
                                                                 id="registFirstDay" name="FirstDay" placeholder="앞기간설정"
                                                                 onfocus="this.placeholder = ''"
                                                                 onblur="this.placeholder = '앞기간설정'"
@@ -159,10 +159,10 @@
                                                         <div class="col-md-2 text-center">
                                                             <!-- DB 연결 필요  -->
                                                             <!-- 선택한 값을 DB에 보낸후 반환된값으로 2차 분류 지정가능 -->
-                                                            <select class="custom-select form-control col-md-10"
+                                                            <select class="custom-select form-control col-md-12"
                                                                 id="inlineFormCustomSelect" name="FirstCategory"
                                                                 onchange="changeFirstCategory(this.value)">
-                                                                <option selected>1차분류</option>
+                                                                <option selected>Category</option>
                                                                 <option value="1">스킨케어</option>
                                                                 <option value="2">마스크</option>
                                                                 <option value="3">삼푸</option>
@@ -170,19 +170,9 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-md-2 text-center">
-                                                            <select class="custom-select form-control col-md-10"
+                                                            <select class="custom-select form-control col-md-12"
                                                                 id="inlineFormCustomSelect2" name="SecondCategory">
-                                                                <option selected>2차분류</option>
-                                                                <option value="1">브론즈</option>
-                                                                <option value="2">실버</option>
-                                                                <option value="3">골드</option>
-                                                                <option value="4">탈퇴</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-2 text-center">
-                                                            <select class="custom-select form-control col-md-10"
-                                                                id="inlineFormCustomSelect3" name="ThirdCategory">
-                                                                <option selected>3차분류</option>
+                                                                <option selected>SubCategory</option>
                                                                 <option value="1">브론즈</option>
                                                                 <option value="2">실버</option>
                                                                 <option value="3">골드</option>
@@ -197,19 +187,10 @@
                                             <div class="row">
                                                 <label class="col-lg-1 text-center"
                                                     style="margin-top: 7px; margin-bottom: 4px;">검색</label>
-                                                <div class="col-lg-10">
+                                                <div class="col-lg-11">
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <!-- <input
-                                                                    class="form-control custom-shadow custom-radius border-0 bg-white"
-                                                                    type="search" placeholder="Search"
-                                                                    aria-label="Search" name="keyword"> -->
-                                                            <input
-                                                                class="form-control custom-shadow custom-radius border-0 bg-white"
-                                                                type="search" placeholder="Search" aria-label="Search">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="search" class="form-control form-control"
+                                                        <div class="col-md-9">
+                                                            <input type="search" class="form-control form-control col-md-10"
                                                                 placeholder="Search" aria-controls="default_order"
                                                                 onkeyup="search(this.value)">
                                                         </div>
@@ -219,8 +200,8 @@
                                         </div>
                                         <div class="form-actions">
                                             <div class="text-right">
-                                                <button type="submit" class="btn btn-info">Submit</button>
-                                                <button type="reset" class="btn btn-dark">Reset</button>
+                                                <button type="submit" class="btn btn-info">검색</button>
+                                                <button type="reset" class="btn btn-dark">리셋</button>
                                             </div>
                                         </div>
                                     </div>
