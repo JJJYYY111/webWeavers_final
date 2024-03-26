@@ -50,7 +50,7 @@
 		data-sidebar-position="fixed" data-header-position="fixed"
 		data-boxed-layout="full">
 		<!-- ============================================================== -->
-		<common:topBar />
+		<common:adminTopBar />
 		<!-- =======사이드바 ======-->
 		<common:adminSideBar />
 		

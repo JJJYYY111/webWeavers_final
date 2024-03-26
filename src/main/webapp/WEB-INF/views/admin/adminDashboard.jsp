@@ -44,7 +44,7 @@
     <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
         <!-- ============================================================== -->
-        <common:topBar />
+        <common:adminTopBar />
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->

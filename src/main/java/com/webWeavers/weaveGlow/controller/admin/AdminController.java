@@ -89,6 +89,18 @@ public class AdminController {
 		return "admin/adminProductStatus";
 	}
 	
+	@RequestMapping("/adminProductRegistration")
+	public String adminProductRegistration() {
+		return "admin/adminProductRegistration";
+	}
+	
+	@RequestMapping("/adminProductInsert")
+	public String adminProductInsert(SubCategoryDTO subCategoryDTO, ProductDTO productDTO) {
+		
+		
+		return "adminProductStatus";
+	}
+	
 	@RequestMapping("/adminProductStatusChange")
 	public String adminProductStatusChange() {
 		
@@ -102,10 +114,6 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/adminProductRegistration")
-	public String adminProductRegistration() {
-		return "admin/adminProductRegistration";
-	}
 	
 	
 	@RequestMapping("/adminOrderStatus")

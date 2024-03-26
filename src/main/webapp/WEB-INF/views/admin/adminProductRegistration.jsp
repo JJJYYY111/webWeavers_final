@@ -98,7 +98,7 @@
               data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed"
               data-boxed-layout="full">
               <!-- ======헤더====== -->
-              <common:topBar />
+              <common:adminTopBar />
               <!-- ===========사이드바============ -->
               <common:adminSideBar />
               <!-- ============================================================== -->
@@ -124,14 +124,14 @@
                                 <div class="card-body">
                                   <div class="table-responsive">
 
-                                    <form id="myForm" action="/admin/adminProductStatus" method="POST">
+                                    <form id="myForm" action="adminProductInsert" method="POST">
                                       <div class='cur-row' style="color:#000000; display: flex; ">
                                         <div style="width: 7%;">카테고리</div>
                                         <div style="margin-right: 1%; width: 100%;">
-                                          <input type='radio' class='category' name='categoryName' value='skin'>스킨/로션
-                                          <input type='radio' class='category' name='categoryName' value='cleanging'
+                                          <input type='radio' class='category' name='categoryName' value='1001'>스킨/로션
+                                          <input type='radio' class='category' name='categoryName' value='1002'
                                             style="margin-left: 1%;">클렌징
-                                          <input type='radio' class='category' name='categoryName' value='mask'
+                                          <input type='radio' class='category' name='categoryName' value='1003'
                                             style="margin-left: 1%;">마스크/팩
                                         </div>
                                       </div>
@@ -358,22 +358,22 @@
                     if (radio.value === 'skin') {
                       subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategoryName' value='subskin' >스킨</input>
-<input type='checkbox' name='subCategoryName' value='lotion' style="margin-left: 1%;">로션/에멀젼</input>
-<input type='checkbox' name='subCategoryName' value='essence' style="margin-left: 1%;">에센스/세럼/앰플</input>
-<input type='checkbox' name='subCategoryName' value='cream' style="margin-left: 1%;">크림</input>
-<input type='checkbox' name='subCategoryName' value='eyecare' style="margin-left: 1%;">아이케어</input>
-<input type='checkbox' name='subCategoryName' value='mist' style="margin-left: 1%;">미스트/부스터</input>
-<input type='checkbox' name='subCategoryName' value='set' style="margin-left: 1%;">세트</input>
+<input type='checkbox' name='subCategoryName' value='1' >스킨</input>
+<input type='checkbox' name='subCategoryName' value='2' style="margin-left: 1%;">로션/에멀젼</input>
+<input type='checkbox' name='subCategoryName' value='3' style="margin-left: 1%;">에센스/세럼/앰플</input>
+<input type='checkbox' name='subCategoryName' value='4' style="margin-left: 1%;">크림</input>
+<input type='checkbox' name='subCategoryName' value='5' style="margin-left: 1%;">아이케어</input>
+<input type='checkbox' name='subCategoryName' value='6' style="margin-left: 1%;">미스트/부스터</input>
+<input type='checkbox' name='subCategoryName' value='7' style="margin-left: 1%;">세트</input>
 </div>
 `;
                     } else if (radio.value === 'cleanging') {
                       subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategoryName' value='cleanging' >클렌징폼</input>
-<input type='checkbox' name='subCategoryName' value='cleansingcream' style="margin-left: 1%;">클렌징크림/로션/워터</input>
-<input type='checkbox' name='subCategoryName' value='cleansinggel' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
-<input type='checkbox' name='subCategoryName' value='lib' style="margin-left: 1%;">립,아이 리무버</input>
+<input type='checkbox' name='subCategoryName' value='8' >클렌징폼</input>
+<input type='checkbox' name='subCategoryName' value='9' style="margin-left: 1%;">클렌징크림/로션/워터</input>
+<input type='checkbox' name='subCategoryName' value='10' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
+<input type='checkbox' name='subCategoryName' value='11' style="margin-left: 1%;">립,아이 리무버</input>
 </div>
 `;
                     } else if (radio.value === 'mask') {

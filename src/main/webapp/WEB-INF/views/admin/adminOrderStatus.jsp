@@ -292,7 +292,7 @@ to {
 		data-sidebar-position="fixed" data-header-position="fixed"
 		data-boxed-layout="full">
 		<!-- ==========사이드바============= -->
-		<common:topBar />
+		<common:adminTopBar />
 		<!-- =======사이드바======== -->
 		<common:adminSideBar />
 		
