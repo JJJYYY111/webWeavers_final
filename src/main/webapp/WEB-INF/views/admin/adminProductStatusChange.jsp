@@ -171,13 +171,15 @@ form .cur-row {
 															<div class="col-md-5">
 																<select class="custom-select mr-sm-2"
 																	id="registration-salestatus" style="color: black">
-																	<option value="1"
-																		selected="${productDTO.productStatus == 1}">판매중</option>
-																	<option value="2"
-																		selected="${productDTO.productStatus == 2}">판매완료</option>
+																	<option value="1" ${productDTO.productStatus == 1 ? 'selected' : ''}>판매중</option>
+																	<option value="2" ${productDTO.productStatus == 2 ? 'selected' : ''}>판매완료</option>
 																</select>
 															</div>
 														</div>
+														
+														<script>
+																	console.log('[로그'+`${productDTO.productStatus}`+']');
+																	</script>
 														<br>
 														<div class='cur-row'
 															style="color: #000000; display: flex;">
