@@ -4,32 +4,69 @@ $(function () {
     Morris.Area({
         element: 'morris-area-chart',
         data: [{
-            y: '1st Week',
+            y: '1월',
             month: 50,
             date: 80,
             itouch: 20
         }, {
-            y: '2nd Week',
+            y: '2월',
             month: 130,
             date: 100,
             itouch: 80
         }, {
-            y: '3rd Week',
+            y: '3월',
             month: 80,
             date: 60,
             itouch: 70
         }, {
-            y: '4th Week',
+            y: '4월',
             month: 70,
             date: 200,
             itouch: 140
         }, {
-            y: '5th Week',
+            y: '5월',
             month: 180,
             date: 150,
             itouch: 140
-        }, {
-            y: '31st',
+        }, 
+        	{
+            y: '6월',
+            month: 180,
+            date: 150,
+            itouch: 140
+        },
+        	{
+            y: '7월',
+            month: 180,
+            date: 150,
+            itouch: 140
+        },
+        	{
+            y: '8월',
+            month: 180,
+            date: 150,
+            itouch: 140
+        },
+          {
+            y: '9월',
+            month: 180,
+            date: 150,
+            itouch: 140
+        },
+          {
+            y: '10월',
+            month: 180,
+            date: 150,
+            itouch: 140
+        },
+          {
+            y: '11월',
+            month: 180,
+            date: 150,
+            itouch: 140
+        },      
+        	{
+            y: '12월',
             month: 105,
             date: 100,
             itouch: 80
@@ -37,7 +74,7 @@ $(function () {
         }],
         xkey: 'y',
         ykeys: ['month', 'date'],
-        labels: ['month', 'date'],
+        labels: ['이번달', '저번달'],
         pointSize: 3,
         fillOpacity: 0,
         pointStrokeColors: ['#5f76e8', '#01caf1'],
