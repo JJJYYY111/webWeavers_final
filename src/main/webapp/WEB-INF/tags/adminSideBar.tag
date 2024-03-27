@@ -54,7 +54,7 @@
                                         </span></a>
                                 </li>
                                 <li class="sidebar-item"><a href="daliySalesStatus" class="sidebar-link"><span
-                                            class="hide-menu"> 일별매출
+                                            class="hide-menu"> 전일대비매출
                                         </span></a>
                                 </li>
                                 <li class="sidebar-item"><a href="monthlySalesStatus" class="sidebar-link"><span
