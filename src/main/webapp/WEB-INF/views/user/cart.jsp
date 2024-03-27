@@ -36,32 +36,60 @@
 						</thead>
 						<tbody>
 							<!-- 장바구니 목록 출력 -->
-							<c:if test="${fn:length(cdatas) <= 0}"><br><br><h4 style="text-align:center;">장바구니가 비었습니다.</h4><br><br></c:if>
+							<c:if test="${fn:length(cdatas) <= 0}">
+								<br>
+								<br>
+								<h4 style="text-align: center;">장바구니가 비었습니다.</h4>
+								<br>
+								<br>
+							</c:if>
 							<c:if test="${fn:length(cdatas) > 0}">
 								<c:forEach var='data' items='${cdatas}'>
 									<tr>
 										<td style="text-align: left;">
-											<div class="media">
-												<div class="d-flex">
-													<a href="/productDetail?productPK=${data.productPK}"><img src="${data.productImg}" alt="${data.productPK}번 상품사진" style="width: 150px;"></a>
-												</div>
-												<div class="media-body">
-													<a href="/productDetail?productPK=${data.productPK}" id="cartProduct"><p>${data.productName}</p></a>
+											<!-- 체크박스와 이미지를 같은 줄에 배치하기 위해 div로 감싸기 -->
+											<div style="display: flex; align-items: center;">
+												<!-- 체크박스 추가 -->
+												<input type="checkbox" name="selectedProducts"
+													value="${data.productPK}" style="margin-right: 10px;">
+												<!-- 상품 이미지와 링크 -->
+												<a href="/productDetail?productPK=${data.productPK}"> <img
+													src="${data.productImg}" alt="${data.productPK}번 상품사진"
+													style="width: 150px;">
+												</a>
+												<!-- 상품 이름 -->
+												<div class="media-body" style="margin-left: 10px;">
+													<!-- 여백 조정 -->
+													<a href="/productDetail?productPK=${data.productPK}"
+														id="cartProduct" style="margin-bottom: 0;">
+														<p style="margin-bottom: 0;">${data.productName}</p>
+													</a>
 												</div>
 											</div>
 										</td>
 										<td>
-											<h5 id="cartProductPrice_${data.productPK}"><fmt:formatNumber value="${data.productPrice}" currencyCode="KRW" />원</h5>
+											<h5 id="cartProductPrice_${data.productPK}">
+												<fmt:formatNumber value="${data.productPrice}"
+													currencyCode="KRW" />
+												원
+											</h5>
 										</td>
 										<!-- 장바구니 수량 변경 -->
 										<td style="padding-left: 3rem; padding-right: 0;">
 											<div class="product_count">
-												<input type="text" name="cartCnt" id="qty_${data.productPK}" maxlength="12" value="${data.cartCnt}" title="Quantity:" class="input-text qty"
-													onchange="updateQuantity('${data.productPK}', ${data.productPrice});" readonly>
-												<button onclick="updateQuantity('${data.productPK}', '1', ${data.productPrice})" class="increase items-count" type="button">
+												<input type="text" name="cartCnt" id="qty_${data.productPK}"
+													maxlength="12" value="${data.cartCnt}" title="Quantity:"
+													class="input-text qty"
+													onchange="updateQuantity('${data.productPK}', ${data.productPrice});"
+													readonly>
+												<button
+													onclick="updateQuantity('${data.productPK}', '1', ${data.productPrice})"
+													class="increase items-count" type="button">
 													<i class="lnr lnr-chevron-up"></i>
 												</button>
-												<button onclick="updateQuantity('${data.productPK}', '0', ${data.productPrice})" class="reduced items-count" type="button">
+												<button
+													onclick="updateQuantity('${data.productPK}', '0', ${data.productPrice})"
+													class="reduced items-count" type="button">
 													<i class="lnr lnr-chevron-down"></i>
 												</button>
 											</div>
@@ -69,15 +97,17 @@
 										<!-- /장바구니 수량 변경 -->
 										<td>
 											<h5>
-												<span class="productPrice" id="total_${data.productPK}"><fmt:formatNumber value="${data.productPrice * data.cartCnt}" currencyCode="KRW" /></span>원
+												<span class="productPrice" id="total_${data.productPK}"><fmt:formatNumber
+														value="${data.productPrice * data.cartCnt}"
+														currencyCode="KRW" /></span>원
 											</h5>
 										</td>
-										<td>
-											<input type="button" name="close" id="close" style="display: none;">
-											<label for="close"> 
-											<a href="cartDelete?productPK=${data.productPK}"><img src="img/close.png" alt="닫기버튼" style="width: 20px; height: 20px"></a>
-											</label>
-										</td>
+										<td><input type="button" name="close" id="close"
+											style="display: none;"> <label for="close"> <a
+												href="cartDelete?productPK=${data.productPK}"><img
+													src="img/close.png" alt="닫기버튼"
+													style="width: 20px; height: 20px"></a>
+										</label></td>
 									</tr>
 								</c:forEach>
 							</c:if>
@@ -103,8 +133,8 @@
 								<td></td>
 								<td>
 									<div class="checkout_btn_inner d-flex align-items-center">
-										<a class="gray_btn" href="productList">쇼핑하기</a> 
-										<a class="gray_btn ml-2" href="checkout">구매하기</a>
+										<a class="gray_btn" href="productList">쇼핑하기</a> <a
+											class="gray_btn ml-2" href="checkout">구매하기</a>
 									</div>
 								</td>
 							</tr>
@@ -115,7 +145,7 @@
 		</div>
 	</section>
 	<!-- ================ /내용 ================= -->
-<script src="js/cart.js"></script>
+	<script src="js/cart.js"></script>
 	<common:footer />
 </body>
 </html>
