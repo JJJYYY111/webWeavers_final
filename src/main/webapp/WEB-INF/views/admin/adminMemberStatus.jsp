@@ -124,13 +124,13 @@
             display: none;
         }
 
-        #nav {
+        #memberNav {
             width: 500px;
             text-align: center;
             margin: 0 auto;
         }
 
-        #nav a {
+        #memberNav a {
             display: inline-block;
             padding: 3px 5px;
             margin-right: 10px;
@@ -143,7 +143,7 @@
 
 
 
-        #nav a.active {
+        #memberNav a.active {
             background: #333;
             color: #fff;
         }
@@ -188,10 +188,10 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">
-                                            <div class="card-body">
+                                            <div class="card-body" style="width:100%">
                                                 <div class="table-responsive">
-                                                    <form>
-                                                        <div class='cur-row' style="color:#000000">
+                                                    <form style="width: 100%">
+                                                        <div class='cur-row' style="color:#000000" style="width: 100%">
                                                             <div>회원등급</div>
                                                             <div class="col-md-8">
                                                                 <select class="custom-select mr-sm-2" id="gradeName"
@@ -206,16 +206,16 @@
                                                             </div>
                                                         </div>
                                                         <br>
-                                                        <div class='cur-row' style="color: #000000;">
+                                                        <div class='cur-row' style="color: #000000;" style="width: 100%">
                                                             <div>회원이름</div>
-                                                            <div class="col-md-3">
-                                                                <input type="text" class="form-control"
+                                                            <div class="col-md-3" >
+                                                                <input type="text" class="form-control" style=" width: 110%"
                                                                    id="memberName" name="memberName" placeholder="ex) 홍길동">
                                                             </div>
-                                                            <div>회원아이디</div>
+                                                            <div>회원등록날짜</div>
                                                             <div class="col-md-3">
-                                                                <input type="text" class="form-control"
-                                                                  id="memberID" name="memberID"  placeholder="ex) weaveGlow">
+                                                                <input type="date"  class="form-control" style="width: 120%"
+                                                                  id="memberRegdate" name="memberRegdate" >
                                                             </div>
                                                         </div>
                                                     </form>
@@ -265,9 +265,7 @@
                                                </c:forEach>
                                             </tbody>
                                         </table>
-                                        <div id="nav">
-                                        </div>
-                                    </div>
+<div id="memberNav"></div>                                    </div>
                                 </div>
                             </div>
                         </div> <!-- 제일 큰 div-->
@@ -275,7 +273,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <!-- footer -->
     <footer class="footer text-center text-muted">
         Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
@@ -318,13 +315,14 @@
                                                     memberName == "";
                                                 }
 												
-												console.log('로그1'+memberName);
-												var memberID= document.getElementById("memberID").value;
-												//memberId의 위에서 value를 가져온다.
-                                                if(memberID == null){
-                                                    memberID == "";
+												console.log('로그1 ['+memberName+']');
+												
+												var memberRegdate= document.getElementById("memberRegdate").value;
+												//memberRegdate의 위에서 value를 가져온다.
+                                                if(memberRegdate == null){
+                                                	memberRegdate = "";
                                                 }
-												console.log('로그2 ['+memberID+']');
+												console.log('로그2 ['+memberRegdate+']');
 												
 												$.ajax({
 													
@@ -333,10 +331,11 @@
 													data: {
                                                         'gradeName': gradeName,
                                                         'memberName': memberName,
-                                                        'memberID': memberID
+                                                        //'memberRegdate': memberRegdate
                                                     },
+                                                    dataType:'json',
                                                     	success:function(datas) {
-                                                    		datas = JSON.parse(datas);
+                                                    		//datas = JSON.parse(datas);
                                                     		console.log('콘솔'+datas);
                                                     	    var tableHTML = "<table id='search' border='1'>";
                                                     	    tableHTML += "<thead><tr><th>회원ID</th><th>회원이름</th><th>회원등급</th><th>회원생일</th><th>가입일</th><th>이메일수신동의</th></tr></thead>";
@@ -358,6 +357,7 @@
                                                     },
                                                     error: function (error) {
                                                     	
+                                                    	console.log('실패')
                                                         console.log('에러의 종류:' + error)
                                                     }
 												});

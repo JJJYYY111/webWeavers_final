@@ -176,13 +176,13 @@ th, td {
 	display: none;
 }
 
-#nav {
+#productNav {
 	width: 500px;
 	text-align: center;
 	margin: 0 auto;
 }
 
-#nav a {
+#productNav a {
 	display: inline-block;
 	padding: 3px 5px;
 	margin-right: 10px;
@@ -193,7 +193,7 @@ th, td {
 	position: relative;
 }
 
-#nav a.active {
+#productNav a.active {
 	background: #333;
 	color: #fff;
 }
@@ -431,6 +431,7 @@ to {
                                         <br>
                                         <div class="table-wrapper">
                                             <table id="products" border="1">
+                                            
                                                 <thead>
                                                     <tr style="color: #000000; width:100%">
                                                         <th>주문번호</th>
@@ -468,8 +469,7 @@ to {
                                                 </tbody>
                                                 
                                             </table>
-                                            <div id="nav">
-                                            </div>
+                                            <div id="productNav"></div>
                                           
 
                                             <!-- 모달 -->
