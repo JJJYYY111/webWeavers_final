@@ -21,9 +21,13 @@ public class ProductDTO {
 	private String memberID;
 	private int wish;
 	private int pageNum;
-	private String categoryName;
-	private String subCategoryName;
-	private int totalCnt;	// 매출현황 (총 판매 개수)
-	private int totalPrice;	// 매출현황 (총 판매 금액)
+	private int categoryPK;			// 매출현황 (필터_카테고리 선택, 쿼리문 조건"?"에 필요)
+	private int subCategoryPK;		// 매출현황 (필터_서브카테고리 선택, 쿼리문 조건"?"에 필요)
+	private String categoryName;	// 매출현황 (카테고리 이름)
+	private String subCategoryName;	// 매출현황 (카테고리 이름)
+	private String startDate;			// 매출현황 (필터_조회기간 시작날짜)
+	private String endDate;			// 매출현황 (필터_조회기간 마지막날짜)
+	private int totalCnt;			// 매출현황 (총 판매 개수)
+	private int totalPrice;			// 매출현황 (총 판매 금액)
 
 }

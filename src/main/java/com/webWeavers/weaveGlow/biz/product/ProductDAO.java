@@ -17,7 +17,7 @@ public class ProductDAO {
 	
 	// ------------------------------------- UserPage -------------------------------------
 	// 정렬별 상품목록 쿼리문 반환 함수
-	private static String selectAllQuery(String sortType, int limitNum) {
+	private static String selectAllProductListQuery(String sortType, int limitNum) {
 		String query = "WITH WS AS (SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT FROM WISHLIST GROUP BY PRODUCT_PK LIMIT " + limitNum + "),\r\n"	// 상품별 찜 개수 (WISHLIST 서브쿼리)
 				+ "BS AS ( SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) SALES FROM BUYPRODUCT GROUP BY PRODUCT_PK LIMIT " + limitNum + ")\r\n"	// 상품별 판매량 (BUYPRODUCT 서브쿼리)
 				+ "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_REGDATE, BS.SALES, WS.CNT,\r\n"
@@ -85,41 +85,65 @@ public class ProductDAO {
 	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
 //	private static final String DELETE = "";
 	
+	
 	// ------------------------------------- AdminPage_매출관리 -------------------------------------
-	// 상품별 매출현황_관리자매출관리>매출현황페이지
-	private static final String SELECTALL_ADMIN_PRODUCT_SALES = "WITH \r\n"
-			+ "P_CATEGORY AS (\r\n"	// 상품별 카테고리 CTE
-			+ "    SELECT\r\n"
-			+ "        CZ.PRODUCT_PK,\r\n"
-			+ "        C.CATEGORY_NAME,\r\n"
-			+ "        GROUP_CONCAT(S.SUBCATEGORY_NAME ORDER BY S.SUBCATEGORY_PK) AS SUBCATEGORY_NAME\r\n"
-			+ "    FROM CATEGORIZATION CZ\r\n"
-			+ "    LEFT JOIN SUBCATEGORY S ON CZ.SUBCATEGORY_PK = S.SUBCATEGORY_PK\r\n"
-			+ "    LEFT JOIN CATEGORY C ON S.CATEGORY_PK = C.CATEGORY_PK\r\n"
-			+ "    GROUP BY CZ.PRODUCT_PK, C.CATEGORY_NAME\r\n"
-			+ "),\r\n"
-			+ "P_SALES AS (\r\n"	// 상품별 매출 CTE
-			+ "    SELECT\r\n"
-			+ "        P.PRODUCT_PK,\r\n"
-			+ "        P.PRODUCT_NAME,\r\n"
-			+ "        P.PRODUCT_PRICE,\r\n"
-			+ "        COALESCE(SUM(B.BUYPRODUCT_CNT), 0) AS TOTAL_CNT,\r\n"
-			+ "        COALESCE((P.PRODUCT_PRICE * SUM(B.BUYPRODUCT_CNT)), 0) AS TOTAL_PRICE\r\n"
-			+ "    FROM PRODUCT P\r\n"
-			+ "    LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"
-			+ "    GROUP BY P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE\r\n"
-			+ ")\r\n"
-			+ "SELECT\r\n"
-			+ "    PS.PRODUCT_PK,\r\n"
-			+ "    PS.PRODUCT_NAME,\r\n"
-			+ "    PS.PRODUCT_PRICE,\r\n"
-			+ "    PS.TOTAL_CNT,\r\n"
-			+ "    PS.TOTAL_PRICE,\r\n"
-			+ "    PC.CATEGORY_NAME,\r\n"
-			+ "    PC.SUBCATEGORY_NAME\r\n"
-			+ "FROM P_SALES PS\r\n"	// 상품별 매출 및 카테고리 JOIN
-			+ "LEFT JOIN P_CATEGORY PC ON PS.PRODUCT_PK = PC.PRODUCT_PK\r\n"
-			+ "ORDER BY PS.TOTAL_PRICE DESC";
+	
+	// 상품별 매출현황_관리자매출관리>매출현황페이지 (검색조건별 매출현황 쿼리문 반환 함수)
+	private static String selectAllProductSalesQuery(ProductDTO productDTO) {
+		
+		// 상품별 카테고리 CTE
+		String query = "WITH P_CATEGORY AS (\r\n"
+				+ "SELECT\r\n"
+				+ "		CZ.PRODUCT_PK,\r\n"
+				+ "		C.CATEGORY_NAME,\r\n"
+				+ "		GROUP_CONCAT(S.SUBCATEGORY_NAME ORDER BY S.SUBCATEGORY_PK) AS SUBCATEGORY_NAME\r\n"
+				+ "FROM CATEGORIZATION CZ\r\n"
+				+ "INNER JOIN SUBCATEGORY S ON CZ.SUBCATEGORY_PK = S.SUBCATEGORY_PK\r\n"
+				+ "INNER JOIN CATEGORY C ON S.CATEGORY_PK = C.CATEGORY_PK\r\n"
+				+ "WHERE 1 = 1";
+		
+		// 카테고리 및 서브카테고리 조건
+		if(productDTO.getCategoryPK() > 0) {
+			query += "	AND C.CATEGORY_PK = " + productDTO.getCategoryPK();
+		}
+		if(productDTO.getSubCategoryPK() > 0) {
+			query += "	AND S.SUBCATEGORY_PK = " + productDTO.getSubCategoryPK();
+		}
+		
+		query +=  "\r\nGROUP BY CZ.PRODUCT_PK, C.CATEGORY_NAME\r\n"
+				+ ")\r\n"
+				+ "SELECT\r\n"
+				+ "	P.PRODUCT_PK,\r\n"
+				+ "	P.PRODUCT_NAME,\r\n"
+				+ "	P.PRODUCT_PRICE,\r\n"
+				+ "	COALESCE(SUM(B.BUYPRODUCT_CNT), 0) AS TOTAL_CNT,\r\n"
+				+ "	COALESCE((P.PRODUCT_PRICE * SUM(B.BUYPRODUCT_CNT)), 0) AS TOTAL_PRICE,\r\n"
+				+ "	GROUP_CONCAT(S.SERIAL_REGDATE ORDER BY S.SERIAL_PK) AS SERIAL_REGDATE,\r\n"
+				+ "	PC.CATEGORY_NAME,\r\n"
+				+ "	PC.SUBCATEGORY_NAME\r\n"
+				+ "FROM PRODUCT P\r\n"
+				+ "LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"
+				+ "LEFT JOIN SERIAL S ON B.SERIAL_PK = S.SERIAL_PK\r\n"
+				+ "INNER JOIN P_CATEGORY PC ON P.PRODUCT_PK = PC.PRODUCT_PK\r\n"
+				+ "WHERE 1 = 1";
+		System.out.println(productDTO.getStartDate());
+		// 시작일 및 종료일 조건
+		if(productDTO.getStartDate() != "" && productDTO.getStartDate() != null) {
+			System.out.println("로그1 들어옴");
+//			query += "	AND S.SERIAL_REGDATE >= " + productDTO.getStartDate();
+			query += "	AND S.SERIAL_REGDATE >= '" + productDTO.getStartDate() + "'";
+		}
+		if(productDTO.getEndDate() != "" && productDTO.getStartDate() != null) {
+			System.out.println("로그2 들어옴");
+//			query += "	AND S.SERIAL_REGDATE <= DATE_ADD(" + productDTO.getEndDate() + ", INTERVAL 1 DAY)";	// 마지막일을 포함하기 위해 DATE_ADD()함수로 1일 추가
+			query += "	AND S.SERIAL_REGDATE <= DATE_ADD('" + productDTO.getEndDate() + "', INTERVAL 1 DAY)";
+		}
+		
+		query += "\r\nGROUP BY P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, PC.CATEGORY_NAME, PC.SUBCATEGORY_NAME\r\n"
+				+ "ORDER BY PRODUCT_PK DESC";
+		
+		return query;
+	}
 	
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
 		Object[] args1 = { productDTO.getMemberID() };
@@ -127,13 +151,13 @@ public class ProductDAO {
 		
 		try {
 			if (productDTO.getSearchCondition().equals("sales")) {
-				return jdbcTemplate.query(selectAllQuery("sales", 100), args1, new ProductListUserRowMapper());
+				return jdbcTemplate.query(selectAllProductListQuery("sales", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("regdate")) {
-				return jdbcTemplate.query(selectAllQuery("regdate", 100), args1, new ProductListUserRowMapper());
+				return jdbcTemplate.query(selectAllProductListQuery("regdate", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("wish")) {
-				return jdbcTemplate.query(selectAllQuery("wish", 8), args1, new ProductListUserRowMapper());
+				return jdbcTemplate.query(selectAllProductListQuery("wish", 8), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("rowPrice")) {
-				return jdbcTemplate.query(selectAllQuery("rowPrice", 100), args1, new ProductListUserRowMapper());
+				return jdbcTemplate.query(selectAllProductListQuery("rowPrice", 100), args1, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("searchName")) {
 				return jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
 			} else if (productDTO.getSearchCondition().equals("adminProductList")) {
@@ -145,7 +169,7 @@ public class ProductDAO {
 //				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, args3, new ProductListAdminRowMapper());
 				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, new ProductListAdminRowMapper());
 			} else if (productDTO.getSearchCondition().equals("adminProductSales")) {
-				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT_SALES, new ProductSalesAdminRowMapper());
+				return jdbcTemplate.query(selectAllProductSalesQuery(productDTO), new ProductSalesAdminRowMapper());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
