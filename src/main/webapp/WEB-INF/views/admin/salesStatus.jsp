@@ -170,9 +170,9 @@
 																id="categorySelect" name="FirstCategory"
 																onchange="changeFirstCategory()">
 																<option selected>Category</option>
-																<option value="1001">스킨케어</option>
-																<option value="1002">클렌징</option>
-																<option value="1003">마스크팩</option>
+																<option value="1">스킨케어</option>
+																<option value="2">클렌징</option>
+																<option value="3">마스크팩</option>
 															</select>
 														</div>
 														<div class="col-md-2 text-center">
