@@ -212,11 +212,13 @@
                                                                 <input type="text" class="form-control" style=" width: 110%"
                                                                    id="memberName" name="memberName" placeholder="ex) 홍길동">
                                                             </div>
-                                                            <div>회원등록날짜</div>
-                                                            <div class="col-md-3">
-                                                                <input type="date"  class="form-control" style="width: 120%"
-                                                                  id="memberRegdate" name="memberRegdate" >
-                                                            </div>
+                                                            
+                                                            <div>회원아이디</div>
+															<div class="col-md-3">
+																<input type="text" class="form-control"
+																	placeholder="ex) weaveGlow" id="memberID" name="memberID" style="width: 70%">
+															</div>
+                                                           
                                                         </div>
                                                     </form>
                                                 </div>
@@ -317,12 +319,12 @@
 												
 												console.log('로그1 ['+memberName+']');
 												
-												var memberRegdate= document.getElementById("memberRegdate").value;
+												var memberID= document.getElementById("memberID").value;
 												//memberRegdate의 위에서 value를 가져온다.
-                                                if(memberRegdate == null){
-                                                	memberRegdate = "";
+                                                if(memberID == null){
+                                                	memberID == "";
                                                 }
-												console.log('로그2 ['+memberRegdate+']');
+												console.log('로그2 ['+memberID+']');
 												
 												$.ajax({
 													
@@ -331,7 +333,7 @@
 													data: {
                                                         'gradeName': gradeName,
                                                         'memberName': memberName,
-                                                        'memberRegdate': memberRegdate
+                                                        'memberID': memberID
                                                     },
                                                     dataType:'json',
                                                     	success:function(datas) {

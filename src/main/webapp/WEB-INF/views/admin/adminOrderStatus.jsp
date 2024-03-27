@@ -344,11 +344,13 @@ to {
 																<input type="text" class="form-control"
 																	placeholder="ex) 홍길동" id="memberName" name="memberName" style="width: 70%">
 															</div>
-															<div>회원아이디</div>
-															<div class="col-md-3">
-																<input type="text" class="form-control"
-																	placeholder="ex) weaveGlow" id="memberID" name="memberID" style="width: 70%">
-															</div>
+															
+															 <div>주문날짜</div>
+                                                            <div class="col-md-3">
+                                                                <input type="date"  class="form-control" style="width: 120%"
+                                                                  id="serialRegdate" name="serialRegdate" >
+                                                            </div>
+															
 														</div>
 														<br>
 													</div>
@@ -378,9 +380,10 @@ to {
 												var memberName = document.getElementById("memberName").value;
 												
 												console.log('로그1'+memberName);
-												var memberID= document.getElementById("memberID").value;
+												
+												var serialRegdate= document.getElementById("serialRegdate").value;
 												//memberId의 위에서 value를 가져온다.
-												console.log('로그2'+memberID);
+												console.log('로그2'+serialRegdate);
 												
 												$.ajax({
 													
@@ -389,7 +392,7 @@ to {
 													data: {
                                                         'buyProductStatus': buyProductStatus,
                                                         'memberName': memberName,
-                                                       'memberID': memberID
+                                                       'serialRegdate': serialRegdate
                                                         
                                                     },
                                                     
