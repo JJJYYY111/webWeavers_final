@@ -210,7 +210,7 @@
                                          [이미지 업로드]
                                         </label>
                                       </div>
-                                      <input type="file" id="chooseFile" name="file" accept="image/*"
+                                      <input type="file" id="chooseFile" name="productImage" accept="image/*"
                                         onchange="loadFile(this)">
 
                                       <div class="fileInput">
@@ -245,7 +245,7 @@
 
 								    <div class="addImage" id="show-image"> <!-- 이미지 띄울 공간 -->
    										 </div>
-   										<input type="file" name="file"  accept="image/*" onchange="DetailloadFile(this)">
+   										<input type="file" name="productDetailImage"  accept="image/*" onchange="DetailloadFile(this)">
                  						 <div class="detailDeleteButton" id="detailDeleteButton" style="color: black;"
                                           onclick="detailDeleteButton()">
                                           <br>
@@ -290,7 +290,7 @@
 
                                       <br>
                                       <div style="text-align: right;">
-                                         <button type="submit" id="button" class="btn btn-primary"><i class="fas fa-check"></i>
+                                        <button type="submit" id="button" class="btn btn-primary"><i class="fas fa-check"></i>
                                           완료</button>
                                         <button class="btn btn-primary"><i class="fas fa-check"></i> 취소</button>
                                       </div>
@@ -301,7 +301,6 @@
                                     </form>
                                   </div>
                                   
-                                       
                                         
                            <!-- input 태그 사진 넣는 js  -->
                                   <script>
@@ -428,8 +427,8 @@
                 });
               });
             </script>
-
-<script>
+            
+            <script>
 
 function swtBasic() {
 	 event.preventDefault(); // 폼 제출 이벤트 기본 동작 차단
@@ -446,6 +445,8 @@ function swtBasic() {
 }     
 	
 </script>
+
+
 
           </body>
 

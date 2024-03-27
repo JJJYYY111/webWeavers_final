@@ -7,6 +7,6 @@ public class SubCategoryDTO {
 	private int subcategoryPK;
 	private String subcategoryName;
 	private int categoryPK;
-	private int categoryName;
+	private String categoryName;
 		
 }

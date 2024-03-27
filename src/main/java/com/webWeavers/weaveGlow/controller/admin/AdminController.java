@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.webWeavers.weaveGlow.biz.categorization.CategorizationDTO;
 import com.webWeavers.weaveGlow.biz.categorization.CategorizationService;
+import com.webWeavers.weaveGlow.biz.category.CategoryDTO;
 import com.webWeavers.weaveGlow.biz.imageupload.ImageService;
 import com.webWeavers.weaveGlow.biz.member.MemberDTO;
 import com.webWeavers.weaveGlow.biz.member.MemberService;
@@ -107,36 +108,45 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminProductInsert")
-	public String adminProductInsert(ProductDTO productDTO, CategorizationDTO categorizationDTO, @RequestParam("file") MultipartFile file,@RequestParam("subCategoryName") List<Integer> subCategoryNames) {
+	public String adminProductInsert(ProductDTO productDTO, CategorizationDTO categorizationDTO, 
+									@RequestParam("productImage") MultipartFile productImage, 
+									@RequestParam("productDetailImage") MultipartFile productDetailImage,
+									@RequestParam("subCategoryName") List<Integer> subCategoryNames) {
 		// 1번기능 상품추가
-		productDTO.setProductImg(imageService.imageInsert(file));
-		productDTO.setProductDetailImg(imageService.imageInsert(file));
-//		productService.insert(productDTO);
+		productDTO.setProductImg(imageService.imageInsert(productImage));
+		productDTO.setProductDetailImg(imageService.imageInsert(productDetailImage));
+		productService.insert(productDTO);
 		
 		// 2번기능 방금 등록한 상품 productPK번호 받아와서 카테고리에 추가하도록 사전설정
-//		productDTO.setSearchCondition("productInsert");
-//		categorizationDTO.setProductPK(productService.selectOne(productDTO).getProductPK());
+		productDTO.setSearchCondition("productInsert");
+		categorizationDTO.setProductPK(productService.selectOne(productDTO).getProductPK());
 		
 		// 3번기능 카테고리 추가
 		for(int data: subCategoryNames) {
 			categorizationDTO.setSubcategoryPK(data);
 			System.out.println(categorizationDTO);
-//			categorizationService.insert(categorizationDTO);
+			categorizationService.insert(categorizationDTO);
 		}
-		
-		return "adminProductStatus";
+		return "redirect:/adminProductStatus";
 	}
 	
 	@RequestMapping("/adminProductStatusChange")
-	public String adminProductStatusChange() {
-		
+	public String adminProductStatusChange(ProductDTO productDTO, CategoryDTO categoryDTO, CategorizationDTO categorizationDTO, Model model) {
+		productDTO.setSearchCondition("adminProduct");
+		model.addAttribute("productDTO", productService.selectOne(productDTO));
+		model.addAttribute("categorizationDTO", categorizationService.selectOne(categorizationDTO));
 		return "admin/adminProductStatusChange";
 	}
 	
-	@RequestMapping("categoryCheckBox")
-	public @ResponseBody String categoryCheckBox(ProductDTO productDTO, Gson gson, SubCategoryDTO subCategoryDTO) {
-		// 서브카테고리 selectAll해서 해당 상품의 카테고리개수들 전부 가져와서 전달;
-		return "";
+	@RequestMapping("/adminProductUpdate")
+	public String adminProductUpdate() {
+		
+		return "redirect:/adminProductStatus";
+	}
+	
+	@RequestMapping("categoryCheckbox")
+	public @ResponseBody String categoryCheckBox(CategorizationDTO categorizationDTO, Gson gson, SubCategoryDTO subCategoryDTO) {
+		return gson.toJson(categorizationService.selectAll(categorizationDTO));
 	}
 	
 	

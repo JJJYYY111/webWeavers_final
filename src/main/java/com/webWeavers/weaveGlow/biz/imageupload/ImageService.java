@@ -66,7 +66,6 @@ public class ImageService {
 //		File fileCheck = new File(root);
 //		if(!fileCheck.exists()) fileCheck.mkdirs();
 
-		List<Map<String, String>> fileList = new ArrayList<>();
 		String changeFileName = "";
 		Calendar calendar = Calendar.getInstance();
 		changeFileName += calendar.get(Calendar.YEAR);
@@ -78,7 +77,6 @@ public class ImageService {
 		changeFileName += calendar.get(Calendar.MILLISECOND);
 		String originFileName = multipartFile.getOriginalFilename();
 		changeFileName += originFileName;
-		System.out.println(fileList);
 		// 파일업로드
 		try {
 			File uploadFile = new File(root + "\\" + changeFileName);

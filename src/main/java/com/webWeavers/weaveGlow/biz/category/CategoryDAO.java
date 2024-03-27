@@ -14,8 +14,8 @@ public class CategoryDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private static final String SELECTALL = "SELECT CATEGORY_NAME, CATEGORY_PK FROM CATEGORY";
-	private static final String SELECTONE = "SELECT CATEGORY_NAME, CATEGORY_PK FROM CATEGORY WHERE CATEGORY_PK = ?";
+	private static final String SELECTALL = "SELECT CATEGORY_PK, CATEGORY_NAME FROM CATEGORY";
+	private static final String SELECTONE = "SELECT CATEGORY_PK, CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_PK = ?";
 
 	private static final String INSERT = "";
 	private static final String UPDATE = "";

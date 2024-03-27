@@ -60,7 +60,7 @@ class SubCategoryRowMapper implements RowMapper<SubCategoryDTO> {
 		data.setSubcategoryPK(rs.getInt("SUBCATEGORY_PK"));
 		data.setSubcategoryName(rs.getString("SUBCATEGORY_NAME"));
 		data.setCategoryPK(rs.getInt("CATEGORY_PK"));
-		data.setSubcategoryName(rs.getString("CATEGORY_NAME"));
+		data.setCategoryName(rs.getString("CATEGORY_NAME"));
 		return data;
 	}
 }

@@ -16,15 +16,15 @@ public class CategorizationDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private static final String SELECTALL = "SELECT CATEGORIZATION_PK, PRODUCT_PK, SUBCATEGORY_PK FROM CATEGORIZATION WHERE CATEGORIZATION_PK=?";
-	private static final String SELECTONE = "";
+	private static final String SELECTALL = "SELECT CATEGORIZATION_PK, PRODUCT_PK, SUBCATEGORY_PK FROM CATEGORIZATION WHERE PRODUCT_PK=?";
+	private static final String SELECTONE = "SELECT CZ.CATEGORIZATION_PK, CZ.PRODUCT_PK, CZ.SUBCATEGORY_PK, C.CATEGORY_NAME FROM CATEGORIZATION CZ JOIN SUBCATEGORY SC ON CZ.SUBCATEGORY_PK = SC.SUBCATEGORY_PK JOIN CATEGORY C ON SC.CATEGORY_PK = C.CATEGORY_PK WHERE PRODUCT_PK=? LIMIT 1";
 
 	private static final String INSERT = "INSERT INTO CATEGORIZATION (PRODUCT_PK, SUBCATEGORY_PK) VALUES (?,?)";
 	private static final String UPDATE = "UPDATE CATEGORIZATION SET SUBCATEGORY_PK = ? WHERE PRODUCT_PK = ?";
 	private static final String DELETE = "";
 
 	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
-		Object[] args = { categorizationDTO.getCategorizationPK() };
+		Object[] args = { categorizationDTO.getProductPK() };
 		try {
 			return jdbcTemplate.query(SELECTALL, args, new CategorizationRowMapper());
 		} catch (Exception e) {
@@ -34,7 +34,13 @@ public class CategorizationDAO {
 	}
 
 	public CategorizationDTO selectOne(CategorizationDTO categorizationDTO) {
-		return null;
+		Object[] args = { categorizationDTO.getProductPK() };
+		try {
+			return jdbcTemplate.queryForObject(SELECTONE, args, new CategorizationRowMapper2());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public boolean insert(CategorizationDTO categorizationDTO) {
@@ -68,6 +74,18 @@ class CategorizationRowMapper implements RowMapper<CategorizationDTO> {
 		data.setCategorizationPK(rs.getInt("CATEGORIZATION_PK"));
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
 		data.setSubcategoryPK(rs.getInt("SUBCATEGORY_PK"));
-		return null;
+		return data;
+	}
+}
+
+class CategorizationRowMapper2 implements RowMapper<CategorizationDTO> {
+	@Override
+	public CategorizationDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		CategorizationDTO data = new CategorizationDTO();
+		data.setCategorizationPK(rs.getInt("CATEGORIZATION_PK"));
+		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		data.setSubcategoryPK(rs.getInt("SUBCATEGORY_PK"));
+		data.setCategoryName(rs.getString("CATEGORY_NAME"));
+		return data;
 	}
 }

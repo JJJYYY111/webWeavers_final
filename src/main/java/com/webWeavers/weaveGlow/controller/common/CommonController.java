@@ -10,19 +10,17 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.webWeavers.weaveGlow.biz.address.AddressDTO;
-import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductDTO;
-import com.webWeavers.weaveGlow.biz.mail.MailService;
+import com.webWeavers.weaveGlow.biz.categorization.CategorizationDTO;
+import com.webWeavers.weaveGlow.biz.categorization.CategorizationService;
 import com.webWeavers.weaveGlow.biz.product.ProductDTO;
 import com.webWeavers.weaveGlow.biz.product.ProductService;
+import com.webWeavers.weaveGlow.biz.subcategory.SubCategoryDTO;
+import com.webWeavers.weaveGlow.biz.subcategory.SubCategoryService;
 
-import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -30,7 +28,11 @@ public class CommonController {
 
 	@Autowired
 	ProductService productService;
-
+	@Autowired
+	SubCategoryService subCategoryService;
+	@Autowired
+	CategorizationService categorizationService;
+	
 	@RequestMapping("/contact")
 	public String contact() {
 		System.out.println("contact진입");
@@ -38,7 +40,9 @@ public class CommonController {
 	}
 
 	@RequestMapping("/")
-	public String root(ProductDTO productDTO) {
+	public String root(ProductDTO productDTO, SubCategoryDTO subCategoryDTO) {
+//		List<SubCategoryDTO> subCategoryDatas = subCategoryService.selectAll(subCategoryDTO);
+//		System.out.println(subCategoryDatas);
 		System.out.println("로그 : index진입");
 		productDTO.setSearchCondition("sales");
 		List<ProductDTO> datas = productService.selectAll(productDTO);
@@ -49,37 +53,68 @@ public class CommonController {
 	}
 
 	@RequestMapping("/crawling")
-	public String Crawling() {
+	public String Crawling(SubCategoryDTO subCategoryDTO, CategorizationDTO categorizationDTO) {
+		List<String> urlDatas = new ArrayList<String>();
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M01&i_sCategorynm2=%EC%8A%A4%ED%82%A8%EC%BC%80%EC%96%B4&i_sCategorycd3=L01M01S01&i_sCategorynm3=%EC%8A%A4%ED%82%A8");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M01&i_sCategorynm2=%EC%8A%A4%ED%82%A8%EC%BC%80%EC%96%B4&i_sCategorycd3=L01M01S02&i_sCategorynm3=%EB%A1%9C%EC%85%98/%EC%97%90%EB%A9%80%EC%A0%BC");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M01&i_sCategorynm2=%EC%8A%A4%ED%82%A8%EC%BC%80%EC%96%B4&i_sCategorycd3=L01M01S03&i_sCategorynm3=%EC%97%90%EC%84%BC%EC%8A%A4/%EC%84%B8%EB%9F%BC/%EC%95%B0%ED%94%8C");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M01&i_sCategorynm2=%EC%8A%A4%ED%82%A8%EC%BC%80%EC%96%B4&i_sCategorycd3=L01M01S04&i_sCategorynm3=%ED%81%AC%EB%A6%BC");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M01&i_sCategorynm2=%EC%8A%A4%ED%82%A8%EC%BC%80%EC%96%B4&i_sCategorycd3=L01M01S05&i_sCategorynm3=%EC%95%84%EC%9D%B4%EC%BC%80%EC%96%B4");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M01&i_sCategorynm2=%EC%8A%A4%ED%82%A8%EC%BC%80%EC%96%B4&i_sCategorycd3=L01M01S07&i_sCategorynm3=%EB%AF%B8%EC%8A%A4%ED%8A%B8/%EB%B6%80%EC%8A%A4%ED%84%B0");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M01&i_sCategorynm2=%EC%8A%A4%ED%82%A8%EC%BC%80%EC%96%B4&i_sCategorycd3=L01M01S08&i_sCategorynm3=%EC%84%B8%ED%8A%B8");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M02&i_sCategorynm2=%ED%81%B4%EB%A0%8C%EC%A7%95&i_sCategorycd3=L01M02S1&i_sCategorynm3=%ED%81%B4%EB%A0%8C%EC%A7%95%ED%8F%BC");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M02&i_sCategorynm2=%ED%81%B4%EB%A0%8C%EC%A7%95&i_sCategorycd3=L01M02S2&i_sCategorynm3=%ED%81%B4%EB%A0%8C%EC%A7%95%ED%81%AC%EB%A6%BC/%EB%A1%9C%EC%85%98/%EC%9B%8C%ED%84%B0");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M02&i_sCategorynm2=%ED%81%B4%EB%A0%8C%EC%A7%95&i_sCategorycd3=L01M02S3&i_sCategorynm3=%ED%81%B4%EB%A0%8C%EC%A7%95%EC%A0%A4/%EC%98%A4%EC%9D%BC/%ED%8B%B0%EC%8A%88");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M02&i_sCategorynm2=%ED%81%B4%EB%A0%8C%EC%A7%95&i_sCategorycd3=L01M02S4&i_sCategorynm3=%EB%A6%BD&%EC%95%84%EC%9D%B4%20%EB%A6%AC%EB%AC%B4%EB%B2%84");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M03&i_sCategorynm2=%EB%A7%88%EC%8A%A4%ED%81%AC,%20%ED%8C%A9&i_sCategorycd3=L01M03S01&i_sCategorynm3=%EB%A7%88%EC%82%AC%EC%A7%80/%EC%9B%8C%EC%8B%9C%EC%98%A4%ED%94%84%20%ED%8C%A9");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M03&i_sCategorynm2=%EB%A7%88%EC%8A%A4%ED%81%AC,%20%ED%8C%A9&i_sCategorycd3=L01M03S02&i_sCategorynm3=%ED%95%84%EB%A7%81/%EC%8A%A4%ED%81%AC%EB%9F%BD");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M03&i_sCategorynm2=%EB%A7%88%EC%8A%A4%ED%81%AC,%20%ED%8C%A9&i_sCategorycd3=L01M03S03&i_sCategorynm3=%EC%8B%9C%ED%8A%B8%EB%A7%88%EC%8A%A4%ED%81%AC");
+		urlDatas.add("https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01M03&i_sCategorynm2=%EB%A7%88%EC%8A%A4%ED%81%AC,%20%ED%8C%A9&i_sCategorycd3=L01M03S04&i_sCategorynm3=%EC%BD%94%ED%8C%A9");
+		
+		List<SubCategoryDTO> subCategoryDatas = subCategoryService.selectAll(subCategoryDTO);
+		List<String> productNameCheck = new ArrayList<String>();
 		List<ProductDTO> datas = new ArrayList<ProductDTO>();
-		String weburl = "https://tonymoly.com/ctgr/category_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_iRecordCnt=188&i_iSoldoutFlag=Y&i_sSortTyp=100&i_sSortSql=X.N_TOT_ORDER_CNT%20DESC&i_iPageSize=40&i_iNowPageNo=1";
+		String weburl;
 		Document doc = null;
-		try {
-			doc = Jsoup.connect(weburl).get();
-		} catch (IOException e) {
-			e.printStackTrace();
+		Elements elems = null;
+		for (int i=0; i < subCategoryDatas.size(); i ++ ) {
+			weburl = urlDatas.get(i);
+			try {
+				doc = Jsoup.connect(weburl).get();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			elems = doc.select("li.prd_list");
+			Iterator<Element> itr = elems.iterator();
+			while (itr.hasNext()) {
+				ProductDTO productDTO = new ProductDTO();
+				Element el = itr.next();
+				String name = el.select("span.prod-name").text();
+				String price1 = el.select("div.selling-price-wrap > em.price-after").text().replace(",", "")
+						.replace("원", "");
+				String img = el.select("img.over").attr("src");
+				String detailImg = "https://tonymoly.com" + el.select("a.link.thumb").attr("href");
+				int price = Integer.parseInt(price1);
+				categorizationDTO.setSubcategoryPK(subCategoryDatas.get(i).getSubcategoryPK());
+				if(productNameCheck.contains(name)) {
+					categorizationDTO.setProductPK(productNameCheck.indexOf(name)+1);
+					categorizationService.insert(categorizationDTO);
+					continue;
+				}
+				else {
+					categorizationDTO.setProductPK(datas.size() + 1);
+					categorizationService.insert(categorizationDTO);
+				}
+				productNameCheck.add(name);
+				productDTO.setProductName(name);
+				productDTO.setProductPrice(price);
+				productDTO.setProductImg(img);
+				productDTO.setProductDetailImg(detailImg);
+				productDTO.setProductQuantity(50);
+				productDTO.setProductStatus(1);
+				datas.add(productDTO);
+			}
 		}
-		Elements elems = doc.select("li.prd_list");
-		Iterator<Element> itr = elems.iterator();
-//		int count = 0; // 추가된 객체 개수를 세기 위한 변수
-		while (itr.hasNext() /* && count < 5 */) { // 5개까지만 추가
-			ProductDTO productDTO = new ProductDTO();
-			Element el = itr.next();
-			String name = el.select("span.prod-name").text();
-			String price1 = el.select("div.selling-price-wrap > em.price-after").text().replace(",", "").replace("원",
-					"");
-			String img = el.select("img.over").attr("src");
-			String detailImg = "https://tonymoly.com" + el.select("a.link.thumb").attr("href");
-			int price = Integer.parseInt(price1);
-//			System.out.println(name + " / " + price + " / " + img + " / " + detailImg );
-			productDTO.setProductName(name);
-			productDTO.setProductPrice(price);
-			productDTO.setProductImg(img);
-			productDTO.setProductDetailImg(detailImg);
-			productDTO.setProductQuantity(50);
-			productDTO.setProductStatus(1);
-			datas.add(productDTO);
-		}
-
 		for (int i = 0; i < datas.size(); i++) {
 			System.out.println(datas.get(i).getProductDetailImg());
 			try {
@@ -94,7 +129,11 @@ public class CommonController {
 				return "redirect:/error";
 			}
 		}
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setSearchCondition("");
+		productService.update(productDTO);
 		return "redirect:/main";
+
 	}
 
 	@RequestMapping("/main")

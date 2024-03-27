@@ -109,7 +109,7 @@ form .cur-row {
 										<div class="card">
 											<div class="card-body">
 												<div class="table-responsive">
-													<form id="myForm" action="/admin/adminProductStatus"
+													<form id="myForm" action="adminProductStatus"
 														method="POST" onsubmit="return swtBasic()">
 														<div class='cur-row' style="color: #000000">
 															<div>상품코드</div>
@@ -132,11 +132,11 @@ form .cur-row {
 															<div style="width: 7%;">카테고리</div>
 															<div style="margin-right: 1%; width: 100%;">
 																<input type='radio' class='category' name='categoryName'
-																	value='skin'>스킨/로션 <input type='radio'
-																	class='category' name='categoryName' value='cleanging'
+																	value='스킨케어'>스킨/로션 <input type='radio'
+																	class='category' name='categoryName' value='클렌징'
 																	style="margin-left: 1%;">클렌징 <input
 																	type='radio' class='category' name='categoryName'
-																	value='mask' style="margin-left: 1%;">마스크/팩
+																	value='마스크팩' style="margin-left: 1%;">마스크/팩
 															</div>
 														</div>
 
@@ -174,7 +174,7 @@ form .cur-row {
 																<select class="custom-select mr-sm-2"
 																	id="registration-salestatus" style="color: black">
 																	<option value="1" ${productDTO.productStatus == 1 ? 'selected' : ''}>판매중</option>
-																	<option value="2" ${productDTO.productStatus == 2 ? 'selected' : ''}>판매완료</option>
+																	<option value="2" ${productDTO.productStatus == 0 ? 'selected' : ''}>판매완료</option>
 																</select>
 															</div>
 														</div>
@@ -209,7 +209,7 @@ form .cur-row {
 															<p id="fileName"></p>
 														</div>
 														<div id="image-show" class="image-show">
-															<img src="/admin/adminImg/${productDTO.productImg}"
+															<img src="uploadimg/${productDTO.productImg}"
 																alt="Product Image"
 																style="width: 70%; height: 70%; object-fit: contain;">
 															<script>
@@ -245,7 +245,7 @@ form .cur-row {
                             <div class="addImage" id="show-image"> <!-- 이미지 띄울 공간 -->
                             
                             
-															<img src="/admin/adminImg/${productDTO.productDetailImg}"
+															<img src="uploadimg/${productDTO.productDetailImg}"
 																alt="productDetailImg"
 																style="width: 1000%; height: 70%; object-fit: contain;">
 															<script>
@@ -297,20 +297,17 @@ form .cur-row {
 
 
 
-                                  <br>
+                                      <br>
                                       <div style="text-align: right;">
-                                         <button type="submit" id="button" class="btn btn-primary"><i class="fas fa-check"></i>
+                                        <button type="submit" id="button" class="btn btn-primary"><i class="fas fa-check"></i>
                                           완료</button>
                                         <button class="btn btn-primary"><i class="fas fa-check"></i> 취소</button>
                                       </div>
 
-
-
-
                                     </form>
                                   </div>
                                   
-                                  <script>
+                                   <script>
 
 function swtBasic() {
 	 event.preventDefault(); // 폼 제출 이벤트 기본 동작 차단
@@ -327,6 +324,7 @@ function swtBasic() {
 }     
 	
 </script>
+                                  
                                         
                            <!-- input 태그 사진 넣는 js  -->
                                   <script>
@@ -410,8 +408,8 @@ function swtBasic() {
 document.addEventListener('DOMContentLoaded', function () {
     console.log('들어온거 확인');
     // 저장된 카테고리 및 서브 카테고리 가져오기
-    var selectedCategory = "${productDTO.categoryName}"; // 서버에서 받은 카테고리 값
-    console.log(`${productDTO.categoryName}`);
+    var selectedCategory = "${categorizationDTO.categoryName}"; // 서버에서 받은 카테고리 값
+    console.log(`${categorizationDTO.categoryName}`);
    
     // 카테고리 체크 박스 선택
     var categoryRadios = document.querySelectorAll('input[name="categoryName"]');
@@ -432,46 +430,45 @@ document.addEventListener('DOMContentLoaded', function () {
 	categoryRadios.forEach(function (radio) {
         const subCategoryElement = document.querySelector('.sub-category');
         console.log('카테고리'+radio.value);
-        if (selectedCategory === 'skin') {
+        if (selectedCategory === '스킨케어') {
             subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategoryName' value='subskin' >스킨</input>
-<input type='checkbox' name='subCategoryName' value='lotion' style="margin-left: 1%;">로션/에멀젼</input>
-<input type='checkbox' name='subCategoryName' value='essence' style="margin-left: 1%;">에센스/세럼/앰플</input>
-<input type='checkbox' name='subCategoryName' value='cream' style="margin-left: 1%;">크림</input>
-<input type='checkbox' name='subCategoryName' value='eyecare' style="margin-left: 1%;">아이케어</input>
-<input type='checkbox' name='subCategoryName' value='mist' style="margin-left: 1%;">미스트/부스터</input>
-<input type='checkbox' name='subCategoryName' value='set' style="margin-left: 1%;">세트</input>
+<input type='checkbox' name='subCategoryName' value='1' >스킨</input>
+<input type='checkbox' name='subCategoryName' value='2' style="margin-left: 1%;">로션/에멀젼</input>
+<input type='checkbox' name='subCategoryName' value='3' style="margin-left: 1%;">에센스/세럼/앰플</input>
+<input type='checkbox' name='subCategoryName' value='4' style="margin-left: 1%;">크림</input>
+<input type='checkbox' name='subCategoryName' value='5' style="margin-left: 1%;">아이케어</input>
+<input type='checkbox' name='subCategoryName' value='6' style="margin-left: 1%;">미스트/부스터</input>
+<input type='checkbox' name='subCategoryName' value='7' style="margin-left: 1%;">세트</input>
 </div>
 `;
-        } else if (selectedCategory === 'cleanging') {
+        } else if (selectedCategory === '클렌징') {
             subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategoryName' value='cleanging' >클렌징폼</input>
-<input type='checkbox' name='subCategoryName' value='cleansingcream' style="margin-left: 1%;">클렌징크림/로션/워터</input>
-<input type='checkbox' name='subCategoryName' value='cleansinggel' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
-<input type='checkbox' name='subCategoryName' value='lib' style="margin-left: 1%;">립,아이 리무버</input>
+<input type='checkbox' name='subCategoryName' value='8' >클렌징폼</input>
+<input type='checkbox' name='subCategoryName' value='9' style="margin-left: 1%;">클렌징크림/로션/워터</input>
+<input type='checkbox' name='subCategoryName' value='10' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
+<input type='checkbox' name='subCategoryName' value='11' style="margin-left: 1%;">립,아이 리무버</input>
 </div>
 `;
-        } else if (selectedCategory === 'mask') {
+        } else if (selectedCategory === '마스크팩') {
             subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategoryName' value='mask' >팩/마스크</input>
-<input type='checkbox' name='subCategoryName' value='massage' style="margin-left: 1%;">마사지/워시오프 팩</input>
-<input type='checkbox' name='subCategoryName' value='scrub' style="margin-left: 1%;">필링/스크럽</input>
-<input type='checkbox' name='subCategoryName' value='sheetmask' style="margin-left: 1%;">시트마스크</input>
-<input type='checkbox' name='subCategoryName' value='nosepack' style="margin-left: 1%;">코팩</input>
+<input type='checkbox' name='subCategoryName' value='12' style="margin-left: 1%;">마사지/워시오프 팩</input>
+<input type='checkbox' name='subCategoryName' value='13' style="margin-left: 1%;">필링/스크럽</input>
+<input type='checkbox' name='subCategoryName' value='14' style="margin-left: 1%;">시트마스크</input>
+<input type='checkbox' name='subCategoryName' value='15' style="margin-left: 1%;">코팩</input>
 </div>
 `;
         }
         //서브카테고리 네임안에 있는 데이터가 데이터가 ,를 기준으로 분리되서 들어가야함.
        // const selectedSubCategories = selectedSubCategory.split(',');
-        
+        console.log(`${productDTO.productPK}`);
         //서브 카테고리 체크박스 선택되는거 비동기
         $.ajax({
 			
 			type: "POST",
-			url: "/admin/CategoryCheckbox",
+			url: "categoryCheckbox",
 			data: {
                 'productPK': `${productDTO.productPK}`
                 
@@ -484,8 +481,8 @@ document.addEventListener('DOMContentLoaded', function () {
             		console.log('로그'+datas);
         
             		$.each(datas, function(index, data){
-            		    
-            	        const selectedSubCategoryCheckbox = subCategoryElement.querySelector('input[name="subCategoryName"][value="' + data.subcategoryName + '"]');
+            		    console.log(data.subcategoryPK);
+            	        const selectedSubCategoryCheckbox = subCategoryElement.querySelector('input[name="subCategoryName"][value="' + data.subcategoryPK + '"]');
             	        if (selectedSubCategoryCheckbox !== null) {
             	            selectedSubCategoryCheckbox.checked = true;
             	        }
@@ -521,35 +518,34 @@ document.addEventListener('DOMContentLoaded', function () {
        radio.addEventListener('click', function () {
          // 선택된 라디오 버튼의 값에 따라 세부카테고리 내용 변경
          const subCategoryElement = document.querySelector('.sub-category');
-         if (radio.value === 'skin') {
+         if (radio.value === '스킨케어') {
            subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategoryName' value='subskin' >스킨</input>
-<input type='checkbox' name='subCategoryName' value='lotion' style="margin-left: 1%;">로션/에멀젼</input>
-<input type='checkbox' name='subCategoryName' value='essence' style="margin-left: 1%;">에센스/세럼/앰플</input>
-<input type='checkbox' name='subCategoryName' value='cream' style="margin-left: 1%;">크림</input>
-<input type='checkbox' name='subCategoryName' value='eyecare' style="margin-left: 1%;">아이케어</input>
-<input type='checkbox' name='subCategoryName' value='mist' style="margin-left: 1%;">미스트/부스터</input>
-<input type='checkbox' name='subCategoryName' value='set' style="margin-left: 1%;">세트</input>
+<input type='checkbox' name='subCategoryName' value='1' >스킨</input>
+<input type='checkbox' name='subCategoryName' value='2' style="margin-left: 1%;">로션/에멀젼</input>
+<input type='checkbox' name='subCategoryName' value='3' style="margin-left: 1%;">에센스/세럼/앰플</input>
+<input type='checkbox' name='subCategoryName' value='4' style="margin-left: 1%;">크림</input>
+<input type='checkbox' name='subCategoryName' value='5' style="margin-left: 1%;">아이케어</input>
+<input type='checkbox' name='subCategoryName' value='6' style="margin-left: 1%;">미스트/부스터</input>
+<input type='checkbox' name='subCategoryName' value='7' style="margin-left: 1%;">세트</input>
 </div>
 `;
-         } else if (radio.value === 'cleanging') {
+         } else if (radio.value === '클렌징') {
            subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategoryName' value='cleanging' >클렌징폼</input>
-<input type='checkbox' name='subCategoryName' value='cleansingcream' style="margin-left: 1%;">클렌징크림/로션/워터</input>
-<input type='checkbox' name='subCategoryName' value='cleansinggel' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
-<input type='checkbox' name='subCategoryName' value='lib' style="margin-left: 1%;">립,아이 리무버</input>
+<input type='checkbox' name='subCategoryName' value='8' >클렌징폼</input>
+<input type='checkbox' name='subCategoryName' value='9' style="margin-left: 1%;">클렌징크림/로션/워터</input>
+<input type='checkbox' name='subCategoryName' value='10' style="margin-left: 1%;">클렌징젤/오일/티슈</input>
+<input type='checkbox' name='subCategoryName' value='11' style="margin-left: 1%;">립,아이 리무버</input>
 </div>
 `;
-         } else if (radio.value === 'mask') {
+         } else if (radio.value === '마스크팩') {
            subCategoryElement.innerHTML = `
 <div style="width: 120%;">
-<input type='checkbox' name='subCategoryName' value='mask' >팩/마스크</input>
-<input type='checkbox' name='subCategoryName' value='massage' style="margin-left: 1%;">마사지/워시오프 팩</input>
-<input type='checkbox' name='subCategoryName' value='scrub' style="margin-left: 1%;">필링/스크럽</input>
-<input type='checkbox' name='subCategoryName' value='sheetmask' style="margin-left: 1%;">시트마스크</input>
-<input type='checkbox' name='subCategoryName' value='nosepack' style="margin-left: 1%;">코팩</input>
+<input type='checkbox' name='subCategoryName' value='12' style="margin-left: 1%;">마사지/워시오프 팩</input>
+<input type='checkbox' name='subCategoryName' value='13' style="margin-left: 1%;">필링/스크럽</input>
+<input type='checkbox' name='subCategoryName' value='14' style="margin-left: 1%;">시트마스크</input>
+<input type='checkbox' name='subCategoryName' value='15' style="margin-left: 1%;">코팩</input>
 </div>
 `;
          }
@@ -557,10 +553,6 @@ document.addEventListener('DOMContentLoaded', function () {
      });
        });
  </script>
-
-
-
-
 
 
 </body>
