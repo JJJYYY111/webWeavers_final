@@ -90,7 +90,7 @@ public class ProductDAO {
 	
 	// 상품별 매출현황_관리자매출관리>매출현황페이지 (검색조건별 매출현황 쿼리문 반환 함수)
 	private static String selectAllProductSalesQuery(ProductDTO productDTO) {
-		
+
 		// 상품별 카테고리 CTE
 		String query = "WITH P_CATEGORY AS (\r\n"
 				+ "SELECT\r\n"
@@ -126,7 +126,7 @@ public class ProductDAO {
 				+ "LEFT JOIN SERIAL S ON B.SERIAL_PK = S.SERIAL_PK\r\n"
 				+ "INNER JOIN P_CATEGORY PC ON P.PRODUCT_PK = PC.PRODUCT_PK\r\n"
 				+ "WHERE 1 = 1";
-		System.out.println(productDTO.getStartDate());
+		System.out.println("오이오이 어디갔나규"+productDTO.getStartDate()+productDTO);
 		// 시작일 및 종료일 조건
 		if(productDTO.getStartDate() != "" && productDTO.getStartDate() != null) {
 			System.out.println("로그1 들어옴");
@@ -141,6 +141,8 @@ public class ProductDAO {
 		
 		query += "\r\nGROUP BY P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, PC.CATEGORY_NAME, PC.SUBCATEGORY_NAME\r\n"
 				+ "ORDER BY PRODUCT_PK DESC";
+		
+		System.out.println(query);
 		
 		return query;
 	}
