@@ -24,6 +24,8 @@
 
             <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
             <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+            <!-- 스윗 알랏창  -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <style>
               .ck.ck-editor {
                 max-width: 700px;
@@ -140,7 +142,7 @@
                                 <div class="card-body">
                                   <div class="table-responsive">
 
-                                    <form id="myForm" action="adminProductInsert" method="POST" enctype="multipart/form-data">
+                                    <form id="myForm" action="/adminProductInsert" method="POST" enctype="multipart/form-data" onsubmit="return swtBasic()">
                                       <div class='cur-row' style="color:#000000; display: flex; ">
                                         <div style="width: 7%;">카테고리</div>
                                         <div style="margin-right: 1%; width: 100%;">
@@ -288,7 +290,7 @@
 
                                       <br>
                                       <div style="text-align: right;">
-                                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>
+                                         <button type="submit" id="button" class="btn btn-primary"><i class="fas fa-check"></i>
                                           완료</button>
                                         <button class="btn btn-primary"><i class="fas fa-check"></i> 취소</button>
                                       </div>
@@ -299,6 +301,7 @@
                                     </form>
                                   </div>
                                   
+                                       
                                         
                            <!-- input 태그 사진 넣는 js  -->
                                   <script>
@@ -426,7 +429,23 @@
               });
             </script>
 
+<script>
 
+function swtBasic() {
+	 event.preventDefault(); // 폼 제출 이벤트 기본 동작 차단
+    return Swal.fire({
+    	 title: "상품 등록을 완료했습니다.",
+        showCancelButton: false,
+        confirmButtonText: '확인',
+        confirmButtonColor: '#50C8FF', 
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('myForm').submit(); // 확인 버튼을 클릭한 경우 폼 제출
+        }
+    });
+}     
+	
+</script>
 
           </body>
 

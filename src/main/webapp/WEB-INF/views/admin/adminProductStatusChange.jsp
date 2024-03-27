@@ -28,6 +28,8 @@
 	rel="stylesheet" />
 <!-- Custom CSS -->
 <link href="/admin/dist/css/style.min.css" rel="stylesheet" />
+  <!-- 스윗 알랏창  -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 .ck.ck-editor {
 	max-width: 700px;
@@ -108,7 +110,7 @@ form .cur-row {
 											<div class="card-body">
 												<div class="table-responsive">
 													<form id="myForm" action="/admin/adminProductStatus"
-														method="POST">
+														method="POST" onsubmit="return swtBasic()">
 														<div class='cur-row' style="color: #000000">
 															<div>상품코드</div>
 															<div class="col-md-5">
@@ -295,9 +297,9 @@ form .cur-row {
 
 
 
-                                      <br>
+                                  <br>
                                       <div style="text-align: right;">
-                                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>
+                                         <button type="submit" id="button" class="btn btn-primary"><i class="fas fa-check"></i>
                                           완료</button>
                                         <button class="btn btn-primary"><i class="fas fa-check"></i> 취소</button>
                                       </div>
@@ -308,6 +310,23 @@ form .cur-row {
                                     </form>
                                   </div>
                                   
+                                  <script>
+
+function swtBasic() {
+	 event.preventDefault(); // 폼 제출 이벤트 기본 동작 차단
+    return Swal.fire({
+    	 title: "상품 수정을 완료했습니다.",
+        showCancelButton: false,
+        confirmButtonText: '확인',
+        confirmButtonColor: '#50C8FF', 
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('myForm').submit(); // 확인 버튼을 클릭한 경우 폼 제출
+        }
+    });
+}     
+	
+</script>
                                         
                            <!-- input 태그 사진 넣는 js  -->
                                   <script>
