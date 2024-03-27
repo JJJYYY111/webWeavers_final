@@ -237,7 +237,7 @@
                                     </div>
                                     	
 											
-                                        <table id="memberTable" border="1">
+                                        <table id="memberTable" border="1" style="color: black;">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
@@ -324,7 +324,7 @@
                                                 if(memberID == null){
                                                     memberID == "";
                                                 }
-												console.log('로그2'+memberID);
+												console.log('로그2 ['+memberID+']');
 												
 												$.ajax({
 													
