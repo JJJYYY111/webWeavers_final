@@ -166,26 +166,19 @@
 												<div class="col-lg-11">
 													<div class="row">
 														<div class="col-md-2 text-center">
-															<!-- DB 연결 필요  -->
-															<!-- 선택한 값을 DB에 보낸후 반환된값으로 2차 분류 지정가능 -->
 															<select class="custom-select form-control col-md-12"
-																id="inlineFormCustomSelect" name="FirstCategory"
-																onchange="changeFirstCategory(this.value)">
+																id="categorySelect" name="FirstCategory"
+																onchange="changeFirstCategory()">
 																<option selected>Category</option>
-																<option value="1">스킨케어</option>
-																<option value="2">마스크</option>
-																<option value="3">삼푸</option>
-																<option value="4">수분크림</option>
+																<option value="1001">스킨케어</option>
+																<option value="1002">클렌징</option>
+																<option value="1003">마스크팩</option>
 															</select>
 														</div>
 														<div class="col-md-2 text-center">
 															<select class="custom-select form-control col-md-12"
-																id="inlineFormCustomSelect2" name="SecondCategory">
+																id="subCategorySelect" name="SecondCategory">
 																<option selected>SubCategory</option>
-																<option value="1">브론즈</option>
-																<option value="2">실버</option>
-																<option value="3">골드</option>
-																<option value="4">탈퇴</option>
 															</select>
 														</div>
 													</div>
@@ -756,6 +749,9 @@
 		<script
 			src="/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
 		<script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+		<!-- 카테고리 선택 임시 js 파일 -->
+		<!-- <script src="/admin/js/categorySelect.js"></script> -->
+		<script src="/admin/js/categorySelect2.js"></script> 
 </body>
 
 </html>
