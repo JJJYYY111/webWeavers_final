@@ -151,7 +151,10 @@ public class AdminController {
 	
 	
 	@RequestMapping("/salesStatus")
-	public String salesStatus() {
+	public String salesStatus(ProductDTO productDTO, Model model) {
+		productDTO.setSearchCondition("adminProductSales");
+		model.addAttribute("productSaleDatas", productService.selectAll(productDTO));
+//		System.out.println("어드민 컨트롤러1"+model);
 		return "admin/salesStatus";
 	}
 	
