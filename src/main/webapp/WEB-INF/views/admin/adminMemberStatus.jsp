@@ -331,7 +331,7 @@
 													data: {
                                                         'gradeName': gradeName,
                                                         'memberName': memberName,
-                                                        //'memberRegdate': memberRegdate
+                                                        'memberRegdate': memberRegdate
                                                     },
                                                     dataType:'json',
                                                     	success:function(datas) {
