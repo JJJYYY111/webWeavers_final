@@ -24,6 +24,8 @@
 	rel="stylesheet" />
 <!-- Custom CSS -->
 <link href="/admin/dist/css/style.min.css" rel="stylesheet" />
+<!-- 스윗 알랏창  -->
+<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
 <style>
 .input {
 	color: #000000;
@@ -273,6 +275,11 @@ to {
     #products th, #products td {
         width: 25%; /* 각 열의 너비를 25%로 설정합니다. */
     }
+    
+    .swal-text {
+    
+   	color: black;
+    }
 </style>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -312,21 +319,23 @@ to {
 								<h1 class="card-title">주문관리</h1>
 								<br>
 								<div class="row">
-									<form style="width: 100%">
+									<form style="width:100%"action="" method="POST">
 										<div class="col-12">
 											<div class="card">
-												<div class="card-body">
+												<div class="card-body" style="width:100%">
 													<div class="table-responsive">
 											
 														<div class='cur-row' style="color: #000000">
 															<div>주문상태</div>
 															<div class="col-md-8" id="hi">
-																<select class="custom-select mr-sm-2" id="buyProductStatus" name="buyProductStatus"
+																<select class="custom-select mr-sm-2"  name="serialStatus"
 																	style="color: black; width: 30%">
 																	<option value="receipt" >주문접수</option>
 																	<option value="finish">배송완료</option>
 																</select>
 															</div>
+															
+																	
 														</div>
 														<br>
 														<div class='cur-row' style="color: #000000;">
@@ -423,7 +432,7 @@ to {
                                         <div class="table-wrapper">
                                             <table id="products" border="1">
                                                 <thead>
-                                                    <tr style="color: #000000;">
+                                                    <tr style="color: #000000; width:100%">
                                                         <th>주문번호</th>
                                                         <th>주문날짜</th>
                                                         <th>주문자</th>
@@ -436,24 +445,24 @@ to {
                                                 <tbody>
                                                
                                                     <!-- tr이 반복됨-그 tr에 id=${productpd} -->
-                                                    <script>console.log('들어옴');</script>
+                                                    <script>console.log('값이 들어온다.');</script>
                                                     <!-- <script>console.log(`${serialPK}`);</script> -->
                                                     <c:forEach var="data" items="${serialDatas}">
                                                     
-                                                    <tr style="color: #000000;" class="productName" id="${data.serialPK}">
-                                                        <td>${data.serialPK}</td>
-                                                        <td>${data.serialRegdate}</td>
-                                                        <td>${data.memberName}</td>
-                                                        <td>${data.productName}외${data.cnt}개</td>
-                                                        <td>${data.totalPrice}</td>
+                                                    <tr style="color: #000000;" id="${data.serialPK}">
+                                                        <td  class="productName">${data.serialPK}</td>
+                                                        <td  class="productName">${data.serialRegdate}</td>
+                                                        <td  class="productName">${data.memberName}</td>
+                                                        <td  class="productName">${data.productName}외${data.cnt}개</td>
+                                                        <td  class="productName">${data.totalPrice}</td>
                                                         <td>
-                                                            <select class="custom-select mr-sm-2"
-                                                                id="inlineFormCustomSelect" style="color: #000000;">
+                                                            <select class="custom-select mr-sm-2 serialStatus"
+                                                                style="color: #000000;" id="${data.serialPK}">
                                                                 <option value="receipt">접수</option>
                                                                 <option value="finish">완료</option>
                                                             </select>
                                                         </td>
-                                                        <td>${data.serialDeliveryAddress}</td>
+                                                        <td  class="productName">${data.serialDeliveryAddress}</td>
                                                     </tr>
                                                      </c:forEach> 
                                                 </tbody>
@@ -500,13 +509,13 @@ to {
                                             </div>
 
                                             <script>
-                                                // 상품명이 클릭되었을 때 모달을 표시하는 함수
-                                                
+                                               
+                                           			 // 상품명이 클릭되었을 때 모달을 표시하는 함수
                                                     $(document).on('click','.productName', function () {
                                                         var serialPK = $(this).prop('id');
                                                         var modal = document.getElementById("myModal");
                                                         var productNameModal = document.getElementById("productNameModal");
-                                                        console.log('들어옴 :'+serialPK);
+                                                        console.log('serialPK 들어옴 :'+serialPK);
                                                         
                                                         $.ajax({
                                                             type: "POST",
@@ -556,6 +565,8 @@ to {
 
                                                             error: function (error) {
                                                             	
+                                                            	console.log('테이블 에러');
+                                                            	
                                                                 console.log('에러의 종류:' + error)
                                                             }
 
@@ -583,6 +594,48 @@ to {
                                                     }
                                                 }
                                             </script>
+                                            
+                                            
+                                           					<!-- 배송완료 누르면 값 전달 -->
+															<script>
+    $('.serialStatus').change(function() {
+        //console.log("주문상태 선택");
+		
+        
+        	
+        var self = this;
+        // 사용자가 선택된 값 가져오기
+        var selectedStatus = $(self).val();
+        
+        var serialPK = $(self).attr('id');
+
+        // 이벤트 핸들러 일시적으로 해제
+        $('#serialStatus').unbind('change');
+
+        $.ajax({
+            type: "POST",
+            url: "/serialStatus",
+            data: {
+                'serialStatus': selectedStatus, // 변수명 수정
+                'serialPK': serialPK
+            },
+            dataType: 'text',
+
+            success: function(datas) {
+                swal("주문상태가 변경되었습니다.");
+                console.log('콘솔' + datas);
+                console.log('serialPK : ' +  serialPK );
+            },
+            
+            error: function(error) {
+                console.log('serialPK' + `${serialDTO.serialPK}`);
+                console.log('에러의 종류:' + error);
+            }
+        });
+    });
+</script>
+
+															
                                         </div>
                                         </form>
                                     </div>
@@ -594,7 +647,6 @@ to {
 			</div>
 			
 		</div>
-	</div>
 	
 	<!-- ============================================================== -->
 	<!-- footer -->
