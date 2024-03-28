@@ -465,12 +465,12 @@ to {
                                                     <!-- <script>console.log(`${serialPK}`);</script> -->
                                                     <c:forEach var="data" items="${serialDatas}">
                                                     
-                                                    <tr style="color: #000000;" id="${data.serialPK}">
-                                                        <td  class="productName">${data.serialPK}</td>
-                                                        <td  class="productName">${data.serialRegdate}</td>
-                                                        <td  class="productName">${data.memberName}</td>
-                                                        <td  class="productName">${data.productName}외${data.cnt}개</td>
-                                                        <td  class="productName">${data.totalPrice}</td>
+                                                    <tr  style="color: #000000;" >
+                                                        <td  class="productName" id="${data.serialPK}">${data.serialPK}</td>
+                                                        <td  class="productName" id="${data.serialPK}">${data.serialRegdate}</td>
+                                                        <td  class="productName" id="${data.serialPK}">${data.memberName}</td>
+                                                        <td  class="productName" id="${data.serialPK}">${data.productName}외${data.cnt}개</td>
+                                                        <td  class="productName" id="${data.serialPK}">${data.totalPrice}</td>
                                                         <td>
                                                             <select class="custom-select mr-sm-2 serialStatus"
                                                                 style="color: #000000;" id="${data.serialPK}">
@@ -478,7 +478,7 @@ to {
                                                                 <option value="finish">완료</option>
                                                             </select>
                                                         </td>
-                                                        <td  class="productName">${data.serialDeliveryAddress}</td>
+                                                        <td  class="productName" id="${data.serialPK}">${data.serialDeliveryAddress}</td>
                                                     </tr>
                                                      </c:forEach> 
                                                 </tbody>
