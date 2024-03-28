@@ -16,10 +16,12 @@ public class ProductDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	// ------------------------------------- UserPage -------------------------------------
+	// User_메인페이지, 상품목록페이지
 	// 정렬별 상품목록 쿼리문 반환 함수
-	private static String selectAllProductListQuery(String sortType, int limitNum) {
-		String query = "WITH WS AS (SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT FROM WISHLIST GROUP BY PRODUCT_PK LIMIT " + limitNum + "),\r\n"	// 상품별 찜 개수 (WISHLIST 서브쿼리)
-				+ "BS AS ( SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) SALES FROM BUYPRODUCT GROUP BY PRODUCT_PK LIMIT " + limitNum + ")\r\n"	// 상품별 판매량 (BUYPRODUCT 서브쿼리)
+	private static String selectAllProductListQuery(String sortType) {
+		
+		String query = "WITH WS AS (SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT FROM WISHLIST GROUP BY PRODUCT_PK),\r\n"	// 상품별 찜 개수 CTE
+				+ "BS AS ( SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) SALES FROM BUYPRODUCT GROUP BY PRODUCT_PK)\r\n"		// 상품별 판매량 CTE
 				+ "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_REGDATE, BS.SALES, WS.CNT,\r\n"
 				+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
 				+ "FROM PRODUCT P\r\n"
@@ -27,28 +29,30 @@ public class ProductDAO {
 				+ "LEFT JOIN  BS ON P.PRODUCT_PK = BS.PRODUCT_PK\r\n"
 				+ "LEFT JOIN WS ON P.PRODUCT_PK = WS.PRODUCT_PK\r\n"
 				+ "ORDER BY\r\n";
-		// 판매량순_메인페이지, 상품목록페이지
+		
+		// 메인페이지,상품목록페이지(판매량순)
 		if(sortType.equals("sales")) {
-			query += "BS.SALES DESC,";
+			query += "BS.SALES DESC, ";
 		}
-		// 신상순_상품목록페이지
+		// 상품목록페이지(신상순)
 		else if(sortType.equals("regdate")) {
-			query += "P.PRODUCT_REGDATE DESC,";
+			query += "P.PRODUCT_REGDATE DESC, ";
 		}
-		// 찜순_메인페이지
+		// 메인페이지(찜순)
 		else if(sortType.equals("wish")) {
-			query += "WS.CNT DESC,";
+			query += "WS.CNT DESC, ";
 		}
-		// 낮은 가격순_상품목록페이지
+		// 상품목록페이지(낮은가격순)
 		else if(sortType.equals("rowPrice")) {
-			query += "P.PRODUCT_PRICE ASC,";
+			query += "P.PRODUCT_PRICE ASC, ";
 		}
-		query += "P.PRODUCT_PK DESC LIMIT " + limitNum;
+		
+		query += "P.PRODUCT_PK DESC";
 		
 		return query;
 	}
 	
-	// 상품이름검색
+	// User_상품검색페이지
 	private static final String SELECTALL_SEARCHNAME = "SELECT\r\n"
 			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG,\r\n"
 			+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
@@ -56,7 +60,7 @@ public class ProductDAO {
 			+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
 			+ "WHERE P.PRODUCT_NAME LIKE CONCAT('%',?,'%')\r\n"
 			+ "ORDER BY P.PRODUCT_PK DESC";
-	// 상품상세페이지
+	// User_상품상세페이지
 	private static final String SELECTONE_USER_PRODUCT = "SELECT\r\n"
 			+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_DETAILIMG,\r\n"
 			+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
@@ -65,30 +69,31 @@ public class ProductDAO {
 			+ "WHERE P.PRODUCT_PK = ?";
 	
 	// ------------------------------------- AdminPage_상품관리 -------------------------------------	
-	// 상품목록_관리자상품현황페이지
+	// Admin_상품현황페이지
 	private static final String SELECTALL_ADMIN_PRODUCT = "SELECT\r\n"
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY, PRODUCT_STATUS\r\n"
 			+ "FROM PRODUCT\r\n"
 			+ "ORDER BY PRODUCT_PK ASC\r\n";
 //			+ "LIMIT ?, 10";	// 페이징처리 (앞단 페이지 번호 필요) (?행부터 10개 데이터 추출 / 0,10,20,30,40,... 이렇게 번호 넘어오면 좋을것같음) -> 앞단에서 처리 예정
-	// 상품정보_관리자상품수정페이지
-	private static final String SELECTONE_ADMIN_PRODUCT = "SELECT\r\n"
+	// Admin_상품수정페이지
+	private static final String SELECTONE_UPDATE = "SELECT\r\n"
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_REGDATE,\r\n"
 			+ "	PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY\r\n"
 			+ "FROM PRODUCT\r\n"
 			+ "WHERE PRODUCT_PK = ?";
-	// 상품등록_관리자상품등록페이지
+	// Admin_상품등록페이지 (Product Insert 후 --> Categorization Insert 할 때 해당 ProductPK 필요)
 	private static final String SELECTONE_INSERT = "SELECT PRODUCT_PK FROM PRODUCT WHERE PRODUCT_PK = (SELECT MAX(PRODUCT_PK) FROM PRODUCT)";
-	// 상품등록_관리자상품등록페이지
+	// Admin_상품등록페이지
 	private static final String INSERT = "INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
-	// 상품정보수정_관리자상품수정페이지
+	// Admin_상품수정페이지
 	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
 //	private static final String DELETE = "";
 	
 	
 	// ------------------------------------- AdminPage_매출관리 -------------------------------------
 	
-	// 상품별 매출현황_관리자매출관리>매출현황페이지 (검색조건별 매출현황 쿼리문 반환 함수)
+	// Admin_매출관리페이지(매출현황,전일대비매출,월별매출)
+	// 검색조건별 및 당일 및 당월 --> 매출현황 쿼리문 반환 함수
 	private static String selectAllProductSalesQuery(ProductDTO productDTO) {
 
 		// 상품별 카테고리 CTE
@@ -137,8 +142,24 @@ public class ProductDAO {
 			query += "	AND S.SERIAL_REGDATE <= DATE_ADD('" + productDTO.getEndDate() + "', INTERVAL 1 DAY)";
 		}
 		
+		// Admin_전일대비매출페이지 (당일 매출 Top10 상품목록)
+		if(productDTO.getSearchCondition().equals("adminDailySales")) {
+			query += "	AND DATE(S.SERIAL_REGDATE) = CURRENT_DATE()";
+		}
+		// Admin_월별매출페이지 (당월 매출 Top10 상품목록)
+		if(productDTO.getSearchCondition().equals("adminMonthlySales")) {
+			query += "	AND YEAR(S.SERIAL_REGDATE) = YEAR(CURRENT_DATE()) AND MONTH(S.SERIAL_REGDATE) = MONTH(CURRENT_DATE())";
+		}
+		
 		query += "\r\nGROUP BY P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, PC.CATEGORY_NAME, PC.SUBCATEGORY_NAME\r\n"
-				+ "ORDER BY PRODUCT_PK DESC";
+				+ "ORDER BY TOTAL_PRICE DESC";
+		
+		// Admin_전일대비매출페이지, 월별매출페이지 (Top10)
+		if(productDTO.getSearchCondition().equals("adminDailySales") || productDTO.getSearchCondition().equals("adminMonthlySales")) {
+			query += "LIMIT 10";
+		}
+		
+		System.out.println(query);
 		
 		return query;
 	}
@@ -148,25 +169,40 @@ public class ProductDAO {
 		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
 		
 		try {
+			// User_상품목록페이지(판매량순)
 			if (productDTO.getSearchCondition().equals("sales")) {
-				return jdbcTemplate.query(selectAllProductListQuery("sales", 100), args1, new ProductListUserRowMapper());
-			} else if (productDTO.getSearchCondition().equals("regdate")) {
-				return jdbcTemplate.query(selectAllProductListQuery("regdate", 100), args1, new ProductListUserRowMapper());
-			} else if (productDTO.getSearchCondition().equals("wish")) {
-				return jdbcTemplate.query(selectAllProductListQuery("wish", 8), args1, new ProductListUserRowMapper());
-			} else if (productDTO.getSearchCondition().equals("rowPrice")) {
-				return jdbcTemplate.query(selectAllProductListQuery("rowPrice", 100), args1, new ProductListUserRowMapper());
-			} else if (productDTO.getSearchCondition().equals("searchName")) {
+				return jdbcTemplate.query(selectAllProductListQuery("sales"), args1, new ProductListUserRowMapper());
+			}
+			// User_상품목록페이지(신상순)
+			else if (productDTO.getSearchCondition().equals("regdate")) {
+				return jdbcTemplate.query(selectAllProductListQuery("regdate"), args1, new ProductListUserRowMapper());
+			}
+			// User_상품목록페이지(찜순)
+			else if (productDTO.getSearchCondition().equals("wish")) {
+				return jdbcTemplate.query(selectAllProductListQuery("wish"), args1, new ProductListUserRowMapper());
+			}
+			// User_상품목록페이지(낮은가격순)
+			else if (productDTO.getSearchCondition().equals("rowPrice")) {
+				return jdbcTemplate.query(selectAllProductListQuery("rowPrice"), args1, new ProductListUserRowMapper());
+			}
+			// User_상품검색페이지
+			else if (productDTO.getSearchCondition().equals("searchName")) {
 				return jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
-			} else if (productDTO.getSearchCondition().equals("adminProductList")) {
-//				int pageNum = productDTO.getPageNum();
-//				if(productDTO.getPageNum() != 0) {
-//					pageNum = productDTO.getPageNum() - 1;	// 앞단에서 페이지번호 어떻게 넘겨주는지보고 계산 예정
-//				}
-//				Object[] args3 = { pageNum };
-//				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, args3, new ProductListAdminRowMapper());
+			}
+			// Admin_상품현황페이지
+			else if (productDTO.getSearchCondition().equals("adminProductList")) {
 				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, new ProductListAdminRowMapper());
-			} else if (productDTO.getSearchCondition().equals("adminProductSales")) {
+			}
+			// Admin_매출현황페이지
+			else if (productDTO.getSearchCondition().equals("adminProductSales")) {
+				return jdbcTemplate.query(selectAllProductSalesQuery(productDTO), new ProductSalesAdminRowMapper());
+			}
+			// Admin_전일대비매출페이지 (당일 매출 Top10 상품목록)
+			else if (productDTO.getSearchCondition().equals("adminDailySales")) {
+				return jdbcTemplate.query(selectAllProductSalesQuery(productDTO), new ProductSalesAdminRowMapper());
+			}
+			// Admin_월별매출페이지 (당월 매출 Top10 상품목록)
+			else if (productDTO.getSearchCondition().equals("adminMonthlySales")) {
 				return jdbcTemplate.query(selectAllProductSalesQuery(productDTO), new ProductSalesAdminRowMapper());
 			}
 		} catch (Exception e) {
@@ -182,11 +218,16 @@ public class ProductDAO {
 		Object[] args2 = { productDTO.getProductPK() };
 
 		try {
+			// User_상품상세페이지
 			if (productDTO.getSearchCondition().equals("userProduct")) {
 				return jdbcTemplate.queryForObject(SELECTONE_USER_PRODUCT, args1, new ProductUserRowMapper());
-			} else if (productDTO.getSearchCondition().equals("adminProduct")) {
-				return jdbcTemplate.queryForObject(SELECTONE_ADMIN_PRODUCT, args2, new ProductAdminRowMapper());
-			} else if (productDTO.getSearchCondition().equals("productInsert")) {
+			}
+			// Admin_상품수정페이지
+			else if (productDTO.getSearchCondition().equals("adminProduct")) {
+				return jdbcTemplate.queryForObject(SELECTONE_UPDATE, args2, new ProductAdminRowMapper());
+			}
+			// Admin_상품등록페이지 (Product Insert 후 --> Categorization Insert 할 때 해당 ProductPK 필요)
+			else if (productDTO.getSearchCondition().equals("productInsert")) {
 				return jdbcTemplate.queryForObject(SELECTONE_INSERT, new ProductInsertRowMapper());
 			}
 
@@ -198,7 +239,7 @@ public class ProductDAO {
 		return null;
 	}
 
-
+	// Admin_상품등록페이지
 	public boolean insert(ProductDTO productDTO) {
 		try {
 			int result = jdbcTemplate.update(INSERT, productDTO.getProductName(), productDTO.getProductPrice(),
@@ -215,6 +256,7 @@ public class ProductDAO {
 		return true;
 	}
 	
+	// Admin_상품수정페이지
 	public boolean update(ProductDTO productDTO) {
 		try {
 			int result = jdbcTemplate.update(UPDATE, productDTO.getProductName(), productDTO.getProductPrice(),
