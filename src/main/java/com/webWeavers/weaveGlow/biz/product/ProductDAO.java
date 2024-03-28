@@ -96,7 +96,7 @@ public class ProductDAO {
 				+ "SELECT\r\n"
 				+ "		CZ.PRODUCT_PK,\r\n"
 				+ "		C.CATEGORY_NAME,\r\n"
-				+ "		GROUP_CONCAT(S.SUBCATEGORY_NAME ORDER BY S.SUBCATEGORY_PK) AS SUBCATEGORY_NAME\r\n"
+				+ "		GROUP_CONCAT(S.SUBCATEGORY_NAME ORDER BY S.SUBCATEGORY_PK) AS SUBCATEGORY_NAME\r\n"	// 여러 ROW로 되어 있는 데이터(GROUP BY를 통해 그룹핑 된 결과)를 하나의 ROW로 묶어서 출력
 				+ "FROM CATEGORIZATION CZ\r\n"
 				+ "INNER JOIN SUBCATEGORY S ON CZ.SUBCATEGORY_PK = S.SUBCATEGORY_PK\r\n"
 				+ "INNER JOIN CATEGORY C ON S.CATEGORY_PK = C.CATEGORY_PK\r\n"
@@ -116,33 +116,29 @@ public class ProductDAO {
 				+ "	P.PRODUCT_PK,\r\n"
 				+ "	P.PRODUCT_NAME,\r\n"
 				+ "	P.PRODUCT_PRICE,\r\n"
-				+ "	COALESCE(SUM(B.BUYPRODUCT_CNT), 0) AS TOTAL_CNT,\r\n"
-				+ "	COALESCE((P.PRODUCT_PRICE * SUM(B.BUYPRODUCT_CNT)), 0) AS TOTAL_PRICE,\r\n"
+				+ "	COALESCE(SUM(B.BUYPRODUCT_CNT), 0) AS TOTAL_CNT,\r\n"	// 상품별 전체 구매개수 (NULL이면 0반환)
+				+ "	COALESCE((P.PRODUCT_PRICE * SUM(B.BUYPRODUCT_CNT)), 0) AS TOTAL_PRICE,\r\n"	// 상품별 전체 매출 (NULL이면 0반환)
 				+ "	GROUP_CONCAT(S.SERIAL_REGDATE ORDER BY S.SERIAL_PK) AS SERIAL_REGDATE,\r\n"
 				+ "	PC.CATEGORY_NAME,\r\n"
 				+ "	PC.SUBCATEGORY_NAME\r\n"
 				+ "FROM PRODUCT P\r\n"
-				+ "LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"
-				+ "LEFT JOIN SERIAL S ON B.SERIAL_PK = S.SERIAL_PK\r\n"
-				+ "INNER JOIN P_CATEGORY PC ON P.PRODUCT_PK = PC.PRODUCT_PK\r\n"
+				+ "LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"		// 구매개수 추출
+				+ "LEFT JOIN SERIAL S ON B.SERIAL_PK = S.SERIAL_PK\r\n"				// 주문일 추출
+				+ "INNER JOIN P_CATEGORY PC ON P.PRODUCT_PK = PC.PRODUCT_PK\r\n"	// 카테고리 정보 추출
 				+ "WHERE 1 = 1";
-		System.out.println("오이오이 어디갔나규"+productDTO.getStartDate()+productDTO);
+		
 		// 시작일 및 종료일 조건
 		if(productDTO.getStartDate() != "" && productDTO.getStartDate() != null) {
 			System.out.println("로그1 들어옴");
-//			query += "	AND S.SERIAL_REGDATE >= " + productDTO.getStartDate();
 			query += "	AND S.SERIAL_REGDATE >= '" + productDTO.getStartDate() + "'";
 		}
 		if(productDTO.getEndDate() != "" && productDTO.getStartDate() != null) {
 			System.out.println("로그2 들어옴");
-//			query += "	AND S.SERIAL_REGDATE <= DATE_ADD(" + productDTO.getEndDate() + ", INTERVAL 1 DAY)";	// 마지막일을 포함하기 위해 DATE_ADD()함수로 1일 추가
 			query += "	AND S.SERIAL_REGDATE <= DATE_ADD('" + productDTO.getEndDate() + "', INTERVAL 1 DAY)";
 		}
 		
 		query += "\r\nGROUP BY P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, PC.CATEGORY_NAME, PC.SUBCATEGORY_NAME\r\n"
 				+ "ORDER BY PRODUCT_PK DESC";
-		
-		System.out.println(query);
 		
 		return query;
 	}
