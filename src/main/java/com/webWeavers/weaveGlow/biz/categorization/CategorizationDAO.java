@@ -21,7 +21,7 @@ public class CategorizationDAO {
 
 	private static final String INSERT = "INSERT INTO CATEGORIZATION (PRODUCT_PK, SUBCATEGORY_PK) VALUES (?,?)";
 	private static final String UPDATE = "UPDATE CATEGORIZATION SET SUBCATEGORY_PK = ? WHERE PRODUCT_PK = ?";
-	private static final String DELETE = "";
+	private static final String DELETE = "DELETE FROM CATEGORIZATION WHERE PRODUCT_PK = ?";
 
 	public List<CategorizationDTO> selectAll(CategorizationDTO categorizationDTO) {
 		Object[] args = { categorizationDTO.getProductPK() };
@@ -62,7 +62,11 @@ public class CategorizationDAO {
 	}
 
 	public boolean delete(CategorizationDTO categorizationDTO) {
-		return false;
+		int result = jdbcTemplate.update(DELETE, categorizationDTO.getProductPK());
+		if (result <= 0) {
+			return false;
+		}
+		return true;
 	}
 
 }
