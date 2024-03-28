@@ -34,7 +34,7 @@
 						<c:if test="${data.reviewImg != null}">
 							<div class="feature-img">
 								<img style="max-width: 200%; max-height: 200px;"
-							class="img-fluid" src="uploadimg/review/${data.reviewImg}" alt=""> <!-- 업로드한 이미지 -->
+							class="img-fluid" src="${data.reviewImg}" alt=""> <!-- 업로드한 이미지 -->
 							</div>
 						</c:if>
 						</div>

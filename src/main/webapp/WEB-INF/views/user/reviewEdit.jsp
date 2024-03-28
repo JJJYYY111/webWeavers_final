@@ -43,7 +43,7 @@
 					</c:if>
 					<c:if test="${not empty reviewDTO.reviewImg}">
 						<img id="preview" style="max-width: 200%; max-height: 200px;"
-							class="img-fluid" src="uploadimg/review/${reviewDTO.reviewImg}" alt="업로드할 이미지">
+							class="img-fluid" src="${reviewDTO.reviewImg}" alt="업로드할 이미지">
 					</c:if>
 							<input type="file" 
 							id="uploadimg" name="reviewImgFile" onchange="readURL(this);" value="${reviewDTO.reviewImg}" accept=".png, .jpeg, .jpg"> 

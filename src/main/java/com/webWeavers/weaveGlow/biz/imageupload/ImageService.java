@@ -62,11 +62,11 @@ public class ImageService {
 //	}
 	public String imageInsert(MultipartFile multipartFile, String folderName) {
 
-		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/resources/static/uploadimg/"+folderName;
+		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/resources/static";
 //		File fileCheck = new File(root);
 //		if(!fileCheck.exists()) fileCheck.mkdirs();
 
-		String changeFileName = "";
+		String changeFileName = "uploadimg/"+folderName+"/";;
 		Calendar calendar = Calendar.getInstance();
 		changeFileName += calendar.get(Calendar.YEAR);
 		changeFileName += calendar.get(Calendar.MONTH);
@@ -94,7 +94,7 @@ public class ImageService {
 
 	public String imageUpdate(MultipartFile multipartFile, String prevReviewImg, String folderName) {
 
-		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/resources/static/uploadimg/"+folderName;
+		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/resources/static";
 //		File fileCheck = new File(root);
 //		if(!fileCheck.exists()) fileCheck.mkdirs();
 		
@@ -108,7 +108,7 @@ public class ImageService {
 		}
 
 		List<Map<String, String>> fileList = new ArrayList<>();
-		String changeFileName = "";
+		String changeFileName = "uploadimg/"+folderName+"/";
 		Calendar calendar = Calendar.getInstance();
 		changeFileName += calendar.get(Calendar.YEAR);
 		changeFileName += calendar.get(Calendar.MONTH);
