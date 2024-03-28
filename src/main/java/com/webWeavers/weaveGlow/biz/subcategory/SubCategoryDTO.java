@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class SubCategoryDTO {
-	private int subcategoryPK;
-	private String subcategoryName;
+	private int subCategoryPK;
+	private String subCategoryName;
 	private int categoryPK;
 	private String categoryName;
 		

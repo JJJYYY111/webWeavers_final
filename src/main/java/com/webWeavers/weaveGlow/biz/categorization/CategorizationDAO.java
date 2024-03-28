@@ -45,7 +45,7 @@ public class CategorizationDAO {
 
 	public boolean insert(CategorizationDTO categorizationDTO) {
 		int result = jdbcTemplate.update(INSERT, categorizationDTO.getProductPK(),
-				categorizationDTO.getSubcategoryPK());
+				categorizationDTO.getSubCategoryPK());
 		if (result <= 0) {
 			return false;
 		}
@@ -54,7 +54,7 @@ public class CategorizationDAO {
 
 	public boolean update(CategorizationDTO categorizationDTO) {
 		int result = jdbcTemplate.update(UPDATE, categorizationDTO.getProductPK(),
-				categorizationDTO.getSubcategoryPK());
+				categorizationDTO.getSubCategoryPK());
 		if (result <= 0) {
 			return false;
 		}
@@ -77,7 +77,7 @@ class CategorizationRowMapper implements RowMapper<CategorizationDTO> {
 		CategorizationDTO data = new CategorizationDTO();
 		data.setCategorizationPK(rs.getInt("CATEGORIZATION_PK"));
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
-		data.setSubcategoryPK(rs.getInt("SUBCATEGORY_PK"));
+		data.setSubCategoryPK(rs.getInt("SUBCATEGORY_PK"));
 		return data;
 	}
 }
@@ -88,7 +88,7 @@ class CategorizationRowMapper2 implements RowMapper<CategorizationDTO> {
 		CategorizationDTO data = new CategorizationDTO();
 		data.setCategorizationPK(rs.getInt("CATEGORIZATION_PK"));
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
-		data.setSubcategoryPK(rs.getInt("SUBCATEGORY_PK"));
+		data.setSubCategoryPK(rs.getInt("SUBCATEGORY_PK"));
 		data.setCategoryName(rs.getString("CATEGORY_NAME"));
 		return data;
 	}

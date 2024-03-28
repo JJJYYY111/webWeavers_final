@@ -93,7 +93,7 @@ public class CommonController {
 				String img = el.select("img.over").attr("src");
 				String detailImg = "https://tonymoly.com" + el.select("a.link.thumb").attr("href");
 				int price = Integer.parseInt(price1);
-				categorizationDTO.setSubcategoryPK(subCategoryDatas.get(i).getSubcategoryPK());
+				categorizationDTO.setSubCategoryPK(subCategoryDatas.get(i).getSubCategoryPK());
 				if(productNameCheck.contains(name)) {
 					categorizationDTO.setProductPK(productNameCheck.indexOf(name)+1);
 					categorizationService.insert(categorizationDTO);

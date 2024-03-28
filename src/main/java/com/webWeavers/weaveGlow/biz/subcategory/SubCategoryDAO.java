@@ -31,7 +31,7 @@ public class SubCategoryDAO {
 	}
 
 	public SubCategoryDTO selectOne(SubCategoryDTO subCategoryDTO) {
-		Object[] args = { subCategoryDTO.getSubcategoryPK(), subCategoryDTO.getSubcategoryName() };
+		Object[] args = { subCategoryDTO.getSubCategoryPK(), subCategoryDTO.getSubCategoryName() };
 		try {
 			return jdbcTemplate.queryForObject(SELECTONE, args, new SubCategoryRowMapper());
 		} catch (Exception e) {
@@ -57,8 +57,8 @@ class SubCategoryRowMapper implements RowMapper<SubCategoryDTO> {
 	@Override
 	public SubCategoryDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		SubCategoryDTO data = new SubCategoryDTO();
-		data.setSubcategoryPK(rs.getInt("SUBCATEGORY_PK"));
-		data.setSubcategoryName(rs.getString("SUBCATEGORY_NAME"));
+		data.setSubCategoryPK(rs.getInt("SUBCATEGORY_PK"));
+		data.setSubCategoryName(rs.getString("SUBCATEGORY_NAME"));
 		data.setCategoryPK(rs.getInt("CATEGORY_PK"));
 		data.setCategoryName(rs.getString("CATEGORY_NAME"));
 		return data;

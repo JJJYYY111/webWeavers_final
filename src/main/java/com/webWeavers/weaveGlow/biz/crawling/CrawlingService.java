@@ -38,7 +38,7 @@ public class CrawlingService {
 		Document doc = null;
 		Elements elems = null;
 		for (SubCategoryDTO data : subCategoryDatas) {
-			weburl = "https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=기초&i_sCategorycd2=L01M01&i_sCategorynm2="+ data.getCategoryName() + "&i_sCategorycd3=L01M01S01&i_sCategorynm3="+data.getSubcategoryName();
+			weburl = "https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=기초&i_sCategorycd2=L01M01&i_sCategorynm2="+ data.getCategoryName() + "&i_sCategorycd3=L01M01S01&i_sCategorynm3="+data.getSubCategoryName();
 			try {
 				doc = Jsoup.connect(weburl).get();
 			} catch (IOException e) {
@@ -55,7 +55,7 @@ public class CrawlingService {
 				String img = el.select("img.over").attr("src");
 				String detailImg = "https://tonymoly.com" + el.select("a.link.thumb").attr("href");
 				int price = Integer.parseInt(price1);
-				categorizationDTO.setSubcategoryPK(data.getSubcategoryPK());
+				categorizationDTO.setSubCategoryPK(data.getSubCategoryPK());
 				if(productNameCheck.contains(name)) {
 					categorizationDTO.setProductPK(datas.get(productNameCheck.indexOf(name)+1).getProductPK());
 					categorizationService.insert(categorizationDTO);
@@ -70,7 +70,7 @@ public class CrawlingService {
 				productDTO.setProductImg(img);
 				productDTO.setProductDetailImg(detailImg);
 				productDTO.setProductQuantity(50);
-				productDTO.setProductStatus(data.getSubcategoryPK());
+				productDTO.setProductStatus(data.getSubCategoryPK());
 				datas.add(productDTO);
 			}
 			return "redirect:/main";

@@ -123,7 +123,7 @@ public class AdminController {
 		
 		// 3번기능 카테고리 추가
 		for(int data: subCategoryNames) {
-			categorizationDTO.setSubcategoryPK(data);
+			categorizationDTO.setSubCategoryPK(data);
 			System.out.println(categorizationDTO);
 			categorizationService.insert(categorizationDTO);
 		}
@@ -156,7 +156,7 @@ public class AdminController {
 		
 		categorizationService.delete(categorizationDTO);
 		for(int subcategoryName: subCategoryNames) {
-			categorizationDTO.setSubcategoryPK(subcategoryName);
+			categorizationDTO.setSubCategoryPK(subcategoryName);
 			System.out.println(categorizationDTO);
 			categorizationService.insert(categorizationDTO);
 		}
