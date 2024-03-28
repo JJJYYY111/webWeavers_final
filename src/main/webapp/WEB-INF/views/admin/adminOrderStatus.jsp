@@ -491,7 +491,7 @@ to {
                                             <!-- 모달 -->
                                             <div id="myModal" class="modal">
                                                 <!-- 모달 내용 -->
-                                                <div class="modal-content">
+                                                <div class="modal-content" style="color: black;">
                                                     <span class="close">&times;</span>
                                                     <p id="productNameModal">
                                                     
