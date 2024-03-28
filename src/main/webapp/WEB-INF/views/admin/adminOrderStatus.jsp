@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="common"%>
 <!DOCTYPE html>
@@ -229,7 +229,8 @@ th, td {
 }
 
 /* 애니메이션 효과 */
-@keyframes animatetop {from { top:-300px;
+@
+keyframes animatetop {from { top:-300px;
 	opacity: 0
 }
 
@@ -272,14 +273,17 @@ to {
 </style>
 
 <style>
-    #products th, #products td {
-        width: 25%; /* 각 열의 너비를 25%로 설정합니다. */
-    }
-    
-    .swal-text {
-    
-   	color: black;
-    }
+#products th, #products td {
+	width: 25%; /* 각 열의 너비를 25%로 설정합니다. */
+}
+
+.swal-text {
+	color: black;
+}
+
+.table-wrapper{
+	color: black;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -302,8 +306,8 @@ to {
 		<common:adminTopBar />
 		<!-- =======사이드바======== -->
 		<common:adminSideBar />
-		
-		
+
+
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
 				<div class="row">
@@ -313,45 +317,47 @@ to {
 			<div class="container-fluid">
 				<!-- 페이지 시작 -->
 				<div class="row">
-					<div class="col-12" >
+					<div class="col-12">
 						<div class="card" style="width: 100%">
 							<div class="card-body" style="width: 100%">
 								<h1 class="card-title">주문관리</h1>
 								<br>
 								<div class="row">
-									<form style="width:100%"action="" method="POST">
+									<form style="width: 100%" action="" method="POST">
 										<div class="col-12">
 											<div class="card">
-												<div class="card-body" style="width:100%">
+												<div class="card-body" style="width: 100%">
 													<div class="table-responsive">
-											
+
 														<div class='cur-row' style="color: #000000">
 															<div>주문상태</div>
 															<div class="col-md-8" id="hi">
-																<select class="custom-select mr-sm-2" id="serialStatus"  name="serialStatus"
-																	style="color: black; width: 30%">
-																	<option value="all" >전체</option>
-																	<option value="receipt" >주문접수</option>
+																<select class="custom-select mr-sm-2" id="serialStatus"
+																	name="serialStatus" style="color: black; width: 30%">
+																	<option value="">전체</option>
+																	<option value="receipt">주문접수</option>
 																	<option value="finish">배송완료</option>
 																</select>
 															</div>
-															
-																	
+
+
 														</div>
 														<br>
 														<div class='cur-row' style="color: #000000;">
 															<div>회원이름</div>
 															<div class="col-md-3">
 																<input type="text" class="form-control"
-																	placeholder="ex) 홍길동" id="memberName" name="memberName" style="width: 70%">
+																	placeholder="ex) 홍길동" id="memberName" name="memberName"
+																	style="width: 70%">
 															</div>
-															
-															 <div>주문날짜</div>
-                                                            <div class="col-md-3">
-                                                                <input type="date"  class="form-control" style="width: 120%"
-                                                                  id="serialRegdate" name="serialRegdate" >
-                                                            </div>
-															
+
+															<div>주문날짜</div>
+															<div class="col-md-3">
+																<input type="date" class="form-control"
+																	style="width: 120%" id="serialRegdate"
+																	name="serialRegdate">
+															</div>
+
 														</div>
 														<br>
 													</div>
@@ -362,14 +368,15 @@ to {
 											<div class="row justify-content-center">
 												<div class="col-md-6 text-center">
 													<button type="button" class="btn btn-primary" id="search">
-														<i class=" fas
+														<i
+															class=" fas
                                                     fa-check"></i>
 														검색
 													</button>
 												</div>
 											</div>
-											
-											
+
+
 											<!-- 필터검색 -->
 											<script>
 											$("#search").on("click", function() {
@@ -390,7 +397,7 @@ to {
 												$.ajax({
 													
 													type: "POST",
-													url: "/admin/searchSerial",
+													url: "searchSerial",
 													data: {
                                                         'serialStatus': serialStatus,
                                                         'memberName': memberName,
@@ -401,21 +408,26 @@ to {
                                                     dataType: 'json',
                                                     	
                                                     	success:function(datas) {
-                                                    		console.log('콘솔'+datas);
+                                                    		console.log('콘솔 ['+datas +']');
                                                     	    var tableHTML = "<table id='products' border='1'>";
                                                     	    tableHTML += "<thead><tr><th>주문번호</th><th>주문날짜</th><th>주문자</th><th>상품명</th><th>총결제금액</th><th>주문상태</th><th>배송지</th></tr></thead>";
                                                     	    tableHTML += "<tbody>";
                                                     	    for (var i = 0; i < datas.length; i++) {
-                                                    	        tableHTML += "<tr class='productName' id="+datas[i].serialPK+">";
-                                                    	        tableHTML += "<td>" + datas[i].serialPK + "</td>";
-                                                    	        tableHTML += "<td>" + datas[i].serialRegdate + "</td>";
-                                                    	        tableHTML += "<td>" + datas[i].memberName + "</td>";
-                                                    	        tableHTML += "<td>" + datas[i].productName + "</td>";
-                                                    	        tableHTML += "<td>" + datas[i].totalPrice + "</td>";
-                                                    	        tableHTML += "<td>" + datas[i].serialStatus + "</td>";
-                                                    	        tableHTML += "<td>" + datas[i].serialDeliveryAddress + "</td>";
+                                                    	        tableHTML += "<tr>";
+                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].serialPK + "</td>";
+                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].serialRegdate + "</td>";
+                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].memberName + "</td>";
+                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].productName + "</td>";
+                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].totalPrice + "</td>";
+                                                    	        tableHTML += "<td><select class=\"custom-select mr-sm-2;\" style=\"color: #000000;\" id=\"" + datas[i].serialPK + "\">";
+                                                    	        tableHTML += "<option value=\"receipt\" data-serial-status=\"" + datas[i].serialStatus + "\">접수</option>";
+                                                    	        tableHTML += "<option value=\"finish\" data-serial-status=\"" + datas[i].serialStatus + "\">완료</option>";
+                                                    	        tableHTML += "</select></td>";
+                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].serialDeliveryAddress + "</td>";
                                                     	        tableHTML += "</tr>";
                                                     	    }
+
+                                                    	    
                                                     	    tableHTML += "</tbody></table>";
                                                     	    $("#products").html(tableHTML);
                                                     	   
@@ -444,88 +456,102 @@ to {
 											
 											</script>
 										</div>
-									
-                                        <br>
-                                        <div class="table-wrapper">
-                                            <table id="products" border="1">
+
+										<br>
+										<div class="table-wrapper">
+											<table id="products" border="1">
+
+												<thead>
+													<tr style="color: #000000; width: 100%">
+														<th>주문번호</th>
+														<th>주문날짜</th>
+														<th>주문자</th>
+														<th>상품명</th>
+														<th>총결제금액</th>
+														<th>주문상태</th>
+														<th>배송지</th>
+													</tr>
+												</thead>
+												<tbody>
+
+													<!-- tr이 반복됨-그 tr에 id=${productpd} -->
+													<script>console.log('값이 들어온다.');</script>
+													<!-- <script>console.log(`${serialPK}`);</script> -->
+													<c:forEach var="data" items="${serialDatas}">
+
+														<tr style="color: #000000;">
+															<td class="productName" id="${data.serialPK}">${data.serialPK}</td>
+															<td class="productName" id="${data.serialPK}">${data.serialRegdate}</td>
+															<td class="productName" id="${data.serialPK}">${data.memberName}</td>
+															<td class="productName" id="${data.serialPK}">${data.productName}외${data.buyProductCnt}개</td>
+															<td class="productName" id="${data.serialPK}">${data.totalPrice}</td>
+															<td><select
+																class="custom-select mr-sm-2 serialStatus"
+																style="color: #000000;" id="${data.serialPK}">
+																	<option value="receipt"
+																		data-serial-status="${data.serialStatus}">접수</option>
+																	<option value="finish"
+																		data-serial-status="${data.serialStatus}">완료</option>
+															</select></td>
+															<td class="productName" id="${data.serialPK}">${data.serialDeliveryAddress}</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+
+											</table>
+
+
+											<script>
+                                            var option = document.querySelector('option');
+                                            var serialStatus = option.dataset.serialStatus;
                                             
-                                                <thead>
-                                                    <tr style="color: #000000; width:100%">
-                                                        <th>주문번호</th>
-                                                        <th>주문날짜</th>
-                                                        <th>주문자</th>
-                                                        <th>상품명</th>
-                                                        <th>총결제금액</th>
-                                                        <th>주문상태</th>
-                                                        <th>배송지</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                               
-                                                    <!-- tr이 반복됨-그 tr에 id=${productpd} -->
-                                                    <script>console.log('값이 들어온다.');</script>
-                                                    <!-- <script>console.log(`${serialPK}`);</script> -->
-                                                    <c:forEach var="data" items="${serialDatas}">
-                                                    
-                                                    <tr  style="color: #000000;" >
-                                                        <td  class="productName" id="${data.serialPK}">${data.serialPK}</td>
-                                                        <td  class="productName" id="${data.serialPK}">${data.serialRegdate}</td>
-                                                        <td  class="productName" id="${data.serialPK}">${data.memberName}</td>
-                                                        <td  class="productName" id="${data.serialPK}">${data.productName}외${data.buyProductCnt}개</td>
-                                                        <td  class="productName" id="${data.serialPK}">${data.totalPrice}</td>
-                                                        <td>
-                                                            <select class="custom-select mr-sm-2 serialStatus"
-                                                                style="color: #000000;" id="${data.serialPK}">
-                                                                <option value="receipt">접수</option>
-                                                                <option value="finish">완료</option>
-                                                            </select>
-                                                        </td>
-                                                        <td  class="productName" id="${data.serialPK}">${data.serialDeliveryAddress}</td>
-                                                    </tr>
-                                                     </c:forEach> 
-                                                </tbody>
-                                                
-                                            </table>
-                                            <div id="productNav"></div>
-                                          
+                                            </script>
 
-                                            <!-- 모달 -->
-                                            <div id="myModal" class="modal">
-                                                <!-- 모달 내용 -->
-                                                <div class="modal-content" style="color: black;">
-                                                    <span class="close">&times;</span>
-                                                    <p id="productNameModal">
-                                                    
-                                                   <div style="font-size: 30px; white-space: nowrap;">주문자: <span id="modalMemberName"></span></div>
 
-                                                    <div style="font-size: 30px; white-space: nowrap;">주문날짜: <span id="modalMemberDate"></span></div>
-                                                    
-                                                    <br>
-                                                    
-                                                    <table id="productsTable" border="1" style="width: 100%;">
-                                                    
-                                                    
-                                                                   
-                                                                   <!--  <tr id="productTable" style="width: 25%;"> -->
-                                                                    <!--  <td id="productName"></td>
+											<!-- <div id="productNav"></div> -->
+
+
+											<!-- 모달 -->
+											<div id="myModal" class="modal">
+												<!-- 모달 내용 -->
+												<div class="modal-content" style="color: black;">
+													<span class="close">&times;</span>
+													<p id="productNameModal">
+													<div style="font-size: 30px; white-space: nowrap;">
+														주문자: <span id="modalMemberName"></span>
+													</div>
+
+													<div style="font-size: 30px; white-space: nowrap;">
+														주문날짜: <span id="modalMemberDate"></span>
+													</div>
+
+													<br>
+
+													<table id="productsTable" border="1" style="width: 100%;">
+
+
+
+														<!--  <tr id="productTable" style="width: 25%;"> -->
+														<!--  <td id="productName"></td>
                                                                         <td style="width: 70%;" id="regdate"></td>
                                                                         <td id="member"></td>
                                                                          <td id="totalprice"></td> -->
-                                                                    <!-- </tr> -->
-                                                                    <tr>
-                                                                        
-                                                                       
-                                                                    </tr>                                                  
-                                                                    <tr>
-                                                                       
-                                                                       
-                                                                    </tr>
-                                                                </table>
-                                                    </p> <!-- 상품명을 보여줄 요소 -->
-                                                </div>
-                                            </div>
+														<!-- </tr> -->
+														<tr>
 
-                                            <script>
+
+														</tr>
+														<tr>
+
+
+														</tr>
+													</table>
+													</p>
+													<!-- 상품명을 보여줄 요소 -->
+												</div>
+											</div>
+
+											<script>
                                                
                                            			 // 상품명이 클릭되었을 때 모달을 표시하는 함수
                                                     $(document).on('click','.productName', function () {
@@ -611,10 +637,10 @@ to {
                                                     }
                                                 }
                                             </script>
-                                            
-                                            
-                                           					<!-- 배송완료 누르면 값 전달 -->
-															<script>
+
+
+											<!-- 배송완료 누르면 값 전달 -->
+											<script>
     $('.serialStatus').change(function() {
         //console.log("주문상태 선택");
 		
@@ -652,19 +678,19 @@ to {
     });
 </script>
 
-															
-                                        </div>
-                                        </form>
-                                    </div>
+
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
 		</div>
-	
+
+	</div>
+
 	<!-- ============================================================== -->
 	<!-- footer -->
 	<footer class="footer text-center text-muted">
