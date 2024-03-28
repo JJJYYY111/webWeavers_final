@@ -196,6 +196,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="col-12 " name="cardTwo">
 						<div class="card">
 							<div class="card-body">
@@ -228,7 +229,7 @@
 										console.log('[로그2]데이터 확인 '+ ${productSaleDatas});
 										</script>
 
-										<tbody>
+										<tbody id="salesSearchdatas">
 											<c:forEach var="data" items="${productSaleDatas}">
 												<tr>
 													<!-- 상품 수정 컨트롤러 생기면 href 수정하기  -->

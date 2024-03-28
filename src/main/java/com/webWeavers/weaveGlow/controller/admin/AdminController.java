@@ -139,8 +139,27 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminProductUpdate")
-	public String adminProductUpdate() {
+	public String adminProductUpdate(ProductDTO productDTO, CategorizationDTO categorizationDTO, 
+										@RequestParam("productImage") MultipartFile productImage, 
+										@RequestParam("productDetailImage") MultipartFile productDetailImage,
+										@RequestParam("subCategoryName") List<Integer> subCategoryNames) {
 		
+		productDTO.setSearchCondition("adminProduct");
+		ProductDTO data = productService.selectOne(productDTO);
+		if(!data.getProductImg().equals(productDTO.getProductImg())) {
+			productDTO.setProductImg(imageService.imageUpdate(productImage, data.getProductImg()));
+		}
+		if(!data.getProductDetailImg().equals(productDTO.getProductDetailImg())) {
+			productDTO.setProductDetailImg(imageService.imageUpdate(productDetailImage, data.getProductDetailImg()));
+		}
+		productService.update(productDTO);
+		
+		categorizationService.delete(categorizationDTO);
+		for(int subcategoryName: subCategoryNames) {
+			categorizationDTO.setSubcategoryPK(subcategoryName);
+			System.out.println(categorizationDTO);
+			categorizationService.insert(categorizationDTO);
+		}
 		return "redirect:/adminProductStatus";
 	}
 	
@@ -149,9 +168,6 @@ public class AdminController {
 		return gson.toJson(categorizationService.selectAll(categorizationDTO));
 	}
 	
-	
-	
-	
 	@RequestMapping("/adminOrderStatus")
 	public String adminOrderStatus(SerialDTO serialDTO, Model model) {
 		serialDTO.setSearchCondition("orderList");
@@ -159,13 +175,32 @@ public class AdminController {
 		return "admin/adminOrderStatus";
 	}
 	
+	@RequestMapping("/getOrderList")
+	public @ResponseBody String getOrderList(SerialDTO serialDTO, Gson gson) {
+		serialDTO.setSearchCondition("orderProduct");
+		List<SerialDTO> datas = serialService.selectAll(serialDTO);
+		System.out.println(datas);
+		return gson.toJson(datas);
+	}
+	
+	@RequestMapping("/searchSerial")
+	public @ResponseBody String searchSerial(SerialDTO serialDTO, Gson gson) {
+		serialDTO.setSearchCondition("orderSearch");
+		return gson.toJson(serialService.selectAll(serialDTO));
+	}
+	
 	
 	@RequestMapping("/salesStatus")
 	public String salesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminProductSales");
 		model.addAttribute("productSaleDatas", productService.selectAll(productDTO));
-//		System.out.println("어드민 컨트롤러1"+model);
 		return "admin/salesStatus";
+	}
+	
+	@RequestMapping("/salesSearch")
+	public @ResponseBody String salesSearch(){
+		
+		return "";
 	}
 	
 	@RequestMapping("/daliySalesStatus")

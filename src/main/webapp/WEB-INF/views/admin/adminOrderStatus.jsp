@@ -469,7 +469,7 @@ to {
                                                         <td  class="productName" id="${data.serialPK}">${data.serialPK}</td>
                                                         <td  class="productName" id="${data.serialPK}">${data.serialRegdate}</td>
                                                         <td  class="productName" id="${data.serialPK}">${data.memberName}</td>
-                                                        <td  class="productName" id="${data.serialPK}">${data.productName}외${data.cnt}개</td>
+                                                        <td  class="productName" id="${data.serialPK}">${data.productName}외${data.buyProductCnt}개</td>
                                                         <td  class="productName" id="${data.serialPK}">${data.totalPrice}</td>
                                                         <td>
                                                             <select class="custom-select mr-sm-2 serialStatus"
@@ -534,7 +534,7 @@ to {
                                                         
                                                         $.ajax({
                                                             type: "POST",
-                                                            url: "/admin/getOrderList",
+                                                            url: "getOrderList",
                                                             data: {
                                                                 'serialPK': serialPK
                                                             },

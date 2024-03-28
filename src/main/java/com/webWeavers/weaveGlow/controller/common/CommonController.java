@@ -40,9 +40,7 @@ public class CommonController {
 	}
 
 	@RequestMapping("/")
-	public String root(ProductDTO productDTO, SubCategoryDTO subCategoryDTO) {
-//		List<SubCategoryDTO> subCategoryDatas = subCategoryService.selectAll(subCategoryDTO);
-//		System.out.println(subCategoryDatas);
+	public String root(ProductDTO productDTO) {
 		System.out.println("로그 : index진입");
 		productDTO.setSearchCondition("sales");
 		List<ProductDTO> datas = productService.selectAll(productDTO);
@@ -129,11 +127,7 @@ public class CommonController {
 				return "redirect:/error";
 			}
 		}
-		ProductDTO productDTO = new ProductDTO();
-		productDTO.setSearchCondition("");
-		productService.update(productDTO);
 		return "redirect:/main";
-
 	}
 
 	@RequestMapping("/main")
