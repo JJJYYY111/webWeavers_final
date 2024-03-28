@@ -26,10 +26,10 @@ public class SerialServiceImpl implements SerialService {
 		return serialDAO.insert(serialDTO);
 	}
 
-//	@Override
-//	public boolean update(SerialDTO serialDTO) {
-//		return serialDAO.update(serialDTO);
-//	}
+	@Override
+	public boolean update(SerialDTO serialDTO) {
+		return serialDAO.update(serialDTO);
+	}
 
 //	@Override
 //	public boolean delete(SerialDTO serialDTO) {

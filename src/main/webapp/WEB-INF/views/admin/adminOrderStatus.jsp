@@ -392,7 +392,7 @@ to {
 												
 												var serialRegdate= document.getElementById("serialRegdate").value;
 												//memberId의 위에서 value를 가져온다.
-												console.log('로그2'+serialRegdate);
+												console.log('로그	2'+serialRegdate);
 												
 												$.ajax({
 													

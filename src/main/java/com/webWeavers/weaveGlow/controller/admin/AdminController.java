@@ -178,9 +178,7 @@ public class AdminController {
 	@RequestMapping("/getOrderList")
 	public @ResponseBody String getOrderList(SerialDTO serialDTO, Gson gson) {
 		serialDTO.setSearchCondition("orderProduct");
-		List<SerialDTO> datas = serialService.selectAll(serialDTO);
-		System.out.println(datas);
-		return gson.toJson(datas);
+		return gson.toJson(serialService.selectAll(serialDTO));
 	}
 	
 	@RequestMapping("/searchSerial")
@@ -189,6 +187,10 @@ public class AdminController {
 		return gson.toJson(serialService.selectAll(serialDTO));
 	}
 	
+	@RequestMapping("/serialStatus")
+	public @ResponseBody String serialStatus(SerialDTO serialDTO, Gson gson) {
+		return String.valueOf(serialService.update(serialDTO));
+	}
 	
 	@RequestMapping("/salesStatus")
 	public String salesStatus(ProductDTO productDTO, Model model) {

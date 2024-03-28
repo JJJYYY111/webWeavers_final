@@ -67,7 +67,7 @@ public class SerialDAO {
 			+ "WHERE \r\n"
 			+ "	S.SERIAL_STATUS LIKE CONCAT('%',?,'%')\r\n"
 			+ "	AND M.MEMBER_NAME LIKE CONCAT('%',?,'%')\r\n"
-			+ "	AND DATE(S.SERIAL_REGDATE) = CONCAT('%',?,'%')\r\n"
+			+ "	AND DATE(S.SERIAL_REGDATE) LIKE CONCAT('%',?,'%')\r\n"
 			+ "GROUP BY S.SERIAL_PK, S.SERIAL_REGDATE, S.SERIAL_STATUS, S.SERIAL_DELIVERYADDRESS, S.MEMBER_ID, M.MEMBER_NAME, BS.CNT\r\n"
 			+ "ORDER BY S.SERIAL_PK DESC";
 //	private static final String SELECTONE = "";
