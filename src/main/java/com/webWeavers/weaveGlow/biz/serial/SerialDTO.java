@@ -1,7 +1,5 @@
 package com.webWeavers.weaveGlow.biz.serial;
 
-import java.sql.Date;
-
 import lombok.Data;
 
 @Data
@@ -9,7 +7,7 @@ public class SerialDTO {
 
 	private int serialPK;
 	private String memberID;
-	private Date serialRegdate;
+	private String serialRegdate;
 	private String serialStatus;
 	private String serialDeliveryAddress;
 	
