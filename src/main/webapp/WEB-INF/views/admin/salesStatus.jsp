@@ -61,6 +61,14 @@
 	overflow-y: auto;
 	/
 }
+
+.card-body-select {
+
+        border-radius: 5px; /* 테두리의 둥근 정도를 지정 */
+    padding: 20px; /* 내부 여백을 추가하여 테두리 내용과의 간격을 조정 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
 </style>
 
 </head>
@@ -122,69 +130,71 @@
 				<!-- ============================================================== -->
 				<!-- basic table -->
 				<div class="row">
-					<div class="col-12 " name="cardOne">
+					<div class="col-12 " name="cardTwo">
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">주문통계내역 조회</h4>
 								<hr>
 								<form name="profileChangeForm" class=" row login_form"
-									action="#" method="POST"
-									id="profileChange_form">
+									method="POST" id="profileChange_form">
 									<!-- <form action="#"> -->
 									<div class="col-lg-12 form-body">
-										<div class="form-group">
-											<div class="row">
-												<label class="col-lg-1 text-center"
-													style="margin-top: 7px; margin-bottom: 4px;">기간설정</label>
-												<div class="col-lg-10">
-													<div class="row">
-														<div class="col-md-4 text-center">
-															<input type="date" class="form-control col-md-12"
-																id="registFirstDay" name="startDate" placeholder="앞기간설정"
-																onfocus="this.placeholder = ''"
-																onblur="this.placeholder = '앞기간설정'"
-																style="display: inline-block;">
+										<div class="card-body-select" >
+											<div class="form-group">
+												<div class="row">
+													<label class="col-lg-1 text-center"
+														style="margin-top: 7px; margin-bottom: 4px;">기간설정</label>
+													<div class="col-lg-10">
+														<div class="row">
+															<div class="col-md-4 text-center">
+																<input type="date" class="form-control col-md-12"
+																	id="registFirstDay" name="startDate"
+																	placeholder="앞기간설정" onfocus="this.placeholder = ''"
+																	onblur="this.placeholder = '앞기간설정'"
+																	style="display: inline-block;">
+															</div>
+															<div class="col-sm-auto text-center">
+																<i class="fas fa-window-minimize"></i>
+															</div>
+															<div class="col-md-4 text-center">
+																<input type="date" class="form-control col-md-11"
+																	id="registLastDay" name="endDate" placeholder="뒷기간설정"
+																	onfocus="this.placeholder = ''"
+																	onblur="this.placeholder = '뒷기간설정'"
+																	style="display: inline-block;">
+															</div>
 														</div>
-														<div class="col-sm-auto text-center">
-															<i class="fas fa-window-minimize"></i>
-														</div>
-														<div class="col-md-4 text-center">
-															<input type="date" class="form-control col-md-11"
-																id="registLastDay" name="endDate" placeholder="뒷기간설정"
-																onfocus="this.placeholder = ''"
-																onblur="this.placeholder = '뒷기간설정'"
-																style="display: inline-block;">
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="row">
+													<label class="col-lg-1 text-center"
+														style="margin-top: 7px; margin-bottom: 4px;">카테고리</label>
+													<div class="col-lg-11">
+														<div class="row">
+															<div class="col-md-2 text-center">
+																<select class="custom-select form-control col-md-12"
+																	id="categorySelect" name="categoryName"
+																	onchange="changeFirstCategory()">
+																	<option selected value="0">Category</option>
+																	<option value="1">스킨케어</option>
+																	<option value="2">클렌징</option>
+																	<option value="3">마스크팩</option>
+																</select>
+															</div>
+															<div class="col-md-2 text-center">
+																<select class="custom-select form-control col-md-12"
+																	id="subCategorySelect" name="subCategoryName">
+																	<option selected value="0">SubCategory</option>
+																</select>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="form-group">
-											<div class="row">
-												<label class="col-lg-1 text-center"
-													style="margin-top: 7px; margin-bottom: 4px;">카테고리</label>
-												<div class="col-lg-11">
-													<div class="row">
-														<div class="col-md-2 text-center">
-															<select class="custom-select form-control col-md-12"
-																id="categorySelect" name="categoryName"
-																onchange="changeFirstCategory()">
-																<option selected value="0">Category</option>
-																<option value="1">스킨케어</option>
-																<option value="2">클렌징</option>
-																<option value="3">마스크팩</option>
-															</select>
-														</div>
-														<div class="col-md-2 text-center">
-															<select class="custom-select form-control col-md-12"
-																id="subCategorySelect" name="subCategoryName">
-																<option selected value="0">SubCategory</option>
-															</select>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
+										<br><hr><br>
 										<div class="form-actions">
 											<div class="text-right">
 												<button type="submit" class="btn btn-info">검색</button>
@@ -193,13 +203,6 @@
 										</div>
 									</div>
 								</form>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-12 " name="cardTwo">
-						<div class="card">
-							<div class="card-body">
 								<h4 class="card-title">상품조회</h4>
 								<hr>
 								<div class="table-responsive">
@@ -218,7 +221,7 @@
 										</thead>
 
 										<script>
-										console.log('[로그2]데이터 확인 '+ ${productSaleDatas});
+										/* console.log('[로그2]데이터 확인 '+ ${productSaleDatas}); */
 										</script>
 
 										<tbody id="salesSearchdatas">
@@ -226,7 +229,7 @@
 												<tr>
 													<!-- 상품 수정 컨트롤러 생기면 href 수정하기  -->
 													<td>${data.productPK}</td>
-													<td>${data.productName}</td> 
+													<td>${data.productName}</td>
 													<td>${data.categoryName}</td>
 													<td>${data.subCategoryName}</td>
 													<td>${data.productPrice}</td>
@@ -304,7 +307,7 @@
 
 		<!-- 카테고리 선택 임시 js 파일 -->
 		<!-- <script src="/admin/js/categorySelect.js"></script> -->
-		 <script src="/admin/js/categorySelect2.js"></script> 
+		<script src="/admin/js/categorySelect2.js"></script>
 </body>
 
 </html>
