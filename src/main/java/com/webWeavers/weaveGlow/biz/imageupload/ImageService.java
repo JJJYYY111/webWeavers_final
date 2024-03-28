@@ -60,9 +60,9 @@ public class ImageService {
 //			return null;
 //		}
 //	}
-	public String imageInsert(MultipartFile multipartFile) {
+	public String imageInsert(MultipartFile multipartFile, String folderName) {
 
-		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/resources/static/uploadimg";
+		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/resources/static/uploadimg/"+folderName;
 //		File fileCheck = new File(root);
 //		if(!fileCheck.exists()) fileCheck.mkdirs();
 
@@ -92,9 +92,9 @@ public class ImageService {
 		}
 	}
 
-	public String imageUpdate(MultipartFile multipartFile, String prevReviewImg) {
+	public String imageUpdate(MultipartFile multipartFile, String prevReviewImg, String folderName) {
 
-		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/resources/static/uploadimg";
+		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/resources/static/uploadimg/"+folderName;
 //		File fileCheck = new File(root);
 //		if(!fileCheck.exists()) fileCheck.mkdirs();
 		

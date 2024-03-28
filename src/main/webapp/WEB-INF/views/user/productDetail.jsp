@@ -209,7 +209,7 @@
 																			<div class="feature-img">
 																				<img style="max-width: 200%; max-height: 200px;"
 																					class="img-fluid"
-																					src="uploadimg/${data.reviewImg}"
+																					src="uploadimg/review/${data.reviewImg}"
 																					alt="리뷰작성 이미지">
 																				<!-- 리뷰 작성할때 사용자가 등록한 이미지 -->
 																			</div>

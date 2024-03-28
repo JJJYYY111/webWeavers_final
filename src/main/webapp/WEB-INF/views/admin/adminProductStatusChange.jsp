@@ -115,12 +115,12 @@ form .cur-row {
 										<div class="card">
 											<div class="card-body">
 												<div class="table-responsive">
-													<form id="myForm" action="adminProductStatus" method="POST"
-														onsubmit="return swtBasic()">
+													<form id="myForm" action="adminProductUpdate" method="POST"
+														enctype="multipart/form-data" onsubmit="return swtBasic()">
 														<div class='cur-row' style="color: #000000">
 															<div>상품코드</div>
 															<div class="col-md-5">
-																<input type="text" class="form-control"
+																<input type="text" name="productPK" class="form-control"
 																	value="${productDTO.productPK}" readonly>
 															</div>
 														</div>
@@ -159,7 +159,7 @@ form .cur-row {
 															style="color: #000000; display: flex;">
 															<div>상품명</div>
 															<div class="col-md-5" style="margin-left: 15px;">
-																<input type="text" class="form-control"
+																<input type="text" name="productName" class="form-control"
 																	value="${productDTO.productName}">
 															</div>
 														</div>
@@ -168,7 +168,7 @@ form .cur-row {
 															style="color: #000000; display: flex;">
 															<div>판매가</div>
 															<div class="col-md-5" style="margin-left: 15px;">
-																<input type="text" class="form-control"
+																<input type="text" name="productPrice" class="form-control"
 																	value="${productDTO.productPrice}">
 															</div>
 														</div>
@@ -177,11 +177,11 @@ form .cur-row {
 															style="color: #000000; display: flex;">
 															<div>판매상태</div>
 															<div class="col-md-5">
-																<select class="custom-select mr-sm-2"
+																<select class="custom-select mr-sm-2" name="productStatus"
 																	id="registration-salestatus" style="color: black">
 																	<option value="1"
 																		${productDTO.productStatus == 1 ? 'selected' : ''}>판매중</option>
-																	<option value="2"
+																	<option value="0"
 																		${productDTO.productStatus == 0 ? 'selected' : ''}>판매완료</option>
 																</select>
 															</div>
@@ -195,7 +195,7 @@ form .cur-row {
 															style="color: #000000; display: flex;">
 															<div>재고수량</div>
 															<div class="col-md-5">
-																<input type="text" class="form-control"
+																<input type="text" name="productQuantity" class="form-control"
 																	value="${productDTO.productQuantity}">
 															</div>
 														</div>
@@ -210,14 +210,14 @@ form .cur-row {
 																style="margin-right: auto; color: black; background-color: lightgray;">
 																[이미지 업로드] </label>
 														</div>
-														<input type="file" id="chooseFile" name="productImg"
-															accept="image/*" onchange="loadFile(this)">
+														<input type="file" id="chooseFile" name="productImage"
+															accept="image/*" onchange="loadFile(this)" value="${productDTO.productImg}">
 
 														<div class="fileInput">
 															<p id="fileName"></p>
 														</div>
 														<div id="image-show" class="image-show">
-															<img src="uploadimg/${productDTO.productImg}"
+															<img src="uploadimg/product/${productDTO.productImg}"
 																alt="Product Image"
 																style="width: 70%; height: 70%; object-fit: contain;">
 															<script>
@@ -255,17 +255,17 @@ form .cur-row {
 															<!-- 이미지 띄울 공간 -->
 
 
-															<img src="uploadimg/${productDTO.productDetailImg}"
+															<img src="uploadimg/product/${productDTO.productDetailImg}"
 																alt="productDetailImg"
-																style="width: 1000%; height: 70%; object-fit: contain;">
+																style="width: 100%; height: 70%; object-fit: contain;">
 															<script>
 																console.log('사진 로그');
 																</script>
 
 
 														</div>
-														<input type="file" name="file" accept="image/*"
-															onchange="DetailloadFile(this)">
+														<input type="file" name="productDetailImage" accept="image/*"
+															onchange="DetailloadFile(this)" value="${productDTO.productDetailImg}">
 														<div class="detailDeleteButton" id="detailDeleteButton"
 															style="color: black;" onclick="detailDeleteButton()">
 															<br> <label
@@ -499,8 +499,8 @@ document.addEventListener('DOMContentLoaded', function () {
             		console.log('로그'+datas);
         
             		$.each(datas, function(index, data){
-            		    console.log(data.subcategoryPK);
-            	        const selectedSubCategoryCheckbox = subCategoryElement.querySelector('input[name="subCategoryName"][value="' + data.subcategoryPK + '"]');
+            		    console.log(data.subCategoryPK);
+            	        const selectedSubCategoryCheckbox = subCategoryElement.querySelector('input[name="subCategoryName"][value="' + data.subCategoryPK + '"]');
             	        if (selectedSubCategoryCheckbox !== null) {
             	            selectedSubCategoryCheckbox.checked = true;
             	        }

@@ -63,7 +63,7 @@ public class ReviewController {
 	
 	@RequestMapping("/reviewInsert")
 	public String reviewInsert(ReviewDTO reviewDTO, @RequestParam("reviewImgFile") MultipartFile multipartFile) {
-		reviewDTO.setReviewImg(imageService.imageInsert(multipartFile));
+		reviewDTO.setReviewImg(imageService.imageInsert(multipartFile, "review"));
 		if(!reviewService.insert(reviewDTO)) {
 			return "redirect:/error";
 		}
@@ -72,7 +72,7 @@ public class ReviewController {
 	
 	@RequestMapping("/reviewUpdate")
 	public String reviewUpdate(ReviewDTO reviewDTO, @RequestParam("reviewImgFile") MultipartFile multipartFile) {
-		reviewDTO.setReviewImg(imageService.imageInsert(multipartFile));
+		reviewDTO.setReviewImg(imageService.imageInsert(multipartFile, "review"));
 		System.out.println(reviewDTO);
 		if(!reviewService.update(reviewDTO)) {
 			return "redirect:/error";

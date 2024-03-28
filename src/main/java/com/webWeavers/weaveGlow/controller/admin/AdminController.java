@@ -113,8 +113,9 @@ public class AdminController {
 									@RequestParam("productDetailImage") MultipartFile productDetailImage,
 									@RequestParam("subCategoryName") List<Integer> subCategoryNames) {
 		// 1번기능 상품추가
-		productDTO.setProductImg(imageService.imageInsert(productImage));
-		productDTO.setProductDetailImg(imageService.imageInsert(productDetailImage));
+		productDTO.setProductImg(imageService.imageInsert(productImage, "product"));
+		productDTO.setProductDetailImg(imageService.imageInsert(productDetailImage, "product"));
+		System.out.println(productDTO);
 		productService.insert(productDTO);
 		
 		// 2번기능 방금 등록한 상품 productPK번호 받아와서 카테고리에 추가하도록 사전설정
@@ -146,11 +147,13 @@ public class AdminController {
 		
 		productDTO.setSearchCondition("adminProduct");
 		ProductDTO data = productService.selectOne(productDTO);
-		if(!data.getProductImg().equals(productDTO.getProductImg())) {
-			productDTO.setProductImg(imageService.imageUpdate(productImage, data.getProductImg()));
+		productDTO.setProductImg(data.getProductImg());
+		productDTO.setProductDetailImg(data.getProductDetailImg());
+		if(!productImage.isEmpty()) {
+			productDTO.setProductImg(imageService.imageUpdate(productImage, data.getProductImg(), "product"));
 		}
-		if(!data.getProductDetailImg().equals(productDTO.getProductDetailImg())) {
-			productDTO.setProductDetailImg(imageService.imageUpdate(productDetailImage, data.getProductDetailImg()));
+		if(!productDetailImage.isEmpty()) {
+			productDTO.setProductDetailImg(imageService.imageUpdate(productDetailImage, data.getProductDetailImg(), "product"));
 		}
 		productService.update(productDTO);
 		
