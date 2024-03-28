@@ -417,7 +417,7 @@ to {
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].serialPK + "</td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].serialRegdate + "</td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].memberName + "</td>";
-                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].productName + "</td>";
+                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].productName + "외"+ datas[i].buyProductCnt+"개"+"</td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].totalPrice + "</td>";
                                                     	        tableHTML += "<td><select class=\"custom-select mr-sm-2 serialStatus\" style=\"color: #000000;\" id=\"" + datas[i].serialPK + "\">";
                                                     	        tableHTML += "<option value=\"receipt\" " + (datas[i].serialStatus === 'receipt' ? 'selected' : '') + ">접수</option>";
