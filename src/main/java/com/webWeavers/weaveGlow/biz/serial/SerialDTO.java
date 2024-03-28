@@ -16,7 +16,7 @@ public class SerialDTO {
 	private String searchCondition;
 	
 	private String memberName;
-	private int cnt;	// 주문현황페이지_~~ 상품 외 ? 개수 , 주문현황상세페이지_주문 상품별 구매 개수
-	private int totalPrice;	// 주문현황페이지_주문별 총 금액 , 주문현황상세페이지_주문 상품별 총 금액	
-	private String productName;	// 주문현황페이지_대표상품명 , 주문현황상세페이지_주문 상품별 이름
+	private int buyProductCnt;				// 주문현황페이지_~~ 상품 외 ? 개수 , 주문현황상세페이지_주문 상품별 구매 개수
+	private int totalPrice;			// 주문현황페이지_주문별 총 금액 , 주문현황상세페이지_주문 상품별 총 금액	
+	private String productName;			// 주문현황페이지_대표상품명 , 주문현황상세페이지_주문 상품별 이름
 }

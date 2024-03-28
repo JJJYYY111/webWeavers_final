@@ -66,8 +66,8 @@ public class SerialDAO {
 			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
 			+ "WHERE \r\n"
 			+ "	S.SERIAL_STATUS LIKE CONCAT('%',?,'%')\r\n"
-			+ "	AND LOWER(S.MEMBER_ID) LIKE CONCAT('%',?,'%')\r\n"
 			+ "	AND M.MEMBER_NAME LIKE CONCAT('%',?,'%')\r\n"
+			+ "	AND DATE(S.SERIAL_REGDATE) = ?\r\n"
 			+ "GROUP BY S.SERIAL_PK, S.SERIAL_REGDATE, S.SERIAL_STATUS, S.SERIAL_DELIVERYADDRESS, S.MEMBER_ID, M.MEMBER_NAME, BS.CNT\r\n"
 			+ "ORDER BY S.SERIAL_PK DESC";
 //	private static final String SELECTONE = "";
@@ -79,7 +79,7 @@ public class SerialDAO {
 
 	public List<SerialDTO> selectAll(SerialDTO serialDTO) {
 		Object args1[] = { serialDTO.getSerialPK() };
-		Object args2[] = { serialDTO.getSerialStatus(), serialDTO.getMemberID(), serialDTO.getMemberName() };
+		Object args2[] = { serialDTO.getSerialStatus(), serialDTO.getMemberName(), serialDTO.getSerialRegdate() };
 		try {
 			if (serialDTO.getSearchCondition().equals("orderList")) {
 				return jdbcTemplate.query(SELECTALL_ORDERLIST, new SerialListAdminRowMapper());
@@ -143,7 +143,7 @@ class SerialListAdminRowMapper implements RowMapper<SerialDTO>{
 		data.setMemberID(rs.getString("MEMBER_ID"));
 		
 		data.setMemberName(rs.getString("MEMBER_NAME"));
-		data.setCnt(rs.getInt("CNT"));
+		data.setBuyProductCnt(rs.getInt("CNT"));
 		data.setProductName(rs.getString("PRODUCT_NAME"));
 		data.setTotalPrice(rs.getInt("TOTALPRICE"));
 		
@@ -161,7 +161,7 @@ class SerialDetailListAdminRowMapper implements RowMapper<SerialDTO>{
 		
 		data.setMemberName(rs.getString("MEMBER_NAME"));
 		data.setProductName(rs.getString("PRODUCT_NAME"));
-		data.setCnt(rs.getInt("BUYPRODUCT_CNT"));
+		data.setBuyProductCnt(rs.getInt("BUYPRODUCT_CNT"));
 		data.setTotalPrice(rs.getInt("SUBTOTALPRICE"));
 		
 		return data;
