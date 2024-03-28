@@ -379,7 +379,7 @@ to {
 
 											<!-- 필터검색 -->
 											<script>
-											$("#search").on("click", function() {
+											$(document).on("click", "#search", function() {
 												console.log('들어옴')
 												var selectElement = document.getElementById("serialStatus"); // select 요소 가져오기
 												
@@ -419,9 +419,9 @@ to {
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].memberName + "</td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].productName + "</td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].totalPrice + "</td>";
-                                                    	        tableHTML += "<td><select class=\"custom-select mr-sm-2;\" style=\"color: #000000;\" id=\"" + datas[i].serialPK + "\">";
-                                                    	        tableHTML += "<option value=\"receipt\" data-serial-status=\"" + datas[i].serialStatus + "\">접수</option>";
-                                                    	        tableHTML += "<option value=\"finish\" data-serial-status=\"" + datas[i].serialStatus + "\">완료</option>";
+                                                    	        tableHTML += "<td><select class=\"custom-select mr-sm-2 serialStatus\" style=\"color: #000000;\" id=\"" + datas[i].serialPK + "\">";
+                                                    	        tableHTML += "<option value=\"receipt\" " + (datas[i].serialStatus === 'receipt' ? 'selected' : '') + ">접수</option>";
+                                                    	        tableHTML += "<option value=\"finish\" " + (datas[i].serialStatus === 'finish' ? 'selected' : '') + ">완료</option>";
                                                     	        tableHTML += "</select></td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].serialDeliveryAddress + "</td>";
                                                     	        tableHTML += "</tr>";
@@ -485,22 +485,17 @@ to {
 															<td class="productName" id="${data.serialPK}">${data.memberName}</td>
 															<td class="productName" id="${data.serialPK}">${data.productName}외${data.buyProductCnt}개</td>
 															<td class="productName" id="${data.serialPK}">${data.totalPrice}</td>
-															<td><select
-																class="custom-select mr-sm-2 serialStatus"
-																style="color: #000000;" id="${data.serialPK}">
-																	<option value="receipt"
-																		data-serial-status="${data.serialStatus}">접수</option>
-																	<option value="finish"
-																		data-serial-status="${data.serialStatus}">완료</option>
-															</select></td>
+															<td><select class="custom-select mr-sm-2 serialStatus" style="color: #000000;" id="${data.serialPK}">
+                <option value="receipt" ${data.serialStatus == 'receipt' ? 'selected' : ''}>접수</option>
+                <option value="finish" ${data.serialStatus == 'finish' ? 'selected' : ''}>완료</option>
+            </select></td>
 															<td class="productName" id="${data.serialPK}">${data.serialDeliveryAddress}</td>
 														</tr>
 													</c:forEach>
 												</tbody>
 
 											</table>
-
-
+		
 											<script>
                                             var option = document.querySelector('option');
                                             var serialStatus = option.dataset.serialStatus;
@@ -641,7 +636,7 @@ to {
 
 											<!-- 배송완료 누르면 값 전달 -->
 											<script>
-    $('.serialStatus').change(function() {
+		$(document).on('change', '.serialStatus', function() {
         //console.log("주문상태 선택");
 		
         
