@@ -261,13 +261,13 @@
 														<div class="row">
 															<div class="col-lg-5">
 																<input type="text" class="form-control col-md-12"
-																	id="registGreadPK" name="gradePK"
+																	id="registGreadPK" name="gradeName"
 																	style="display: inline-block;" value="${gradePK}"
 																	readonly>
 															</div>
 															<div class="col-lg-5">
 																<select class="custom-select mr-sm-2"
-																	id="inlineFormCustomSelect" name="gradeName">
+																	id="inlineFormCustomSelect" name="gradePK">
 																	<option value="1">탈퇴</option>
 																	<option value="2">관리자</option>
 																	<option value="3">브론즈</option>
