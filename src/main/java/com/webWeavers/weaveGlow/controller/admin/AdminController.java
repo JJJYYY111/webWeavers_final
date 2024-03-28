@@ -203,18 +203,22 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/salesSearch")
-	public @ResponseBody String salesSearch(){
-		
-		return "";
+	public @ResponseBody String salesSearch(ProductDTO productDTO, Gson gson){
+		productDTO.setSearchCondition("adminProductSales");
+		return gson.toJson(productService.selectAll(productDTO));
 	}
 	
 	@RequestMapping("/daliySalesStatus")
-	public String daliySalesStatus() {
+	public String daliySalesStatus(ProductDTO productDTO, Model model) {
+		productDTO.setSearchCondition("adminDailySales");
+		model.addAttribute("productDatas", productService.selectAll(productDTO));
 		return "admin/daliySalesStatus";
 	}
 	
 	@RequestMapping("/monthlySalesStatus")
-	public String monthlySalesStatus() {
+	public String monthlySalesStatus(ProductDTO productDTO, Model model) {
+		productDTO.setSearchCondition("adminMonthlySales");
+		model.addAttribute("productDatas", productService.selectAll(productDTO));
 		return "admin/monthlySalesStatus";
 	}
 	

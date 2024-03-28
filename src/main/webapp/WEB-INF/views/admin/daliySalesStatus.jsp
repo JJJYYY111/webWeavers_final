@@ -360,87 +360,17 @@ th, td {
 												</tr>
 											</thead>
 											<tbody>
-												<tr style="color: #000000;">
-													<td>1</td>
-													<td>John Doe</td>
-													<td>12</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-												<tr style="color: #000000;">
-													<td>2</td>
-													<td>Jane Smith</td>
-													<td>25</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-												<tr style="color: #000000;">
-													<td>3</td>
-													<td>Michael Johnson</td>
-													<td>35</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-												<tr style="color: #000000;">
-													<td>4</td>
-													<td>Michael Johnson</td>
-													<td>35</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-												<tr style="color: #000000;">
-													<td>5</td>
-													<td>Michael Johnson</td>
-													<td>35</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-												<tr style="color: #000000;">
-													<td>6</td>
-													<td>Michael Johnson</td>
-													<td>35</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-												<tr style="color: #000000;">
-													<td>7</td>
-													<td>Michael Johnson</td>
-													<td>35</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-												<tr style="color: #000000;">
-													<td>8</td>
-													<td>Michael Johnson</td>
-													<td>35</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-												<tr style="color: #000000;">
-													<td>9</td>
-													<td>Michael Johnson</td>
-													<td>35</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-												<tr style="color: #000000;">
-													<td>10</td>
-													<td>Michael Johnson</td>
-													<td>35</td>
-													<td>ddddd</td>
-													<td>10000</td>
-													<td>1</td>
-												</tr>
-
+												<c:forEach var="data" items="${productDatas}">
+                                                <tr onclick="location.href='adminMemberStatusChange?memberID=${data.memberID}'" style="color: #000000; cursor: pointer;" class="memberTable" id="${data.memberID}">
+                                                    <td>${data.productPK}</td>
+                                                    <td>${data.productName}</td>
+                                                    <td>${data.categoryName}</td>
+                                                    <td>${data.productPrice}</td>
+                                                    <td>${data.buyProductCnt}</td>
+                                                    <td>${data.}</td>
+                                                </tr>
+                                               </c:forEach>
+												
 											</tbody>
 											<tfoot>
 												<tr style="color: #000000;">
