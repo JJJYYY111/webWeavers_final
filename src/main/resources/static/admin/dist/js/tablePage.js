@@ -27,12 +27,18 @@ function createPagination($table, navId, rowPerPage) {
     var i = 0;
 
     $('<a href="#" class="arrow prev"><span>&lt;</span></a>').appendTo('#' + navId);
-
+    
+    console.log('첫번째 실행');
+    
+    console.log('navID' + navId);
+    
     for (; i < pageTotal; i++) {
         $('<a href="#" class="page"></a>')
             .attr('rel', i)
             .html(i + 1)
             .appendTo('#' + navId);
+            
+            console.log('두번 도는지 확인');
     }
 
     $('<a href="#" class="arrow next"><span>&gt;</span></a>').appendTo('#' + navId);
@@ -53,7 +59,7 @@ function createPagination($table, navId, rowPerPage) {
 
         var currPage = $this.attr('rel');
         var startItem = currPage * rowPerPage;
-        var endItem = startItem + rowPerPage;
+        var endItem = Math.min(startItem + rowPerPage, rowTotals);
 
         $tr.css('opacity', '0.0')
             .addClass('off-screen')
@@ -77,4 +83,8 @@ function createPagination($table, navId, rowPerPage) {
 
     $pagingLink.filter(':first').addClass('active');
 }
+
+
+
+
 

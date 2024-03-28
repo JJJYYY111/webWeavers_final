@@ -253,8 +253,6 @@
                                             <tbody>
                                                <c:forEach var="data" items="${memberDatas}">
                                                 <tr onclick="location.href='adminMemberStatusChange?memberID=${data.memberID}'" style="color: #000000; cursor: pointer;" class="memberTable" id="${data.memberID}">
-                                                 <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
-                                                 <!-- 회원 업데이트 컨트롤러 생기면 href 수정하기  -->
                                                     <td>${data.memberID}</td>
                                                     <td>${data.memberName}</td>
                                                     <td>${data.gradeName}</td>
@@ -352,6 +350,15 @@
                                                     	    }
                                                     	    tableHTML += "</tbody></table>";
                                                     	    $("#memberTable").html(tableHTML);
+                                                    	    
+                                                    	    $("#memberNav").remove();
+                                                    	    
+                                                    	    // 검색 후 페이징 처리 함수 호출
+                                                            var rowPerPage = 10;
+                                                            var $memberTable = $('#memberTable');
+                                                            if ($memberTable.length) {
+                                                                createPagination($memberTable, 'memberNav', rowPerPage);
+                                                            }
                                                     	    
                                                     },
                                                     error: function (error) {

@@ -417,6 +417,18 @@ to {
                                                     	    tableHTML += "</tbody></table>";
                                                     	    $("#products").html(tableHTML);
                                                     	   
+                                                    	    tableHTML += "</tbody></table>";
+                                                    	    $("#products").html(tableHTML);
+                                                    	    
+                                                    	    $("#productNav").remove();
+                                                    	    
+                                                    	    // 검색 후 페이징 처리 함수 호출
+                                                            var rowPerPage = 10;
+                                                            var $products = $('#products');
+                                                            if ($products.length) {
+                                                                createPagination($products, 'productNav', rowPerPage);
+                                                            }
+                                                    	    
                                                     },
                                                     error: function (error) {
                                                     	
