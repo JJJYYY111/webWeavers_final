@@ -209,14 +209,14 @@
                                                         <div class='cur-row' style="color: #000000;" style="width: 100%">
                                                             <div>회원이름</div>
                                                             <div class="col-md-3" >
-                                                                <input type="text" class="form-control" style=" width: 110%"
+                                                                <input type="text" class="form-control" style=" width: 100%"
                                                                    id="memberName" name="memberName" placeholder="ex) 홍길동">
                                                             </div>
                                                             
                                                             <div>회원아이디</div>
 															<div class="col-md-3">
 																<input type="text" class="form-control"
-																	placeholder="ex) weaveGlow" id="memberID" name="memberID" style="width: 70%">
+																	placeholder="ex) weaveGlow" id="memberID" name="memberID" style="width: 100%">
 															</div>
                                                            
                                                         </div>
@@ -251,9 +251,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <!-- Controller에서 memberDatas로 값 받기 -->
                                                <c:forEach var="data" items="${memberDatas}">
-                                               <!-- Controller로 넘어갈 때 a태그 안에 ? 뒤에 "${data.memberID}"  -->
                                                 <tr onclick="location.href='adminMemberStatusChange?memberID=${data.memberID}'" style="color: #000000; cursor: pointer;" class="memberTable" id="${data.memberID}">
                                                  <!-- 회원을 검색하면 그 회원 수정 페이지로 갈 수 있게 -->
                                                  <!-- 회원 업데이트 컨트롤러 생기면 href 수정하기  -->
@@ -267,7 +265,6 @@
                                                </c:forEach>
                                             </tbody>
                                         </table>
-<div id="memberNav"></div>                                    </div>
                                 </div>
                             </div>
                         </div> <!-- 제일 큰 div-->
