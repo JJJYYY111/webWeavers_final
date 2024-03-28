@@ -328,7 +328,7 @@ to {
 														<div class='cur-row' style="color: #000000">
 															<div>주문상태</div>
 															<div class="col-md-8" id="hi">
-																<select class="custom-select mr-sm-2"  name="serialStatus"
+																<select class="custom-select mr-sm-2" id="serialStatus"  name="serialStatus"
 																	style="color: black; width: 30%">
 																	<option value="all" >전체</option>
 																	<option value="receipt" >주문접수</option>
@@ -374,10 +374,11 @@ to {
 											<script>
 											$("#search").on("click", function() {
 												console.log('들어옴')
-												var selectElement = document.getElementById("buyProductStatus"); // select 요소 가져오기
-												var buyProductStatus = selectElement.options[selectElement.selectedIndex].value; // 선택된 option의 값 가져오기
+												var selectElement = document.getElementById("serialStatus"); // select 요소 가져오기
 												
-												console.log(buyProductStatus);
+												var serialStatus = selectElement.options[selectElement.selectedIndex].value; // 선택된 option의 값 가져오기
+												
+												console.log('로그 [' + serialStatus + ']');
 												var memberName = document.getElementById("memberName").value;
 												
 												console.log('로그1'+memberName);
@@ -391,7 +392,7 @@ to {
 													type: "POST",
 													url: "/admin/searchSerial",
 													data: {
-                                                        'buyProductStatus': buyProductStatus,
+                                                        'serialStatus': serialStatus,
                                                         'memberName': memberName,
                                                        'serialRegdate': serialRegdate
                                                         
@@ -411,7 +412,7 @@ to {
                                                     	        tableHTML += "<td>" + datas[i].memberName + "</td>";
                                                     	        tableHTML += "<td>" + datas[i].productName + "</td>";
                                                     	        tableHTML += "<td>" + datas[i].totalPrice + "</td>";
-                                                    	        tableHTML += "<td>" + datas[i].buyProductStatus + "</td>";
+                                                    	        tableHTML += "<td>" + datas[i].serialStatus + "</td>";
                                                     	        tableHTML += "<td>" + datas[i].serialDeliveryAddress + "</td>";
                                                     	        tableHTML += "</tr>";
                                                     	    }
