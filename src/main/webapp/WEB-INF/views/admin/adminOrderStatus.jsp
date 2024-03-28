@@ -330,6 +330,7 @@ to {
 															<div class="col-md-8" id="hi">
 																<select class="custom-select mr-sm-2"  name="serialStatus"
 																	style="color: black; width: 30%">
+																	<option value="all" >전체</option>
 																	<option value="receipt" >주문접수</option>
 																	<option value="finish">배송완료</option>
 																</select>
