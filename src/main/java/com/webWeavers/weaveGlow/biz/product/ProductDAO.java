@@ -89,14 +89,13 @@ public class ProductDAO {
 	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
 //	private static final String DELETE = "";
 	
-	
 	// ------------------------------------- AdminPage_매출관리 -------------------------------------
 	
-	// Admin_매출관리페이지(매출현황,전일대비매출,월별매출)
-	// 검색조건별 및 당일 및 당월 --> 매출현황 쿼리문 반환 함수
+	// Admin_매출현황페이지
+	// 검색조건별 매출현황 쿼리문 반환 함수
 	private static String selectAllProductSalesQuery(ProductDTO productDTO) {
 
-		// 상품별 카테고리 CTE
+		// 상품별 카테고리 정보 조회 CTE
 		String query = "WITH P_CATEGORY AS (\r\n"
 				+ "SELECT\r\n"
 				+ "		CZ.PRODUCT_PK,\r\n"
@@ -115,6 +114,7 @@ public class ProductDAO {
 			query += "	AND S.SUBCATEGORY_PK = " + productDTO.getSubCategoryPK();
 		}
 		
+		// 쿼리 SELECT절 (상품정보, 매출정보, 카테고리정보)
 		query +=  "\r\nGROUP BY CZ.PRODUCT_PK, C.CATEGORY_NAME\r\n"
 				+ ")\r\n"
 				+ "SELECT\r\n"
@@ -142,25 +142,55 @@ public class ProductDAO {
 			query += "	AND S.SERIAL_REGDATE <= DATE_ADD('" + productDTO.getEndDate() + "', INTERVAL 1 DAY)";
 		}
 		
-		// Admin_전일대비매출페이지 (당일 매출 Top10 상품목록)
-		if(productDTO.getSearchCondition().equals("adminDailySales")) {
-			query += "	AND DATE(S.SERIAL_REGDATE) = CURRENT_DATE()";
-		}
-		// Admin_월별매출페이지 (당월 매출 Top10 상품목록)
-		if(productDTO.getSearchCondition().equals("adminMonthlySales")) {
-			query += "	AND YEAR(S.SERIAL_REGDATE) = YEAR(CURRENT_DATE()) AND MONTH(S.SERIAL_REGDATE) = MONTH(CURRENT_DATE())";
-		}
-		
+		// 쿼리 GROUP BY, ORDER BY 부분
 		query += "\r\nGROUP BY P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, PC.CATEGORY_NAME, PC.SUBCATEGORY_NAME\r\n"
 				+ "ORDER BY TOTAL_PRICE DESC";
 		
-		// Admin_전일대비매출페이지, 월별매출페이지 (Top10)
-		if(productDTO.getSearchCondition().equals("adminDailySales") || productDTO.getSearchCondition().equals("adminMonthlySales")) {
-			query += "LIMIT 10";
-		}
-		
 		System.out.println(query);
 		
+		return query;
+	}
+
+	// Admin_전일대비매출페이지, 월별매출페이지
+	// 일별 및 월별 매출현황 쿼리문 반환 함수	
+	public String selectAllDailyAndMonthlySales(String searchCondition){
+		
+		String query = "WITH P_CATEGORY AS (\r\n"
+				+ "	SELECT\r\n"
+				+ "		CZ.PRODUCT_PK,\r\n"
+				+ "		C.CATEGORY_NAME\r\n"
+				+ "	FROM CATEGORIZATION CZ\r\n"
+				+ "	INNER JOIN SUBCATEGORY S ON CZ.SUBCATEGORY_PK = S.SUBCATEGORY_PK\r\n"
+				+ "	INNER JOIN CATEGORY C ON S.CATEGORY_PK = C.CATEGORY_PK\r\n"
+				+ "	GROUP BY CZ.PRODUCT_PK, C.CATEGORY_NAME\r\n"
+				+ ")\r\n"
+				+ "SELECT\r\n"
+				+ "	P.PRODUCT_PK,\r\n"
+				+ "	P.PRODUCT_NAME,\r\n"
+				+ "	P.PRODUCT_PRICE,\r\n"
+				+ "	COALESCE(SUM(B.BUYPRODUCT_CNT), 0) AS TOTAL_CNT,\r\n"
+				+ "	COALESCE((P.PRODUCT_PRICE * SUM(B.BUYPRODUCT_CNT)), 0) AS TOTAL_PRICE,\r\n"
+				+ "	GROUP_CONCAT(S.SERIAL_REGDATE  ORDER BY S.SERIAL_PK) AS SERIAL_REGDATE,\r\n"
+				+ "	PC.CATEGORY_NAME\r\n"
+				+ "FROM PRODUCT P\r\n"
+				+ "LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"
+				+ "LEFT JOIN SERIAL S ON B.SERIAL_PK = S.SERIAL_PK\r\n"
+				+ "INNER JOIN P_CATEGORY PC ON P.PRODUCT_PK = PC.PRODUCT_PK\r\n";
+		
+		// Admin_전일대비매출페이지 (당일 매출 Top10 상품목록)
+		if(searchCondition.equals("adminDailySales")) {
+			query += "WHERE DATE(S.SERIAL_REGDATE) = CURRENT_DATE()\r\n";
+		}
+		// Admin_월별매출페이지 (당월 매출 Top10 상품목록)
+		if(searchCondition.equals("adminMonthlySales")) {
+			query += "WHERE YEAR(S.SERIAL_REGDATE) = YEAR(CURRENT_DATE()) AND MONTH(S.SERIAL_REGDATE) = MONTH(CURRENT_DATE())\r\n";
+		}
+		
+		// 쿼리 GROUP BY, ORDER BY, LIMIT 부분
+		query += "GROUP BY P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, PC.CATEGORY_NAME\r\n"
+				+ "ORDER BY TOTAL_PRICE DESC\r\n"
+				+ "LIMIT 10";
+
 		return query;
 	}
 	
@@ -199,11 +229,11 @@ public class ProductDAO {
 			}
 			// Admin_전일대비매출페이지 (당일 매출 Top10 상품목록)
 			else if (productDTO.getSearchCondition().equals("adminDailySales")) {
-				return jdbcTemplate.query(selectAllProductSalesQuery(productDTO), new ProductSalesAdminRowMapper());
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminDailySales"), new ProductSalesAdminRowMapper());
 			}
 			// Admin_월별매출페이지 (당월 매출 Top10 상품목록)
 			else if (productDTO.getSearchCondition().equals("adminMonthlySales")) {
-				return jdbcTemplate.query(selectAllProductSalesQuery(productDTO), new ProductSalesAdminRowMapper());
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminMonthlySales"), new ProductSalesAdminRowMapper());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
