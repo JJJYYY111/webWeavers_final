@@ -1,6 +1,6 @@
 package com.webWeavers.weaveGlow.biz.serial;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.Data;
 
