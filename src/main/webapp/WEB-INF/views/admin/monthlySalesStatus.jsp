@@ -330,12 +330,6 @@
                             <div class="card-body">
                                 <h4 class="card-title">검색결과</h4>
                                 <hr>
-                                <h6 class="card-subtitle">DataTables has most features enabled by default, so all you
-                                    need to do to use it with your own tables is to call the construction
-                                    function:<code> $().DataTable();</code>. You can refer full documentation from here
-                                    <a href="https://datatables.net/">Datatables</a>
-                                </h6>
-
                                 <br>
                                 <div class='cur-row' style="color: #000000;">
                                     <br>

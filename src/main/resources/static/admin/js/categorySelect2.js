@@ -14,7 +14,7 @@ function changeFirstCategory() {
     secondCategorySelect.innerHTML = ''; // 옵션 초기화
 
     // 선택된 카테고리가 "Category"가 아닌 경우에만 서브 카테고리를 업데이트합니다.
-    if (selectedCategory !== "Category") {
+    if (selectedCategory !== "0") {
         subCategories[selectedCategory].forEach(function(subCategory, index) {
             var option = document.createElement("option");
             option.value = index + 1; // 임의의 값 설정

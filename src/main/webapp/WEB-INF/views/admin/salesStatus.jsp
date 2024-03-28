@@ -128,7 +128,7 @@
 								<h4 class="card-title">주문통계내역 조회</h4>
 								<hr>
 								<form name="profileChangeForm" class=" row login_form"
-									action="/admin/adminProductStatus" method="POST"
+									action="#" method="POST"
 									id="profileChange_form">
 									<!-- <form action="#"> -->
 									<div class="col-lg-12 form-body">
@@ -140,7 +140,7 @@
 													<div class="row">
 														<div class="col-md-4 text-center">
 															<input type="date" class="form-control col-md-12"
-																id="registFirstDay" name="FirstDay" placeholder="앞기간설정"
+																id="registFirstDay" name="startDate" placeholder="앞기간설정"
 																onfocus="this.placeholder = ''"
 																onblur="this.placeholder = '앞기간설정'"
 																style="display: inline-block;">
@@ -150,7 +150,7 @@
 														</div>
 														<div class="col-md-4 text-center">
 															<input type="date" class="form-control col-md-11"
-																id="registLastDay" name="LastDay" placeholder="뒷기간설정"
+																id="registLastDay" name="endDate" placeholder="뒷기간설정"
 																onfocus="this.placeholder = ''"
 																onblur="this.placeholder = '뒷기간설정'"
 																style="display: inline-block;">
@@ -167,9 +167,9 @@
 													<div class="row">
 														<div class="col-md-2 text-center">
 															<select class="custom-select form-control col-md-12"
-																id="categorySelect" name="FirstCategory"
+																id="categorySelect" name="categoryName"
 																onchange="changeFirstCategory()">
-																<option selected>Category</option>
+																<option selected value="0">Category</option>
 																<option value="1">스킨케어</option>
 																<option value="2">클렌징</option>
 																<option value="3">마스크팩</option>
@@ -177,8 +177,8 @@
 														</div>
 														<div class="col-md-2 text-center">
 															<select class="custom-select form-control col-md-12"
-																id="subCategorySelect" name="SecondCategory">
-																<option selected>SubCategory</option>
+																id="subCategorySelect" name="subCategoryName">
+																<option selected value="0">SubCategory</option>
 															</select>
 														</div>
 													</div>
@@ -202,14 +202,6 @@
 							<div class="card-body">
 								<h4 class="card-title">상품조회</h4>
 								<hr>
-								<h6 class="card-subtitle">
-									DataTables has most features enabled by default, so all you
-									need to do to use it with your own tables is to call the
-									construction function:
-									<code> $().DataTable();</code>
-									. You can refer full documentation from here <a
-										href="https://datatables.net/">Datatables</a>
-								</h6>
 								<div class="table-responsive">
 									<table id="zero_config"
 										class="table table-striped table-bordered no-wrap">
