@@ -556,7 +556,7 @@ to {
 																
                                                                 
                                                                 // 각 행의 데이터를 테이블에 추가
-                                                                for (var i = 1; i < data.length; i++) {
+                                                                for (var i = 0; i < data.length; i++) {
                                                                     tableHTML += "<tr>"; // 새로운 <tr> 생성
                                                                     console.log('data' + data);
                                                                     tableHTML += "<td>" + data[i].productName + "</td>";
