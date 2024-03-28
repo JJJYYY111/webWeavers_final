@@ -51,7 +51,7 @@
 		data-boxed-layout="full">
 		<!-- ============================================================== -->
 		<common:adminTopBar />
-		<!-- =======사이드바 ======-->
+		<!-- =======사이드바 ====== -->
 		<common:adminSideBar />
 		
 		
@@ -106,7 +106,6 @@
 										console.log('[로그3] forEach문 들어갔는지 확인');
 										</script>
 										
-											<!-- 상품 수정 컨트롤러 생기면 href 수정하기  -->
 												<td>${data.productPK}</td>
 												<td>${data.productName}</td>
 												<td>${data.productPrice}</td>

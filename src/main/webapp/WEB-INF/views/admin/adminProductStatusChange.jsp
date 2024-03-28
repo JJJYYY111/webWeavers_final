@@ -28,17 +28,8 @@
 	rel="stylesheet" />
 <!-- Custom CSS -->
 <link href="/admin/dist/css/style.min.css" rel="stylesheet" />
-  <!-- 스윗 알랏창  -->
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<style>
-.ck.ck-editor {
-	max-width: 700px;
-}
-
-.ck-editor__editable {
-	min-height: 300px;
-}
-</style>
+<!-- 스윗 알랏창  -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
 .input {
@@ -67,12 +58,27 @@ form .cur-row {
 	overflow-y: auto;
 	/
 }
+
+/* 상세설명올리는 크기 조절  */
+.addImage {
+	width: 50%;
+	height: 500px;
+	background-color: #ffffff;
+	border-radius: 20px 20px/20px 20px;
+	overflow: hidden;
+	margin: 0px 10px 10px 0px;
+}
+
+.inputImg {
+	width: 450px;
+	height: 350px;
+}
 </style>
 
 </head>
 
 <body>
-	<!-- =============스피너============== -->
+	<!-- =============로딩============== -->
 	<div class="preloader">
 		<div class="lds-ripple">
 			<div class="lds-pos"></div>
@@ -109,8 +115,8 @@ form .cur-row {
 										<div class="card">
 											<div class="card-body">
 												<div class="table-responsive">
-													<form id="myForm" action="adminProductStatus"
-														method="POST" onsubmit="return swtBasic()">
+													<form id="myForm" action="adminProductStatus" method="POST"
+														onsubmit="return swtBasic()">
 														<div class='cur-row' style="color: #000000">
 															<div>상품코드</div>
 															<div class="col-md-5">
@@ -173,12 +179,14 @@ form .cur-row {
 															<div class="col-md-5">
 																<select class="custom-select mr-sm-2"
 																	id="registration-salestatus" style="color: black">
-																	<option value="1" ${productDTO.productStatus == 1 ? 'selected' : ''}>판매중</option>
-																	<option value="2" ${productDTO.productStatus == 0 ? 'selected' : ''}>판매완료</option>
+																	<option value="1"
+																		${productDTO.productStatus == 1 ? 'selected' : ''}>판매중</option>
+																	<option value="2"
+																		${productDTO.productStatus == 0 ? 'selected' : ''}>판매완료</option>
 																</select>
 															</div>
 														</div>
-														
+
 														<script>
 																	console.log('[로그'+`${productDTO.productStatus}`+']');
 																	</script>
@@ -237,36 +245,38 @@ form .cur-row {
 														</div>
 
 														<br>
-														  <div class='cur-row' style="color:#000000; display: flex;">
-                                        <div>상세설명</div>
-                                      </div>
-                                      <br>
+														<div class='cur-row'
+															style="color: #000000; display: flex;">
+															<div>상세설명</div>
+														</div>
+														<br>
 
-                            <div class="addImage" id="show-image"> <!-- 이미지 띄울 공간 -->
-                            
-                            
+														<div class="addImage" id="show-image">
+															<!-- 이미지 띄울 공간 -->
+
+
 															<img src="uploadimg/${productDTO.productDetailImg}"
 																alt="productDetailImg"
 																style="width: 1000%; height: 70%; object-fit: contain;">
 															<script>
 																console.log('사진 로그');
 																</script>
-																
-																
-                                  </div>
-                                 <input type="file" name="file"  accept="image/*" onchange="DetailloadFile(this)">
-                                    <div class="detailDeleteButton" id="detailDeleteButton" style="color: black;"
-                                          onclick="detailDeleteButton()">
-                                          <br>
-                                          <label
-                                            style="margin-right: auto; color: black; background-color: lightgray;">[사진등록취소]</label>
-                                        </div>
-                 
-                 
-                 
-                 
-                 
-                 <script>
+
+
+														</div>
+														<input type="file" name="file" accept="image/*"
+															onchange="DetailloadFile(this)">
+														<div class="detailDeleteButton" id="detailDeleteButton"
+															style="color: black;" onclick="detailDeleteButton()">
+															<br> <label
+																style="margin-right: auto; color: black; background-color: lightgray;">[사진등록취소]</label>
+														</div>
+
+
+
+
+<!-- 상세설명 이미지  -->
+														<script>
         function DetailloadFile(input) {
             let file = input.files[0]; // 선택파일 가져오기
 
@@ -297,17 +307,21 @@ form .cur-row {
 
 
 
-                                      <br>
-                                      <div style="text-align: right;">
-                                        <button type="submit" id="button" class="btn btn-primary"><i class="fas fa-check"></i>
-                                          완료</button>
-                                        <button class="btn btn-primary"><i class="fas fa-check"></i> 취소</button>
-                                      </div>
+														<br>
+														<div style="text-align: right;">
+															<button type="submit" id="button" class="btn btn-primary">
+																<i class="fas fa-check"></i> 완료
+															</button>
+															<button class="btn btn-primary" id="cancelButton">
+																<i class="fas fa-check"></i> 취소
+															</button>
+														</div>
 
-                                    </form>
-                                  </div>
-                                  
-                                   <script>
+													</form>
+												</div>
+
+												<!-- 모달창 -->
+												<script>
 
 function swtBasic() {
 	 event.preventDefault(); // 폼 제출 이벤트 기본 동작 차단
@@ -323,11 +337,18 @@ function swtBasic() {
     });
 }     
 	
+/*  취소 버튼 누르면 상품 현황 페이지로 이동 */
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('cancelButton').addEventListener('click', function() {
+        window.location.href = "/adminProductStatus"; // your_cancel_url에는 이동하길 원하는 페이지의 URL을 입력합니다.
+    });
+});
+	
 </script>
-                                  
-                                        
-                           <!-- input 태그 사진 넣는 js  -->
-                                  <script>
+
+
+												<!-- 대표 이미지 태그 사진  -->
+												<script>
                                     function loadFile(input) {
                                       var file = input.files[0]; // 선택된 파일 가져오기
 
@@ -365,7 +386,6 @@ function swtBasic() {
 
 
 
-												</div>
 											</div>
 										</div>
 									</div>
@@ -403,7 +423,7 @@ function swtBasic() {
 	<script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
 
-<!-- 카테고리 선택 받아오기/등록하기  -->
+	<!-- 카테고리 선택 받아오기/등록하기  -->
 	<script>
 document.addEventListener('DOMContentLoaded', function () {
     console.log('들어온거 확인');
@@ -461,9 +481,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 `;
         }
-        //서브카테고리 네임안에 있는 데이터가 데이터가 ,를 기준으로 분리되서 들어가야함.
-       // const selectedSubCategories = selectedSubCategory.split(',');
-        console.log(`${productDTO.productPK}`);
+        console.log('로그 ['+`${productDTO.productPK}`+']');
         //서브 카테고리 체크박스 선택되는거 비동기
         $.ajax({
 			
@@ -509,11 +527,8 @@ document.addEventListener('DOMContentLoaded', function () {
    // JavaScript 코드
    document.addEventListener("DOMContentLoaded", function () {
 
-
-     // 라디오 버튼 요소들을 가져옴
      const categoryRadios = document.querySelectorAll('.category');
 
-     // 라디오 버튼에 대한 이벤트 리스너 추가
      categoryRadios.forEach(function (radio) {
        radio.addEventListener('click', function () {
          // 선택된 라디오 버튼의 값에 따라 세부카테고리 내용 변경

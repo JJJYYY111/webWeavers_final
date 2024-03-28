@@ -22,19 +22,8 @@
             <!-- Custom CSS -->
             <link href="/admin/dist/css/style.min.css" rel="stylesheet" />
 
-            <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
-            <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
             <!-- 스윗 알랏창  -->
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <style>
-              .ck.ck-editor {
-                max-width: 700px;
-              }
-
-              .ck-editor__editable {
-                min-height: 300px;
-              }
-            </style>
 
             <style>
               .input {
@@ -86,9 +75,9 @@
             
             <style>
         .addImage {
-            width: 100%;
-            height: 300px;
-            background-color: lightyellow;
+            width: 50%;
+            height: 500px;
+            background-color: #f8fbf8;
             border-radius: 20px 20px / 20px 20px;
             overflow: hidden;
             margin: 0px 10px 10px 0px;
@@ -256,7 +245,7 @@
                  
                  
                  
-                 
+                 <!-- 상세설명 이미지 저장  -->
                  <script>
         function DetailloadFile(input) {
             let file = input.files[0]; // 선택파일 가져오기
@@ -292,17 +281,14 @@
                                       <div style="text-align: right;">
                                         <button type="submit" id="button" class="btn btn-primary"><i class="fas fa-check"></i>
                                           완료</button>
-                                        <button class="btn btn-primary"><i class="fas fa-check"></i> 취소</button>
+                                        <button type="button" class="btn btn-primary" id="cancelButton"><i class="fas fa-check"></i> 취소</button>
                                       </div>
-
-
-
 
                                     </form>
                                   </div>
                                   
                                         
-                           <!-- input 태그 사진 넣는 js  -->
+                           <!-- 대표이미지 태그 사진 넣는 js  -->
                                   <script>
                                     function loadFile(input) {
                                       var file = input.files[0]; // 선택된 파일 가져오기
@@ -428,6 +414,7 @@
               });
             </script>
             
+            <!-- 모달창 -->
             <script>
 
 function swtBasic() {
@@ -443,6 +430,13 @@ function swtBasic() {
         }
     });
 }     
+
+/*  취소 버튼 누르면 상품 현황 페이지로 이동 */
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('cancelButton').addEventListener('click', function() {
+        window.location.href = "/adminProductStatus"; // your_cancel_url에는 이동하길 원하는 페이지의 URL을 입력합니다.
+    });
+});
 	
 </script>
 
