@@ -137,7 +137,7 @@ public class ProductDAO {
 			System.out.println("로그1 들어옴");
 			query += "	AND S.SERIAL_REGDATE >= '" + productDTO.getStartDate() + "'";
 		}
-		if(productDTO.getEndDate() != "" && productDTO.getStartDate() != null) {
+		if(productDTO.getEndDate() != "" && productDTO.getEndDate() != null) {
 			System.out.println("로그2 들어옴");
 			query += "	AND S.SERIAL_REGDATE <= DATE_ADD('" + productDTO.getEndDate() + "', INTERVAL 1 DAY)";
 		}
