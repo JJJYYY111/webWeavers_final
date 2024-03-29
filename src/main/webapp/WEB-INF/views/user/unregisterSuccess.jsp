@@ -19,7 +19,7 @@
 	<div class="col-md-9" style="margin: 0px auto; padding: 50px 280px;">
 		<div class="blog_post">
 			<div style="text-align: center">
-				<img src="img/WgUnregisterSuccess.png" alt="회원탈퇴 완료 이미지">
+				<img src="/resources/img/WgUnregisterSuccess.png" alt="회원탈퇴 완료 이미지">
 			</div>
 			<div class="blog_details">
 				<p style="text-align: center; font-size: 16px;">

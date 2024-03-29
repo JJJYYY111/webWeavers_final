@@ -69,7 +69,7 @@
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
-    <a class="navbar-brand logo_h" href="main"><img src="img/WgLogo.png" alt="" style="width: 200px;"></a>
+    <a class="navbar-brand logo_h" href="main"><img src="/resources/img/WgLogo.png" alt="" style="width: 200px;"></a>
     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
         <ul class="nav navbar-nav menu_nav justify-content-center">
             <li class="nav-item"><a class="nav-link" href="productList" onmouseover="showDropdownMenu()">상품목록</a>
@@ -79,7 +79,7 @@
                     <!-- 선 추가 -->
                     <a href="skincareProductList" class="dropdown-item">스킨케어</a>
                     <a href="cleangingProductList" class="dropdown-item">클렌징</a>
-                    <a href="packProductList.jsp" class="dropdown-item">마스크 팩</a>
+                    <a href="packProductList" class="dropdown-item">마스크 팩</a>
                 </div>
             </li>
             <li class="nav-item"><a class="nav-link" href="contact">회사정보</a></li>

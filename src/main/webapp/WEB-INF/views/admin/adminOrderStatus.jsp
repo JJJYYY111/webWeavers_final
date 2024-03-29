@@ -15,15 +15,15 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <!-- Favicon icon -->
-<link rel="icon" type="/admin/image/png" sizes="16x16"
-	href="/admin/assets/images/favicon.png" />
+<link rel="icon" type="/resources/admin/image/png" sizes="16x16"
+	href="/resources/admin/assets/images/favicon.png" />
 <title>주문현황</title>
 <!-- plugin CSS -->
 <link
-	href="/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
+	href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
 	rel="stylesheet" />
 <!-- Custom CSS -->
-<link href="/admin/dist/css/style.min.css" rel="stylesheet" />
+<link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
 <!-- 스윗 알랏창  -->
 <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
 <style>
@@ -474,9 +474,7 @@ to {
 												</thead>
 												<tbody>
 
-													<!-- tr이 반복됨-그 tr에 id=${productpd} -->
 													<script>console.log('값이 들어온다.');</script>
-													<!-- <script>console.log(`${serialPK}`);</script> -->
 													<c:forEach var="data" items="${serialDatas}">
 
 														<tr style="color: #000000;">
@@ -502,10 +500,6 @@ to {
                                             
                                             </script>
 
-
-											<!-- <div id="productNav"></div> -->
-
-
 											<!-- 모달 -->
 											<div id="myModal" class="modal">
 												<!-- 모달 내용 -->
@@ -525,20 +519,9 @@ to {
 													<table id="productsTable" border="1" style="width: 100%;">
 
 
-
-														<!--  <tr id="productTable" style="width: 25%;"> -->
-														<!--  <td id="productName"></td>
-                                                                        <td style="width: 70%;" id="regdate"></td>
-                                                                        <td id="member"></td>
-                                                                         <td id="totalprice"></td> -->
-														<!-- </tr> -->
 														<tr>
-
-
 														</tr>
 														<tr>
-
-
 														</tr>
 													</table>
 													</p>
@@ -686,37 +669,30 @@ to {
 
 	</div>
 
-	<!-- ============================================================== -->
 	<!-- footer -->
 	<footer class="footer text-center text-muted">
 		Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
 	</footer>
-	<!-- End footer -->
-	<!-- ============================================================== -->
 	<!-- All Jquery -->
-	<script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap tether Core JavaScript -->
-	<script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-	<script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+	<script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- apps -->
-	<!-- apps -->
-	<script src="/admin/dist/js/app-style-switcher.js"></script>
-	<script src="/admin/dist/js/feather.min.js"></script>
+	<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
+	<script src="/resources/admin/dist/js/feather.min.js"></script>
 	<!-- slimscrollbar scrollbar JavaScript -->
 	<script
-		src="/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-	<script src="/admin/assets/extra-libs/sparkline/sparkline.js"></script>
-	<!--Wave Effects -->
-	<!-- themejs -->
-	<!--Menu sidebar -->
-	<script src="/admin/dist/js/sidebarmenu.js"></script>
+		src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+	<script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
+	<script src="/resources/admin/dist/js/sidebarmenu.js"></script>
 	<!--Custom JavaScript -->
-	<script src="/admin/dist/js/custom.min.js"></script>
+	<script src="/resources/admin/dist/js/custom.min.js"></script>
 	<!--This page plugins -->
 	<script
-		src="/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+		src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 	<!-- 페이징처리 -->
-	<script src="/admin/dist/js/tablePage.js"></script>
+	<script src="/resources/admin/dist/js/tablePage.js"></script>
 </body>
 </html>

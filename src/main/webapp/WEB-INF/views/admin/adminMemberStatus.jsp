@@ -15,12 +15,12 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png" />
+    <link rel="icon" type="/resources/image/png" sizes="16x16" href="/resources/admin/assets/images/favicon.png" />
     <title>회원현황</title>
     <!-- plugin CSS -->
-    <link href="/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href="/admin/dist/css/style.min.css" rel="stylesheet" />
+    <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
 
     <style>
         .input {
@@ -265,37 +265,37 @@
                                         </table>
                                 </div>
                             </div>
-                        </div> <!-- 제일 큰 div-->
+                        </div> 
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     <!-- footer -->
     <footer class="footer text-center text-muted">
         Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
     </footer>
     <!-- All Jquery -->
-    <script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
-    <!-- apps -->
-    <script src="/admin/dist/js/app-style-switcher.js"></script>
-    <script src="/admin/dist/js/feather.min.js"></script>
+    <script src="/resources/admin/dist/js/app-style-switcher.js"></script>
+    <script src="/resources/admin/dist/js/feather.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/admin/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
     <!--Wave Effects -->
     <!--Menu sidebar -->
-    <script src="/admin/dist/js/sidebarmenu.js"></script>
+    <script src="/resources/admin/dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="/admin/dist/js/custom.min.js"></script>
+    <script src="/resources/admin/dist/js/custom.min.js"></script>
     <!--This page plugins -->
-    <script src="/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
  	<!--페이징처리 -->
-    <script src="/admin/dist/js/tablePage.js"></script>
+    <script src="/resources/admin/dist/js/tablePage.js"></script>
     
     <!-- 필터검색 -->
 											<script>

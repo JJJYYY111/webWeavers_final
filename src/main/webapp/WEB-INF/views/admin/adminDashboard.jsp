@@ -15,12 +15,12 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/admin/assets/images/favicon.png" />
+    <link rel="icon" type="/resources/image/png" sizes="16x16" href="/resources/admin/assets/images/favicon.png" />
     <title>메인페이지</title>
     <!-- This page plugin CSS -->
-    <link href="/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href="/admin/dist/css/style.min.css" rel="stylesheet" />
+    <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
     <style>
         .card-body {
             overflow: hidden;
@@ -39,27 +39,14 @@
         </div>
     </div>
     <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
     <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
         <!-- ============================================================== -->
         <common:adminTopBar />
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
         <!-- ========사이드바========== -->
         <common:adminSideBar />
         <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
@@ -79,15 +66,7 @@
                 </div>
             </div>
             <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- *************************************************************** -->
-                <!-- Start First Cards -->
-                <!-- *************************************************************** -->
                 <div class="ml-4 card-group" style="max-width: 96%;">
                     <div class="card border-right">
                         <div class="card-body" style="max-width: 96%;">
@@ -145,12 +124,6 @@
                     </div>
 
                 </div>
-                <!-- *************************************************************** -->
-                <!-- End First Cards -->
-                <!-- *************************************************************** -->
-                <!-- *************************************************************** -->
-                <!-- Start Sales Charts Section -->
-                <!-- *************************************************************** -->
                 <div class="row">
                     <!-- column -->
                     <div class="col-lg-6">
@@ -165,8 +138,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- column -->
-                    <!-- column 주석-->
                     <div class="col-lg-6">
                         <div class="card h-90">
                             <div class="card">
@@ -197,139 +168,42 @@
                             </div>
                         </div>
                     </div>
-                    <!-- column -->
-                    <!-- <div class="col-lg-4 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Earning by Location</h4>
-                                <div class="" style="height:180px">
-                                    <div id="visitbylocate" style="height:100%"></div>
-                                </div>
-                                <div class="row mb-3 align-items-center mt-1 mt-5">
-                                    <div class="col-4 text-right">
-                                        <span class="text-muted font-14">India</span>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 text-right">
-                                        <span class="mb-0 font-14 text-dark font-weight-medium">28%</span>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 align-items-center">
-                                    <div class="col-4 text-right">
-                                        <span class="text-muted font-14">UK</span>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 74%"
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 text-right">
-                                        <span class="mb-0 font-14 text-dark font-weight-medium">21%</span>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 align-items-center">
-                                    <div class="col-4 text-right">
-                                        <span class="text-muted font-14">USA</span>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-cyan" role="progressbar" style="width: 60%"
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 text-right">
-                                        <span class="mb-0 font-14 text-dark font-weight-medium">18%</span>
-                                    </div>
-                                </div>
-                                <div class="row align-items-center">
-                                    <div class="col-4 text-right">
-                                        <span class="text-muted font-14">China</span>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 50%"
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 text-right">
-                                        <span class="mb-0 font-14 text-dark font-weight-medium">12%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
-                <!-- *************************************************************** -->
-                <!-- End Sales Charts Section -->
-                <!-- *************************************************************** -->
-                <!-- *************************************************************** -->
-
-
-                <!-- *************************************************************** -->
-                <!-- End Top Leader Table -->
-                <!-- *************************************************************** -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
             <!-- footer -->
-            <!-- ============================================================== -->
             <footer class="footer text-center text-muted">
                 Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
             </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
     </div>
-
-
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
     <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="/admin/dist/js/pages/morris/morris-data.js"></script>
-    <script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/resources/admin/dist/js/pages/morris/morris-data.js"></script>
+    <script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
     <!-- apps -->
-    <script src="/admin/dist/js/app-style-switcher.js"></script>
-    <script src="/admin/dist/js/feather.min.js"></script>
-    <script src="/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/admin/dist/js/sidebarmenu.js"></script>
+    <script src="/resources/admin/dist/js/app-style-switcher.js"></script>
+    <script src="/resources/admin/dist/js/feather.min.js"></script>
+    <script src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/resources/admin/dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="/admin/dist/js/custom.min.js"></script>
+    <script src="/resources/admin/dist/js/custom.min.js"></script>
     <!--This page JavaScript -->
-    <script src="/admin/assets/extra-libs/c3/d3.min.js"></script>
-    <script src="/admin/assets/extra-libs/c3/c3.min.js"></script>
-    <script src="/admin/assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="/admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="/admin/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
-    <script src="/admin/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="/admin/dist/js/pages/dashboards/dashboard1.min.js"></script>
+    <script src="/resources/admin/assets/extra-libs/c3/d3.min.js"></script>
+    <script src="/resources/admin/assets/extra-libs/c3/c3.min.js"></script>
+    <script src="/resources/admin/assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="/resources/admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="/resources/admin/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="/resources/admin/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/resources/admin/dist/js/pages/dashboards/dashboard1.min.js"></script>
     <!-- Chart JS -->
-    <!-- <script src="dist/js/pages/chartjs/chartjs.init.js"></script> -->
-    <script src="/admin/dist/js/pages/chartjs/chartjs.init copy.js"></script>
-    <script src="/admin/assets/libs/chart.js/dist/Chart.min.js"></script>
+    <script src="/resources/admin/dist/js/pages/chartjs/chartjs.init copy.js"></script>
+    <script src="/resources/admin/assets/libs/chart.js/dist/Chart.min.js"></script>
     <!--Morris JavaScript -->
-    <script src="/admin/assets/libs/raphael/raphael.min.js"></script>
-    <script src="/admin/assets/libs/morris.js/morris.min.js"></script>
-    <!-- <script src="dist/js/pages/morris/morris-data.js"></script> -->
-    <script src="/admin/dist/js/pages/morris/morris-data copy.js"></script>
+    <script src="/resources/admin/assets/libs/raphael/raphael.min.js"></script>
+    <script src="/resources/admin/assets/libs/morris.js/morris.min.js"></script>
+    <script src="/resources/admin/dist/js/pages/morris/morris-data copy.js"></script>
 
 </body>
 

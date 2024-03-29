@@ -31,7 +31,7 @@
 											data-product-pk="${data.productPK}">	
 											<div class="card-product__img">
 												<a href="productDetail?productPK=${data.productPK}"><img 
-													class="card-img" src="${data.productImg}" alt="${data.productPK}번 상품사진"></a> <!-- 상품 사진을 누를경우 상품 상세 페이지로 이동 -->
+													class="card-img" src="/resources/${data.productImg}" alt="${data.productPK}번 상품사진"></a> <!-- 상품 사진을 누를경우 상품 상세 페이지로 이동 -->
 												<ul class="card-product__imgOverlay">
 													<li>
 													

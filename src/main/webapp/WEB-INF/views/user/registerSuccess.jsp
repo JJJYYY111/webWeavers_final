@@ -19,7 +19,7 @@
 	<div class="col-md-9" style="margin: 0px auto; padding: 50px 280px;">
 		<div class="blog_post">
 			<div style="text-align: center">
-				<img src="img/WgRegisterSuccess.png" alt="회원가입완료 이미지">
+				<img src="/resources/img/WgRegisterSuccess.png" alt="회원가입완료 이미지">
 			</div>
 			<div class="blog_details">
 				<a href="single-blog.html"></a>

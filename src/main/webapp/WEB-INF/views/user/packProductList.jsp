@@ -140,6 +140,6 @@
 
 	<common:footer />
 	
-	<script src="js/productList.js"></script>
+	<script src="/resources/js/productList.js"></script>
 </body>
 </html>

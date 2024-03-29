@@ -105,7 +105,7 @@
 										<td><input type="button" name="close" id="close"
 											style="display: none;"> <label for="close"> <a
 												href="cartDelete?productPK=${data.productPK}"><img
-													src="img/close.png" alt="닫기버튼"
+													src="/resources/img/close.png" alt="닫기버튼"
 													style="width: 20px; height: 20px"></a>
 										</label></td>
 									</tr>
@@ -145,7 +145,7 @@
 		</div>
 	</section>
 	<!-- ================ /내용 ================= -->
-	<script src="js/cart.js"></script>
+	<script src="/resources/js/cart.js"></script>
 	<common:footer />
 </body>
 </html>

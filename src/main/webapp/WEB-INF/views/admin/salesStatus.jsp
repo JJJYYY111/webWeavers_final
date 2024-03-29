@@ -18,15 +18,15 @@
 <script
 	src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16"
-	href="assets/images/favicon.png" />
+<link rel="icon" type="/resources/image/png" sizes="16x16"
+	href="/resources/admin/assets/images/favicon.png" />
 <title>매출 관리</title>
 <!-- This page plugin CSS -->
 <link
-	href="/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
+	href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
 	rel="stylesheet" />
 <!-- Custom CSS -->
-<link href="/admin/dist/css/style.min.css" rel="stylesheet" />
+<link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
 <style>
 .ck.ck-editor {
 	max-width: 700px;
@@ -41,7 +41,6 @@
 .input {
 	color: #000000;
 	background-color: #ffffff4d;
-	/* 원하는 배경색으로 변경 */
 	border: 3px solid #ffffff;
 }
 </style>
@@ -49,7 +48,6 @@
 <style>
 ::placeholder {
 	color: #000000;
-	/* Placeholder 색상 변경 */
 	font-weight: 100;
 }
 </style>
@@ -57,16 +55,14 @@
 <style>
 .table-responsive {
 	overflow-x: hidden;
-	/* 가로 스크롤 숨김 */
 	overflow-y: auto;
-	/
 }
 
 .card-body-select {
 
-        border-radius: 5px; /* 테두리의 둥근 정도를 지정 */
-    padding: 20px; /* 내부 여백을 추가하여 테두리 내용과의 간격을 조정 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+        border-radius: 5px; 
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 </style>
@@ -74,18 +70,12 @@
 </head>
 
 <body>
-	<!-- ============================================================== -->
-	<!-- Preloader - style you can find in spinners.css -->
-	<!-- ============================================================== -->
 	<div class="preloader">
 		<div class="lds-ripple">
 			<div class="lds-pos"></div>
 			<div class="lds-pos"></div>
 		</div>
 	</div>
-	<!-- ============================================================== -->
-	<!-- Main wrapper - style you can find in pages.scss -->
-	<!-- ============================================================== -->
 	<div id="main-wrapper" data-theme="light" data-layout="vertical"
 		data-navbarbg="skin6" data-sidebartype="full"
 		data-sidebar-position="fixed" data-header-position="fixed"
@@ -93,42 +83,18 @@
 		<!-- ============================================================== -->
 		<common:adminTopBar />
 		<!-- ============================================================== -->
-		<!-- End Topbar header -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Left Sidebar - style you can find in sidebar.scss  -->
-		<!-- ============================================================== -->
 		<common:adminSideBar />
 		<!-- ============================================================== -->
-		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Page wrapper  -->
-		<!-- ============================================================== -->
 		<div class="page-wrapper">
-			<!-- ============================================================== -->
-			<!-- Bread crumb and right sidebar toggle -->
 			<!-- ============================================================== -->
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-7 align-self-center">
-						<!-- <h1 class="page-title text-truncate text-dark font-weight-medium mb-1" >
-                상품 목록
-              </h1> -->
 					</div>
 				</div>
 			</div>
 			<!-- ============================================================== -->
-			<!-- End Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- Container fluid  -->
-			<!-- ============================================================== -->
 			<div class="container-fluid">
-				<!-- ============================================================== -->
-				<!-- Start Page Content -->
-				<!-- ============================================================== -->
-				<!-- basic table -->
 				<div class="row">
 					<div class="col-12 " name="cardTwo">
 						<div class="card">
@@ -240,72 +206,37 @@
 								</div>
 							</div>
 						</div>
-						<!-- ============================================================== -->
-						<!-- End PAge Content -->
-						<!-- ============================================================== -->
-						<!-- ============================================================== -->
-						<!-- Right sidebar -->
-						<!-- ============================================================== -->
-						<!-- .right-sidebar -->
-						<!-- ============================================================== -->
-						<!-- End Right sidebar -->
-						<!-- ============================================================== -->
+						</div>
 					</div>
 				</div>
-				<!-- ============================================================== -->
-				<!-- End Container fluid  -->
-				<!-- ============================================================== -->
-				<!-- ============================================================== -->
 				<!-- footer -->
-				<!-- ============================================================== -->
 				<footer class="footer text-center text-muted">
 					Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
 				</footer>
-				<!-- ============================================================== -->
-				<!-- End footer -->
-				<!-- ============================================================== -->
 			</div>
-			<!-- ============================================================== -->
-			<!-- End Page wrapper  -->
-			<!-- ============================================================== -->
-		</div>
-		<!-- ============================================================== -->
-		<!-- End Wrapper -->
-		<!-- ============================================================== -->
-		<!-- End Wrapper -->
-		<!-- ============================================================== -->
 		<!-- All Jquery -->
-		<!-- ============================================================== -->
-		<script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+		<script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
 		<!-- Bootstrap tether Core JavaScript -->
-		<script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-		<script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+		<script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 		<!-- apps -->
 		<!-- apps -->
-		<script src="/admin/dist/js/app-style-switcher.js"></script>
-		<script src="/admin/dist/js/feather.min.js"></script>
+		<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
+		<script src="/resources/admin/dist/js/feather.min.js"></script>
 		<!-- slimscrollbar scrollbar JavaScript -->
 		<script
-			src="/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-		<script src="/admin/assets/extra-libs/sparkline/sparkline.js"></script>
-		<!--Wave Effects -->
-		<!-- themejs -->
+			src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+		<script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
 		<!--Menu sidebar -->
-		<script src="/admin/dist/js/sidebarmenu.js"></script>
+		<script src="/resources/admin/dist/js/sidebarmenu.js"></script>
 		<!--Custom JavaScript -->
-		<script src="/admin/dist/js/custom.min.js"></script>
+		<script src="/resources/admin/dist/js/custom.min.js"></script>
 		<!--This page plugins -->
 		<script
-			src="/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-		<script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+			src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+		<script src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
-
-
-
-
-		<!-- 카테고리 선택 임시 js 파일 -->
-		<!-- <script src="/admin/js/categorySelect.js"></script> -->
-		<script src="/admin/js/categorySelect2.js"></script>
+		<script src="/resources/admin/js/categorySelect2.js"></script>
 </body>
 
 </html>

@@ -17,7 +17,7 @@
 	<br></br>
 	 <div class="col-md-9" style="margin: 0px auto; padding: 50px 280px;">
         <div class="blog_post">
-        	<div style ="text-align: center"><img src="img/WgError.png" alt="에러 이미지"></div>
+        	<div style ="text-align: center"><img src="/resources/img/WgError.png" alt="에러 이미지"></div>
             <div class="blog_details">
                 <p style = "text-align: center; font-size:20px; font-weight : bold;"> 죄송합니다.
                 현재 찾을 수 없는 페이지를 요청 하셨습니다.</p>

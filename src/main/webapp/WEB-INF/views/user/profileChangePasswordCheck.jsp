@@ -38,6 +38,6 @@
 	<!-- ================ /내용 ================= -->
 	
 	<common:footer />
-	<script src="js/register.js"></script>
+	<script src="/resources/js/register.js"></script>
 </body>
 </html>

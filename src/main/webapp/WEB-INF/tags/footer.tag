@@ -70,17 +70,17 @@
 	</div>
 </footer>
 <!--================ /푸터  =================-->
-<script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-<script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="vendors/skrollr.min.js"></script>
-<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-<script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-<script src="vendors/nouislider/nouislider.min.js"></script>
-<script src="vendors/jquery.ajaxchimp.min.js"></script>
-<script src="vendors/mail-script.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="js/main.js"></script>
-<script src="js/kakaoAddress.js"></script>
+<script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
+<script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/resources/vendors/skrollr.min.js"></script>
+<script src="/resources/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="/resources/vendors/nice-select/jquery.nice-select.min.js"></script>
+<script src="/resources/vendors/nouislider/nouislider.min.js"></script>
+<script src="/resources/vendors/jquery.ajaxchimp.min.js"></script>
+<script src="/resources/vendors/mail-script.js"></script>
+<script src="/resources///t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/resources/js/main.js"></script>
+<script src="/resources/js/kakaoAddress.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />

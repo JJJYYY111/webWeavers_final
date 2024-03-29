@@ -19,15 +19,15 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 파비콘 -->
-<link rel="icon" type="image/png" sizes="16x16"
-	href="assets/images/favicon.png" />
+<link rel="icon" type="/resources/image/png" sizes="16x16"
+	href="/resources/admin/assets/images/favicon.png" />
 <title>상품수정</title>
 <!-- 플러그인 -->
 <link
-	href="/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
+	href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
 	rel="stylesheet" />
 <!-- Custom CSS -->
-<link href="/admin/dist/css/style.min.css" rel="stylesheet" />
+<link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
 <!-- 스윗 알랏창  -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -217,7 +217,7 @@ form .cur-row {
 															<p id="fileName"></p>
 														</div>
 														<div id="image-show" class="image-show">
-															<img src="${productDTO.productImg}"
+															<img src="/resources/${productDTO.productImg}"
 																alt="Product Image"
 																style="width: 70%; height: 70%; object-fit: contain;">
 															<script>
@@ -255,7 +255,7 @@ form .cur-row {
 															<!-- 이미지 띄울 공간 -->
 
 
-															<img src="${productDTO.productDetailImg}"
+															<img src="/resources/${productDTO.productDetailImg}"
 																alt="productDetailImg"
 																style="width: 100%; height: 70%; object-fit: contain;">
 															<script>
@@ -402,25 +402,25 @@ document.addEventListener('DOMContentLoaded', function() {
 		Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
 	</footer>
 	<!--All Jquery-->
-	<script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap tether Core JavaScript -->
-	<script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-	<script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+	<script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- apps -->
-	<script src="/admin/dist/js/app-style-switcher.js"></script>
-	<script src="/admin/dist/js/feather.min.js"></script>
+	<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
+	<script src="/resources/admin/dist/js/feather.min.js"></script>
 	<!-- slimscrollbar scrollbar JavaScript -->
 	<script
-		src="/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-	<script src="/admin/assets/extra-libs/sparkline/sparkline.js"></script>
+		src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+	<script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
 	<!--Menu sidebar -->
-	<script src="/admin/dist/js/sidebarmenu.js"></script>
+	<script src="/resources/admin/dist/js/sidebarmenu.js"></script>
 	<!--Custom JavaScript -->
-	<script src="/admin/dist/js/custom.min.js"></script>
+	<script src="/resources/admin/dist/js/custom.min.js"></script>
 	<!--This page plugins -->
 	<script
-		src="/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+		src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
 
 	<!-- 카테고리 선택 받아오기/등록하기  -->

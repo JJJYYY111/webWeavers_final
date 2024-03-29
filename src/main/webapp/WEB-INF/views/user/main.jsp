@@ -61,9 +61,9 @@
 
 		<!-- 캐러쉘  -->
 		<div class="carousel">
-			<img src="uploadimg/carousel/slide2.jpg" alt="Image 2" style="object-fit: contain"> 
-			<img src="uploadimg/carousel/slide3.jpg" alt="Image 3" style="object-fit: contain">
-			<img src="uploadimg/carousel/slide4.jpg" alt="Image 3" style="object-fit: contain">
+			<img src="/resources/uploadimg/carousel/slide2.jpg" alt="Image 2" style="object-fit: contain"> 
+			<img src="/resources/uploadimg/carousel/slide3.jpg" alt="Image 3" style="object-fit: contain">
+			<img src="/resources/uploadimg/carousel/slide4.jpg" alt="Image 3" style="object-fit: contain">
 			<button class="prev" onclick="prevSlide()">&#10094;</button>
 			<button class="next" onclick="nextSlide()">&#10095;</button>
 		</div>
@@ -81,20 +81,13 @@
 						상품이 없습니다.
 					</c:if>
 				<c:if test="${fn:length(wdatas) > 0}">
-					<!-- <div class="row"> -->
 					<c:forEach var='data' items='${wdatas}'>
-						<%--  <c:out value="${data.productPK}" /> --%>
-						<!-- <div class="row"></div> -->
-
 						<div class="col-md-6 col-lg-4 col-xl-3">
 							<div class="card text-center card-product"
 								data-product-pk="${data.productPK}">
 								<div class="card-product__img">
-									<!-- 					<script>
-  								  alert("data.ppk value: ${data.productPK}");
-									</script> -->
 									<a href="/productDetail?productPK=${data.productPK}"><img
-										class="card-img" src="${data.productImg}" alt=""></a>
+										class="card-img" src="/resources/${data.productImg}" alt=""></a>
 
 									<ul class="card-product__imgOverlay">
 										<li>
@@ -123,7 +116,6 @@
 
 						</div>
 					</c:forEach>
-					<!-- </div> -->
 				</c:if>
 			</div>
 		</div>
@@ -151,7 +143,7 @@
 								data-product-pk="${data.productPK}">
 								<div class="card-product__img">
 									<a href="productDetail?productPK=${data.productPK}"><img
-										class="card-img" src="${data.productImg}" alt="${data.productImg}번 상품사진"></a>
+										class="card-img" src="/resources/${data.productImg}" alt="/resources/${data.productImg}번 상품사진"></a>
 									<ul class="card-product__imgOverlay">
 										<li>
 											<button onclick="wishClick(${data.productPK},'${sessionMid}')"
@@ -186,6 +178,6 @@
 
 	<common:footer />
 
-<script src="js/carousel.js"></script>
+<script src="/resources/js/carousel.js"></script>
 </body>
 </html>

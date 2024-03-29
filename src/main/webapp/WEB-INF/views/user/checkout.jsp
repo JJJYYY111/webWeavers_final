@@ -248,7 +248,7 @@
 									<div class="radion_btn">
 										<input type="radio" id="f-option6" name="selector">
 										<label for="f-option6">Paypal</label>
-										<img src="img/product/card.jpg" alt="결제카드 이미지">
+										<img src="/resources/img/product/card.jpg" alt="결제카드 이미지">
 										<div class="check"></div>
 									</div>
 									<p>Pay via PayPal; you can pay with your credit card if you
@@ -272,6 +272,6 @@
 	</section>
 	<!-- ================ /내용 ================= -->
 	<common:footer />
-	<script src="js/addressModal.js"></script>
+	<script src="/resources/js/addressModal.js"></script>
 </body>
 </html>

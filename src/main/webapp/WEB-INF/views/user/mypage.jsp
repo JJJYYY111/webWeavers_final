@@ -16,7 +16,7 @@
 		<div class="container">
 			<!-- 회원 기본정보 및 회원탈퇴 버튼 -->
 			<div class="single_sidebar_widget author_widget profil-card">
-				<img class="author_img rounded-circle" src="img/blog/author.png" alt="회원사진">
+				<img class="author_img rounded-circle" src="/resources/img/blog/author.png" alt="회원사진">
 				<div class="profil-contant">
 					<h4>${data.memberNickname}</h4>
 					<p>${data.memberEmail}</p>

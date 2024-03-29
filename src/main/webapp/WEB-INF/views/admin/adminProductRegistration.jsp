@@ -15,12 +15,12 @@
             <meta name="author" content="" />
             <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
             <!-- Favicon icon -->
-            <link rel="icon" type="/admin/assets/image/png" sizes="16x16" href="/admin/assets/images/favicon.png" />
+            <link rel="icon" type="/resources/admin/assets/image/png" sizes="16x16" href="/resources/admin/assets/images/favicon.png" />
             <title>상품등록</title>
             <!-- This page plugin CSS -->
-            <link href="/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+            <link href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
             <!-- Custom CSS -->
-            <link href="/admin/dist/css/style.min.css" rel="stylesheet" />
+            <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
 
             <!-- 스윗 알랏창  -->
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -343,26 +343,25 @@
               Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
             </footer>
             <!-- All Jquery -->
-            <script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+            <script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
             <!-- Bootstrap tether Core JavaScript -->
-            <script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-            <script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+            <script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
             <!-- apps -->
-            <!-- apps -->
-            <script src="/admin/dist/js/app-style-switcher.js"></script>
-            <script src="/admin/dist/js/feather.min.js"></script>
+            <script src="/resources/admin/dist/js/app-style-switcher.js"></script>
+            <script src="/resources/admin/dist/js/feather.min.js"></script>
             <!-- slimscrollbar scrollbar JavaScript -->
-            <script src="/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-            <script src="/admin/assets/extra-libs/sparkline/sparkline.js"></script>
+            <script src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+            <script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
             <!--Wave Effects -->
             <!-- themejs -->
             <!--Menu sidebar -->
-            <script src="/admin/dist/js/sidebarmenu.js"></script>
+            <script src="/resources/admin/dist/js/sidebarmenu.js"></script>
             <!--Custom JavaScript -->
-            <script src="/admin/dist/js/custom.min.js"></script>
+            <script src="/resources/admin/dist/js/custom.min.js"></script>
             <!--This page plugins -->
-            <script src="/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-            <script src="/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+            <script src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+            <script src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
          <!-- 카테고리 버튼 스크립트  -->
             <script>

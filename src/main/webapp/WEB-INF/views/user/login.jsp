@@ -52,8 +52,8 @@
 							<p style="color: red; text-align: center;" id="message">${loginFail}</p>
 							<!-- /로그인 실패 문구 -->
 							
-							<img src="uploadimg/kakao_login_medium.png" alt="카카오톡" />
 						</form>
+						<button><img src="/resources/uploadimg/kakao_login_medium.png" alt="카카오톡" /></button>
 					</div>
 				</div>
 			</div>

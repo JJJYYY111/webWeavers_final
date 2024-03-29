@@ -15,23 +15,15 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/admin/assets/images/favicon.png">
+<link rel="icon" type="/resources/image/png" sizes="16x16"
+	href="/resources/admin/assets/images/favicon.png">
 <title>Adminmart Template - The Ultimate Multipurpose admin
 	template</title>
 <!-- Custom CSS -->
-<link href="/admin/dist/css/style.min.css" rel="stylesheet">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+<link href="/resources/admin/dist/css/style.min.css" rel="stylesheet">
 </head>
 
 <body>
-	<!-- ============================================================== -->
-	<!-- Preloader - style you can find in spinners.css -->
 	<!-- ============================================================== -->
 	<div class="preloader">
 		<div class="lds-ripple">
@@ -40,8 +32,6 @@
 		</div>
 	</div>
 	<!-- ============================================================== -->
-	<!-- Main wrapper - style you can find in pages.scss -->
-	<!-- ============================================================== -->
 	<div id="main-wrapper" data-theme="light" data-layout="vertical"
 		data-navbarbg="skin6" data-sidebartype="full"
 		data-sidebar-position="fixed" data-header-position="fixed"
@@ -49,21 +39,9 @@
 		<!-- ============================================================== -->
 		<common:adminTopBar />
 		<!-- ============================================================== -->
-		<!-- End Topbar header -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Left Sidebar - style you can find in sidebar.scss  -->
-		<!-- ============================================================== -->
 		<common:adminSideBar />
 		<!-- ============================================================== -->
-		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Page wrapper  -->
-		<!-- ============================================================== -->
 		<div class="page-wrapper">
-			<!-- ============================================================== -->
-			<!-- Bread crumb and right sidebar toggle -->
 			<!-- ============================================================== -->
 			<div class="page-breadcrumb">
 				<div class="row">
@@ -75,14 +53,7 @@
 				</div>
 			</div>
 			<!-- ============================================================== -->
-			<!-- End Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- Container fluid  -->
-			<!-- ============================================================== -->
 			<div class="container-fluid">
-				<!-- ============================================================== -->
-				<!-- Start Page Content -->
 				<!-- ============================================================== -->
 				<div class="row">
 					<div class="col-12">
@@ -91,8 +62,6 @@
 								<form name="profileChangeForm" class="col-lg-12 row login_form"
 									action="/adminMemberUpdate" method="POST"
 									id="profileChange_form">
-									<!-- 개인정보수정 -->
-									<!-- 3.12 자세한 내용 수정예정 column명  -->
 									<div class="col-lg-12">
 										<div class="login_form_inner register_form_inner">
 											<h3>회원정보</h3>
@@ -289,73 +258,36 @@
 												<button type="reset" class="btn btn-outline-dark float-left">리셋</button>
 											</div>
 										</div>
-										<!-- <div class="col-md-12 form-group">
-                                            <button type="submit" value="submit"
-                                                class="button button-register w-100">확인</button>
-                                        </div> -->
+										</form>
 									</div>
 							</div>
 							<!-- 개인정보수정 -->
-							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- ============================================================== -->
-			<!-- End PAge Content -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- Right sidebar -->
-			<!-- ============================================================== -->
-			<!-- .right-sidebar -->
-			<!-- ============================================================== -->
-			<!-- End Right sidebar -->
-			<!-- ============================================================== -->
 		</div>
-		<!-- ============================================================== -->
-		<!-- End Container fluid  -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
 		<!-- footer -->
-		<!-- ============================================================== -->
 		<footer class="footer text-center text-muted">
 			All Rights Reserved by Adminmart. Designed and Developed by <a
 				href="https://wrappixel.com">WrapPixel</a>.
 		</footer>
-		<!-- ============================================================== -->
-		<!-- End footer -->
-		<!-- ============================================================== -->
-	</div>
-	<!-- ============================================================== -->
-	<!-- End Page wrapper  -->
-	<!-- ============================================================== -->
-	</div>
-	<!-- ============================================================== -->
-	<!-- End Wrapper -->
-	<!-- ============================================================== -->
-	<!-- End Wrapper -->
-	<!-- ============================================================== -->
 	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<script src="/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap tether Core JavaScript -->
-	<script src="/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-	<script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+	<script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- apps -->
-	<!-- apps -->
-	<script src="/admin/dist/js/app-style-switcher.js"></script>
-	<script src="/admin/dist/js/feather.min.js"></script>
-	<!-- slimscrollbar scrollbar JavaScript -->
+	<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
+	<script src="/resources/admin/dist/js/feather.min.js"></script>
 	<script
-		src="/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-	<script src="/admin/assets/extra-libs/sparkline/sparkline.js"></script>
-	<!--Wave Effects -->
-	<!-- themejs -->
+		src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+	<script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
 	<!--Menu sidebar -->
-	<script src="/admin/dist/js/sidebarmenu.js"></script>
+	<script src="/resources/admin/dist/js/sidebarmenu.js"></script>
 	<!--Custom JavaScript -->
-	<script src="/admin/dist/js/custom.min.js"></script>
-	<script src="/admin/js/gradeChange.js"></script>
+	<script src="/resources/admin/dist/js/custom.min.js"></script>
+	<script src="/resources/admin/js/gradeChange.js"></script>
 
 </body>
 
