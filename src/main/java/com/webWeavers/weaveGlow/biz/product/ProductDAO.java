@@ -507,7 +507,7 @@ class ProductSalesTotalTodayAdminRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
-		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+		data.setTotalPrice(rs.getInt("TOTAL"));
 		
 		return data;
 	}
@@ -517,7 +517,7 @@ class ProductSalesTotalPvdayAdminRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
-		data.setPvtotalPrice(rs.getInt("PVTOTAL_PRICE"));
+		data.setPvtotalPrice(rs.getInt("PV_TOTAL"));
 		
 		return data;
 	}
@@ -527,8 +527,8 @@ class ProductSalesTodayHourAdminRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
-		data.setTotalTemp(rs.getInt("TOTAL_TEMP"));
-		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+		data.setTotalTemp(rs.getInt("TEMP"));
+		data.setTotalPrice(rs.getInt("SALES_TOTAL"));
 		
 		return data;
 	}
@@ -538,9 +538,8 @@ class ProductSalesPvdayHourAdminRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
-		data.setPvtotalTemp(rs.getInt("PVTOTAL_TEMP"));
-		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
-		
+		data.setPvtotalTemp(rs.getInt("TEMP"));
+		data.setTotalPrice(rs.getInt("SALES_TOTAL"));
 		return data;
 	}
 }
@@ -550,7 +549,7 @@ class ProductMonthlySalesAdminRowMapper implements RowMapper<ProductDTO> {
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
 		data.setMonth(rs.getString("MONTH"));
-		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+		data.setTotalPrice(rs.getInt("SALES_TOTAL"));
 		
 		return data;
 	}
