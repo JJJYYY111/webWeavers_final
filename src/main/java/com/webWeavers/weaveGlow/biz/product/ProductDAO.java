@@ -229,11 +229,11 @@ public class ProductDAO {
 			}
 			// Admin_전일대비매출페이지 (당일 매출 Top10 상품목록)
 			else if (productDTO.getSearchCondition().equals("adminDailySales")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminDailySales"), new ProductSalesAdminRowMapper());
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminDailySales"), new ProductTop10SalesRowMapper());
 			}
 			// Admin_월별매출페이지 (당월 매출 Top10 상품목록)
 			else if (productDTO.getSearchCondition().equals("adminMonthlySales")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminMonthlySales"), new ProductSalesAdminRowMapper());
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminMonthlySales"), new ProductTop10SalesRowMapper());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -352,6 +352,22 @@ class ProductSalesAdminRowMapper implements RowMapper<ProductDTO> {
 		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
 		data.setCategoryName(rs.getString("CATEGORY_NAME"));
 		data.setSubCategoryName(rs.getString("SUBCATEGORY_NAME"));
+
+		return data;
+	}
+}
+
+//selectAll_Admin_매출관리>전일대비/월별매출페이지 (당일/당월 매출 Top10 상품목록)
+class ProductTop10SalesRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		data.setProductName(rs.getString("PRODUCT_NAME"));
+		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		data.setTotalCnt(rs.getInt("TOTAL_CNT"));
+		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+		data.setCategoryName(rs.getString("CATEGORY_NAME"));
 
 		return data;
 	}
