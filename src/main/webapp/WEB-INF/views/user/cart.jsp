@@ -28,11 +28,18 @@
 						</colgroup>
 						<thead>
 							<tr>
-								<th scope="col" style="text-align: left;">Product</th>
+								<th scope="col">
+									<span style="text-align: left;">
+									<button class="custom-button" onclick="function1()" style="text-align: left;">Button1</button>
+									<button class="custom-button" onclick="function2()"style="text-align: left;">Button2</button>
+									</span>
+									<span style="text-align: right;">Product</span>
+								</th> 
 								<th scope="col">Price</th>
 								<th scope="col">Quantity</th>
 								<th scope="col">Total</th>
 							</tr>
+
 						</thead>
 						<tbody>
 							<!-- 장바구니 목록 출력 -->
