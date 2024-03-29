@@ -34,6 +34,11 @@ public class MemberDAO {
 	// 회원ID 중복체크
 	private static final String SELECTONE_IDCHECK = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, "
 														+ " MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_ID=?";
+	
+	// 회원 이메일 중복체크
+	private static final String SELECTONE_EMAILCHECK = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, "
+														+ "MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_EMAIL=?";
+		
 	// 회원 가입
 	private static final String INSERT = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_MARKETING)"
 														+ " VALUES (?,?,?,?,?,?,?,?)";
@@ -77,6 +82,9 @@ public class MemberDAO {
 			} else if (memberDTO.getSearchCondition().equals("idCheck")) {
 				Object[] args = { memberDTO.getMemberID() };
 				return jdbcTemplate.queryForObject(SELECTONE_IDCHECK, args, new MemberRowMapper2());
+			}else if (memberDTO.getSearchCondition().equals("emailCheck")) {
+				Object[] args = { memberDTO.getMemberEmail() };
+				return jdbcTemplate.queryForObject(SELECTONE_EMAILCHECK, args, new MemberRowMapper2());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
