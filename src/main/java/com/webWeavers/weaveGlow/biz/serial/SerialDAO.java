@@ -16,19 +16,19 @@ public class SerialDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	// 전체 주문현황_(관리자)주문관리페이지
-	private static final String SELECTALL_ORDERLIST = "WITH BS AS (\r\n"	// 주문번호별 상품 종류의 개수를 구하기 위한 BUYPRODUCT 서브쿼리
+	private static final String SELECTALL_ORDERLIST = "WITH BS AS (\r\n"	// 주문번호별 상품 종류의 개수를 구하기 위한 CTE
 			+ "	SELECT\r\n"
-			+ "		SERIAL_PK,\r\n"
-			+ "		COUNT(BUYPRODUCT_PK) - 1 AS CNT\r\n"					// '상품이름' 외 ? 개
-			+ "	FROM BUYPRODUCT\r\n"
-			+ "	GROUP BY SERIAL_PK\r\n"
+			+ "		SERIAL_PK,\r\n"											// 주문번호
+			+ "		COUNT(BUYPRODUCT_PK) - 1 AS CNT\r\n"					// 구매개수(총 구매개수-1) ('상품이름' 외 ? 개)
+			+ "	FROM BUYPRODUCT\r\n"										// 구매테이블
+			+ "	GROUP BY SERIAL_PK\r\n"										// 주문번호로 GROUP BY
 			+ ")\r\n"
 			+ "SELECT\r\n"
-			+ "	S.SERIAL_PK, S.SERIAL_REGDATE, S.SERIAL_STATUS, S.SERIAL_DELIVERYADDRESS,\r\n"
-			+ "	S.MEMBER_ID, M.MEMBER_NAME,\r\n"
-			+ "	BS.CNT, MAX(P.PRODUCT_NAME) AS PRODUCT_NAME,\r\n"
+			+ "	S.SERIAL_PK, S.SERIAL_REGDATE, S.SERIAL_STATUS, S.SERIAL_DELIVERYADDRESS,\r\n"	// 주문번호, 주문일, 주문상태, 배송지
+			+ "	S.MEMBER_ID, M.MEMBER_NAME,\r\n"							// 주문자
+			+ "	BS.CNT, MAX(P.PRODUCT_NAME) AS PRODUCT_NAME,\r\n"			// 구매개수(총 구매개수-1), 대표상품
 			+ "	SUM(P.PRODUCT_PRICE * B.BUYPRODUCT_CNT) AS TOTALPRICE\r\n"	// 주문번호별 총 금액
-			+ "FROM SERIAL S\r\n"
+			+ "FROM SERIAL S\r\n"											// 주문테이블
 			+ "LEFT JOIN BUYPRODUCT B ON S.SERIAL_PK = B.SERIAL_PK\r\n"
 			+ "LEFT JOIN BS ON S.SERIAL_PK = BS.SERIAL_PK\r\n"
 			+ "LEFT JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
