@@ -24,7 +24,7 @@
 										<div class="col-lg-6">
 											<div class="owl-carousel owl-theme s_Product_carousel">
 												<div class="single-prd-item">
-													<img class="img-fluid" src="${productImg}" alt="${productPK}번 상품사진">
+													<img class="img-fluid" src="/resources/${productImg}" alt="${productPK}번 상품사진">
 												</div>
 											</div>
 										</div>
@@ -98,7 +98,7 @@
 									<div class="tab-content" id="myTabContent">
 										<!-- 상품 상세정보(설명) -->
 										<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-											<img class="img-fluid" src="${productDetailImg}" alt="${productPK}번 상품사진">
+											<img class="img-fluid" src="/resources/${productDetailImg}" alt="${productPK}번 상품사진">
 										</div>
 										<!-- /상세정보 -->
 
@@ -209,7 +209,7 @@
 																			<div class="feature-img">
 																				<img style="max-width: 200%; max-height: 200px;"
 																					class="img-fluid"
-																					src="${data.reviewImg}"
+																					src="/resources/${data.reviewImg}"
 																					alt="리뷰작성 이미지">
 																				<!-- 리뷰 작성할때 사용자가 등록한 이미지 -->
 																			</div>
@@ -234,8 +234,8 @@
 							</section>
 							<!--================ /상품 상세정보 =================-->
 
-							<script src="js/productDetail.js"></script>
-							<script src="js/cart.js"></script>
+							<script src="/resources/js/productDetail.js"></script>
+							<script src="/resources/js/cart.js"></script>
 							<common:footer />
 						</body>
 

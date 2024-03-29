@@ -87,7 +87,7 @@
 								data-product-pk="${data.productPK}">
 								<div class="card-product__img">
 									<a href="/productDetail?productPK=${data.productPK}"><img
-										class="card-img" src="/resources/${data.productImg}" alt=""></a>
+										class="card-img" src="${data.productImg}" alt=""></a>
 
 									<ul class="card-product__imgOverlay">
 										<li>
@@ -143,7 +143,7 @@
 								data-product-pk="${data.productPK}">
 								<div class="card-product__img">
 									<a href="productDetail?productPK=${data.productPK}"><img
-										class="card-img" src="/resources/${data.productImg}" alt="/resources/${data.productImg}번 상품사진"></a>
+										class="card-img" src="${data.productImg}" alt="${data.productImg}번 상품사진"></a>
 									<ul class="card-product__imgOverlay">
 										<li>
 											<button onclick="wishClick(${data.productPK},'${sessionMid}')"
