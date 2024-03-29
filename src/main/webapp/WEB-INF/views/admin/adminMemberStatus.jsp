@@ -335,7 +335,7 @@
                                                     		//datas = JSON.parse(datas);
                                                     		console.log('콘솔'+datas);
                                                     	    var tableHTML = "<table id='search' border='1'>";
-                                                    	    tableHTML += "<thead><tr><th>회원ID</th><th>회원이름</th><th>회원등급</th><th>회원생일</th><th>가입일</th><th>이메일수신동의</th></tr></thead>";
+                                                    	    tableHTML += "<thead><tr><th>ID</th><th>이름</th><th>등급</th><th>생일</th><th>가입일</th><th>email수신동의</th></tr></thead>";
                                                     	    tableHTML += "<tbody>";
                                                     	    for (var i = 0; i < datas.length; i++) {
                                                     	    	 <!-- 회원 업데이트 컨트롤러 생기면 href 수정하기  -->
