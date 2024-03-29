@@ -361,23 +361,21 @@ th, td {
 											</thead>
 											<tbody>
 												<c:forEach var="data" items="${productDatas}">
-                                                <tr onclick="location.href='adminMemberStatusChange?memberID=${data.memberID}'" style="color: #000000; cursor: pointer;" class="memberTable" id="${data.memberID}">
-                                                    <td>${data.productPK}</td>
-                                                    <td>${data.productName}</td>
-                                                    <td>${data.categoryName}</td>
-                                                    <td>${data.productPrice}</td>
-                                                    <td>${data.buyProductCnt}</td>
-                                                    <td>${data.}</td>
-                                                </tr>
-                                               </c:forEach>
-												
-											</tbody>
-											<tfoot>
+													<tr>
+														<td>${data.productPK}</td>
+														<td>${data.productName}</td>
+														<td>${data.categoryName}</td>
+														<td>${data.productPrice}</td>
+														<td>${data.totalCnt}</td>
+														<td>${data.totalPrice}</td>
+													</tr>
+													<c:set var="totalPrice" value="${totalPrice + data.totalPrice}" />
+												</c:forEach>
 												<tr style="color: #000000;">
 													<th colspan="5">총금액</th>
-													<td>10</td>
+													<td>${totalPrice}</td>
 												</tr>
-											</tfoot>
+											</tbody>
 										</table>
 										<div id="nav"></div>
 									</div>
