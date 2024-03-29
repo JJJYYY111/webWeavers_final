@@ -51,7 +51,7 @@
 											<div style="display: flex; align-items: center;">
 												<!-- 체크박스 추가 -->
 												<input type="checkbox" name="selectedProducts"
-													value="${data.productPK}" style="margin-right: 10px;">
+													value="${data.cartPK}" style="margin-right: 10px;">
 												<!-- 상품 이미지와 링크 -->
 												<a href="/productDetail?productPK=${data.productPK}"> <img
 													src="${data.productImg}" alt="${data.productPK}번 상품사진"
