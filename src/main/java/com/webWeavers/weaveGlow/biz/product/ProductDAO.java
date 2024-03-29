@@ -303,22 +303,22 @@ public class ProductDAO {
 			}
 			// Admin_오늘 총 매출
 			else if (productDTO.getSearchCondition().equals("adminTodaySales")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminTodaySales"), new ProductSalesTotalTodayAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_TODAYSALES_TOTAL, new ProductSalesTotalTodayAdminRowMapper());
 			}// Admin_어제 총 매출
 			else if (productDTO.getSearchCondition().equals("adminPvdaySales")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminPvdaySales"), new ProductSalesTotalPvdayAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_PVDAYSALES_TOTAL, new ProductSalesTotalPvdayAdminRowMapper());
 			}// Admin_오늘 3시간별 매출(줄 그래프)
 			else if (productDTO.getSearchCondition().equals("adminTodaySalesByHours")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminTodaySalesByHours"), new ProductSalesTodayHourAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_TODAYSALES_THREEHOUR, new ProductSalesTodayHourAdminRowMapper());
 			}// Admin_어제 3시간별 매출(줄 그래프)
 			else if (productDTO.getSearchCondition().equals("adminPvdaySalesByHours")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminPvdaySalesByHours"), new ProductSalesPvdayHourAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_PVDAYSALES_THREEHOUR, new ProductSalesPvdayHourAdminRowMapper());
 			}// Admin_월별매출(막대 그래프)
 			else if (productDTO.getSearchCondition().equals("adminMonthlySalesGraph")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminMonthlySalesGraph"), new ProductMonthlySalesAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_MONTHLY_SALES, new ProductMonthlySalesAdminRowMapper());
 			}// Admin_카테고리별 매출 백분율(도넛차트)
 			else if (productDTO.getSearchCondition().equals("adminCategorySalesDonut")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminCategorySalesDonut"), new ProductSalesByCategoryAdminRowMapper());
+				return jdbcTemplate.query(SELECTALL_CATEGORY_SALES, new ProductSalesByCategoryAdminRowMapper());
 			}
 			
 		} catch (Exception e) {
