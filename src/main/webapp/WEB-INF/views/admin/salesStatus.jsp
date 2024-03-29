@@ -135,8 +135,6 @@
 							<div class="card-body">
 								<h4 class="card-title">주문통계내역 조회</h4>
 								<hr>
-								<form name="profileChangeForm" class=" row login_form"
-									method="POST" id="profileChange_form">
 									<!-- <form action="#"> -->
 									<div class="col-lg-12 form-body">
 										<div class="card-body-select" >
@@ -197,12 +195,12 @@
 										<br><hr><br>
 										<div class="form-actions">
 											<div class="text-right">
-												<button type="submit" class="btn btn-info">검색</button>
+												<button type="button" id="searchButton" class="btn btn-info">검색</button>
 												<button type="reset" class="btn btn-dark">리셋</button>
 											</div>
 										</div>
 									</div>
-								</form>
+									
 								<h4 class="card-title">상품조회</h4>
 								<hr>
 								<div class="table-responsive">

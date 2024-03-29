@@ -45,6 +45,8 @@ public class AdminController {
 		return "admin/adminDashboard";
 	}
 	
+	// 회원관리 ======================================================================
+	// ============================================================================
 	
 	@RequestMapping("/adminMemberStatus")
 	public String adminMemberStatus(MemberDTO memberDTO, Model model) {
@@ -94,6 +96,9 @@ public class AdminController {
 		System.out.println(json);
 		return json;
 	}
+
+	// 상품관리 ======================================================================	
+	// ============================================================================
 	
 	@RequestMapping("/adminProductStatus")
 	public String adminProductStatus(ProductDTO productDTO, Model model) {
@@ -171,6 +176,9 @@ public class AdminController {
 		return gson.toJson(categorizationService.selectAll(categorizationDTO));
 	}
 	
+	// 주문관리 ======================================================================
+	// ============================================================================
+	
 	@RequestMapping("/adminOrderStatus")
 	public String adminOrderStatus(SerialDTO serialDTO, Model model) {
 		serialDTO.setSearchCondition("orderList");
@@ -195,6 +203,9 @@ public class AdminController {
 		return String.valueOf(serialService.update(serialDTO));
 	}
 	
+	// 매출관리 ======================================================================
+	// ============================================================================
+	
 	@RequestMapping("/salesStatus")
 	public String salesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminProductSales");
@@ -202,7 +213,7 @@ public class AdminController {
 		return "admin/salesStatus";
 	}
 	
-	@RequestMapping("/salesSearch")
+	@RequestMapping("/searchSales")
 	public @ResponseBody String salesSearch(ProductDTO productDTO, Gson gson){
 		productDTO.setSearchCondition("adminProductSales");
 		return gson.toJson(productService.selectAll(productDTO));
@@ -211,7 +222,9 @@ public class AdminController {
 	@RequestMapping("/daliySalesStatus")
 	public String daliySalesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminDailySales");
-		model.addAttribute("productDatas", productService.selectAll(productDTO));
+		List<ProductDTO> datas = productService.selectAll(productDTO);
+		System.out.println(datas);
+		model.addAttribute("productDatas", datas);
 		return "admin/daliySalesStatus";
 	}
 	
