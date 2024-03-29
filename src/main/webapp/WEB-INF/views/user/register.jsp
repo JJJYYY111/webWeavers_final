@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="common"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -18,7 +19,7 @@
 			<div class="row">
 
 				<form name="joinForm" class="col-lg-12 row login_form"
-					action="registerSuccess" method="POST" id="register_form">
+					action="/registerSuccess" method="POST" id="register_form">
 					<!-- 약관동의 -->
 					<div class="col-lg-6">
 						<div class="login_form_inner register_form_inner">
@@ -115,7 +116,7 @@
 								<div class="col-md-4 label-text">이름</div>
 								<input type="text" class="form-control col-md-8" id="registName"
 									name="memberName" placeholder="이름 입력" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '이름 입력'"
+									onblur="this.placeholder = '이름 입력'" value="${memberDTO.memberName}"
 									style="display: inline-block;" required>
 							</div>
 
@@ -123,7 +124,7 @@
 								<div class="col-md-4 label-text">아이디</div>
 								<input type="text" class="form-control col-md-8" id="registMid"
 									name="memberID" placeholder="아이디 입력" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '아이디 입력'"
+									onblur="this.placeholder = '아이디 입력'" value="${memberDTO.memberID}"
 									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
@@ -132,13 +133,17 @@
 								<span class="col-md-8" id="idCheck"> <!-- 유효성 확인 문구 innerText -->
 								</span>
 							</div>
-
+							<c:if test="${not empty snsLogin}">
+							<input type="hidden" value="${memberDTO.memberPassword}" name="memberPassword">
+							</c:if>
+							<c:if test="${ empty snsLogin}">
+							
 							<div class="col-md-12 form-group" style="margin: 0;">
 								<div class="col-md-4 label-text">비밀번호</div>
 								<input type="password" class="form-control col-md-8"
 									id="registMpw" name="memberPassword" placeholder="비밀번호 입력"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '비밀번호 입력'"
+									onblur="this.placeholder = '비밀번호 입력'"  
 									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
@@ -153,7 +158,7 @@
 								<input type="password" class="form-control col-md-8"
 									id="confirmMpw" name="confirmMpw" placeholder="비밀번호 확인"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '비밀번호 확인'"
+									onblur="this.placeholder = '비밀번호 확인'" value="${memberDTO.memberPassword}"
 									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
@@ -162,13 +167,14 @@
 								<span class="col-md-8" id="confirmPwCheck"> <!-- 유효성 확인 문구 innerText -->
 								</span>
 							</div>
+							</c:if>
 
 							<div class="col-md-12 form-group" style="margin: 0;">
 								<div class="col-md-4 label-text">닉네임</div>
 								<input type="text" class="form-control col-md-8"
 									id="registNickname" name="memberNickname" placeholder="닉네임 입력"
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '닉네임 입력'"
+									onfocus="this.placeholder = ''" 
+									onblur="this.placeholder = '닉네임 입력'" value="${memberDTO.memberNickname}"
 									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
@@ -222,7 +228,7 @@
 								<input type="text" class="form-control col-md-8"
 									id="registPhone" name="memberPhone" placeholder="전화번호 입력"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '전화번호 입력'"
+									onblur="this.placeholder = '전화번호 입력'"   value="${memberDTO.memberPhone}"
 									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"
@@ -246,7 +252,7 @@
 								<input type="text" class="form-control col-md-8"
 									id="registEmail" name="memberEmail" placeholder="e-mail"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'e-mail'"
+									onblur="this.placeholder = 'e-mail'"  value="${memberDTO.memberEmail}"
 									style="display: inline-block;" required>
 							</div>
 							<div class="col-md-12"

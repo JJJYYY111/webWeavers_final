@@ -48,6 +48,7 @@ function checkJoinForm() {
 		if ((!joinForm.memberName.value) || joinForm.memberName.value.trim() == '') {
 			alert('이름을 입력하세요.');
 			joinForm.memberName.focus();
+			console.log('이름');
 			return false;
 		}
 		if (!joinForm.memberID.value) {
@@ -205,7 +206,7 @@ function registIDCheck(element, innerTextId, url, text) {
 		if (registUserText != '') {												// 사용자가 입력한 값이 비어있지 않으면,
 			$.ajax({
 				type: "POST",
-				url: url,														// 매개변수로 전달받은 url
+				url: "/async/idCheck",														// 매개변수로 전달받은 url
 				data: { 'memberID' : registUserText },								// 백단에 사용자가 입력한값 넘겨주기
 				dataType: 'text',
 				success: function(data) {
@@ -244,7 +245,7 @@ function registNickNameCheck(element, innerTextId, url, text) {
 		if (registUserText != '') {												// 사용자가 입력한 값이 비어있지 않으면,
 			$.ajax({
 				type: "POST",
-				url: url,														// 매개변수로 전달받은 url
+				url: "/async/nickNameCheck",														// 매개변수로 전달받은 url
 				data: { 'memberNickname' : registUserText },								// 백단에 사용자가 입력한값 넘겨주기
 				dataType: 'text',
 				success: function(data) {
