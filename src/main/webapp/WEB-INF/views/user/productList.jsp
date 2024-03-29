@@ -46,6 +46,62 @@
 .ctgr_box.active {
 	font-weight: bold; /* 선택된 항목에 대한 강조 표시 */
 }
+
+#paging {
+	width: 100%;
+	text-align: center;
+	margin-top: 20px;
+}
+
+#paging ul {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	justify-content: center; /* ul을 수평 가운데 정렬 */
+}
+
+#paging ul li {
+	display: inline-block;
+	margin-right: 5px; /* 각 페이지 번호 사이의 간격 조절 */
+}
+
+#paging ul li:first-child {
+	margin-right: 5px; /* 첫 번째 페이지 번호의 간격을 따로 조절 */
+}
+
+#paging ul li a {
+	display: block;
+	padding: 8px 16px;
+	font-size: 16px;
+	color: #000;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	text-decoration: none;
+}
+
+#paging ul li.active a {
+    background-color: #007bff; /* active 클래스가 있는 li의 하위에 있는 a 태그의 배경색을 파란색(#333)으로 변경 */
+    /* background-color: #333; */ /* active 클래스가 있는 li의 하위에 있는 a 태그의 배경색을 파란색(#333)으로 변경 */
+    color: #fff; /* 텍스트 색상을 하얀색(#fff)으로 변경 */
+    border-color: #333; /* 테두리 색상 변경 */
+}
+
+
+#paging ul li.paging_num {
+	display: inline-block;
+	margin-right: 5px; /* 각 페이지 번호 사이의 간격 조절 */
+}
+
+#paging ul li.paging_num:first-child {
+	margin-right: 5px; /* 첫 번째 페이지 번호의 간격을 따로 조절 */
+} 
+
+.custom-button:focus {
+    outline: none; /* 포커스된 요소의 기본 테두리 제거 */
+}
+
 </style>
 
 </head>
@@ -105,7 +161,7 @@
 									<!-- 원화표시 -->
 								</div>
 							</div>
-							<div class="custom-button"
+							<div class="custom-button"  tabindex="0"
 								style="text-align: right; margin-top: 5px">
 								<button onclick="onClickFilter()"
 									style="background-color: #384aeb; color: white; border: none; margin-right: 15px;">검색</button>
@@ -134,6 +190,8 @@
 						<div class="row" id="productListForm">
 							<!-- JS: 각 상품 데이터를 받아와서 해당 상품에 대한 HTML코드를 생성해 반환 -->
 						</div>
+						<div id='paging'>
+						</div>
 					</section>
 					<!-- /상품 -->
 				</div>
@@ -143,6 +201,6 @@
 	<!-- ================ /내용 ================= -->
 
 	<common:footer />
-	<script src="/resources/js/productList.js"></script>
+	<script src="/resources/js/productList2.js"></script>
 </body>
 </html>

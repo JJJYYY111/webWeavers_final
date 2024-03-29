@@ -77,9 +77,9 @@
                     <a href="productList" class="dropdown-item">전체</a>
                     <div class="dropdown-divider"></div>
                     <!-- 선 추가 -->
-                    <a href="skincareProductList" class="dropdown-item">스킨케어</a>
-                    <a href="cleangingProductList" class="dropdown-item">클렌징</a>
-                    <a href="packProductList" class="dropdown-item">마스크 팩</a>
+                    <a href="subCategoryProductList" class="dropdown-item">스킨케어</a>
+                    <a href="subCategoryProductList" class="dropdown-item">클렌징</a>
+                    <a href="subCategoryProductList" class="dropdown-item">마스크 팩</a>
                 </div>
             </li>
             <li class="nav-item"><a class="nav-link" href="contact">회사정보</a></li>

@@ -43,11 +43,73 @@
 }
 
 .list-area ul {
-	display: flex; /* 요소들을 가로로 배열 */
-	/* justify-content: space-between; */
-	justify-content: center; /* 가운데 정렬 */
+	display: flex; /* Flexbox 사용 */
+	flex-wrap: wrap; /* 요소들이 필요한 만큼 줄 바꿈되도록 설정 */
+	justify-content: flex-start; /* 왼쪽 정렬 */
 	padding: 0; /* 기본 패딩 제거 */
 	list-style: none; /* 목록 스타일 제거 */
+	width: 100%; /* 전체 너비 설정 */
+}
+
+.list-area ul li {
+	width: 25%; /* 요소들의 너비를 25%로 설정하여 네 개의 요소가 가로로 나열되도록 함 */
+	box-sizing: border-box; /* 요소의 너비에 패딩과 테두리를 포함하도록 설정 */
+	padding: 5px; /* 내부 여백 설정 */
+}
+
+#paging {
+	width: 100%;
+	text-align: center;
+	margin-top: 20px;
+}
+
+#paging ul {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	justify-content: center; /* ul을 수평 가운데 정렬 */
+}
+
+#paging ul li {
+	display: inline-block;
+	margin-right: 5px; /* 각 페이지 번호 사이의 간격 조절 */
+}
+
+#paging ul li:first-child {
+	margin-right: 5px; /* 첫 번째 페이지 번호의 간격을 따로 조절 */
+}
+
+#paging ul li a {
+	display: block;
+	padding: 8px 16px;
+	font-size: 16px;
+	color: #000;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	text-decoration: none;
+}
+
+#paging ul li.active a {
+    background-color: #007bff; /* active 클래스가 있는 li의 하위에 있는 a 태그의 배경색을 파란색(#333)으로 변경 */
+    /* background-color: #333; */ /* active 클래스가 있는 li의 하위에 있는 a 태그의 배경색을 파란색(#333)으로 변경 */
+    color: #fff; /* 텍스트 색상을 하얀색(#fff)으로 변경 */
+    border-color: #333; /* 테두리 색상 변경 */
+}
+
+
+#paging ul li.paging_num {
+	display: inline-block;
+	margin-right: 5px; /* 각 페이지 번호 사이의 간격 조절 */
+}
+
+#paging ul li.paging_num:first-child {
+	margin-right: 5px; /* 첫 번째 페이지 번호의 간격을 따로 조절 */
+} 
+
+.custom-button:focus {
+    outline: none; /* 포커스된 요소의 기본 테두리 제거 */
 }
 </style>
 
@@ -61,37 +123,34 @@
 	<section class="product-depth p_ver">
 		<div class="depth-list-wrap">
 			<%-- <c:if test="${datas[0].categoryPK == 1}"> --%>
-				<div class="list-area">
-					<ul>
-						<li><a href="subCategoryProductList" id=""
-							class="ctgr_box active">전체</a></li>
-						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S01" href="subCategoryProductList"
-							class="ctgr_box ">스킨</a></li>
-						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S02" href="subCategoryProductList"
-							class="ctgr_box ">로션/에멀젼</a></li>
-						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S03" href="subCategoryProductList"
-							class="ctgr_box ">에센스/세럼/앰플</a></li>
-					</ul>
-				</div>
-				<br>
-				<div class="list-area">
-					<ul>
-						<li><a id="L01M01S04" href="subCategoryProductList"
-							class="ctgr_box ">크림</a></li>
-						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S05" href="subCategoryProductList"
-							class="ctgr_box ">아이케어</a></li>
-						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S07" href="subCategoryProductList"
-							class="ctgr_box ">미스트/부스터</a></li>
-						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S08" href="subCategoryProductList"
-							class="ctgr_box ">세트</a></li>
-					</ul>
-				</div>
+			<div class="list-area">
+				<ul>
+					<li><a href="subCategoryProductList" id=""
+						class="ctgr_box active">전체</a></li>
+					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+					<li><a id="L01M01S01" href="subCategoryProductList"
+						class="ctgr_box ">스킨</a></li>
+					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+					<li><a id="L01M01S02" href="subCategoryProductList"
+						class="ctgr_box ">로션/에멀젼</a></li>
+					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+					<li><a id="L01M01S03" href="subCategoryProductList"
+						class="ctgr_box ">에센스/세럼/앰플</a></li>
+					<li><a id="L01M01S04" href="subCategoryProductList"
+						class="ctgr_box ">크림</a></li>
+					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+					<li><a id="L01M01S05" href="subCategoryProductList"
+						class="ctgr_box ">아이케어</a></li>
+					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+					<li><a id="L01M01S07" href="subCategoryProductList"
+						class="ctgr_box ">미스트/부스터</a></li>
+					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+					<li><a id="L01M01S08" href="subCategoryProductList"
+						class="ctgr_box ">세트</a></li>
+				</ul>
+			</div>
+
+			<br>
 			<%-- </c:if> --%>
 			<c:if test="${datas[0].categoryPK == 2}">
 				<div class="list-area">
@@ -107,15 +166,12 @@
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
 						<li><a id="L01M01S03" href="subCategoryProductList"
 							class="ctgr_box ">클렌징젤/오일/티슈</a></li>
-					</ul>
-				</div>
-				<br>
-				<div class="list-area">
-					<ul>
 						<li><a id="L01M01S04" href="subCategoryProductList"
 							class="ctgr_box ">립&아이 리무버</a></li>
 					</ul>
 				</div>
+				<br>
+
 			</c:if>
 			<c:if test="${datas[0].categoryPK == 3}">
 				<div class="list-area">
@@ -131,15 +187,11 @@
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
 						<li><a id="L01M01S03" href="subCategoryProductList"
 							class="ctgr_box ">시트마스크</a></li>
-					</ul>
-				</div>
-				<br>
-				<div class="list-area">
-					<ul>
 						<li><a id="L01M01S04" href="subCategoryProductList"
 							class="ctgr_box ">코팩</a></li>
 					</ul>
 				</div>
+				<br>
 			</c:if>
 		</div>
 	</section>
@@ -165,7 +217,7 @@
 									<!-- 원화표시 -->
 								</div>
 							</div>
-							<div class="custom-button"
+							<div class="custom-button" tabindex="0"
 								style="text-align: right; margin-top: 5px">
 								<button onclick="onClickFilter()"
 									style="background-color: #384aeb; color: white; border: none; margin-right: 15px;">검색</button>
@@ -194,6 +246,8 @@
 						<div class="row" id="productListForm">
 							<!-- JS: 각 상품 데이터를 받아와서 해당 상품에 대한 HTML코드를 생성해 반환 -->
 						</div>
+						<div id='paging'>
+						</div>
 					</section>
 					<!-- /상품 -->
 				</div>
@@ -204,6 +258,6 @@
 
 	<common:footer />
 
-	<script src="/resources/js/productList.js"></script>
+	<script src="/resources/js/productList2.js"></script>
 </body>
 </html>
