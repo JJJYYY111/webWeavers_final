@@ -81,13 +81,13 @@ $(document).on("click", "#searchButton", function () {
 
             for (var i = 0; i < datas.length; i++) {
                 tableHTML += "<tr>";
-                tableHTML += "<td class=\"sorting_asc\" style=\"background-color: #f2f2f2;\">" + datas[i].productPK + "</td>";
-                tableHTML += "<td class=\"sorting_asc\" style=\"background-color: #f2f2f2;\">" + datas[i].productName + "</td>";
-                tableHTML += "<td class=\"sorting_asc\" style=\"background-color: #f2f2f2;\">" + datas[i].categoryName + "</td>";
-                tableHTML += "<td class=\"sorting_asc\" style=\"background-color: #f2f2f2;\">" + datas[i].subCategoryName + "</td>";
-                tableHTML += "<td class=\"sorting_asc\" style=\"background-color: #f2f2f2;\">" + datas[i].productPrice + "</td>";
-                tableHTML += "<td class=\"sorting_asc\" style=\"background-color: #f2f2f2;\">" + datas[i].totalCnt + "</td>";
-                tableHTML += "<td class=\"sorting_asc\" style=\"background-color: #f2f2f2;\">" + datas[i].totalPrice + "</td>";
+                tableHTML += "<td >" + datas[i].productPK + "</td>";
+                tableHTML += "<td >" + datas[i].productName + "</td>";
+                tableHTML += "<td >" + datas[i].categoryName + "</td>";
+                tableHTML += "<td >" + datas[i].subCategoryName + "</td>";
+                tableHTML += "<td >" + datas[i].productPrice + "</td>";
+                tableHTML += "<td >" + datas[i].totalCnt + "</td>";
+                tableHTML += "<td >" + datas[i].totalPrice + "</td>";
                 tableHTML += "</tr>";
             }
 
