@@ -24,7 +24,7 @@
 										<div class="col-lg-6">
 											<div class="owl-carousel owl-theme s_Product_carousel">
 												<div class="single-prd-item">
-													<img class="img-fluid" src="/resources/${productImg}" alt="${productPK}번 상품사진">
+													<img class="img-fluid" src="${productImg}" alt="${productPK}번 상품사진">
 												</div>
 											</div>
 										</div>

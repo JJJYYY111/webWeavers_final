@@ -78,7 +78,7 @@
 <script src="/resources/vendors/nouislider/nouislider.min.js"></script>
 <script src="/resources/vendors/jquery.ajaxchimp.min.js"></script>
 <script src="/resources/vendors/mail-script.js"></script>
-<script src="/resources///t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/resources/js/main.js"></script>
 <script src="/resources/js/kakaoAddress.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

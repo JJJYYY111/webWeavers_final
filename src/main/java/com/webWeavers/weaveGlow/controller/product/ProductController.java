@@ -118,5 +118,9 @@ public class ProductController {
 		return "user/searchProductName";
 
 	}
-
+	
+	@RequestMapping("/subCategoryProductList")
+	public String subCategoryProductList(ProductDTO productDTO, Model model) {
+		return "user/subCategoryProductList";
+	}
 }
