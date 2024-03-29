@@ -29,5 +29,10 @@ public class ProductDTO {
 	private String endDate;			// 매출현황 (필터_조회기간 마지막날짜)
 	private int totalCnt;			// 매출현황 (총 판매 개수)
 	private int totalPrice;			// 매출현황 (총 판매 금액)
-
+	private int pvtotalPrice;		// 매출현황 (어제 총 판매 금액)
+	private int totalTemp;			// 매출현황 (판매 시간)
+	private int pvtotalTemp;		// 매출현황 (어제 판매 시간)
+	private String month;			// 매출현황 (월별 매출)
+	private int categoryTotal;		// 매출현황 (카테고리별 매출합계)
+	private int percentAge;			// 매출현황 (카테고리별 퍼센트 차지 비중)
 }

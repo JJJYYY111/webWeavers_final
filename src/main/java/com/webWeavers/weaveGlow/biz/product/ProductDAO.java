@@ -15,6 +15,7 @@ public class ProductDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	
 	// ------------------------------------- UserPage -------------------------------------
 	// User_메인페이지, 상품목록페이지
 	// 정렬별 상품목록 쿼리문 반환 함수
@@ -91,9 +92,74 @@ public class ProductDAO {
 	
 	// ------------------------------------- AdminPage_매출관리 -------------------------------------
 	
-	// Admin_매출현황페이지
-	// 검색조건별 매출현황 쿼리문 반환 함수
-	private static String selectAllProductSalesQuery(ProductDTO productDTO) {
+	// -----------------------------전일 매출, 월별 매출 gift for wzi----------------------
+		// 오늘 총 매출 
+		private static final String SELECTALL_TODAYSALES_TOTAL =
+				"SELECT SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS TOTAL "
+						+ "FROM BUYPRODUCT B 	"
+						+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK "
+						+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK "
+						+ "WHERE DATE(S.SERIAL_REGDATE) = CURDATE()";
+
+		// 어제 총 매출 --
+		private static final String SELECTALL_PVDAYSALES_TOTAL = 
+				"SELECT SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS PV_TOTAL "
+				+ "FROM BUYPRODUCT B "
+				+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK "
+				+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK "
+				+ "WHERE DATE(S.SERIAL_REGDATE) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+
+		// 3시간별 비교 매출 총합
+		private static final String SELECTALL_TODAYSALES_THREEHOUR = 
+				" SELECT TOTAL.TEMP, SUM(PRODUCT_PRICE * BUYPRODUCT_CNT) AS SALES_TOTAL	"
+				+ "FROM ( SELECT P.PRODUCT_PK, P.PRODUCT_PRICE, B.BUYPRODUCT_CNT, (FLOOR(DATE_FORMAT(S.SERIAL_REGDATE, '%H') / 3) * 3) AS TEMP "
+				+ "FROM PRODUCT P "
+				+ "JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK "
+				+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK "
+				+ "WHERE DATE(S.SERIAL_REGDATE) = CURDATE()) AS TOTAL " // 구매시간을 기준으로 시간을 계산 = 오늘날짜만
+				+ "GROUP BY TEMP "; // 시간대별로 그룹화 
+
+		// 전날 3시간별 비교 매출총합 
+		private static final String SELECTALL_PVDAYSALES_THREEHOUR = 
+				"SELECT PV_TOTAL.TEMP, SUM(PRODUCT_PRICE * BUYPRODUCT_CNT) AS SALES_TOTAL "
+				+ "FROM (SELECT P.PRODUCT_PK, P.PRODUCT_PRICE, B.BUYPRODUCT_CNT, (FLOOR(DATE_FORMAT(S.SERIAL_REGDATE, '%H') / 3) * 3) AS TEMP "
+				+ "FROM PRODUCT P JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK "
+				+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK "
+				+ "WHERE DATE(S.SERIAL_REGDATE) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)) AS PV_TOTAL "
+				+ "GROUP BY TEMP "; 
+		
+		// 월별 매출 차트 
+		private static final String SELECTALL_MONTHLY_SALES = 
+				"SELECT DATE_FORMAT(S.SERIAL_REGDATE, '%Y-%m') AS MONTH, "
+				+ "SUM(PRODUCT_PRICE * BUYPRODUCT_CNT) AS SALES_TOTAL "
+				+ "FROM PRODUCT P "
+				+ "JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK "
+				+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK "
+				+ "WHERE YEAR(S.SERIAL_REGDATE) = YEAR(CURDATE()) "
+				+ "GROUP BY DATE_FORMAT(S.SERIAL_REGDATE, '%Y-%m') "; 
+
+		    
+		 // 카테고리별 매출 구하고 백분율로 나누기(도넛차트) 
+		private static final String SELECTALL_CATEGORY_SALES =
+				"SELECT CASE P.CATEGORY_PK "
+				+ "WHEN 1 THEN '스킨케어' "
+				+ "WHEN 2 THEN '클렌징' "
+				+ "WHEN 3 THEN '마스크팩' "
+				+ "ELSE '기타' "
+				+ "END AS CATEGORY_NAME, "
+				+ "SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS CATEGORY_TOTAL, "
+				+ "ROUND((SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) / total_sales.total_sales) * 100, 1) AS PERCENTAGE "
+				+ "FROM BUYPRODUCT B JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK "
+				+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK "
+				+ "JOIN (SELECT SUM(B1.BUYPRODUCT_CNT * P1.PRODUCT_PRICE) AS total_sales "
+				+ "FROM BUYPRODUCT B1 "
+				+ "JOIN PRODUCT P1 ON B1.PRODUCT_PK = P1.PRODUCT_PK "
+				+ "JOIN SERIAL S1 ON S1.SERIAL_PK = B1.SERIAL_PK "
+				+ "WHERE DATE(S1.SERIAL_REGDATE) = CURDATE()) AS total_sales ON 1=1 WHERE DATE(S.SERIAL_REGDATE) = CURDATE() "
+				+ "GROUP BY P.CATEGORY_PK, total_sales.total_sales "; 	// 검색조건별 매출현황 쿼리문 반환 함수
+	
+				
+		private static String selectAllProductSalesQuery(ProductDTO productDTO) {
 
 		// 상품별 카테고리 정보 조회 CTE
 		String query = "WITH P_CATEGORY AS (\r\n"
@@ -235,6 +301,26 @@ public class ProductDAO {
 			else if (productDTO.getSearchCondition().equals("adminMonthlySales")) {
 				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminMonthlySales"), new ProductTop10SalesRowMapper());
 			}
+			// Admin_오늘 총 매출
+			else if (productDTO.getSearchCondition().equals("adminTodaySales")) {
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminTodaySales"), new ProductSalesTotalTodayAdminRowMapper());
+			}// Admin_어제 총 매출
+			else if (productDTO.getSearchCondition().equals("adminPvdaySales")) {
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminPvdaySales"), new ProductSalesTotalPvdayAdminRowMapper());
+			}// Admin_오늘 3시간별 매출(줄 그래프)
+			else if (productDTO.getSearchCondition().equals("adminTodaySalesByHours")) {
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminTodaySalesByHours"), new ProductSalesTodayHourAdminRowMapper());
+			}// Admin_어제 3시간별 매출(줄 그래프)
+			else if (productDTO.getSearchCondition().equals("adminPvdaySalesByHours")) {
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminPvdaySalesByHours"), new ProductSalesPvdayHourAdminRowMapper());
+			}// Admin_월별매출(막대 그래프)
+			else if (productDTO.getSearchCondition().equals("adminMonthlySalesGraph")) {
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminMonthlySalesGraph"), new ProductMonthlySalesAdminRowMapper());
+			}// Admin_카테고리별 매출 백분율(도넛차트)
+			else if (productDTO.getSearchCondition().equals("adminCategorySalesDonut")) {
+				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminCategorySalesDonut"), new ProductSalesByCategoryAdminRowMapper());
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -412,6 +498,71 @@ class ProductInsertRowMapper implements RowMapper<ProductDTO> {
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		
+		return data;
+	}
+}
+
+class ProductSalesTotalTodayAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+		
+		return data;
+	}
+}
+
+class ProductSalesTotalPvdayAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setPvtotalPrice(rs.getInt("PVTOTAL_PRICE"));
+		
+		return data;
+	}
+}
+
+class ProductSalesTodayHourAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setTotalTemp(rs.getInt("TOTAL_TEMP"));
+		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+		
+		return data;
+	}
+}
+
+class ProductSalesPvdayHourAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setPvtotalTemp(rs.getInt("PVTOTAL_TEMP"));
+		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+		
+		return data;
+	}
+}
+
+class ProductMonthlySalesAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setMonth(rs.getString("MONTH"));
+		data.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+		
+		return data;
+	}
+}
+
+class ProductSalesByCategoryAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setCategoryName(rs.getString("CATEGORY_NAME"));
+		data.setCategoryTotal(rs.getInt("CATEGORY_TOTAL"));
+		data.setPercentAge(rs.getInt("PERCENTAGE"));
 		
 		return data;
 	}
