@@ -11,105 +11,85 @@
 <title>WeaveGlow - ProductList</title>
 <common:head />
 <style type="text/css">
-.grid-container {
-	display: flex; /* 내부 요소를 수평으로 배치하기 위해 flex 사용 */
-	flex-wrap: wrap; /* 요소들이 넘치면 다음 줄로 이동하도록 설정 */
-	justify-content: center; /* 요소들을 수평 가운데 정렬 */
-	padding: 0;
-	list-style: none; /* 리스트 스타일 제거 */
-	height: 80px; /* 박스의 높이 */
-}
-
-.ctgr_box {
-	width: 275px; /* 박스의 너비 */
-	display: flex; /* 내부 요소를 가로로 배열하기 위해 flex 사용 */
-	align-items: center; /* 내부 요소를 수직 가운데 정렬 */
-	justify-content: center; /* 내부 요소를 수평 가운데 정렬 */
-	text-decoration: none; /* 링크에 밑줄 제거 */
-	color: black; /* 링크 색상 */
-	font-size: 20px;
-	text-align: center;
-}
-
-.grid-container li {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-}
-
-.ctgr_box.active {
-	font-weight: bold; /* 선택된 항목에 대한 강조 표시 */
+.list-area {
+    display: flex;
+    justify-content: center;
+    width: 80%; /* 화면 폭의 80%만 사용하도록 설정 */
+    margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 가운데 정렬 */
+    margin-right: auto; /* 오른쪽 여백을 자동으로 설정하여 가운데 정렬 */
+    padding-left: 20px; /* 왼쪽 여백 추가 */
+    padding-right: 20px; /* 오른쪽 여백 추가 */
 }
 
 .list-area ul {
-	display: flex; /* Flexbox 사용 */
-	flex-wrap: wrap; /* 요소들이 필요한 만큼 줄 바꿈되도록 설정 */
-	justify-content: flex-start; /* 왼쪽 정렬 */
-	padding: 0; /* 기본 패딩 제거 */
-	list-style: none; /* 목록 스타일 제거 */
-	width: 100%; /* 전체 너비 설정 */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* 요소들을 균등하게 간격을 두고 배치 */
+    list-style: none;
+    padding: 0;
+    width: 100%;
 }
 
 .list-area ul li {
-	width: 25%; /* 요소들의 너비를 25%로 설정하여 네 개의 요소가 가로로 나열되도록 함 */
-	box-sizing: border-box; /* 요소의 너비에 패딩과 테두리를 포함하도록 설정 */
-	padding: 5px; /* 내부 여백 설정 */
+    width: calc(25% - 20px); /* 1줄에 4개씩 보이도록 각 아이템의 너비 설정 */
+    margin-bottom: 20px; /* 아이템 간의 아래 여백 추가 */
+
+}
+
+.ctgr_box {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+.ctgr_box.active {
+    font-weight: bold;
 }
 
 #paging {
-	width: 100%;
-	text-align: center;
-	margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
 }
 
 #paging ul {
-	display: flex;
-	flex-wrap: wrap;
-	list-style: none;
-	padding: 0;
-	justify-content: center; /* ul을 수평 가운데 정렬 */
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
 }
 
 #paging ul li {
-	display: inline-block;
-	margin-right: 5px; /* 각 페이지 번호 사이의 간격 조절 */
+    display: inline-block;
+    margin-right: 5px;
 }
 
 #paging ul li:first-child {
-	margin-right: 5px; /* 첫 번째 페이지 번호의 간격을 따로 조절 */
+    margin-right: 5px;
 }
 
 #paging ul li a {
-	display: block;
-	padding: 8px 16px;
-	font-size: 16px;
-	color: #000;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	text-decoration: none;
+    display: block;
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #000;
+    background-color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
 }
 
 #paging ul li.active a {
-    background-color: #007bff; /* active 클래스가 있는 li의 하위에 있는 a 태그의 배경색을 파란색(#333)으로 변경 */
-    /* background-color: #333; */ /* active 클래스가 있는 li의 하위에 있는 a 태그의 배경색을 파란색(#333)으로 변경 */
-    color: #fff; /* 텍스트 색상을 하얀색(#fff)으로 변경 */
-    border-color: #333; /* 테두리 색상 변경 */
+    background-color: #007bff;
+    color: #fff;
+    border-color: #333;
 }
-
-
-#paging ul li.paging_num {
-	display: inline-block;
-	margin-right: 5px; /* 각 페이지 번호 사이의 간격 조절 */
-}
-
-#paging ul li.paging_num:first-child {
-	margin-right: 5px; /* 첫 번째 페이지 번호의 간격을 따로 조절 */
-} 
 
 .custom-button:focus {
-    outline: none; /* 포커스된 요소의 기본 테두리 제거 */
+    outline: none;
 }
 </style>
 
@@ -121,55 +101,79 @@
 	<!-- ================ 내용 ================= -->
 	<br>
 	<section class="product-depth p_ver">
-		<input type="hidden" id="checkSubCategoryPK" value="${subCategoryPK}"/>
-		<input type="hidden" id="checkCategoryPK" value="${categoryPK}"/>
+		<input type="hidden" id="checkSubCategoryPK" value="${subCategoryPK}" />
+		<input type="hidden" id="checkCategoryPK" value="${categoryPK}" />
 		<div class="depth-list-wrap">
 			<c:if test="${categoryPK == 1}">
-			<div class="list-area">
-				<ul>
-					<li><a href="subCategoryProductList?categoryPK=1"
-						class="ctgr_box active">전체</a></li>
-					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S01" href="subCategoryProductList?categoryPK=1&subCategoryPK=1"
-						class="ctgr_box ">스킨</a></li>
-					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S02" href="subCategoryProductList?categoryPK=1&subCategoryPK=2"
-						class="ctgr_box ">로션/에멀젼</a></li>
-					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S03" href="subCategoryProductList?categoryPK=1&subCategoryPK=3"
-						class="ctgr_box ">에센스/세럼/앰플</a></li>
-					<li><a id="L01M01S04" href="subCategoryProductList?categoryPK=1&subCategoryPK=4"
-						class="ctgr_box ">크림</a></li>
-					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S05" href="subCategoryProductList?categoryPK=1&subCategoryPK=5"
-						class="ctgr_box ">아이케어</a></li>
-					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S07" href="subCategoryProductList?categoryPK=1&subCategoryPK=6"
-						class="ctgr_box ">미스트/부스터</a></li>
-					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S08" href="subCategoryProductList?categoryPK=1&subCategoryPK=7"
-						class="ctgr_box ">세트</a></li>
-				</ul>
-			</div>
+				<div class="list-area">
+					<ul class="grid-container">
+						<li style="border-right: 1px solid rgba(0, 0, 0, 0.1)"><a
+							href="subCategoryProductList?categoryPK=1"
+							class="ctgr_box active">전체</a></li>
+						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+						<li style="border-right: 1px solid rgba(0, 0, 0, 0.1)"><a
+							id="L01M01S01"
+							href="subCategoryProductList?categoryPK=1&subCategoryPK=1"
+							class="ctgr_box ">스킨</a></li>
+						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+						<li style="border-right: 1px solid rgba(0, 0, 0, 0.1)"><a
+							id="L01M01S02"
+							href="subCategoryProductList?categoryPK=1&subCategoryPK=2"
+							class="ctgr_box ">로션/에멀젼</a></li>
+						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+						<li style="border-right: 1px solid rgba(0, 0, 0, 0.1)"><a
+							id="L01M01S03"
+							href="subCategoryProductList?categoryPK=1&subCategoryPK=3"
+							class="ctgr_box ">에센스/세럼/앰플</a></li>
+						<li style="border-right: 1px solid rgba(0, 0, 0, 0.1)"><a
+							id="L01M01S04"
+							href="subCategoryProductList?categoryPK=1&subCategoryPK=4"
+							class="ctgr_box ">크림</a></li>
+						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+						<li style="border-right: 1px solid rgba(0, 0, 0, 0.1)"><a
+							id="L01M01S05"
+							href="subCategoryProductList?categoryPK=1&subCategoryPK=5"
+							class="ctgr_box ">아이케어</a></li>
+						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+						<li style="border-right: 1px solid rgba(0, 0, 0, 0.1)"><a
+							id="L01M01S07"
+							href="subCategoryProductList?categoryPK=1&subCategoryPK=6"
+							class="ctgr_box ">미스트/부스터</a></li>
+						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
+						<li style="border-right: 1px solid rgba(0, 0, 0, 0.1)"><a
+							id="L01M01S08"
+							href="subCategoryProductList?categoryPK=1&subCategoryPK=7"
+							class="ctgr_box ">세트</a></li>
+					</ul>
+				</div>
 
-			<br>
+				<br>
 			</c:if>
 			<c:if test="${categoryPK == 2}">
 				<div class="list-area">
-					<ul>
+					<ul class="grid-container">
 						<li><a href="subCategoryProductList?categoryPK=2" id=""
-							class="ctgr_box active">전체</a></li>
+							class="ctgr_box active"
+							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">전체</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S01" href="subCategoryProductList?categoryPK=2&subCategoryPK=8"
-							class="ctgr_box ">클렌징폼</a></li>
+						<li><a id="L01M01S01"
+							href="subCategoryProductList?categoryPK=2&subCategoryPK=8"
+							class="ctgr_box "
+							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">클렌징폼</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S02" href="subCategoryProductList?categoryPK=2&subCategoryPK=9"
-							class="ctgr_box ">클렌징크림/로션/워터</a></li>
+						<li><a id="L01M01S02"
+							href="subCategoryProductList?categoryPK=2&subCategoryPK=9"
+							class="ctgr_box "
+							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">클렌징크림/로션/워터</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S03" href="subCategoryProductList?categoryPK=2&subCategoryPK=10"
-							class="ctgr_box ">클렌징젤/오일/티슈</a></li>
-						<li><a id="L01M01S04" href="subCategoryProductList?categoryPK=2&subCategoryPK=11"
-							class="ctgr_box ">립&아이 리무버</a></li>
+						<li><a id="L01M01S03"
+							href="subCategoryProductList?categoryPK=2&subCategoryPK=10"
+							class="ctgr_box "
+							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">클렌징젤/오일/티슈</a></li>
+						<li><a id="L01M01S04"
+							href="subCategoryProductList?categoryPK=2&subCategoryPK=11"
+							class="ctgr_box "
+							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">립&아이 리무버</a></li>
 					</ul>
 				</div>
 				<br>
@@ -177,20 +181,28 @@
 			</c:if>
 			<c:if test="${categoryPK == 3}">
 				<div class="list-area">
-					<ul>
+					<ul class="grid-container">
 						<li><a href="subCategoryProductList?categoryPK=3" id=""
-							class="ctgr_box active">전체</a></li>
+							class="ctgr_box active"
+							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">전체</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S01" href="subCategoryProductList?categoryPK=3&subCategoryPK=12"
-							class="ctgr_box ">마사지/워시오프 팩</a></li>
+						<li><a id="L01M01S01"
+							href="subCategoryProductList?categoryPK=3&subCategoryPK=12"
+							class="ctgr_box "
+							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">마사지/워시오프 팩</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S02" href="subCategoryProductList?categoryPK=3&subCategoryPK=13"
-							class="ctgr_box ">필링/스크럽</a></li>
+						<li><a id="L01M01S02"
+							href="subCategoryProductList?categoryPK=3&subCategoryPK=13"
+							class="ctgr_box " v>필링/스크럽</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S03" href="subCategoryProductList?categoryPK=3&subCategoryPK=14"
-							class="ctgr_box ">시트마스크</a></li>
-						<li><a id="L01M01S04" href="subCategoryProductList?categoryPK=3&subCategoryPK=15"
-							class="ctgr_box ">코팩</a></li>
+						<li><a id="L01M01S03"
+							href="subCategoryProductList?categoryPK=3&subCategoryPK=14"
+							class="ctgr_box "
+							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">시트마스크</a></li>
+						<li><a id="L01M01S04"
+							href="subCategoryProductList?categoryPK=3&subCategoryPK=15"
+							class="ctgr_box "
+							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">코팩</a></li>
 					</ul>
 				</div>
 				<br>
@@ -248,8 +260,7 @@
 						<div class="row" id="productListForm">
 							<!-- JS: 각 상품 데이터를 받아와서 해당 상품에 대한 HTML코드를 생성해 반환 -->
 						</div>
-						<div id='paging'>
-						</div>
+						<div id='paging'></div>
 					</section>
 					<!-- /상품 -->
 				</div>
