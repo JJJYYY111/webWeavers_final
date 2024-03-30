@@ -114,7 +114,7 @@ function addToCart() {
 						  popup : 'animate__animated animate__fadeOut animate__faster'
 						},
 					  title: "장바구니 추가 완료",
-					  imageUrl: "img/cart.png",
+					  imageUrl: "resources/img/cart.png",
 					  imageWidth: 100,
 					  imageHeight: 100,
 					  imageAlt: "Custom image",

@@ -18,16 +18,13 @@
 <!-- Favicon icon -->
 <link rel="icon" type="/resources/image/png" sizes="16x16"
 	href="/resources/admin/assets/images/favicon.png" />
-<title>일별 매출현황</title>
+<title>월별 매출현황</title>
 <!-- This page plugin CSS -->
 <link
 	href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
 	rel="stylesheet" />
 <!-- Custom CSS -->
 <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
-<!-- This Page CSS -->
-<!-- 3.17일 추가 -->
-<link href="/resources/admin/assets/libs/morris.js/morris.css" rel="stylesheet">
 <style>
 .input {
 	color: #000000;
@@ -220,7 +217,7 @@ th, td {
 				<div class="row">
 					<div class="col-7 align-self-center">
 						<h4
-							class="page-title text-truncate text-dark font-weight-medium mb-1">일별
+							class="page-title text-truncate text-dark font-weight-medium mb-1">월별
 							매출 현황</h4>
 						<div class="d-flex align-items-center">
 							<nav aria-label="breadcrumb">
@@ -238,61 +235,35 @@ th, td {
 			<!-- ============================================================== -->
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-lg-6 col-md-6 col-sm-6">
+					<!-- column -->
+					<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="card-title">Line Chart</h4>
+								<h4 class="card-title">Product line Chart</h4>
 								<ul class="list-inline text-right">
 									<li class="list-inline-item">
 										<h5>
-											<i class="fa fa-circle mr-1 text-info"></i>어제
-										</h5>
-									</li>
-									<li class="list-inline-item">
-										<h5>
-											<i class="fa fa-circle mr-1 text-cyan"></i>오늘
+											<i class="fa fa-circle mr-1 text-info"></i> 매출(원) 
 										</h5>
 									</li>
 								</ul>
-								<div id="morris-line-chart"></div>
+								<div id="morris-area-chart"></div>
 							</div>
 						</div>
 					</div>
-					<!-- column -->
-					<div class="col-lg-6 col-md-6 col-sm-6">
+					<div class="col-12 " name="monthCardTwo">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="card-title">Donut Charts</h4>
-								<div class="row">
-									<!-- Donut Chart 1 -->
-									<div class="col-lg-6 col-md-6 col-sm-6">
-										<div id="morris-donut-chart"></div>
-										<p class="text-center">어제</p>
-									</div>
-
-									<!-- Donut Chart 2 -->
-									<div class="col-lg-6 col-md-6 col-sm-6">
-										<div id="morris-donut-chart2"></div>
-										<p class="text-center">오늘</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 " name="daliyCardTwo">
-						<div class="card">
-							<div class="card-body">
-								<h4 class="card-title">당일 상품 top 10 리스트</h4>
+								<h4 class="card-title">당월 상품 top 10 리스트</h4>
 								<hr>
 								<br>
 								<div class='cur-row' style="color: #000000;">
 									<br>
 									<div class="table-wrapper" name="productList">
-										<table id="products" border="1">
+										<table id="products" border="1" style="table-layout:auto;">
 											<thead>
 												<tr style="color: #000000;">
-													<th>PK</th>
+													<th >PK</th>
 													<th>상품명</th>
 													<th>카테고리</th>
 													<th>가격</th>
@@ -321,7 +292,6 @@ th, td {
 										<div id="nav"></div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 </div>
@@ -338,6 +308,7 @@ th, td {
 		<!-- Bootstrap tether Core JavaScript -->
 		<script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 		<script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- apps -->
 		<!-- apps -->
 		<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
 		<script src="/resources/admin/dist/js/feather.min.js"></script>

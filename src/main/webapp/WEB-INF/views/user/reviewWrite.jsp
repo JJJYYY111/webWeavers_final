@@ -27,7 +27,7 @@
 				<form id="reviewForm" onsubmit="submitForm(event)"
 					action="reviewInsert" method="POST" enctype="multipart/form-data"> 								
 				<a href="productDetail?productPK=${buyProductDTO.productPK}"> <img
-					class="card-img" src="/resources/${buyProductDTO.productImg}" alt="구매한 상품 이미지"></a><br> 
+					class="card-img" src="${buyProductDTO.productImg}" alt="구매한 상품 이미지"></a><br> 
 				<br>
 				<h3>${buyProductDTO.productName}</h3> <!-- 리뷰 작성할 구매한 상품 이름 -->
 				<br><br>				
@@ -37,7 +37,7 @@
 					
 					<!-- 구매한 상품 리뷰에 등록할 이미지 -->
 						<img id="preview" style="max-width: 200%; max-height: 200px;"
-							class="img-fluid" src="img/default.jpg" alt="업로드할 이미지"> 
+							class="img-fluid" src="resources/img/default.jpg" alt="업로드할 이미지"> 
 							<input type="file" 
 							id="uploadimg" name="reviewImgFile" onchange="readURL(this);" accept=".png, .jpeg, .jpg"> 
 						<input type="hidden" id="prevImg" name="reviewImg" value="${reviewDTO.reviewImg}"> <!-- 이미지 미리보기 -->

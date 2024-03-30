@@ -397,7 +397,7 @@ to {
 												$.ajax({
 													
 													type: "POST",
-													url: "searchSerial",
+													url: "adminSearchSerial",
 													data: {
                                                         'serialStatus': serialStatus,
                                                         'memberName': memberName,
@@ -409,7 +409,7 @@ to {
                                                     	
                                                     	success:function(datas) {
                                                     		console.log('콘솔 ['+datas +']');
-                                                    	    var tableHTML = "<table id='products' border='1'>";
+                                                    	    var tableHTML = "<table id='products' border='1' style='table-layout:auto;'>";
                                                     	    tableHTML += "<thead><tr><th>주문번호</th><th>주문날짜</th><th>주문자</th><th>상품명</th><th>총결제금액</th><th>주문상태</th><th>배송지</th></tr></thead>";
                                                     	    tableHTML += "<tbody>";
                                                     	    for (var i = 0; i < datas.length; i++) {
@@ -419,7 +419,7 @@ to {
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].memberName + "</td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].productName + "외"+ datas[i].buyProductCnt+"개"+"</td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].totalPrice + "</td>";
-                                                    	        tableHTML += "<td><select class=\"custom-select mr-sm-2 serialStatus\" style=\"color: #000000;\" id=\"" + datas[i].serialPK + "\">";
+                                                    	        tableHTML += "<td><select class=\"custom-select mr-sm-2 serialStatus\" style=\"color: #000000; width:auto;\" id=\"" + datas[i].serialPK + "\">";
                                                     	        tableHTML += "<option value=\"receipt\" " + (datas[i].serialStatus === 'receipt' ? 'selected' : '') + ">접수</option>";
                                                     	        tableHTML += "<option value=\"finish\" " + (datas[i].serialStatus === 'finish' ? 'selected' : '') + ">완료</option>";
                                                     	        tableHTML += "</select></td>";
@@ -459,7 +459,7 @@ to {
 
 										<br>
 										<div class="table-wrapper">
-											<table id="products" border="1">
+											<table id="products" border="1" style="table-layout:auto;">
 
 												<thead>
 													<tr style="color: #000000; width: 100%">
@@ -483,7 +483,7 @@ to {
 															<td class="productName" id="${data.serialPK}">${data.memberName}</td>
 															<td class="productName" id="${data.serialPK}">${data.productName}외${data.buyProductCnt}개</td>
 															<td class="productName" id="${data.serialPK}">${data.totalPrice}</td>
-															<td><select class="custom-select mr-sm-2 serialStatus" style="color: #000000;" id="${data.serialPK}">
+															<td><select class="custom-select mr-sm-2 serialStatus" style="color: #000000; width:auto;" id="${data.serialPK}">
                 <option value="receipt" ${data.serialStatus == 'receipt' ? 'selected' : ''}>접수</option>
                 <option value="finish" ${data.serialStatus == 'finish' ? 'selected' : ''}>완료</option>
             </select></td>
@@ -516,7 +516,7 @@ to {
 
 													<br>
 
-													<table id="productsTable" border="1" style="width: 100%;">
+													<table id="productsTable" border="1" style="width: 100%; table-layout:auto;">
 
 
 														<tr>
@@ -540,7 +540,7 @@ to {
                                                         
                                                         $.ajax({
                                                             type: "POST",
-                                                            url: "getOrderList",
+                                                            url: "adminGetOrderList",
                                                             data: {
                                                                 'serialPK': serialPK
                                                             },
@@ -635,7 +635,7 @@ to {
 
         $.ajax({
             type: "POST",
-            url: "/serialStatus",
+            url: "adminSerialStatus",
             data: {
                 'serialStatus': selectedStatus, // 변수명 수정
                 'serialPK': serialPK

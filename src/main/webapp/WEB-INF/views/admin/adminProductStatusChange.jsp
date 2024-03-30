@@ -217,7 +217,7 @@ form .cur-row {
 															<p id="fileName"></p>
 														</div>
 														<div id="image-show" class="image-show">
-															<img src="/resources/${productDTO.productImg}"
+															<img src="${productDTO.productImg}"
 																alt="Product Image"
 																style="width: 70%; height: 70%; object-fit: contain;">
 															<script>
@@ -255,7 +255,7 @@ form .cur-row {
 															<!-- 이미지 띄울 공간 -->
 
 
-															<img src="/resources/${productDTO.productDetailImg}"
+															<img src="${productDTO.productDetailImg}"
 																alt="productDetailImg"
 																style="width: 100%; height: 70%; object-fit: contain;">
 															<script>
@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $.ajax({
 			
 			type: "POST",
-			url: "categoryCheckbox",
+			url: "adminCategoryCheckbox",
 			data: {
                 'productPK': `${productDTO.productPK}`
                 

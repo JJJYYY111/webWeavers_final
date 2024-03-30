@@ -36,12 +36,13 @@ public class ProductController {
 
 		System.out.println("비동기 : productList 진입");
 		productDTO.setMemberID((String) session.getAttribute("sessionMid")); // pDTO에 세션ID 저장 (로그인/로그아웃 상태 확인 > 찜)
+		productDTO.setSearchCondition("userProductList");
 		if (type.equals("신상순")) {
-			productDTO.setSearchCondition("regdate");
+			productDTO.setSortType("regdate");
 		} else if (type.equals("낮은가격순")) {
-			productDTO.setSearchCondition("rowPrice");
+			productDTO.setSortType("rowPrice");
 		} else if (type.equals("인기순")) {
-			productDTO.setSearchCondition("sales");
+			productDTO.setSortType("sales");
 		}
 		System.out.println(productDTO);
 		List<ProductDTO> datas = productService.selectAll(productDTO); // selectAll()을 통해 DB에서 가져온 상품목록을 datas에 저장
@@ -121,6 +122,8 @@ public class ProductController {
 	
 	@RequestMapping("/subCategoryProductList")
 	public String subCategoryProductList(ProductDTO productDTO, Model model) {
+		model.addAttribute("subCategoryPK",productDTO.getSubCategoryPK());
+		model.addAttribute("categoryPK",productDTO.getCategoryPK());
 		return "user/subCategoryProductList";
 	}
 }

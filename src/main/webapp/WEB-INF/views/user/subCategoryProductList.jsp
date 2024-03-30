@@ -121,73 +121,75 @@
 	<!-- ================ 내용 ================= -->
 	<br>
 	<section class="product-depth p_ver">
+		<input type="hidden" id="checkSubCategoryPK" value="${subCategoryPK}"/>
+		<input type="hidden" id="checkCategoryPK" value="${categoryPK}"/>
 		<div class="depth-list-wrap">
-			<%-- <c:if test="${datas[0].categoryPK == 1}"> --%>
+			<c:if test="${categoryPK == 1}">
 			<div class="list-area">
 				<ul>
-					<li><a href="subCategoryProductList" id=""
+					<li><a href="subCategoryProductList?categoryPK=1"
 						class="ctgr_box active">전체</a></li>
 					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S01" href="subCategoryProductList"
+					<li><a id="L01M01S01" href="subCategoryProductList?categoryPK=1&subCategoryPK=1"
 						class="ctgr_box ">스킨</a></li>
 					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S02" href="subCategoryProductList"
+					<li><a id="L01M01S02" href="subCategoryProductList?categoryPK=1&subCategoryPK=2"
 						class="ctgr_box ">로션/에멀젼</a></li>
 					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S03" href="subCategoryProductList"
+					<li><a id="L01M01S03" href="subCategoryProductList?categoryPK=1&subCategoryPK=3"
 						class="ctgr_box ">에센스/세럼/앰플</a></li>
-					<li><a id="L01M01S04" href="subCategoryProductList"
+					<li><a id="L01M01S04" href="subCategoryProductList?categoryPK=1&subCategoryPK=4"
 						class="ctgr_box ">크림</a></li>
 					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S05" href="subCategoryProductList"
+					<li><a id="L01M01S05" href="subCategoryProductList?categoryPK=1&subCategoryPK=5"
 						class="ctgr_box ">아이케어</a></li>
 					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S07" href="subCategoryProductList"
+					<li><a id="L01M01S07" href="subCategoryProductList?categoryPK=1&subCategoryPK=6"
 						class="ctgr_box ">미스트/부스터</a></li>
 					<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-					<li><a id="L01M01S08" href="subCategoryProductList"
+					<li><a id="L01M01S08" href="subCategoryProductList?categoryPK=1&subCategoryPK=7"
 						class="ctgr_box ">세트</a></li>
 				</ul>
 			</div>
 
 			<br>
-			<%-- </c:if> --%>
-			<c:if test="${datas[0].categoryPK == 2}">
+			</c:if>
+			<c:if test="${categoryPK == 2}">
 				<div class="list-area">
 					<ul>
-						<li><a href="subCategoryProductList" id=""
+						<li><a href="subCategoryProductList?categoryPK=2" id=""
 							class="ctgr_box active">전체</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S01" href="subCategoryProductList"
+						<li><a id="L01M01S01" href="subCategoryProductList?categoryPK=2&subCategoryPK=8"
 							class="ctgr_box ">클렌징폼</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S02" href="subCategoryProductList"
+						<li><a id="L01M01S02" href="subCategoryProductList?categoryPK=2&subCategoryPK=9"
 							class="ctgr_box ">클렌징크림/로션/워터</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S03" href="subCategoryProductList"
+						<li><a id="L01M01S03" href="subCategoryProductList?categoryPK=2&subCategoryPK=10"
 							class="ctgr_box ">클렌징젤/오일/티슈</a></li>
-						<li><a id="L01M01S04" href="subCategoryProductList"
+						<li><a id="L01M01S04" href="subCategoryProductList?categoryPK=2&subCategoryPK=11"
 							class="ctgr_box ">립&아이 리무버</a></li>
 					</ul>
 				</div>
 				<br>
 
 			</c:if>
-			<c:if test="${datas[0].categoryPK == 3}">
+			<c:if test="${categoryPK == 3}">
 				<div class="list-area">
 					<ul>
-						<li><a href="subCategoryProductList" id=""
+						<li><a href="subCategoryProductList?categoryPK=3" id=""
 							class="ctgr_box active">전체</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S01" href="subCategoryProductList"
+						<li><a id="L01M01S01" href="subCategoryProductList?categoryPK=3&subCategoryPK=12"
 							class="ctgr_box ">마사지/워시오프 팩</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S02" href="subCategoryProductList"
+						<li><a id="L01M01S02" href="subCategoryProductList?categoryPK=3&subCategoryPK=13"
 							class="ctgr_box ">필링/스크럽</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
-						<li><a id="L01M01S03" href="subCategoryProductList"
+						<li><a id="L01M01S03" href="subCategoryProductList?categoryPK=3&subCategoryPK=14"
 							class="ctgr_box ">시트마스크</a></li>
-						<li><a id="L01M01S04" href="subCategoryProductList"
+						<li><a id="L01M01S04" href="subCategoryProductList?categoryPK=3&subCategoryPK=15"
 							class="ctgr_box ">코팩</a></li>
 					</ul>
 				</div>

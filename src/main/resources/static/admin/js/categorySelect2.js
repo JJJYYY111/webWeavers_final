@@ -54,7 +54,7 @@ $(document).on("click", "#searchButton", function () {
     $.ajax({
 
         type: "POST",
-        url: "searchSales",
+        url: "adminSearchSales",
         data: {
             'categoryPK': categoryPK,
             'subCategoryPK': subCategoryPK,

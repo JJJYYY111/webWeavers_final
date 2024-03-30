@@ -1,12 +1,19 @@
 
 
 var productList = []; // 배열(상품목록)을 저장할 변수 선언 및 빈 배열 저장
+var subCategoryPK;
+var categoryPK;	
+
 var totalPages = 0; // 전체 페이지 수를 저장할 변수 선언
 var currentPage = 1; // 현재 페이지 번호
 var pageSize = 20; // 페이지당 상품 수를 설정합니다.
 
 //---------- 페이지 로드시 상품출력(신상순) ----------
 window.onload = function() {
+	subCategoryPK = document.getElementById('checkSubCategoryPK').value;
+	subCategoryPK == null || subCategoryPK == ""? subCategoryPK = 0 : subCategoryPK;
+	categoryPK = document.getElementById('checkCategoryPK').value;
+	categoryPK == null || categoryPK==""? categoryPK = 0 : categoryPK;
     getProductList('신상순'); 
     setFocusOnButton();   
 }
@@ -25,7 +32,9 @@ function getProductList(type) {
     $.ajax({
         type: "GET",
         url: 'async/productList',
-        data: { 'type': type },
+        data: { 'type': type,
+        		'categoryPK' : categoryPK,
+				'subCategoryPK' :  subCategoryPK},
         success: function(datas) {
             if (datas.length > 0) {
                 datas = JSON.parse(datas);

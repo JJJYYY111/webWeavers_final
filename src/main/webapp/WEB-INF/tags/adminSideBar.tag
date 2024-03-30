@@ -49,15 +49,15 @@
                                     class="hide-menu">매출관리
                                 </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="salesStatus" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="adminSalesStatus" class="sidebar-link"><span
                                             class="hide-menu"> 매출현황
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="daliySalesStatus" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="adminDaliySalesStatus" class="sidebar-link"><span
                                             class="hide-menu"> 전일대비매출
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="monthlySalesStatus" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="adminMonthlySalesStatus" class="sidebar-link"><span
                                             class="hide-menu">
                                             월별매출
                                         </span></a>

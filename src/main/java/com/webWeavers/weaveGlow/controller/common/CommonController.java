@@ -42,9 +42,9 @@ public class CommonController {
 	@RequestMapping("/")
 	public String root(ProductDTO productDTO) {
 		System.out.println("로그 : index진입");
-		productDTO.setSearchCondition("sales");
-		List<ProductDTO> datas = productService.selectAll(productDTO);
-		if (datas.size() <= 0) {
+		productDTO.setSearchCondition("userMain");
+		productDTO.setSortType("sales");
+		if (productService.selectAll(productDTO).size() <= 0) {
 			return "redirect:/crawling";
 		}
 		return "redirect:/main";
@@ -133,25 +133,16 @@ public class CommonController {
 	@RequestMapping("/main")
 	public String main(ProductDTO productDTO, HttpSession session, Model model) {
 		System.out.println("메인 인덱스 진입");
-
-		// 메인페이지에 호출되는 전체상품의 정렬방식을 구분하기위해 작성
-		// 해당 방식은 찜의 개수로 순서를 정함
-		productDTO.setSearchCondition("wish");
-
+		
 		productDTO.setMemberID((String) session.getAttribute("sessionMid"));
-		// 찜 유무 확인을 위해 아이디 저장
+		productDTO.setSearchCondition("userMain");
+		
+		productDTO.setSortType("wish");
+		model.addAttribute("wdatas", productService.selectAll(productDTO));
 
-		// 추천순으로 정렬된 상품정보를 리스트에 저장
-		List<ProductDTO> wdatas = productService.selectAll(productDTO);
-		model.addAttribute("wdatas", wdatas);
-
-		// 메인페이지에 호출되는 전체상품의 정렬방식을 구분하기위해 작성
-		// 해당 방식은 상품 판매량으로 순서를 정함
-		productDTO.setSearchCondition("sales");
-
-		// 판매량순으로 정렬된 상품정보를 리스트에 저장
-		List<ProductDTO> sdatas = productService.selectAll(productDTO);
-		model.addAttribute("sdatas", sdatas);
+		productDTO.setSortType("sales");
+		model.addAttribute("sdatas", productService.selectAll(productDTO));
+		
 		return "user/main";
 	}
 }

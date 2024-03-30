@@ -1,91 +1,87 @@
 // Dashboard 1 Morris-chart
 $(function () {
     "use strict";
-    Morris.Area({
-        element: 'morris-area-chart',
-        data: [{
+    var monthlySalesGraph = [{
             y: '1월',
-            month: 50,
-            date: 80,
-            itouch: 20
+            sales: 0,
         }, {
             y: '2월',
-            month: 130,
-            date: 100,
-            itouch: 80
+            sales: 0,
         }, {
             y: '3월',
-            month: 80,
-            date: 60,
-            itouch: 70
+            sales: 0,
         }, {
             y: '4월',
-            month: 70,
-            date: 200,
-            itouch: 140
+            sales: 0,
         }, {
             y: '5월',
-            month: 180,
-            date: 150,
-            itouch: 140
+            sales: 0,
         }, 
         	{
             y: '6월',
-            month: 180,
-            date: 150,
-            itouch: 140
+            sales: 0,
         },
         	{
             y: '7월',
-            month: 180,
-            date: 150,
-            itouch: 140
+            sales: 0,
         },
         	{
             y: '8월',
-            month: 180,
-            date: 150,
-            itouch: 140
+            sales: 0,
         },
           {
             y: '9월',
-            month: 180,
-            date: 150,
-            itouch: 140
+            sales: 0,
         },
           {
             y: '10월',
-            month: 180,
-            date: 150,
-            itouch: 140
+            sales: 0,
         },
           {
             y: '11월',
-            month: 180,
-            date: 150,
-            itouch: 140
+            sales: 0,
         },      
         	{
             y: '12월',
-            month: 105,
-            date: 100,
-            itouch: 80
-
-        }],
+            sales: 0,
+        }];
+        
+    $.ajax({
+			type: "POST",
+			url: "adminMonthlySalesGraph",
+            dataType: 'json',
+            	success:function(datas) {
+            		
+            		console.log('로그'+datas);
+        
+            		$.each(datas, function(index, data){
+						console.log(data.month.substr(-2,2));
+            		    monthlySalesGraph[parseInt(data.month.substr(-2,2))-1].sales = data.totalPrice
+            		});
+            		Morris.Area({
+        element: 'morris-area-chart',
+        data: monthlySalesGraph,
         xkey: 'y',
-        ykeys: ['month', 'date'],
-        labels: ['이번달', '저번달'],
+        ykeys: ['sales'],
+        labels: ['매출액'],
         pointSize: 3,
         fillOpacity: 0,
-        pointStrokeColors: ['#5f76e8', '#01caf1'],
+        pointStrokeColors: ['#5f76e8'],
         behaveLikeLine: true,
         gridLineColor: '#e0e0e0',
         lineWidth: 3,
         hideHover: 'auto',
-        lineColors: ['#5f76e8', '#01caf1'],
+        lineColors: ['#5f76e8'],
         resize: true,
         parseTime: false, // x축이 시간 형식이 아님을 나타내는 옵션
     });
+            },
+            error: function (error) {
+            	
+                console.log('에러의 종류:' + error)
+            }
+		});
+    
 });
 
 
@@ -177,19 +173,51 @@ $(function () {
 
 $(function () {
     // LINE CHART
-    var line = new Morris.Line({
+    // 여기가 차트
+    var graphJson = [
+            { y: '0~3시' , item1: 0, item2: 0 },
+            { y: '3~6시' , item1: 0, item2: 0 },
+            { y: '6~9시' , item1: 0, item2: 0 },
+            { y: '9~12시' , item1: 0, item2: 0 },
+            { y: '12~15시' , item1: 0, item2: 0 },
+            { y: '15~18시' , item1: 0, item2: 0 },
+            { y: '18~21시' , item1: 0, item2: 0 },
+            { y: '21~24시' , item1: 0, item2: 0 }
+        ];
+    
+    $.ajax({
+			type: "POST",
+			url: "adminTodaySalesGraph",
+            dataType: 'json',
+            	success:function(datas) {
+            		
+            		console.log('로그'+datas);
+        
+            		$.each(datas, function(index, data){
+            		    graphJson[(data.totalTemp)/3].item2 = data.totalPrice
+            		});
+            		
+            },
+            error: function (error) {
+            	
+                console.log('에러의 종류:' + error)
+            }
+		});
+		
+    $.ajax({
+			type: "POST",
+			url: "adminYesterdaySalesGraph",
+            dataType: 'json',
+            	success:function(datas) {
+            		console.log('로그'+datas);
+            		$.each(datas, function(index, data){
+            		    graphJson[(data.pvtotalTemp)/3].item1 = data.totalPrice
+            		});
+            		
+            		var line = new Morris.Line({
         element: 'morris-line-chart',
         resize: true,
-        data: [
-            { y: '00:00', item1: 8323, item2: 10543 },
-            { y: '03:00', item1: 14892, item2: 8194 },
-            { y: '06:00', item1: 10583, item2: 8724 },
-            { y: '09:00', item1: 12654, item2: 7821 },
-            { y: '12:00', item1: 9065, item2: 12987 },
-            { y: '15:00', item1: 11034, item2: 11567 },
-            { y: '18:00', item1: 8754, item2: 11234 },
-            { y: '21:00', item1: 9832, item2: 13459 }
-        ],
+        data: graphJson,
         xkey: 'y',
         ykeys: ['item1', 'item2'],
         labels: ['Item 1', 'Item 2'],
@@ -200,10 +228,14 @@ $(function () {
         parseTime: false // x축이 시간 형식이 아님을 나타내는 옵션
 
     });
+            		
+            },
+            error: function (error) {
+            	
+                console.log('에러의 종류:' + error)
+            }
+		});
 });
-
-
-
 
 $(function () {
     // Morris donut chart

@@ -27,7 +27,7 @@
 				<form id="reviewForm" onsubmit="submitForm(event)"
 					action="reviewUpdate" method="POST" enctype="multipart/form-data">								
 				<a href="productDetail?productPK=${reviewDTO.productPK}"> <img
-					class="card-img" src="/resources/${reviewDTO.productImg}" alt="구매한 상품 이미지"></a><br> 
+					class="card-img" src="${reviewDTO.productImg}" alt="구매한 상품 이미지"></a><br> 
 				<br>
 				<h3>${reviewDTO.productName}</h3> <!-- 리뷰 작성할 구매한 상품 이름 -->
 				<br><br>				
@@ -39,11 +39,11 @@
 					<!-- 구매한 상품 리뷰에 등록할 이미지 -->
 					<c:if test="${empty reviewDTO.reviewImg}">
 						<img id="preview" style="max-width: 200%; max-height: 200px;"
-							class="img-fluid" src="/resources/img/default.jpg" alt="업로드할 이미지"> 
+							class="img-fluid" src="resources/img/default.jpg" alt="업로드할 이미지"> 
 					</c:if>
 					<c:if test="${not empty reviewDTO.reviewImg}">
 						<img id="preview" style="max-width: 200%; max-height: 200px;"
-							class="img-fluid" src="/resources/${reviewDTO.reviewImg}" alt="업로드할 이미지">
+							class="img-fluid" src="${reviewDTO.reviewImg}" alt="업로드할 이미지">
 					</c:if>
 							<input type="file" 
 							id="uploadimg" name="reviewImgFile" onchange="readURL(this);" value="${reviewDTO.reviewImg}" accept=".png, .jpeg, .jpg"> 

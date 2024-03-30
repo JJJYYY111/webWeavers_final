@@ -171,8 +171,8 @@ public class AdminController {
 		return "redirect:/adminProductStatus";
 	}
 	
-	@RequestMapping("categoryCheckbox")
-	public @ResponseBody String categoryCheckBox(CategorizationDTO categorizationDTO, Gson gson, SubCategoryDTO subCategoryDTO) {
+	@RequestMapping("/adminCategoryCheckbox")
+	public @ResponseBody String adminCategoryCheckbox(CategorizationDTO categorizationDTO, Gson gson, SubCategoryDTO subCategoryDTO) {
 		return gson.toJson(categorizationService.selectAll(categorizationDTO));
 	}
 	
@@ -186,53 +186,69 @@ public class AdminController {
 		return "admin/adminOrderStatus";
 	}
 	
-	@RequestMapping("/getOrderList")
-	public @ResponseBody String getOrderList(SerialDTO serialDTO, Gson gson) {
+	@RequestMapping("/adminGetOrderList")
+	public @ResponseBody String adminGetOrderList(SerialDTO serialDTO, Gson gson) {
 		serialDTO.setSearchCondition("orderProduct");
 		return gson.toJson(serialService.selectAll(serialDTO));
 	}
 	
-	@RequestMapping("/searchSerial")
-	public @ResponseBody String searchSerial(SerialDTO serialDTO, Gson gson) {
+	@RequestMapping("/adminSearchSerial")
+	public @ResponseBody String adminSearchSerial(SerialDTO serialDTO, Gson gson) {
 		serialDTO.setSearchCondition("orderSearch");
 		return gson.toJson(serialService.selectAll(serialDTO));
 	}
 	
-	@RequestMapping("/serialStatus")
-	public @ResponseBody String serialStatus(SerialDTO serialDTO, Gson gson) {
+	@RequestMapping("/adminSerialStatus")
+	public @ResponseBody String adminSerialStatus(SerialDTO serialDTO, Gson gson) {
 		return String.valueOf(serialService.update(serialDTO));
 	}
 	
 	// 매출관리 ======================================================================
 	// ============================================================================
 	
-	@RequestMapping("/salesStatus")
-	public String salesStatus(ProductDTO productDTO, Model model) {
+	@RequestMapping("/adminSalesStatus")
+	public String adminSalesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminProductSales");
 		model.addAttribute("productSaleDatas", productService.selectAll(productDTO));
-		return "admin/salesStatus";
+		return "admin/adminSalesStatus";
 	}
 	
-	@RequestMapping("/searchSales")
-	public @ResponseBody String salesSearch(ProductDTO productDTO, Gson gson){
+	@RequestMapping("/adminSearchSales")
+	public @ResponseBody String adminSearchSales(ProductDTO productDTO, Gson gson){
 		productDTO.setSearchCondition("adminProductSales");
 		return gson.toJson(productService.selectAll(productDTO));
 	}
 	
-	@RequestMapping("/daliySalesStatus")
-	public String daliySalesStatus(ProductDTO productDTO, Model model) {
+	@RequestMapping("/adminDaliySalesStatus")
+	public String adminDaliySalesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminDailySales");
-		List<ProductDTO> datas = productService.selectAll(productDTO);
-		System.out.println(datas);
-		model.addAttribute("productDatas", datas);
-		return "admin/daliySalesStatus";
+		model.addAttribute("productDatas", productService.selectAll(productDTO));
+		return "admin/adminDaliySalesStatus";
 	}
 	
-	@RequestMapping("/monthlySalesStatus")
-	public String monthlySalesStatus(ProductDTO productDTO, Model model) {
+	@RequestMapping("/adminTodaySalesGraph")
+	public @ResponseBody String adminTodaySalesGraph(ProductDTO productDTO, Gson gson) {
+		productDTO.setSearchCondition("adminTodaySalesByHours");
+		return gson.toJson(productService.selectAll(productDTO));
+	}
+	
+	@RequestMapping("/adminYesterdaySalesGraph")
+	public @ResponseBody String adminYesterdaySalesGraph(ProductDTO productDTO, Gson gson) {
+		productDTO.setSearchCondition("adminPvdaySalesByHours");
+		return gson.toJson(productService.selectAll(productDTO));
+	}
+	
+	@RequestMapping("/adminMonthlySalesStatus")
+	public String adminMonthlySalesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminMonthlySales");
 		model.addAttribute("productDatas", productService.selectAll(productDTO));
-		return "admin/monthlySalesStatus";
+		return "admin/adminMonthlySalesStatus";
+	}
+	
+	@RequestMapping("/adminMonthlySalesGraph")
+	public @ResponseBody String adminMonthlySalesGraph(ProductDTO productDTO, Gson gson) {
+		productDTO.setSearchCondition("adminMonthlySalesGraph");
+		return gson.toJson(productService.selectAll(productDTO));
 	}
 	
 	

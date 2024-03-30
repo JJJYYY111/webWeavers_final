@@ -98,7 +98,7 @@
 									<div class="tab-content" id="myTabContent">
 										<!-- 상품 상세정보(설명) -->
 										<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-											<img class="img-fluid" src="/resources/${productDetailImg}" alt="${productPK}번 상품사진">
+											<img class="img-fluid" src="${productDetailImg}" alt="${productPK}번 상품사진">
 										</div>
 										<!-- /상세정보 -->
 
@@ -209,7 +209,7 @@
 																			<div class="feature-img">
 																				<img style="max-width: 200%; max-height: 200px;"
 																					class="img-fluid"
-																					src="/resources/${data.reviewImg}"
+																					src="${data.reviewImg}"
 																					alt="리뷰작성 이미지">
 																				<!-- 리뷰 작성할때 사용자가 등록한 이미지 -->
 																			</div>

@@ -17,7 +17,7 @@ function wishClick(ppk, mid) {
 						  popup : 'animate__animated animate__fadeOut animate__faster'
 						},
 					  title: "찜완료",
-					  imageUrl: "img/redheart.png",
+					  imageUrl: "resources/img/redheart.png",
 					  imageWidth: 100,
 					  imageHeight: 100,
 					  imageAlt: "Custom image",
@@ -36,7 +36,7 @@ function wishClick(ppk, mid) {
 						  popup : 'animate__animated animate__fadeOut animate__faster'
 						},
 					  title: "찜취소",
-					  imageUrl: "img/emptyheart.png",
+					  imageUrl: "resources/img/emptyheart.png",
 					  imageWidth: 100,
 					  imageHeight: 100,
 					  imageAlt: "Custom image",

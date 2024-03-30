@@ -24,7 +24,7 @@
 			
 			<!-- 구해한 상품 주문번호, 이미지, 이름, 작성일  -->
 				<div class="comment-form"><a href="productDetail?productPK=${data.productPK}"><img style="max-width: 200px; max-height: 200px;"
-					src="/resources/${data.productImg}" alt="상품이미지"><br><br>
+					src="${data.productImg}" alt="상품이미지"><br><br>
 					<h3 style="text-align: center; margin-bottom: 20px;">${data.productName}</h3></a> 
 					<h4 style="text-align: right;">작성일: ${data.reviewRegdate}</h4>
 					<form>
@@ -34,7 +34,7 @@
 						<c:if test="${data.reviewImg != null}">
 							<div class="feature-img">
 								<img style="max-width: 200%; max-height: 200px;"
-							class="img-fluid" src="/resources/${data.reviewImg}" alt=""> <!-- 업로드한 이미지 -->
+							class="img-fluid" src="${data.reviewImg}" alt=""> <!-- 업로드한 이미지 -->
 							</div>
 						</c:if>
 						</div>

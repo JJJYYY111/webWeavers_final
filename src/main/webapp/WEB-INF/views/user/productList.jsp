@@ -113,6 +113,8 @@
 	<br>
 	<div class="product-filters-container">
 		<section class="product-depth p_ver">
+			<input type="hidden" id="checkSubCategoryPK" value="${subCategoryPK}"/>
+			<input type="hidden" id="checkCategoryPK" value="${categoryPK}"/>
 			<div class="depth-list-wrap">
 				<div class="list-area">
 					<ul class="grid-container">
@@ -122,17 +124,17 @@
 							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">전체</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
 						<li><a id="L01M03S01"
-							href="subCategoryProductList"
+							href="subCategoryProductList?categoryPK=1"
 							class="ctgr_box "
 							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">스킨케어</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
 						<li><a id="L01M03S02"
-							href="subCategoryProductList"
+							href="subCategoryProductList?categoryPK=2"
 							class="ctgr_box "
 							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">클렌징</a></li>
 						<!-- 선택된 카테고리의 경우 class 에 active 추가 -->
 						<li><a id="L01M03S03"
-							href="subCategoryProductList"
+							href="subCategoryProductList?categoryPK=3"
 							class="ctgr_box ">마스크,팩</a></li>
 					</ul>
 				</div>
