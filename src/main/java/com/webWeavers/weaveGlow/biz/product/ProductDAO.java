@@ -17,38 +17,127 @@ public class ProductDAO {
 	
 	
 	// ------------------------------------- UserPage -------------------------------------
-	// User_메인페이지, 상품목록페이지
+//	// User_메인페이지, 상품목록페이지
+//	// 정렬별 상품목록 쿼리문 반환 함수
+//	private static String selectAllProductListQuery(String sortType) {
+//		
+//		String query = "WITH WS AS (SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT FROM WISHLIST GROUP BY PRODUCT_PK),\r\n"	// 상품별 찜 개수 CTE
+//				+ "BS AS ( SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) SALES FROM BUYPRODUCT GROUP BY PRODUCT_PK)\r\n"		// 상품별 판매량 CTE
+//				+ "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_REGDATE, BS.SALES, WS.CNT,\r\n"
+//				+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
+//				+ "FROM PRODUCT P\r\n"
+//				+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
+//				+ "LEFT JOIN  BS ON P.PRODUCT_PK = BS.PRODUCT_PK\r\n"
+//				+ "LEFT JOIN WS ON P.PRODUCT_PK = WS.PRODUCT_PK\r\n"
+//				+ "ORDER BY\r\n";
+//		
+//		// 메인페이지,상품목록페이지(판매량순)
+//		if(sortType.equals("sales")) {
+//			query += "BS.SALES DESC, ";
+//		}
+//		// 상품목록페이지(신상순)
+//		else if(sortType.equals("regdate")) {
+//			query += "P.PRODUCT_REGDATE DESC, ";
+//		}
+//		// 메인페이지(찜순)
+//		else if(sortType.equals("wish")) {
+//			query += "WS.CNT DESC, ";
+//		}
+//		// 상품목록페이지(낮은가격순)
+//		else if(sortType.equals("rowPrice")) {
+//			query += "P.PRODUCT_PRICE ASC, ";
+//		}
+//		
+//		query += "P.PRODUCT_PK DESC";
+//		
+//		System.out.println(query);
+//		
+//		return query;
+//	}
+	
+	// User_메인페이지
 	// 정렬별 상품목록 쿼리문 반환 함수
-	private static String selectAllProductListQuery(String sortType) {
-		
-		String query = "WITH WS AS (SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT FROM WISHLIST GROUP BY PRODUCT_PK),\r\n"	// 상품별 찜 개수 CTE
-				+ "BS AS ( SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) SALES FROM BUYPRODUCT GROUP BY PRODUCT_PK)\r\n"		// 상품별 판매량 CTE
-				+ "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_REGDATE, BS.SALES, WS.CNT,\r\n"
+	private static String selectAllMainPageProductList(String sortType) {
+		String query = 
+				"WITH P_BUYCNT AS (\r\n"
+				+ "	SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) CNT\r\n"
+				+ "	FROM BUYPRODUCT\r\n"
+				+ "	GROUP BY PRODUCT_PK\r\n"
+				+ "), P_WISHCNT AS (\r\n"
+				+ "	SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT\r\n"
+				+ "	FROM WISHLIST\r\n"
+				+ "	GROUP BY PRODUCT_PK\r\n"
+				+ ")\r\n"
+				+ "SELECT\r\n"
+				+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG,\r\n"
+				+ "	COALESCE(PB.CNT, 0) AS sales,\r\n"
+				+ "	COALESCE(PW.CNT, 0) AS wish,\r\n"
 				+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
 				+ "FROM PRODUCT P\r\n"
 				+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
-				+ "LEFT JOIN  BS ON P.PRODUCT_PK = BS.PRODUCT_PK\r\n"
-				+ "LEFT JOIN WS ON P.PRODUCT_PK = WS.PRODUCT_PK\r\n"
-				+ "ORDER BY\r\n";
+				+ "LEFT JOIN P_BUYCNT PB ON PB.PRODUCT_PK = P.PRODUCT_PK\r\n"
+				+ "LEFT JOIN P_WISHCNT PW ON PW.PRODUCT_PK = P.PRODUCT_PK\r\n"			
+				+ "ORDER BY " + sortType + " DESC, P.PRODUCT_PK ASC LIMIT 8";
 		
-		// 메인페이지,상품목록페이지(판매량순)
-		if(sortType.equals("sales")) {
-			query += "BS.SALES DESC, ";
+		return query;
+	}
+	
+	// User_상품목록페이지
+	// 카테고리 및 정렬별 상품목록 쿼리문 반환 함수
+	private static String selectAllProductListPage(ProductDTO productDTO) {
+		String query = 
+				// 상품별 카테고리 정보 CTE
+				"WITH P_CATEGORY AS (\r\n"
+				+ "	SELECT\r\n"
+				+ "		CZ.PRODUCT_PK, C.CATEGORY_NAME,\r\n"
+				+ "		GROUP_CONCAT(S.SUBCATEGORY_NAME ORDER BY S.SUBCATEGORY_PK) AS SUBCATEGORY_NAME\r\n"
+				+ "	FROM CATEGORIZATION CZ\r\n"
+				+ "	INNER JOIN SUBCATEGORY S ON CZ.SUBCATEGORY_PK = S.SUBCATEGORY_PK\r\n"
+				+ "	INNER JOIN CATEGORY C ON S.CATEGORY_PK = C.CATEGORY_PK\r\n"
+				+ "	WHERE 1 = 1";
+		
+		// 카테고리 및 서브카테고리 조건
+		if(productDTO.getCategoryPK() > 0) {
+			query += "	AND C.CATEGORY_PK = " + productDTO.getCategoryPK();
 		}
-		// 상품목록페이지(신상순)
-		else if(sortType.equals("regdate")) {
-			query += "P.PRODUCT_REGDATE DESC, ";
-		}
-		// 메인페이지(찜순)
-		else if(sortType.equals("wish")) {
-			query += "WS.CNT DESC, ";
-		}
-		// 상품목록페이지(낮은가격순)
-		else if(sortType.equals("rowPrice")) {
-			query += "P.PRODUCT_PRICE ASC, ";
+		if(productDTO.getSubCategoryPK() > 0) {
+			query += "	AND S.SUBCATEGORY_PK = " + productDTO.getSubCategoryPK();
 		}
 		
-		query += "P.PRODUCT_PK DESC";
+		// 쿼리 SELECT절
+		query +=  "\r\nGROUP BY CZ.PRODUCT_PK, C.CATEGORY_NAME\r\n"
+				+ "), P_BUYCNT AS (\r\n"	// 상품별 총 구매수량 정보 CTE --> 인기순 정렬을 하기위함 
+				+ "	SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) CNT\r\n"
+				+ "	FROM BUYPRODUCT\r\n"
+				+ "	GROUP BY PRODUCT_PK\r\n"
+				+ ")\r\n"
+				+ "SELECT\r\n"	// 메인 SELECT절
+				+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_REGDATE,\r\n"	// 상품정보
+				+ "	PC.CATEGORY_NAME, PC.SUBCATEGORY_NAME,\r\n"	// 상품별 카테고리 정보
+				+ "	COALESCE(PB.CNT, 0) AS SALES,\r\n"	// 상품별 총 판매량
+				+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"		// 로그인한 회원의 찜 유무
+				+ "FROM PRODUCT P\r\n"
+				+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"	// WISHLIST 조인
+				+ "INNER JOIN P_CATEGORY PC ON P.PRODUCT_PK = PC.PRODUCT_PK\r\n"				// 카테고리 CTE 조인
+				+ "LEFT JOIN P_BUYCNT PB ON P.PRODUCT_PK = PB.PRODUCT_PK\r\n"					// 판매량 CTE 조인
+				+ "GROUP BY\r\n"
+				+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_REGDATE,\r\n"	// GROUP BY
+				+ "	PC.CATEGORY_NAME, PC.SUBCATEGORY_NAME, SALES, HasWPK\r\n";
+		
+		// 정렬 조건 (인기순)
+		if(productDTO.getSortType().equals("sales")) {
+			query += "ORDER BY SALES DESC, P.PRODUCT_PK ASC";
+		}
+		// 정렬 조건 (신상순)
+		if(productDTO.getSortType().equals("regdate")) {
+			query += "ORDER BY P.PRODUCT_REGDATE DESC, P.PRODUCT_PK ASC";
+		}
+		// 정렬 조건 (낮은가격순)
+		if(productDTO.getSortType().equals("rowPrice")) {
+			query += "ORDER BY P.PRODUCT_PRICE ASC, P.PRODUCT_PK ASC";
+		}
+		
+		System.out.println(query);
 		
 		return query;
 	}
@@ -156,9 +245,9 @@ public class ProductDAO {
 				+ "JOIN PRODUCT P1 ON B1.PRODUCT_PK = P1.PRODUCT_PK "
 				+ "JOIN SERIAL S1 ON S1.SERIAL_PK = B1.SERIAL_PK "
 				+ "WHERE DATE(S1.SERIAL_REGDATE) = CURDATE()) AS total_sales ON 1=1 WHERE DATE(S.SERIAL_REGDATE) = CURDATE() "
-				+ "GROUP BY P.CATEGORY_PK, total_sales.total_sales "; 	// 검색조건별 매출현황 쿼리문 반환 함수
+				+ "GROUP BY P.CATEGORY_PK, total_sales.total_sales "; 	
 	
-				
+		// 검색조건별 매출현황 쿼리문 반환 함수		
 		private static String selectAllProductSalesQuery(ProductDTO productDTO) {
 
 		// 상품별 카테고리 정보 조회 CTE
@@ -261,26 +350,36 @@ public class ProductDAO {
 	}
 	
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
+		System.out.println(productDTO.getMemberID());
 		Object[] args1 = { productDTO.getMemberID() };
 		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
 		
 		try {
-			// User_상품목록페이지(판매량순)
-			if (productDTO.getSearchCondition().equals("sales")) {
-				return jdbcTemplate.query(selectAllProductListQuery("sales"), args1, new ProductListUserRowMapper());
+			// User_메인페이지(판매량순, 찜순)
+			if (productDTO.getSearchCondition().equals("userMain")) {	// 쿼리반환함수 인자 : DTO를 줘도되지만 정렬조건만 있어도돼서 개별로줌 (추후삭제할 주석)
+				return jdbcTemplate.query(selectAllMainPageProductList(productDTO.getSortType()), args1, new ProductListUserRowMapper());
 			}
-			// User_상품목록페이지(신상순)
-			else if (productDTO.getSearchCondition().equals("regdate")) {
-				return jdbcTemplate.query(selectAllProductListQuery("regdate"), args1, new ProductListUserRowMapper());
-			}
-			// User_상품목록페이지(찜순)
-			else if (productDTO.getSearchCondition().equals("wish")) {
-				return jdbcTemplate.query(selectAllProductListQuery("wish"), args1, new ProductListUserRowMapper());
-			}
-			// User_상품목록페이지(낮은가격순)
-			else if (productDTO.getSearchCondition().equals("rowPrice")) {
-				return jdbcTemplate.query(selectAllProductListQuery("rowPrice"), args1, new ProductListUserRowMapper());
-			}
+			// User_상품목록페이지(판매량순, 신상순, 낮은가격순)
+			else if (productDTO.getSearchCondition().equals("userProductList")) {	// 쿼리반환함수 인자 : 줘야할 정보가 많아서 DTO줌 (추후삭제할 주석)
+				return jdbcTemplate.query(selectAllProductListPage(productDTO), args1, new ProductListUserRowMapper());
+			}			
+			// 컨트롤러에서 잘되는거 확인한 후 지울 예정인 주석들....
+//			// User_상품목록페이지(판매량순)
+//			else if (productDTO.getSearchCondition().equals("sales")) {
+//				return jdbcTemplate.query(selectAllProductListQuery("sales"), args1, new ProductListUserRowMapper());
+//			}
+//			// User_상품목록페이지(신상순)
+//			else if (productDTO.getSearchCondition().equals("regdate")) {
+//				return jdbcTemplate.query(selectAllProductListQuery("regdate"), args1, new ProductListUserRowMapper());
+//			}
+//			// User_상품목록페이지(찜순)
+//			else if (productDTO.getSearchCondition().equals("wish")) {
+//				return jdbcTemplate.query(selectAllProductListQuery("wish"), args1, new ProductListUserRowMapper());
+//			}
+//			// User_상품목록페이지(낮은가격순)
+//			else if (productDTO.getSearchCondition().equals("rowPrice")) {
+//				return jdbcTemplate.query(selectAllProductListQuery("rowPrice"), args1, new ProductListUserRowMapper());
+//			}
 			// User_상품검색페이지
 			else if (productDTO.getSearchCondition().equals("searchName")) {
 				return jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
