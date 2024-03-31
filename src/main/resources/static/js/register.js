@@ -121,6 +121,7 @@ function registFromPageCheck(){
 	var registIdEl = document.getElementById('registMid')						// 아이디 요소 저장
 	var registNickEl = document.getElementById('registNickname')				// 닉네임 요소 저장
 	var registPhoneEl = document.getElementById('registPhone')					// 휴대폰 요소 저장
+	var certificationNumEl = document.getElementById('certificationNum')		// 문자 인증번호 요소 저장
 	var registEmailEl = document.getElementById('registEmail')					// 이메일 요소 저장
 	var registPwEl = document.getElementById('registMpw')						// 비밀번호 요소 저장
 	var confirmPwEl = document.getElementById('confirmMpw')						// 비밀번호 확인 요소 저장
@@ -132,6 +133,7 @@ function registFromPageCheck(){
 	registEmailEl.dataset.formCheck = 'N'
 	registPwEl.dataset.formCheck = 'Y'
 	confirmPwEl.dataset.formCheck = 'Y'
+	certificationNumEl.dataset.formCheck = 'N'
 	
 	// 정규식
 	const phoneRegex = /^01[0-9]{1}[0-9]{4}[0-9]{4}$/
@@ -139,12 +141,14 @@ function registFromPageCheck(){
 	const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/
 	
 	// 함수 사용
-	registIDCheck(registIdEl, 'idCheck', 'async/idCheck', 'ID')					// 함수 사용 (아이디 중복 검사)
-	registNickNameCheck(registNickEl, 'nickCheck', 'async/nickNameCheck', '닉네임')		// 함수 사용 (닉네임 중복 검사)
-	registFormCheck(registPhoneEl, 'phoneCheck', phoneRegex, '올바른 형식이 아닙니다. 다시 입력해주세요')	// 함수 사용 (휴대폰 형식 유효성)
-	registFormCheck(registEmailEl, 'emailCheck', emailRegex, '올바른 이메일 형식을 입력하세요')			// 함수 사용 (이메일 형식 유효성)
-	registFormCheck(registPwEl, 'pwCheck', passwordRegex, '영문,숫자,특수문자가 포함된 8 ~ 12글자로 입력하세요')	// 함수 사용 (비밀번호 형식 유효성)
-	pwValueCheck(confirmPwEl, registPwEl, 'confirmPwCheck')						// 함수 사용 (비밀번호 확인 유효성)	
+	registIDCheck(registIdEl, 'idCheck', 'async/idCheck', 'ID')									// 함수 사용 (아이디 중복 검사)
+	registNickNameCheck(registNickEl, 'nickCheck', 'async/nickNameCheck', '닉네임')				// 함수 사용 (닉네임 중복 검사)
+	registFormCheck(registPhoneEl, 'phoneCheck', phoneRegex, '올바른 형식이 아닙니다. 다시 입력해주세요')		// 함수 사용 (휴대폰 형식 유효성)
+	smsCertification(certificationNumEl, 'confirmSmsNumCheck')									// 함수 사용 (문자 인증번호 확인 유효성)
+	registFormCheck(registEmailEl, 'emailCheck', emailRegex, '올바른 이메일 형식을 입력하세요')				// 함수 사용 (이메일 형식 유효성)
+	registFormCheck(registPwEl, 'pwCheck', passwordRegex, '영문,숫자,특수문자가 포함된 8 ~ 12글자로 입력하세요')// 함수 사용 (비밀번호 형식 유효성)
+	pwValueCheck(confirmPwEl, registPwEl, 'confirmPwCheck')										// 함수 사용 (비밀번호 확인 유효성)	
+
 	
 }
 
@@ -159,7 +163,7 @@ function registFormCheck(element, innerTextId, regex, text){
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}
 		else if(!regex.test(registUserText)){									// 정규식에 맞지 않으면, 
-			checkEl.innerText = text;					// innerText 메시지 출력
+			checkEl.innerText = text;											// innerText 메시지 출력
 			checkEl.style.color = 'red'
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}
@@ -184,7 +188,7 @@ function pwValueCheck(element, pwElement, innerTextId){
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}
 		else if(registPwText != registUserText){								// 비밀번호가 일치하지 않으면,
-			checkEl.innerText = "비밀번호가 일치하지 않습니다. 다시 확인해주세요"							// innerText 메시지 출력
+			checkEl.innerText = "비밀번호가 일치하지 않습니다. 다시 확인해주세요"				// innerText 메시지 출력
 			checkEl.style.color = 'red'
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}	
@@ -206,8 +210,8 @@ function registIDCheck(element, innerTextId, url, text) {
 		if (registUserText != '') {												// 사용자가 입력한 값이 비어있지 않으면,
 			$.ajax({
 				type: "POST",
-				url: "/async/idCheck",														// 매개변수로 전달받은 url
-				data: { 'memberID' : registUserText },								// 백단에 사용자가 입력한값 넘겨주기
+				url: "/async/idCheck",											// 매개변수로 전달받은 url
+				data: { 'memberID' : registUserText },							// 백단에 사용자가 입력한값 넘겨주기
 				dataType: 'text',
 				success: function(data) {
 					if (data == 1) {											// 백단에서 응답한 값이 1이면 중복 x 사용 가능
@@ -229,7 +233,7 @@ function registIDCheck(element, innerTextId, url, text) {
 		}
 		else {																	// 사용자가 입력한 값이 비어있으면,
 			checkEl.innerText = '사용할수 없는 ' + text + '입니다.'
-			checkEl.style.color = 'red'												// innerText 비우기
+			checkEl.style.color = 'red'											// innerText 비우기
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}
 		
@@ -240,13 +244,13 @@ function registIDCheck(element, innerTextId, url, text) {
 function registNickNameCheck(element, innerTextId, url, text) {
 	element.addEventListener('blur', function(event) {							// 요소가 blur 이벤트가 발생했을 때 함수 실행
 	
-		var registUserText = event.target.value.trim()								// 사용자가 입력한 값 (이벤트가 일어난 요소의 값 저장)
+		var registUserText = event.target.value.trim()							// 사용자가 입력한 값 (이벤트가 일어난 요소의 값 저장)
 		var checkEl = document.getElementById(innerTextId)						// 매개변수로 전달된 'innerTextId'를 ID로 갖는 요소 저장
 		if (registUserText != '') {												// 사용자가 입력한 값이 비어있지 않으면,
 			$.ajax({
 				type: "POST",
-				url: "/async/nickNameCheck",														// 매개변수로 전달받은 url
-				data: { 'memberNickname' : registUserText },								// 백단에 사용자가 입력한값 넘겨주기
+				url: "/async/nickNameCheck",									// 매개변수로 전달받은 url
+				data: { 'memberNickname' : registUserText },					// 백단에 사용자가 입력한값 넘겨주기
 				dataType: 'text',
 				success: function(data) {
 					if (data == 1) {											// 백단에서 응답한 값이 1이면 중복 x 사용 가능
@@ -268,7 +272,7 @@ function registNickNameCheck(element, innerTextId, url, text) {
 		}
 		else {																	// 사용자가 입력한 값이 비어있으면,
 			checkEl.innerText = '사용할수 없는 ' + text + '입니다.'
-			checkEl.style.color = 'red'												// innerText 비우기
+			checkEl.style.color = 'red'											// innerText 비우기
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}
 		
@@ -280,7 +284,7 @@ function checkUnregisterForm() {
 	document.unregisterForm.onsubmit = function() {								// unregisterForm <form>을 제출할때 함수 실행
 		for (box of unregisterForm.selector) {									// <form>의 모든 체크박스(selector)를 확인
 			if (!box.checked) {													// 체크가 안돼있으면,
-				alert('필수 약관에 모두 동의해야 탈퇴할 수 있습니다.')						// 메시지 출력
+				alert('필수 약관에 모두 동의해야 탈퇴할 수 있습니다.')							// 메시지 출력
 				box.focus();		
 				return false;													// 폼 제출 취소
 			}
@@ -303,3 +307,64 @@ function checkPwForm(){
 function cancelAction() {
     window.location.href = "mypage.do";
 }
+
+// 초기 인증번호 발송 전 -1 저장
+var smsCertificationNum = -1;
+// [문자 인증번호 발송]
+function smsService(){
+	var userPhoneNumber = document.getElementById('registPhone').value			// 휴대폰 요소 저장
+	const phoneRegex = /^01[0-9]{1}[0-9]{4}[0-9]{4}$/
+	console.log(userPhoneNumber)
+	if(!phoneRegex.test(userPhoneNumber)){										// 휴대폰 정규식에 맞지않으면 알람창 띄우기
+		alert("잘못된 번호입니다.")
+		return;
+	}
+	
+	$.ajax({
+		type: "POST",
+		url: "/async/smsService",												// 요청 url
+		data: { "memberPhone" : userPhoneNumber},								// 컨트롤러에게 전달할 사용자가 입력한 값
+		dataType: 'text',
+		success: function(data) {
+			console.log(data)
+			alert("인증번호 발송!")
+			smsCertificationNum = data / 7777;									// 최소한의 보안을 위해 * 7777 한 인증번호 다시 / 7777
+		},
+		error: function(error) {
+			console.log('에러발생')
+			console.log('에러종류: ' + error)
+		}
+	})
+}
+
+// [문자 인증번호 확인]
+function smsCertification(element, innerTextId){								// 매개변수(인증번호 확인 요소, 인증번호 확인 알람 요소)
+	element.addEventListener('blur', event => {									// 요소에 'blur' 이벤트가 발생하면 함수 실행
+		var registUserText = event.target.value									// 사용자가 입력한 값 (이벤트가 일어난 요소의 값 저장)
+		var checkEl = document.getElementById(innerTextId)						// 매개변수로 전달된 'innerTextId'를 ID로 갖는 요소 저장
+		
+		if(registUserText == ''){												// 사용자가 입력한 값이 비었으면,
+			checkEl.innerText = ''												// innerText 비우고 함수 종료
+			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
+		}
+		else if(smsCertificationNum < 0){										// 인증번호를 발송하지 않으면, 
+			checkEl.innerText = '휴대폰 인증번호가 발송되지 않았습니다.';						// innerText 메시지 출력
+			checkEl.style.color = 'red'
+			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
+		}
+		else if(smsCertificationNum != registUserText){							// 인증번호가 일치하지 않으면,
+			checkEl.innerText = '인증번호가 일치하지 않습니다.';							// innerText 메시지 출력
+			checkEl.style.color = 'red'
+			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
+		}
+		else{																	// 인증번호가 일치하면,
+			checkEl.innerText = '인증번호가 일치합니다.';								// innerText 메시지 출력
+			checkEl.style.color = '#43d22d'
+			event.target.dataset.formCheck = 'Y'								// 통과 --> 'Y'
+		}
+		
+	})
+	
+}
+
+

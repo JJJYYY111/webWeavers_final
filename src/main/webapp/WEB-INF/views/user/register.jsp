@@ -225,11 +225,15 @@
 
 							<div class="col-md-12 form-group" style="margin: 0;">
 								<div class="col-md-4 label-text">전화번호</div>
-								<input type="text" class="form-control col-md-8"
+								<input type="text" class="form-control col-md-7"
 									id="registPhone" name="memberPhone" placeholder="전화번호 입력"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '전화번호 입력'"   value="${memberDTO.memberPhone}"
 									style="display: inline-block;" required>
+									<a class="col-md-1" style="float: right;"
+									onclick="smsService()" value="본인인증서비스요청"> <i
+									class="ti-mobile"></i>
+								</a>									
 							</div>
 							<div class="col-md-12"
 								style="text-align: left; font-size: 13px; padding: 3px">
@@ -237,7 +241,21 @@
 								<span class="col-md-8" id="phoneCheck"> <!-- 유효성 확인 문구 innerText -->
 								</span>
 							</div>
-
+							<div class="col-md-12 form-group" style="margin: 0;">
+								<div class="col-md-4 label-text">인증번호 확인</div>
+								<input type="text" class="form-control col-md-8"
+									id="certificationNum" name="certificationNum" placeholder="인증번호 입력"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = '인증번호 입력'"
+									style="display: inline-block;" required>								
+							</div>
+							<div class="col-md-12"
+								style="text-align: left; font-size: 13px; padding: 3px">
+								<div class="col-md-4 label-text"></div>
+								<span class="col-md-8" id="confirmSmsNumCheck"> <!-- 유효성 확인 문구 innerText -->
+								</span>
+							</div>
+							
 							<div class="col-md-12 form-group">
 								<div class="col-md-4 label-text">생년월일</div>
 								<input type="date" class="form-control col-md-8"

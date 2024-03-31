@@ -1,13 +1,9 @@
 package com.webWeavers.weaveGlow.controller.member;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.webWeavers.weaveGlow.biz.address.AddressDTO;
@@ -15,6 +11,7 @@ import com.webWeavers.weaveGlow.biz.address.AddressService;
 import com.webWeavers.weaveGlow.biz.member.MemberDTO;
 import com.webWeavers.weaveGlow.biz.member.MemberService;
 import com.webWeavers.weaveGlow.biz.product.ProductService;
+import com.webWeavers.weaveGlow.biz.sms.SmsService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,6 +24,8 @@ public class MemberController {
 	ProductService productService;
 	@Autowired
 	AddressService addressService;
+	@Autowired
+	SmsService smsService;
 
 	@RequestMapping("/async/idCheck")
 	public @ResponseBody String idCheck(MemberDTO memberDTO) {
@@ -54,6 +53,20 @@ public class MemberController {
 		} else { // mDTO가 null이 아닌 경우(중복o),
 			return "0"; // 0 응답
 		}
+	}
+	
+	@RequestMapping("/async/smsService")
+	public @ResponseBody int smsService(MemberDTO memberDTO) {
+		System.out.println("[로그] 본인인증번호발송서비스진입");
+		
+		int resultNum = smsService.sendMessage(memberDTO);
+		
+		if(resultNum > 0) {
+			return resultNum;	// 메시지발송 성공 : 인증번호 * 7777 응답
+		} else {
+			return -1;			// 메시지발송 실패
+		}
+		
 	}
 
 	@RequestMapping("/login")
