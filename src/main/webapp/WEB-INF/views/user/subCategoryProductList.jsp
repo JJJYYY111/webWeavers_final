@@ -12,84 +12,92 @@
 <common:head />
 <style type="text/css">
 .list-area {
-    display: flex;
-    justify-content: center;
-    width: 80%; /* 화면 폭의 80%만 사용하도록 설정 */
-    margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 가운데 정렬 */
-    margin-right: auto; /* 오른쪽 여백을 자동으로 설정하여 가운데 정렬 */
-    padding-left: 20px; /* 왼쪽 여백 추가 */
-    padding-right: 20px; /* 오른쪽 여백 추가 */
+	display: flex;
+	justify-content: center;
+	width: 80%; /* 화면 폭의 80%만 사용하도록 설정 */
+	margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 가운데 정렬 */
+	margin-right: auto; /* 오른쪽 여백을 자동으로 설정하여 가운데 정렬 */
+	padding-left: 20px; /* 왼쪽 여백 추가 */
+	padding-right: 20px; /* 오른쪽 여백 추가 */
 }
 
 .list-area ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* 요소들을 균등하게 간격을 두고 배치 */
-    list-style: none;
-    padding: 0;
-    width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	/* justify-content: space-between; */ /* 요소들을 균등하게 간격을 두고 배치 */ /* 3/31일 수정 */
+	list-style: none;
+	padding: 0;
+	width: 100%;
+	margin: 0;
 }
 
 .list-area ul li {
-    width: calc(25% - 20px); /* 1줄에 4개씩 보이도록 각 아이템의 너비 설정 */
-    margin-bottom: 20px; /* 아이템 간의 아래 여백 추가 */
+	width: calc(25% - 20px); /* 1줄에 4개씩 보이도록 각 아이템의 너비 설정 */
+	margin-bottom: 20px; /* 아이템 간의 아래 여백 추가 */
+}
 
+/* 3/31 추가 */
+.list-area ul.grid-container {
+    width: 80%; /* 원하는 고정 너비로 설정 */
+    margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 자동으로 설정 */
 }
 
 .ctgr_box {
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+	text-decoration: none;
+	color: black;
+	font-size: 20px;
 }
 
+
+
 .ctgr_box.active {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 #paging {
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
+	width: 100%;
+	text-align: center;
+	margin-top: 20px;
 }
 
 #paging ul {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	justify-content: center;
 }
 
 #paging ul li {
-    display: inline-block;
-    margin-right: 5px;
+	display: inline-block;
+	margin-right: 5px;
 }
 
 #paging ul li:first-child {
-    margin-right: 5px;
+	margin-right: 5px;
 }
 
 #paging ul li a {
-    display: block;
-    padding: 8px 16px;
-    font-size: 16px;
-    color: #000;
-    background-color: #fff;
-    border-radius: 4px;
-    text-decoration: none;
+	display: block;
+	padding: 8px 16px;
+	font-size: 16px;
+	color: #000;
+	background-color: #fff;
+	border-radius: 4px;
+	text-decoration: none;
 }
 
 #paging ul li.active a {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #333;
+	background-color: #007bff;
+	color: #fff;
+	border-color: #333;
 }
 
 .custom-button:focus {
-    outline: none;
+	outline: none;
 }
 </style>
 
