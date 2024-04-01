@@ -73,7 +73,7 @@
 			<!-- ============================================================== -->
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-lg-6 col-md-6 col-sm-6">
+					<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">Line Chart</h4>
@@ -94,26 +94,7 @@
 						</div>
 					</div>
 					<!-- column -->
-					<div class="col-lg-6 col-md-6 col-sm-6">
-						<div class="card">
-							<div class="card-body">
-								<h4 class="card-title">Donut Charts</h4>
-								<div class="row">
-									<!-- Donut Chart 1 -->
-									<div class="col-lg-6 col-md-6 col-sm-6">
-										<div id="morris-donut-chart"></div>
-										<p class="text-center">어제</p>
-									</div>
-
-									<!-- Donut Chart 2 -->
-									<div class="col-lg-6 col-md-6 col-sm-6">
-										<div id="morris-donut-chart2"></div>
-										<p class="text-center">오늘</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 
 					<div class="col-12 " name="daliyCardTwo">
 						<div class="card">
@@ -127,7 +108,7 @@
 										<table id="products" border="1" style="table-layout:auto;">
 											<thead>
 												<tr style="color: #000000;">
-													<th>PK</th>
+													<th>상품번호</th>
 													<th>상품명</th>
 													<th>카테고리</th>
 													<th>가격</th>

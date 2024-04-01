@@ -99,7 +99,7 @@
 										<table id="products" border="1" style="table-layout:auto;">
 											<thead>
 												<tr style="color: #000000;">
-													<th >PK</th>
+													<th>상품번호</th>
 													<th>상품명</th>
 													<th>카테고리</th>
 													<th>가격</th>
