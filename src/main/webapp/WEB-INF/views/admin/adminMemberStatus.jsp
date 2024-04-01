@@ -212,7 +212,7 @@
                                                     	    tableHTML += "<tbody>";
                                                     	    for (var i = 0; i < datas.length; i++) {
                                                     	    	 <!-- 회원 업데이트 컨트롤러 생기면 href 수정하기  -->
-                                                    	        tableHTML += `<tr class='memberTable' onclick="location.href='adminMemberStatusChange?memberID=${data.memberID}'" id="+datas[i].memberID+" style="cursor: pointer;">`;
+                                                    	        tableHTML += "<tr class='memberTable' onclick=\"location.href='adminMemberStatusChange?memberID="+datas[i].memberID +"'\" id='"+datas[i].memberID+"' style='cursor: pointer;'>";
                                                     	        tableHTML += "<td>" + datas[i].memberID + "</td>";
                                                     	        tableHTML += "<td>" + datas[i].memberName + "</td>";
                                                     	        tableHTML += "<td>" + datas[i].gradeName + "</td>";
