@@ -53,7 +53,7 @@
                                             class="hide-menu"> 매출현황
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="adminDaliySalesStatus" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="adminDailySalesStatus" class="sidebar-link"><span
                                             class="hide-menu"> 전일대비매출
                                         </span></a>
                                 </li>

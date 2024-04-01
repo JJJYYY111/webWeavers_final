@@ -219,11 +219,11 @@ public class AdminController {
 		return gson.toJson(productService.selectAll(productDTO));
 	}
 	
-	@RequestMapping("/adminDaliySalesStatus")
-	public String adminDaliySalesStatus(ProductDTO productDTO, Model model) {
+	@RequestMapping("/adminDailySalesStatus")
+	public String adminDailySalesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminDailySales");
 		model.addAttribute("productDatas", productService.selectAll(productDTO));
-		return "admin/adminDaliySalesStatus";
+		return "admin/adminDailySalesStatus";
 	}
 	
 	@RequestMapping("/adminTodaySalesGraph")
