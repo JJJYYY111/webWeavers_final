@@ -31,14 +31,18 @@ function createPagination($table, navId, rowPerPage) {
     console.log('첫번째 실행');
     
     console.log('navID' + navId);
+
+    var currentPage = 0; // 현재 페이지 번호 설정
+    var startPage = Math.max(0, currentPage - 4); // 시작 페이지 번호 설정
+    var endPage = Math.min(pageTotal, startPage + 9); // 종료 페이지 번호 설정
     
-    for (; i < pageTotal; i++) {
+    for (i = startPage; i < endPage; i++) { // 시작 페이지부터 종료 페이지까지 반복
         $('<a href="#" class="page"></a>')
             .attr('rel', i)
             .html(i + 1)
             .appendTo('#' + navId);
             
-            console.log('두번 도는지 확인');
+        console.log('두번 도는지 확인');
     }
 
     $('<a href="#" class="arrow next"><span>&gt;</span></a>').appendTo('#' + navId);
@@ -83,6 +87,7 @@ function createPagination($table, navId, rowPerPage) {
 
     $pagingLink.filter(':first').addClass('active');
 }
+
 
 
 

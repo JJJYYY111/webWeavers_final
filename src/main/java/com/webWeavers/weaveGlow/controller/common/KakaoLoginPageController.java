@@ -33,13 +33,6 @@ public class KakaoLoginPageController {
      * [GET] /user/callback
      */
     
-	/*
-	 * @GetMapping("/callback") public @ResponseBody void
-	 * kakaoCallback(@RequestParam(name = "code") String code) {
-	 * System.out.println("코드"+code); String access =
-	 * kakaoService.getKakaoAccessToken(code); System.out.println("리턴:"+ access);
-	 * kakaoService.createKakaoUser(access); }
-	 */
 	
 	@GetMapping("/callback")
 	public String kakaoLogin(@RequestParam(name = "code") String code, MemberDTO memberDTO, Model model, HttpSession httpSession) {

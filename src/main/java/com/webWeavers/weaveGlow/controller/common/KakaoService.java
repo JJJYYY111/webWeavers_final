@@ -29,7 +29,7 @@ public class KakaoService {
 	            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 	            StringBuilder sb = new StringBuilder();
 	            sb.append("grant_type=authorization_code");
-	            sb.append("&client_id=2d1ef19b01cc757510b19a63c5da33f0"); //  REST_API_KEY 입력
+	            sb.append("&client_id=b76a1451cae3876d403c07b8baec5c88"); //  REST_API_KEY 입력
 	            sb.append("&redirect_uri=http://localhost:8088/user/callback"); //  인가코드 받은 redirect_uri 입력
 	            sb.append("&code=" + code);
 	            bw.write(sb.toString());
@@ -96,30 +96,6 @@ public class KakaoService {
 		           result += line;
 		       }
 		       System.out.println("response body : " + result);
-
-				/*
-				 * JsonParser parser = new JsonParser(); JsonElement element =
-				 * parser.parse(result);
-				 * 
-				 * int id = element.getAsJsonObject().get("id").getAsInt(); JsonElement
-				 * kakaoAccount = element.getAsJsonObject().get("kakao_account");
-				 * 
-				 * JsonElement profile = kakaoAccount.getAsJsonObject().get("profile");
-				 * 
-				 * String name = profile.getAsJsonObject().get("nickname").getAsString();
-				 * System.out.println("이름: "+name);
-				 * 
-				 * boolean hasEmail = false; String email = "";
-				 * 
-				 * if (kakaoAccount != null && !kakaoAccount.isJsonNull()) { JsonElement
-				 * hasEmailElement = kakaoAccount.getAsJsonObject().get("has_email"); if
-				 * (hasEmailElement != null && !hasEmailElement.isJsonNull()) { hasEmail =
-				 * hasEmailElement.getAsBoolean(); }
-				 * 
-				 * if (hasEmail) { JsonElement emailElement =
-				 * kakaoAccount.getAsJsonObject().get("email"); if (emailElement != null &&
-				 * !emailElement.isJsonNull()) { email = emailElement.getAsString(); } } }
-				 */
 
 		      
 

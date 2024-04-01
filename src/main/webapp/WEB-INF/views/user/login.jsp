@@ -54,7 +54,7 @@
 							
 						</form>
 						<a href="searchID"> 아이디 / 비밀번호 찾기 </a>
-						<a  style="display: inline-block; margin-right: 280px;" href="https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=2d1ef19b01cc757510b19a63c5da33f0&amp;redirect_uri=http://localhost:8088/user/callback">
+						<a  style="display: inline-block; margin-right: 280px;" href="https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=b76a1451cae3876d403c07b8baec5c88&amp;redirect_uri=http://localhost:8088/user/callback">
    						 <button style="border: 0px solid white; background: none; padding: 0;" ><img src="/resources/uploadimg/kakaoLogin.png" alt="카카오톡"  width="70" /></button>
 						</a>
 					</div>
