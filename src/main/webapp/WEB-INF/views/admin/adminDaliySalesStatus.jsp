@@ -15,11 +15,11 @@
 	, viewport-fit=cover " />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<!-- Favicon icon -->
-<link rel="icon" type="/resources/image/png" sizes="16x16"
-	href="/resources/admin/assets/images/favicon.png" />
+  <!-- Favicon icon -->
+    <link rel="icon" type="/resources/image/png" sizes="16x16" href="/resources/admin/assets/images/favicon.png" />
 <title>일별 매출현황</title>
 <!-- This page plugin CSS -->
+<link rel="stylesheet" href="/resources/admin/adminCSS/DailySalesCSS.css">	
 <link
 	href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
 	rel="stylesheet" />
@@ -28,171 +28,6 @@
 <!-- This Page CSS -->
 <!-- 3.17일 추가 -->
 <link href="/resources/admin/assets/libs/morris.js/morris.css" rel="stylesheet">
-<style>
-.input {
-	color: #000000;
-	background-color: #ffffff4d;
-	/* 원하는 배경색으로 변경 */
-	border: 3px solid #ffffff;
-}
-
-form .cur-row {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-</style>
-
-
-
-<style>
-.custom {
-	appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	background: transparent url('path_to_arrow_icon.png') no-repeat right
-		center;
-	padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-	border: 1px solid #ced4da;
-	border-radius: 0.25rem;
-	line-height: 1.5;
-	background: url(../../assets/images/custom-select.png) right 1.1rem
-		center no-repeat;
-}
-</style>
-
-
-
-<style>
-.table-responsive {
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-</style>
-
-<style>
-.row.justify-content-center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-</style>
-
-<style>
-.membertable {
-	border-top: 1px solid #e8eef3;
-}
-</style>
-
-<style>
-table {
-	width: 100%;
-	border-collapse: collapse;
-	table-layout: fixed;
-}
-
-th, td {
-	border: 1px solid black;
-	padding: 8px;
-	text-align: left;
-	overflow-x: auto;
-	white-space: nowrap;
-}
-
-th {
-	background-color: #f2f2f2;
-}
-
-@media screen and (max-width: 768px) {
-	table {
-		font-size: 14px;
-	}
-}
-</style>
-
-<style>
-::-webkit-scrollbar {
-	width: 5px;
-}
-
-* {
-	scrollbar-width: thin;
-}
-
-*::-ms-scrollbar {
-	width: 5px;
-}
-</style>
-
-<style>
-::placeholder {
-	color: #000000;
-	font-weight: 100;
-}
-</style>
-
-
-
-<style>
-#inlineFormCustomSelect {
-	overflow-x: hidden;
-	overflow-y: auto;
-	width: 100%;
-}
-</style>
-
-<style>
-.row.justify-content-center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-</style>
-
-<style>
-.membertable {
-	border-top: 1px solid #e8eef3;
-}
-
-form {
-	width: 500px;
-}
-
-table {
-	border-collapse: collapse;
-	margin-bottom: 10px;
-}
-
-th, td {
-	padding: 3px 10px;
-}
-
-.off-screen {
-	display: none;
-}
-
-#nav {
-	width: 500px;
-	text-align: center;
-	margin: 0 auto;
-}
-
-#nav a {
-	display: inline-block;
-	padding: 3px 5px;
-	margin-right: 10px;
-	font-family: Tahoma;
-	background: #ffffff;
-	color: #000;
-	text-decoration: none;
-	position: relative;
-}
-
-#nav a.active {
-	background: #333;
-	color: #fff;
-}
-</style>
 
 </head>
 
