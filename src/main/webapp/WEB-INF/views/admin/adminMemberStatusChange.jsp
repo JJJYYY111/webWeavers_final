@@ -17,8 +17,7 @@
 <!-- Favicon icon -->
 <link rel="icon" type="/resources/image/png" sizes="16x16"
 	href="/resources/admin/assets/images/favicon.png">
-<title>Adminmart Template - The Ultimate Multipurpose admin
-	template</title>
+<title>회원 정보 변경</title>
 <!-- Custom CSS -->
 <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet">
 </head>

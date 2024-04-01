@@ -14,18 +14,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <!-- Favicon icon -->
-    <link rel="icon" type="/resources/image/png" sizes="16x16" href="/resources/admin/assets/images/favicon.png" />
     <title>메인페이지</title>
     <!-- This page plugin CSS -->
     <link href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
-    <style>
-        .card-body {
-            overflow: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="/resources/admin/adminCSS/dashBoardCSS.css">	
 </head>
 
 <body>

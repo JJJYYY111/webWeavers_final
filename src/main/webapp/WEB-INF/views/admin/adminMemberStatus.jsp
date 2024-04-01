@@ -15,142 +15,15 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <!-- Favicon icon -->
-    <link rel="icon" type="/resources/image/png" sizes="16x16" href="/resources/admin/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>회원현황</title>
     <!-- plugin CSS -->
     <link href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
-
-    <style>
-        .input {
-            color: #000000;
-            background-color: #ffffff4d;
-            border: 3px solid #ffffff;
-        }
-
-        form .cur-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-    </style>
-
-    <style>
-        ::placeholder {
-            color: #000000;
-            font-weight: 100;
-        }
-    </style>
-
-    <style>
-        .table-responsive {
-            overflow-x: hidden;
-            overflow-y: auto;/
-        }
-    </style>
-
-    <style>
-        .row.justify-content-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
-
-    <style>
-        .membertable {
-            border-top: 1px solid #e8eef3;
-        }
-    </style>
-
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;
-        }
-
-        th,
-        td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-            overflow-x: auto;
-            white-space: nowrap;
-
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        @media screen and (max-width: 768px) {
-            table {
-                font-size: 14px;
-            }
-        }
-    </style>
-
-    <style>
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        * {
-            scrollbar-width: thin;
-        }
-
-        *::-ms-scrollbar {
-            width: 5px;
-        }
-
-
-        form {
-            width: 500px;
-        }
-
-        table {
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
-
-        th,
-        td {
-            padding: 3px 10px;
-        }
-
-        .off-screen {
-            display: none;
-        }
-
-        #memberNav {
-            width: 500px;
-            text-align: center;
-            margin: 0 auto;
-        }
-
-        #memberNav a {
-            display: inline-block;
-            padding: 3px 5px;
-            margin-right: 10px;
-            font-family: Tahoma;
-            background: #ffffff;
-            color: #000;
-            text-decoration: none;
-            position: relative;
-        }
-
-
-
-        #memberNav a.active {
-            background: #333;
-            color: #fff;
-        }
-    </style>
-
-
-
+	<link rel="stylesheet" href="/resources/admin/adminCSS/memberStatusCSS.css">
+   
 </head>
 
 <body>
