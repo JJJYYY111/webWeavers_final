@@ -37,7 +37,7 @@
 }
 
 /* 3/31 추가 */
-.list-area ul.grid-container {
+.list-area ul.grid-contain {
     width: 80%; /* 원하는 고정 너비로 설정 */
     margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 자동으로 설정 */
 }
@@ -107,14 +107,14 @@
 	<common:banner bannerText='스킨케어' />
 
 	<!-- ================ 내용 ================= -->
-	<br>
+	<br><br>
 	<section class="product-depth p_ver">
 		<input type="hidden" id="checkSubCategoryPK" value="${subCategoryPK}" />
 		<input type="hidden" id="checkCategoryPK" value="${categoryPK}" />
 		<div class="depth-list-wrap">
 			<c:if test="${categoryPK == 1}">
 				<div class="list-area">
-					<ul class="grid-container">
+					<ul class="grid-contain">
 						<li style="border-right: 1px solid rgba(0, 0, 0, 0.1)"><a
 							href="subCategoryProductList?categoryPK=1"
 							class="ctgr_box active">전체</a></li>
@@ -155,11 +155,10 @@
 					</ul>
 				</div>
 
-				<br>
 			</c:if>
 			<c:if test="${categoryPK == 2}">
 				<div class="list-area">
-					<ul class="grid-container">
+					<ul class="grid-contain">
 						<li><a href="subCategoryProductList?categoryPK=2" id=""
 							class="ctgr_box active"
 							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">전체</a></li>
@@ -189,7 +188,7 @@
 			</c:if>
 			<c:if test="${categoryPK == 3}">
 				<div class="list-area">
-					<ul class="grid-container">
+					<ul class="grid-contain">
 						<li><a href="subCategoryProductList?categoryPK=3" id=""
 							class="ctgr_box active"
 							style="border-right: 1px solid rgba(0, 0, 0, 0.1)">전체</a></li>
