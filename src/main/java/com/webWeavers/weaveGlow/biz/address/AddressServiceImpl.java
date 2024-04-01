@@ -20,22 +20,26 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public AddressDTO selectOne(AddressDTO addressDTO) {
-		 return addressDAO.selectOne(addressDTO.getAddressPK());
+		 Map<String, Integer> map = new HashMap<String,Integer>();
+		 map.put("addressPK", addressDTO.getAddressPK());
+		 return addressDAO.selectOne(map);
 	}
 
 	@Override
 	public boolean insert(AddressDTO addressDTO) {
-		// return addressDAO.insert(addressDTO);
+		return addressDAO.insert(addressDTO);
 	}
 
 	@Override
 	public boolean update(AddressDTO addressDTO) {
-		// return addressDAO.update(addressDTO);
+		 return addressDAO.update(addressDTO);
 	}
 
 	@Override
 	public boolean delete(AddressDTO addressDTO) {
-		// return addressDAO.delete(addressDTO);
+		Map<String, Integer> map = new HashMap<String,Integer>();
+		 map.put("addressPK", addressDTO.getAddressPK());
+		 return addressDAO.delete(map);
 	}
 
 }

@@ -175,14 +175,14 @@ $(function () {
     // LINE CHART
     // 여기가 차트
     var graphJson = [
-            { y: '0~3시' , item1: 0, item2: 0 },
-            { y: '3~6시' , item1: 0, item2: 0 },
-            { y: '6~9시' , item1: 0, item2: 0 },
-            { y: '9~12시' , item1: 0, item2: 0 },
-            { y: '12~15시' , item1: 0, item2: 0 },
-            { y: '15~18시' , item1: 0, item2: 0 },
-            { y: '18~21시' , item1: 0, item2: 0 },
-            { y: '21~24시' , item1: 0, item2: 0 }
+            { y: '0~3시' , 어제: 0, 오늘: 0 },
+            { y: '3~6시' , 어제: 0, 오늘: 0 },
+            { y: '6~9시' , 어제: 0, 오늘: 0 },
+            { y: '9~12시' , 어제: 0, 오늘: 0 },
+            { y: '12~15시' , 어제: 0, 오늘: 0 },
+            { y: '15~18시' , 어제: 0, 오늘: 0 },
+            { y: '18~21시' , 어제: 0, 오늘: 0 },
+            { y: '21~24시' , 어제: 0, 오늘: 0 }
         ];
     
     $.ajax({
@@ -220,7 +220,7 @@ $(function () {
         data: graphJson,
         xkey: 'y',
         ykeys: ['item1', 'item2'],
-        labels: ['Item 1', 'Item 2'],
+        labels: ['어제', '오늘'],
         gridLineColor: '#eef0f2',
         lineColors: ['#5f76e8', '#01caf1'],
         lineWidth: 1,
