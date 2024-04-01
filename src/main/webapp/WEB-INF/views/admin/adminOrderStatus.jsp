@@ -159,8 +159,12 @@
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].serialPK + "</td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].serialRegdate + "</td>";
                                                     	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].memberName + "</td>";
-                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].productName + "외"+ datas[i].buyProductCnt+"개"+"</td>";
-                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].totalPrice + "</td>";
+                                                    	        if (datas[i].buyProductCnt == 0) {
+                                                    	            tableHTML += "<td class=\"productName\"id=\""+ datas[i].serialPK+ "\">" + datas[i].productName + "</td>";
+                                                    	        } else {
+                                                    	            tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + datas[i].productName + " 외 " + datas[i].buyProductCnt + "개</td>";
+                                                    	        }
+                                                    	        tableHTML += "<td class=\"productName\" id=\"" + datas[i].serialPK + "\">" + new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(datas[i].totalPrice) + "</td>";
                                                     	        tableHTML += "<td><select class=\"custom-select mr-sm-2 serialStatus\" style=\"color: #000000; width:auto;\" id=\"" + datas[i].serialPK + "\">";
                                                     	        tableHTML += "<option value=\"receipt\" " + (datas[i].serialStatus === 'receipt' ? 'selected' : '') + ">접수</option>";
                                                     	        tableHTML += "<option value=\"finish\" " + (datas[i].serialStatus === 'finish' ? 'selected' : '') + ">완료</option>";
@@ -223,8 +227,17 @@
 															<td class="productName" id="${data.serialPK}">${data.serialPK}</td>
 															<td class="productName" id="${data.serialPK}">${data.serialRegdate}</td>
 															<td class="productName" id="${data.serialPK}">${data.memberName}</td>
-															<td class="productName" id="${data.serialPK}">${data.productName}외${data.buyProductCnt}개</td>
-															<td class="productName" id="${data.serialPK}">${data.totalPrice}</td>
+															<td class="productName" id="${data.serialPK}">
+        
+        <c:if test="${data.buyProductCnt == 0}">
+            ${data.productName}
+        </c:if>
+        <c:if test="${data.buyProductCnt >= 1}">
+            ${data.productName} 외 ${data.buyProductCnt}개
+        </c:if>
+        </td>
+															<td class="productName" id="${data.serialPK}">  <span class="totalPrice">${data.totalPrice}</span></td>
+															
 															<td><select class="custom-select mr-sm-2 serialStatus" style="color: #000000; width:auto;" id="${data.serialPK}">
                 <option value="receipt" ${data.serialStatus == 'receipt' ? 'selected' : ''}>접수</option>
                 <option value="finish" ${data.serialStatus == 'finish' ? 'selected' : ''}>완료</option>
@@ -241,6 +254,14 @@
                                             var serialStatus = option.dataset.serialStatus;
                                             
                                             </script>
+                                            
+                                            <script>
+    // totalPrice를 원화 표시로 변환
+    var totalPrices = document.querySelectorAll('.totalPrice');
+    totalPrices.forEach(function(totalPrice) {
+        totalPrice.textContent = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(parseInt(totalPrice.textContent));
+    });
+</script>
 
 											<!-- 모달 -->
 											<div id="myModal" class="modal">
@@ -307,7 +328,7 @@
                                                                     console.log('data' + data);
                                                                     tableHTML += "<td>" + data[i].productName + "</td>";
                                                                     tableHTML += "<td>" + data[i].buyProductCnt+"개" + "</td>";
-                                                                    tableHTML += "<td>" + data[i].totalPrice +"원" + "</td>";
+                                                                    tableHTML += "<td>" + new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(data[i].totalPrice) + "</td>";
                                                                     tableHTML += "</tr>"; // <tr> 닫기
 
                                                                     // totalPrice 값을 누적하여 더함
@@ -315,9 +336,11 @@
                                                                 }
 
                                                                 // 총 금액을 하나의 행으로 표시
+                                                                var totalPriceFormatted = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalPriceSum);
+
                                                                 tableHTML += "<tr>";
                                                                 tableHTML += "<td colspan='2'style='font-weight: bold; background-color: #f2f2f2;'>총 금액 </td>";
-                                                                tableHTML += "<td>" + totalPriceSum +"원" + "</td>";
+                                                                tableHTML += "<td>" +  totalPriceFormatted  + "</td>";
                                                                 tableHTML += "</tr>";
 
                                                                 // 테이블에 HTML 코드 추가

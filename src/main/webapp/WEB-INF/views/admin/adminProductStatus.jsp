@@ -72,7 +72,7 @@
 										style="background-color: rgb(255, 255, 255) !important; color: black !important;">
 										<thead>
 											<tr>
-												<th class="sorting_asc" style="background-color: #f2f2f2;">상품코드</th>
+												<th class="sorting_asc" style="background-color: #f2f2f2;">상품번호</th>
 												<th class="sorting_asc" style="background-color: #f2f2f2;">상품명</th>
 												<th class="sorting_asc" style="background-color: #f2f2f2;">상품가격</th>
 												<th class="sorting_asc" style="background-color: #f2f2f2;">수량</th>

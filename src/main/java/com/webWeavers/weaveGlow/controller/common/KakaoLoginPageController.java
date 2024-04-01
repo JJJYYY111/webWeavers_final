@@ -52,6 +52,9 @@ public class KakaoLoginPageController {
 		       
 		       String nickname = profile.getAsJsonObject().get("nickname").getAsString();
 		     
+		       String name = kakaoAccount.getAsJsonObject().get("name").getAsString();
+		       
+		      String phoneNumber = kakaoAccount.getAsJsonObject().get("phone_number").getAsString();
 		       
 		       boolean hasEmail = false;
 		       String email = "";
@@ -70,8 +73,10 @@ public class KakaoLoginPageController {
 		           }
 		       }
 		       
-		       System.out.println("이름: "+nickname);
+		       System.out.println("이름 : " + name );
+		       System.out.println("닉네임: "+ nickname);
 		       System.out.println("email : " + email);
+		       System.out.println("전화번호 : "+ phoneNumber);
 		       //이메일로 유저 판단
 		       //안되어있다
 		       //회원가입-> 이름과 이메일 들고 감
@@ -85,6 +90,8 @@ public class KakaoLoginPageController {
 		    	    memberDTO = new MemberDTO();
 		    	    memberDTO.setMemberEmail(email);
 		    	    memberDTO.setMemberNickname(nickname);
+		    	    memberDTO.setMemberName(name);
+		    	    memberDTO.setMemberPhone(phoneNumber);
 		    	  
 		    	    // 아이디 랜덤 생성
 		    	    
