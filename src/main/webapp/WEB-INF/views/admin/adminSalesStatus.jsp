@@ -8,6 +8,7 @@
 <html dir="ltr" lang="en">
 
 <head>
+<common:head />
 <common:adminHead />
 
 <title>매출 관리</title>

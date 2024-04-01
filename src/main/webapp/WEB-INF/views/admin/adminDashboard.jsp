@@ -8,7 +8,8 @@
 <html dir="ltr" lang="en">
 
 <head>
-  <common:adminHead />
+<common:head />
+<common:adminHead />
     <title>메인페이지</title>
     <!-- This page plugin CSS -->
     <link href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />

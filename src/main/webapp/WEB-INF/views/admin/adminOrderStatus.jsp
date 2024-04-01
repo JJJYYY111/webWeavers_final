@@ -8,6 +8,7 @@
 <html dir="ltr" lang="en">
 
 <head>
+<common:head />
 <common:adminHead />
 <title>주문현황</title>
 <!-- plugin CSS -->

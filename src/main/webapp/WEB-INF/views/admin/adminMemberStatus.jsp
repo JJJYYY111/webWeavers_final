@@ -9,6 +9,7 @@
 <html dir="ltr" lang="en">
 
 <head>
+<common:head />
 <common:adminHead />
   
     <title>회원현황</title>
