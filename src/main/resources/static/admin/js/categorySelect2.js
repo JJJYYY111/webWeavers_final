@@ -52,7 +52,6 @@ $(document).on("click", "#searchButton", function () {
     console.log('로그 끝날짜 2 ' + endDate);
 
     $.ajax({
-
         type: "POST",
         url: "adminSearchSales",
         data: {
@@ -61,45 +60,36 @@ $(document).on("click", "#searchButton", function () {
             'startDate': startDate,
             'endDate': endDate
         },
-
         dataType: 'json',
-
         success: function (datas) {
             console.log('콘솔 [' + datas + ']');
-            var tableHTML = `<table id="zero_config" class="table table-striped table-bordered no-wrap">`;
-            tableHTML += `<thead> <tr>
-                <th class="sorting_asc" style="background-color: #f2f2f2;">PK</th>
-                <th class="sorting_asc" style="background-color: #f2f2f2;">상품명</th>
-                <th class="sorting_asc" style="background-color: #f2f2f2;">카테고리</th>
-                <th class="sorting_asc" style="background-color: #f2f2f2;">서브카테고리</th>
-                <th class="sorting_asc" style="background-color: #f2f2f2;">가격</th>
-                <th class="sorting_asc" style="background-color: #f2f2f2;">수량</th>
-                <th class="sorting_asc" style="background-color: #f2f2f2;">금액</th>
-            </tr>
-            </thead>
-            <tbody>`;
+            
+            // 검색 결과를 받아왔을 때
+            var table = $('#zero_config').DataTable();
 
+            // 테이블 초기화
+            table.clear().draw();
+
+            // 데이터 추가
             for (var i = 0; i < datas.length; i++) {
-                tableHTML += "<tr>";
-                tableHTML += "<td >" + datas[i].productPK + "</td>";
-                tableHTML += "<td >" + datas[i].productName + "</td>";
-                tableHTML += "<td >" + datas[i].categoryName + "</td>";
-                tableHTML += "<td >" + datas[i].subCategoryName + "</td>";
-                tableHTML += "<td >" + datas[i].productPrice + "</td>";
-                tableHTML += "<td >" + datas[i].totalCnt + "</td>";
-                tableHTML += "<td >" + datas[i].totalPrice + "</td>";
-                tableHTML += "</tr>";
+                table.row.add([
+                    datas[i].productPK,
+                    datas[i].productName,
+                    datas[i].categoryName,
+                    datas[i].subCategoryName,
+                    datas[i].productPrice,
+                    datas[i].totalCnt,
+                    datas[i].totalPrice
+                ]).draw(false);
             }
 
-            tableHTML += "</tbody></table>";
-            $("#zero_config").html(tableHTML);
-
+            // 페이징 재설정
+            table.page('first').draw('page');
         },
         error: function (error) {
-
             console.log('에러의 종류:' + error)
         }
     });
-
-
 });
+
+
