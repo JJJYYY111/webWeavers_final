@@ -53,6 +53,12 @@
 							<!-- /로그인 실패 문구 -->
 							
 						</form>
+						<div class="list-area">
+    							<ul class="grid-container">
+       								<li><a href="findID" id="" class="">아이디 찾기</a></li>
+								<li><a href="findPW" id="" class="">비밀번호 찾기</a></li>
+    							</ul>
+						</div>
 						<a href="searchID"> 아이디 / 비밀번호 찾기 </a>
 						<a  style="display: inline-block; margin-right: 280px;" href="https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=b76a1451cae3876d403c07b8baec5c88&amp;redirect_uri=http://localhost:8088/user/callback">
    						 <button style="border: 0px solid white; background: none; padding: 0;" ><img src="/resources/uploadimg/kakaoLogin.png" alt="카카오톡"  width="70" /></button>

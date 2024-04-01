@@ -20,7 +20,7 @@ public class CartDAO {
 			+ "FROM CART C \r\n"
 			+ "JOIN PRODUCT P ON (C.PRODUCT_PK = P.PRODUCT_PK) \r\n"
 			+ "WHERE C.MEMBER_ID = ?";
-	// ?
+	// 장바구니 선택 > NULL이 아니면 개수 추가
 	private static final String SELECTONE = "SELECT C.CART_PK, C.CART_CNT, C.MEMBER_ID, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG, P.PRODUCT_PRICE \r\n"
 			+ "FROM CART C \r\n"
 			+ "JOIN PRODUCT P ON (C.PRODUCT_PK = P.PRODUCT_PK) \r\n"
