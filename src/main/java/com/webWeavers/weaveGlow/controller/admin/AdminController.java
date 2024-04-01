@@ -186,7 +186,7 @@ public class AdminController {
 		return "admin/adminOrderStatus";
 	}
 	
-	@RequestMapping("/adminGetOrderList")
+	@RequestMapping("/adminDetailOrderList")
 	public @ResponseBody String adminGetOrderList(SerialDTO serialDTO, Gson gson) {
 		serialDTO.setSearchCondition("orderProduct");
 		return gson.toJson(serialService.selectAll(serialDTO));
@@ -198,7 +198,7 @@ public class AdminController {
 		return gson.toJson(serialService.selectAll(serialDTO));
 	}
 	
-	@RequestMapping("/adminSerialStatus")
+	@RequestMapping("/adminSerialStatusChange")
 	public @ResponseBody String adminSerialStatus(SerialDTO serialDTO, Gson gson) {
 		return String.valueOf(serialService.update(serialDTO));
 	}

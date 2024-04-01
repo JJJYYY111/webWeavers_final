@@ -282,7 +282,7 @@
                                                         
                                                         $.ajax({
                                                             type: "POST",
-                                                            url: "adminGetOrderList",
+                                                            url: "adminDetailOrderList",
                                                             data: {
                                                                 'serialPK': serialPK
                                                             },
@@ -377,7 +377,7 @@
 
         $.ajax({
             type: "POST",
-            url: "adminSerialStatus",
+            url: "adminSerialStatusChange",
             data: {
                 'serialStatus': selectedStatus, // 변수명 수정
                 'serialPK': serialPK
