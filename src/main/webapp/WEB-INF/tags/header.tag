@@ -7,61 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/resources/admin/adminCSS/headerCSS.css">	
 <title>Your Title Here</title>
 
-<style>
-/* Additional CSS for dropdown menu */
-.dropdown-menu.popover {
-	position: absolute;
-	z-index: 1060;
-	display: none;
-	min-width: 10rem;
-	padding: 0.5rem 0;
-	margin: 0.125rem 0 0;
-	font-size: 1rem;
-	color: #212529;
-	text-align: left;
-	list-style: none;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid rgba(0, 0, 0, 0.15);
-	border-radius: 0.25rem;
-	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
-}
 
-.dropdown-menu.popover.show {
-	display: block;
-}
-
-.dropdown-item {
-	display: block;
-	width: 100%;
-	padding: 0.25rem 1.5rem;
-	clear: both;
-	font-weight: 400;
-	color: #212529;
-	text-align: inherit;
-	white-space: nowrap;
-	background-color: transparent;
-	border: 0;
-}
-
-.dropdown-item:hover, .dropdown-item:focus {
-	color: #16181b;
-	text-decoration: none;
-	background-color: #f8f9fa;
-}
-
-/* Additional CSS to position popover under nav-item */
-.nav-item {
-	position: relative;
-}
-
-.dropdown-menu.popover {
-	top: 100%;
-	left: 0;
-}
-</style>
 </head>
 
 <body>
@@ -144,7 +93,5 @@
 	</script>
 	
 
-	
 </body>
-
 </html>
