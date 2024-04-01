@@ -117,22 +117,22 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="data" items="${productDatas}">
-													<tr>
-														<td>${data.productPK}</td>
-														<td>${data.productName}</td>
-														<td>${data.categoryName}</td>
-														<td>${data.productPrice}</td>
-														<td>${data.totalCnt}</td>
-														<td>${data.totalPrice}</td>
-													</tr>
-													<c:set var="totalPrice" value="${totalPrice + data.totalPrice}" />
-												</c:forEach>
-												<tr style="color: #000000;">
-													<th colspan="5">총금액</th>
-													<td>${totalPrice}</td>
-												</tr>
-											</tbody>
+    <c:forEach var="data" items="${productDatas}">
+        <tr>
+            <td>${data.productPK}</td>
+            <td>${data.productName}</td>
+            <td>${data.categoryName}</td>
+            <td><fmt:formatNumber type="currency" value="${data.productPrice}" /></td>
+            <td>${data.totalCnt}</td>
+            <td><fmt:formatNumber type="currency" value="${data.totalPrice}" /></td>
+        </tr>
+        <c:set var="totalPrice" value="${totalPrice + data.totalPrice}" />
+    </c:forEach>
+    <tr style="color: #000000;">
+        <th colspan="5">총금액</th>
+        <td><fmt:formatNumber type="currency" value="${totalPrice}" /></td>
+    </tr>
+</tbody>
 										</table>
 										<div id="nav"></div>
 									</div>

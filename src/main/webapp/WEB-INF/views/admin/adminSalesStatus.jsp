@@ -158,9 +158,9 @@
 													<td>${data.productName}</td>
 													<td>${data.categoryName}</td>
 													<td>${data.subCategoryName}</td>
-													<td>${data.productPrice}</td>
+													 <td><fmt:formatNumber type="currency" value="${data.productPrice}" /></td>
 													<td>${data.totalCnt}</td>
-													<td>${data.totalPrice}</td>
+													 <td><fmt:formatNumber type="currency" value="${data.totalPrice}" /></td>
 												</tr>
 											</c:forEach>
 										</tbody>

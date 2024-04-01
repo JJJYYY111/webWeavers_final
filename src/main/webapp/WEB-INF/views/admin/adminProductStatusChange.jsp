@@ -126,7 +126,7 @@
 															<div>판매가</div>
 															<div class="col-md-5" style="margin-left: 15px;">
 																<input type="text" name="productPrice" class="form-control"
-																	value="${productDTO.productPrice}">
+																	 value="<fmt:formatNumber type='currency' value='${productDTO.productPrice}' />">
 															</div>
 														</div>
 														<br>

@@ -99,7 +99,8 @@
 										
 												<td>${data.productPK}</td>
 												<td>${data.productName}</td>
-												<td>${data.productPrice}</td>
+												
+												  <td><fmt:formatNumber type="currency" value="${data.productPrice}" /></td>
 												<td>${data.productQuantity}</td>
 												
 												<c:choose>
@@ -116,6 +117,7 @@
 											</c:forEach>
 										</tbody>
 									</table>
+									
 								</div>
 							</div>
 						</div>
