@@ -176,7 +176,7 @@
 														<div id="image-show" class="image-show">
 															<img src="${productDTO.productImg}"
 																alt="Product Image"
-																style="width: 70%; height: 70%; object-fit: contain;">
+																style="width: 30%; height: 70%; object-fit: contain;">
 															<script>
 																console.log('사진 로그');
 																</script>
