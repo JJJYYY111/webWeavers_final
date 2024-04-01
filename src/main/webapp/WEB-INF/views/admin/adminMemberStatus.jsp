@@ -9,19 +9,13 @@
 <html dir="ltr" lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" , viewport-fit="cover" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <!-- Favicon icon -->
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<common:head />
+<common:adminHead />
+  
     <title>회원현황</title>
     <!-- plugin CSS -->
     <link href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/resources/admin/adminCSS/memberStatusCSS.css">
    
 </head>

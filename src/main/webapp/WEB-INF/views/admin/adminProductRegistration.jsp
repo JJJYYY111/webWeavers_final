@@ -7,12 +7,7 @@
           <html dir="ltr" lang="en">
 
           <head>
-            <meta charset="utf-8" />
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <!-- Tell the browser to be responsive to screen width -->
-            <meta name="viewport" content="width=device-width, initial-scale=1" , viewport-fit="cover" />
-            <meta name="description" content="" />
-            <meta name="author" content="" />
+           <common:adminHead />
             <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
             <!-- Favicon icon -->
             <link rel="icon" type="/resources/admin/assets/image/png" sizes="16x16" href="/resources/admin/assets/images/favicon.png" />
@@ -20,7 +15,6 @@
             <!-- This page plugin CSS -->
             <link href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
             <!-- Custom CSS -->
-            <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
 
             <!-- 스윗 알랏창  -->
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
