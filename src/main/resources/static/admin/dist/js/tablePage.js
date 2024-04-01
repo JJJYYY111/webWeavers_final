@@ -27,30 +27,26 @@ function createPagination($table, navId, rowPerPage) {
     var i = 0;
 
     $('<a href="#" class="arrow prev"><span>&lt;</span></a>').appendTo('#' + navId);
-    
-    console.log('첫번째 실행');
-    
-    console.log('navID' + navId);
 
     var currentPage = 0; // 현재 페이지 번호 설정
-    var startPage = Math.max(0, currentPage - 4); // 시작 페이지 번호 설정
-    var endPage = Math.min(pageTotal, startPage + 9); // 종료 페이지 번호 설정
-    
-    for (i = startPage; i < endPage; i++) { // 시작 페이지부터 종료 페이지까지 반복
+    var startPage = currentPage * rowPerPage; // 시작 항목 인덱스 설정
+    var endPage = Math.min((currentPage + 1) * rowPerPage, rowTotals); // 종료 항목 인덱스 설정
+
+    for (i = 0; i < pageTotal; i++) { // 페이지 버튼을 생성
         $('<a href="#" class="page"></a>')
             .attr('rel', i)
             .html(i + 1)
             .appendTo('#' + navId);
-            
-        console.log('두번 도는지 확인');
     }
 
     $('<a href="#" class="arrow next"><span>&gt;</span></a>').appendTo('#' + navId);
 
-    $tr.addClass('off-screen')
+ $tr.addClass('off-screen')
         .slice(0, rowPerPage)
         .removeClass('off-screen');
 
+
+    // 페이지 버튼 이벤트 처리
     var $pagingLink = $('#' + navId + ' .page');
     $pagingLink.on('click', function(evt) {
         evt.preventDefault();
@@ -61,31 +57,36 @@ function createPagination($table, navId, rowPerPage) {
         $pagingLink.removeClass('active');
         $this.addClass('active');
 
-        var currPage = $this.attr('rel');
-        var startItem = currPage * rowPerPage;
-        var endItem = Math.min(startItem + rowPerPage, rowTotals);
+        currentPage = parseInt($this.attr('rel'));
+        startPage = currentPage * rowPerPage;
+        endPage = Math.min((currentPage + 1) * rowPerPage, rowTotals);
 
-        $tr.css('opacity', '0.0')
-            .addClass('off-screen')
-            .slice(startItem, endItem)
-            .removeClass('off-screen')
-            .animate({ opacity: 1 }, 300);
+        $tr.removeClass('off-screen').slice(0, startPage).addClass('off-screen');
+        $tr.slice(startPage, endPage).removeClass('off-screen');
+        $tr.slice(endPage).addClass('off-screen');
     });
 
+    // 이전/다음 화살표 이벤트 처리
     $('#' + navId + ' .arrow').on('click', function(evt) {
         evt.preventDefault();
         var $this = $(this);
         var $activePage = $('#' + navId + ' .page.active');
-        var currPage = parseInt($activePage.attr('rel'));
+
         if ($this.hasClass('prev')) {
-            currPage = Math.max(0, currPage - 1);
+            if (currentPage > 0) {
+                currentPage--;
+            }
         } else if ($this.hasClass('next')) {
-            currPage = Math.min(pageTotal - 1, currPage + 1);
+            if (currentPage < pageTotal - 1) {
+                currentPage++;
+            }
         }
-        $('#' + navId + ' .page[rel=' + currPage + ']').click();
+
+        $('#' + navId + ' .page[rel=' + currentPage + ']').click();
     });
 
-    $pagingLink.filter(':first').addClass('active');
+    // 초기 활성화된 페이지 설정
+    $pagingLink.filter('[rel=' + currentPage + ']').addClass('active');
 }
 
 
