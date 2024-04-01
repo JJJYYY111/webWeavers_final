@@ -9,50 +9,7 @@
 <head>
 <title>WeaveGlow - Main</title>
 <common:head />
-<style>
-.carousel {
-	position: relative;
-	overflow: hidden;
-	width: 100%; 
-	height: 300px; 
-	margin: 0 auto; /* 수평 가운데 정렬 */
-	text-align: center; 
-}
 
-.carousel img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover; /* 이미지가 영역에 맞게 잘리지 않도록 */
-}
-
-.prev, .next {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	/*background-color: rgba(0, 0, 0, 0.5);*/
-	color: white;
-	padding: 10px;
-	cursor: pointer;
-	border: none;
-}
-
-.prev {
-	left: 0;
-	box-shadow: none;
-}
-
-.next {
-	right: 0;
-	box-shadow: none;
-}
-
-.carousel img {
-	display: inline-block; 
-	vertical-align: middle; 
-	max-width: 100%; 
-	max-height: 100%; 
-}
-</style>
 
 </head>
 <body>
