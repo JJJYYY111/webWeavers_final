@@ -9,17 +9,11 @@
 
 <head>
 <common:adminHead />
-  <!-- Favicon icon -->
-    <link rel="icon" type="/resources/image/png" sizes="16x16" href="/resources/admin/assets/images/favicon.png" />
 <title>일별 매출현황</title>
-<!-- This page plugin CSS -->
 <link rel="stylesheet" href="/resources/admin/adminCSS/DailySalesCSS.css">	
 <link
 	href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
 	rel="stylesheet" />
-<!-- Custom CSS -->
-<!-- This Page CSS -->
-<!-- 3.17일 추가 -->
 <link href="/resources/admin/assets/libs/morris.js/morris.css" rel="stylesheet">
 
 </head>

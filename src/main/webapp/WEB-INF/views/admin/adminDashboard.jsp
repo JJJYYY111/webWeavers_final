@@ -157,14 +157,14 @@
                         </div>
                     </div>
                 </div>
+                                <!-- footer -->
+                <footer class="footer text-center text-muted">
+                    Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
+                </footer>
             </div>
-            <!-- footer -->
-            <footer class="footer text-center text-muted">
-                Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
-            </footer>
         </div>
     </div>
-    <!-- All Jquery -->
+	    <!-- All Jquery -->
     <script src="/resources/admin/dist/js/pages/morris/morris-data.js"></script>
     <script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>

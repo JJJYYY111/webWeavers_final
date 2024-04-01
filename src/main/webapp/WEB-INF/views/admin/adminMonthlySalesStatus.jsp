@@ -137,7 +137,6 @@
 		<script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 		<script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 		<!-- apps -->
-		<!-- apps -->
 		<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
 		<script src="/resources/admin/dist/js/feather.min.js"></script>
 		<!-- slimscrollbar scrollbar JavaScript -->

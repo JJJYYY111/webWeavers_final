@@ -9,7 +9,6 @@
 <html dir="ltr" lang="en">
 
 <head>
-<common:head />
 <common:adminHead />
   
     <title>회원현황</title>
@@ -136,12 +135,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
-    <!-- footer -->
+             <!-- footer -->
     <footer class="footer text-center text-muted">
         Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
     </footer>
+        </div>
+        </div>
     <!-- All Jquery -->
     <script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
@@ -161,9 +160,8 @@
     <!--This page plugins -->
     <script src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
- 	<!--페이징처리 -->
+     <!--페이징처리 -->
     <script src="/resources/admin/dist/js/tablePage.js"></script>
-    
     <!-- 필터검색 -->
 											<script>
 											$("#search").on("click", function() {

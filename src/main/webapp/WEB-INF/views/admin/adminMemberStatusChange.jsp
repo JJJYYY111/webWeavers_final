@@ -9,9 +9,6 @@
 
 <head>
 <common:adminHead />
-<!-- Favicon icon -->
-<link rel="icon" type="/resources/image/png" sizes="16x16"
-	href="/resources/admin/assets/images/favicon.png">
 <title>회원 정보 변경</title>
 <!-- Custom CSS -->
 </head>

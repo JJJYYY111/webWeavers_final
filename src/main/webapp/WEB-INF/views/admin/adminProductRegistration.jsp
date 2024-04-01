@@ -9,8 +9,6 @@
           <head>
            <common:adminHead />
             <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
-            <!-- Favicon icon -->
-            <link rel="icon" type="/resources/admin/assets/image/png" sizes="16x16" href="/resources/admin/assets/images/favicon.png" />
             <title>상품등록</title>
             <!-- This page plugin CSS -->
             <link href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
