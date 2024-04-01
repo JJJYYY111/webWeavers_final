@@ -23,17 +23,8 @@
 	rel="stylesheet" />
 <!-- Custom CSS -->
 <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/resources/admin/adminCSS/productStatusCSS.css">    
 
-<style>
-#zero_config .sorting_1 {
-	background-color: rgb(255, 255, 255) !important;
-	color: black !important;
-}
-
-.odd {
-	background-color: rgb(255, 255, 255) !important;
-}
-</style>
 </head>
 
 <body>

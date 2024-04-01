@@ -30,50 +30,7 @@
 <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
 <!-- 스윗 알랏창  -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<style>
-.input {
-	color: #000000;
-	background-color: #ffffff4d;
-	border: 3px solid #ffffff;
-}
-
-form .cur-row {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-</style>
-
-<style>
-::placeholder {
-	color: #000000;
-	font-weight: 100;
-}
-</style>
-
-<style>
-.table-responsive {
-	overflow-x: hidden;
-	overflow-y: auto;
-	/
-}
-
-/* 상세설명올리는 크기 조절  */
-.addImage {
-	width: 50%;
-	height: 500px;
-	background-color: #ffffff;
-	border-radius: 20px 20px/20px 20px;
-	overflow: hidden;
-	margin: 0px 10px 10px 0px;
-}
-
-.inputImg {
-	width: 450px;
-	height: 350px;
-}
-</style>
+<link rel="stylesheet" href="/resources/admin/adminCSS/productStatusChangeCSS.css">    
 
 </head>
 

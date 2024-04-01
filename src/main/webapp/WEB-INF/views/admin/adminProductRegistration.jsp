@@ -24,71 +24,8 @@
 
             <!-- 스윗 알랏창  -->
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-            <style>
-              .input {
-                color: #000000;
-                background-color: #ffffff4d;
-                /* 원하는 배경색으로 변경 */
-                border: 3px solid #ffffff;
-              }
-
-              form .cur-row {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-              }
-            </style>
-
-            <style>
-              ::placeholder {
-                color: #000000;
-                /* Placeholder 색상 변경 */
-                font-weight: 100;
-              }
-            </style>
-
-            <style>
-              .table-responsive {
-                overflow-x: hidden;
-                /* 가로 스크롤 숨김 */
-                overflow-y: auto;/
-              }
-
-              /* style.css */
-
-              /* label 스타일 조정 */
-              .button {
-                display: flex;
-                justify-content: center;
-              }
-
-              label {
-                cursor: pointer;
-                font-size: 1em;
-              }
-
-              #chooseFile {
-                visibility: hidden;
-              }
-            </style>
-            
-            <style>
-        .addImage {
-            width: 50%;
-            height: 500px;
-            background-color: #f8fbf8;
-            border-radius: 20px 20px / 20px 20px;
-            overflow: hidden;
-            margin: 0px 10px 10px 0px;
-        }
-
-        .inputImg {
-            width: 450px;
-            height: 350px;
-        }
-</style>
-
+<link rel="stylesheet" href="/resources/admin/adminCSS/productRegistrationCSS.css">    
+           
 
           </head>
 

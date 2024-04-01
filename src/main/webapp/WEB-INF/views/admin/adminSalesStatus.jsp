@@ -27,45 +27,7 @@
 	rel="stylesheet" />
 <!-- Custom CSS -->
 <link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
-<style>
-.ck.ck-editor {
-	max-width: 700px;
-}
-
-.ck-editor__editable {
-	min-height: 300px;
-}
-</style>
-
-<style>
-.input {
-	color: #000000;
-	background-color: #ffffff4d;
-	border: 3px solid #ffffff;
-}
-</style>
-
-<style>
-::placeholder {
-	color: #000000;
-	font-weight: 100;
-}
-</style>
-
-<style>
-.table-responsive {
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
-.card-body-select {
-
-        border-radius: 5px; 
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-}
-
-</style>
+<link rel="stylesheet" href="/resources/admin/adminCSS/salesStatusCSS.css">    
 
 </head>
 
@@ -208,6 +170,7 @@
 						</div>
 						</div>
 					</div>
+				</div>
 				</div>
 				<!-- footer -->
 				<footer class="footer text-center text-muted">
