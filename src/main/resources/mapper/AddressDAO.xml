@@ -23,7 +23,7 @@
 		WHERE ADDRESS_PK = #{addressPK}
 	</select>
 	
-	<select id="insert" parameterType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	<insert id="insert" parameterType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 		INSERT INTO ADDRESS (ADDRESS_PK, MEMBER_ID, ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME)
 			SELECT IFNULL(MAX(ADDRESS_PK), 0) + 1 AS ADDRESS_PK,
 			  #{memberID} AS MEMBER_ID, 
@@ -33,9 +33,9 @@
         	  #{addressDetail} AS ADDRESS_DETAIL, 
         	  #{addressName} AS ADDRESS_NAME 
     	FROM ADDRESS
-	</select>
+	</insert>
 	
-	<select id="update" parameterType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	<update id="update" parameterType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 		UPDATE ADDRESS
         	SET ADDRESS_ZONECODE = #{zoneCode},
             	ADDRESS_JIBUN = #{jibun},
@@ -43,12 +43,12 @@
             	ADDRESS_DETAIL = #{detail},
             	ADDRESS_NAME = #{name}
         WHERE ADDRESS_PK = #{addressPk}
-	</select>
+	</update>
 	
-	<select id="delete" parameterType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	<delete id="delete" parameterType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 		DELETE FROM ADDRESS 
 		WHERE ADDRESS_PK= #{addressPK}
-	</select>
+	</delete>
 	
 	<resultMap id="addressAll" type="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 	<result column= "ADDRESS_PK" property="addressPK" jdbcType="INTEGER" javaType="int"/>

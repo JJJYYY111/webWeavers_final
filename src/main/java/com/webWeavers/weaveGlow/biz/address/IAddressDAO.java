@@ -11,7 +11,7 @@ public interface IAddressDAO {
 	
 	public List<AddressDTO> selectAll(Map<String,String> map);
 	public AddressDTO selectOne(Map<String,Integer> map);
-	public boolean insert(Map<String,Object>map);
-	public boolean update(Map<String,Object>map);
-	public boolean delete(Map<String,Integer> map);
+	public int insert(Map<String,Object>map);
+	public int update(Map<String,Object>map);
+	public int delete(Map<String,Integer> map);
 }

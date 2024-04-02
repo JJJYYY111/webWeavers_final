@@ -36,7 +36,10 @@ public class AddressServiceImpl implements AddressService {
 		map.put("addressRoad", addressDTO.getAddressRoad());
 		map.put("addressDetail", addressDTO.getAddressDetail());
 		map.put("addressName", addressDTO.getAddressName());
-		return addressDAO.insert(map);
+		if(addressDAO.insert(map) <= 0 ) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -48,14 +51,20 @@ public class AddressServiceImpl implements AddressService {
 		map.put("addressDetail", addressDTO.getAddressDetail());
 		map.put("addressName", addressDTO.getAddressName());
 		map.put("addressPK", addressDTO.getAddressPK());
-		return addressDAO.update(map);
+		if(addressDAO.update(map) <= 0 ) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(AddressDTO addressDTO) {
 		Map<String, Integer> map = new HashMap<String,Integer>();
 		 map.put("addressPK", addressDTO.getAddressPK());
-		 return addressDAO.delete(map);
+		 if(addressDAO.delete(map) <= 0 ) {
+				return false;
+			}
+			return true;
 	}
 
 }

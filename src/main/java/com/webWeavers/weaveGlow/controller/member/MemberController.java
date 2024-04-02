@@ -197,6 +197,9 @@ public class MemberController {
 		if (memberDTO.getMemberMarketing() != null) {
 			memberDTO.setMemberMarketing("Y");
 		}
+		else {
+			memberDTO.setMemberMarketing("N");
+		}
 		System.out.println(memberDTO);
 		// 입력받은 정보의 추가가 된 경우
 		if (!memberService.insert(memberDTO)) {
