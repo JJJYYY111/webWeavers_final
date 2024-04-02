@@ -19,7 +19,7 @@
 		<div class="container">
 			<div class="cart_inner">
 				<div class="table-responsive" id="orderList">
-					<form action="checkout" method="POST" name="cartForm">
+					<form action="checkout" method="POST" name="cartForm" id="cartForm">
 						<table class="table" id="cart" style="text-align: right;">
 							<colgroup>
 								<col width="60%" />
@@ -30,9 +30,9 @@
 							<thead>
 								<tr>
 									<th scope="col"><span style="text-align: left;">
-											<button class="custom-button" onclick="selectAllProduct()"
+											<button type="button" class="custom-button" onclick="selectAllProduct()"
 												style="text-align: left;">전체선택</button>
-											<button class="custom-button" onclick="selectedDelete()"
+											<button type="submit" class="custom-button" onclick="selectedDelete();"
 												style="text-align: left;">선택삭제</button>
 									</span> <span style="text-align: right;">Product</span></th>
 									<th scope="col">Price</th>
@@ -142,7 +142,7 @@
 									<td>
 										<div class="checkout_btn_inner align-items-center">
 											<button type="button" class="gray_btn" onclick="location.href='productList'">쇼핑하기</button>
-											<button type="submit" class="gray_btn ml-2" >구매하기</button>
+											<button type="submit" class="gray_btn ml-2" onsubmit="return false;">구매하기</button>
 											<!-- <a class="gray_btn" href="productList">쇼핑하기</a> <a
 												class="gray_btn ml-2" href="checkout">구매하기</a> -->
 										</div>

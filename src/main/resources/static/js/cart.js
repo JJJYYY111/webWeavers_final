@@ -149,3 +149,20 @@ function selectedDelete(){
 	console.log(document.cartForm.action);
 }
 
+const submitCheck = document.getElementById('cartForm');
+
+submitCheck.addEventListener("submit", (event) => {
+	
+	var checkFlag = false;
+	var selectedCheck = document.cartForm.selectedProducts;
+	for (i = 0; i < selectedCheck.length; i++) {
+            if (selectedCheck[i].checked) {
+                checkFlag = true;
+            }
+        }
+	if(!checkFlag){
+		alert("상품을 선택해주세요!");
+	  event.preventDefault();
+	}
+});
+	
