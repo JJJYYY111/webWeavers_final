@@ -29,17 +29,20 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th scope="col"><span style="text-align: left;">
-											<button type="button" class="custom-button" onclick="selectAllProduct()"
-												style="text-align: left;">전체선택</button>
-											<button type="submit" class="custom-button" onclick="selectedDelete();"
-												style="text-align: left;">선택삭제</button>
-									</span> <span style="text-align: right;">Product</span></th>
-									<th scope="col">Price</th>
-									<th scope="col">Quantity</th>
-									<th scope="col">Total</th>
-								</tr>	
-
+									<th scope="col"><span
+										style="text-align: left; width: 200px;">
+											<button
+												class="btn waves-effect waves-light btn-outline-primary"
+												onclick="selectAllProduct()" style="text-align: left;">전체선택</button>
+											<button
+												class="btn waves-effect waves-light btn-outline-primary"
+												onclick="selectedDelete()" style="text-align: left;">선택삭제</button>
+									</span> <span scope="col" style="margin-left: 27%; margin-right: 30%;">Product</span>
+									</th>
+									<th scope="col" style="text-align: center;">Price</th>
+									<th scope="col" style="text-align: center;">Quantity</th>
+									<th scope="col" style="text-align: center;">Total</th>
+								</tr>
 							</thead>
 							<tbody>
 								<!-- 장바구니 목록 출력 -->
@@ -141,8 +144,10 @@
 									<td></td>
 									<td>
 										<div class="checkout_btn_inner align-items-center">
-											<button type="button" class="gray_btn" onclick="location.href='productList'">쇼핑하기</button>
-											<button type="submit" class="gray_btn ml-2" onsubmit="return false;">구매하기</button>
+											<button type="button" class="gray_btn"
+												onclick="location.href='productList'">쇼핑하기</button>
+											<button type="submit" class="gray_btn ml-2"
+												onsubmit="return false;">구매하기</button>
 											<!-- <a class="gray_btn" href="productList">쇼핑하기</a> <a
 												class="gray_btn ml-2" href="checkout">구매하기</a> -->
 										</div>
