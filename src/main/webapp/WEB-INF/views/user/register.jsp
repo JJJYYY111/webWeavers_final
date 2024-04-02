@@ -241,6 +241,10 @@
 								<span class="col-md-8" id="phoneCheck"> <!-- 유효성 확인 문구 innerText -->
 								</span>
 							</div>
+							<c:if test="${not empty snsLogin}">
+							<input type="hidden"  name="certificationNum">
+							</c:if>
+							<c:if test="${ empty snsLogin}">
 							<div class="col-md-12 form-group" style="margin: 0;">
 								<div class="col-md-4 label-text">인증번호 확인</div>
 								<input type="text" class="form-control col-md-8"
@@ -255,6 +259,7 @@
 								<span class="col-md-8" id="confirmSmsNumCheck"> <!-- 유효성 확인 문구 innerText -->
 								</span>
 							</div>
+							</c:if>
 							
 							<div class="col-md-12 form-group">
 								<div class="col-md-4 label-text">생년월일</div>
