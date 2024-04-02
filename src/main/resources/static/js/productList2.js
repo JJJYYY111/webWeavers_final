@@ -199,3 +199,26 @@ function navigatePage(pageNumber) {
         goToPage(currentPage);
     }
 }
+
+//------------------------------ 버튼 클릭 강제
+// 페이지의 DOM이 완전히 로드되고 파싱된 후에 실행되는 이벤트 핸들러를 등록합니다.
+// 페이지 로드 시 현재 URL을 분석하여 해당 버튼에 active 클래스를 추가하는 부분
+document.addEventListener('DOMContentLoaded', function () {
+    // 현재 URL의 query string을 분석하기 위해 URLSearchParams 객체를 생성합니다.
+    const urlParams = new URLSearchParams(window.location.search);
+    // query string에서 'subCategoryPK' 매개변수의 값을 가져옵니다.
+    const subCategoryPK = urlParams.get('subCategoryPK');
+    // 해당 subCategoryPK 값을 가진 버튼을 선택합니다.
+    // 여기서는 CSS 선택자를 사용하여 'ctgr_box' 클래스를 가지고 있고 href 속성에 subCategoryPK 값을 포함하는 요소를 선택합니다.
+    const activeElement = document.querySelector(`.ctgr_box[href*="subCategoryPK=${subCategoryPK}"]`);
+    
+    // 선택된 요소가 존재하는지 확인합니다.
+    if (activeElement) {
+        // 선택된 요소의 클래스 중에서 'active' 클래스를 제거합니다.
+        document.querySelectorAll('.ctgr_box').forEach(element => {
+            element.classList.remove('active');
+        });
+        // 선택된 요소에 'active' 클래스를 추가하여 시각적으로 해당 버튼을 활성화합니다.
+        activeElement.classList.add('active');
+    }
+});

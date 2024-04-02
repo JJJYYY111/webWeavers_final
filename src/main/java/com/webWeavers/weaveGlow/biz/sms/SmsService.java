@@ -18,26 +18,11 @@ public class SmsService {
 		DefaultMessageService messageService =  NurigoApp.INSTANCE.initialize("NCSBXXQF0TAAOOLN", "I58EYW5XFVYACID2PCAKVCCNCOCHHMSD", "https://api.coolsms.co.kr");
 		
 		Message message = new Message();
-
+		
+		int randNum = (int)(Math.random() * (99999 - 10000 + 1)) + 10000;	// 인증번호 5자리, 랜덤 생성
 		message.setFrom("01062360548");
 		message.setTo(memberDTO.getMemberPhone());
-		
-		int randNum = -1;
-		String randPW;
-		if(memberDTO.getSearchCondition().equals("certification")) {
-			randNum = (int)(Math.random() * (99999 - 10000 + 1)) + 10000;	// 인증번호 5자리, 랜덤 생성
-			message.setText("[WeaveGlow 인증번호] " + randNum);
-		}
-		else if(memberDTO.getSearchCondition().equals("findID")) {
-			message.setText("[WeaveGlow ID]" + memberDTO.getMemberID());
-		}
-		else if(memberDTO.getSearchCondition().equals("findPW")) {
-			randPW = "";
-			message.setText("[WeaveGlow 임시 비밀번호]" + randPW);
-		}
-
-
-
+		message.setText("[WeaveGlow 인증번호] " + randNum);
 
 		try {
 		  // send 메서드로 문자 전송
