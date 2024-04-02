@@ -191,9 +191,14 @@
 																		</c:if>
 																		<!-- 리뷰리스트에서 리뷰를 작성한 회원이 탈퇴하였을 경우 해당 리뷰는 탈퇴한 회원이라는 문구로 표시 -->
 																		<c:if test="${data.gradePK != 5}">
-																			<span>${data.reviewRegdate}</span><br><br>
-																			<h4>작성자 : ${data.memberNickname}</h4>
-																		</c:if><br>
+    <span>${data.reviewRegdate}</span><br><br>
+    <h4>작성자 : ${data.memberNickname} 
+        <button style="margin-top: 3px; background: #ffffff; border: none;">
+            <img src="/resources/reviewLike.png" alt="좋아요" style="width: 25px;">123
+        </button>
+    </h4>
+</c:if><br>
+																		
 																		<input class="starValue" type="hidden"
 																			name="reviewScope"
 																			id="scope_${data.reviewPK}"
@@ -214,8 +219,12 @@
 																				<!-- 리뷰 작성할때 사용자가 등록한 이미지 -->
 																			</div>
 																		</c:if>
+																		
+																		
 																	</div>
-																</div><br>
+																</div>
+																
+																<br>
 																<div>
 																	<textarea class="col-lg-12" rows="3"
 																		name="reviewContent" placeholder="리뷰 내용"
@@ -225,6 +234,8 @@
 																</div>
 															</div>
 														</c:forEach>
+														
+														
 													</div>
 												</div>
 											</div>
