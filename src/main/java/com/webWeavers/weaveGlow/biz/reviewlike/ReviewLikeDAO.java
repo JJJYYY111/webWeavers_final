@@ -1,7 +1,11 @@
 package com.webWeavers.weaveGlow.biz.reviewlike;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository("reviewLikeDAO")
@@ -11,7 +15,9 @@ public class ReviewLikeDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 //	private static final String SELECTALL = "";
-//	private static final String SELECTONE = "";
+	
+	// 사용자 리뷰 좋아요 유무
+	private static final String SELECTONE = "SELECT REVIEWLIKE_PK FROM REVIEWLIKE WHERE MEMBER_ID = ? AND REVIEW_PK = ?";
 	// 리뷰 좋아요 추가
 	private static final String INSERT = "REVIEWLIKE (MEMBER_ID, REVIEW_PK) VALUES (?, ?)";
 //	private static final String UPDATE = "";
@@ -22,9 +28,15 @@ public class ReviewLikeDAO {
 //		return null;
 //	}
 
-//	private ReviewLikeDTO selectOne(ReviewLikeDTO reviewLikeDTO) {
-//		return null;
-//	}
+	public ReviewLikeDTO selectOne(ReviewLikeDTO reviewLikeDTO) {
+		Object[] args = { reviewLikeDTO.getMemberID(), reviewLikeDTO.getReviewPK() };
+		try {
+			return jdbcTemplate.queryForObject(SELECTONE, args, new ReviewLikeListRowMapper());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public boolean insert(ReviewLikeDTO reviewLikeDTO) {
 		try {
@@ -56,4 +68,14 @@ public class ReviewLikeDAO {
 		return true;
 	}	
 	
+}
+
+//selectOne
+class ReviewLikeListRowMapper implements RowMapper<ReviewLikeDTO> {
+	@Override
+	public ReviewLikeDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ReviewLikeDTO data = new ReviewLikeDTO();
+		data.setReviewLikePK(rs.getInt("REVIEWLIKE_PK"));
+		return data;
+	}
 }

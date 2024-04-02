@@ -5,7 +5,7 @@ package com.webWeavers.weaveGlow.biz.reviewlike;
 public interface ReviewLikeService {
 	
 //	List<ReviewLikeDTO> selectAll(ReviewLikeDTO reviewLikeDTO);
-//	ReviewLikeDTO selectOne(ReviewLikeDTO reviewLikeDTO);
+	ReviewLikeDTO selectOne(ReviewLikeDTO reviewLikeDTO);
 	
 	boolean insert(ReviewLikeDTO reviewLikeDTO);
 //	boolean update(ReviewLikeDTO reviewLikeDTO);

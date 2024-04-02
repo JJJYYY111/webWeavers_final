@@ -83,16 +83,6 @@ public class MemberController {
 		session.removeAttribute("grade");
 		return "redirect:/main";
 	}
-	
-	@RequestMapping("/findID")
-	public String findID() {
-		return "user/findID";
-	}
-	
-	@RequestMapping("/findPW")
-	public String findPW() {
-		return "user/findPW";
-	}
 
 	@RequestMapping("/memberSelectOne")
 	public String memberSelectOne(MemberDTO memberDTO, HttpSession session, Model model) {

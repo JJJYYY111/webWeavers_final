@@ -16,10 +16,10 @@ public class ReviewLikeServiceImpl implements ReviewLikeService {
 //		return reviewLikeDAO.selectAll(reviewLikeDTO);
 //	}
 
-//	@Override
-//	public ReviewLikeDTO selectOne(ReviewLikeDTO reviewLikeDTO) {
-//		return reviewLikeDAO.selectOne(reviewLikeDTO);
-//	}
+	@Override
+	public ReviewLikeDTO selectOne(ReviewLikeDTO reviewLikeDTO) {
+		return reviewLikeDAO.selectOne(reviewLikeDTO);
+	}
 
 	@Override
 	public boolean insert(ReviewLikeDTO reviewLikeDTO) {
