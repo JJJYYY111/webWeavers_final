@@ -308,9 +308,21 @@ function cancelAction() {
     window.location.href = "mypage.do";
 }
 
+
+
+
+// --------------------[SMS 문자인증 - 비밀번호 입력 필수]--------------------
+// [ID찾기 - 유효성 검사]
+if(document.findID){
+	console.log('ID찾기 유효성');
+	var certificationNumEl = document.getElementById('certificationNum')		// 문자 인증번호 요소 저장	
+	certificationNumEl.dataset.formCheck = 'N'									// 유효성 미통과 --> N, 통과 --> Y
+	smsCertification(certificationNumEl, 'confirmSmsNumCheck');
+}
+
 // 초기 인증번호 발송 전 -1 저장
 var smsCertificationNum = -1;
-// [문자 인증번호 발송]
+// [문자 인증번호 발송 - 회원가입, ID찾기, PW찾기]
 function smsService(elementID){
 	console.log(elementID);
     console.log("들어옴");
