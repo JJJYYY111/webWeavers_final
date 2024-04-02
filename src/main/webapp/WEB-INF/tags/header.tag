@@ -25,20 +25,20 @@
 						<ul class="nav navbar-nav menu_nav justify-content-center">
 
 							<li class="nav-item" onmouseleave="hideDropdownMenu()"><a
-								class="nav-link" href="productList"
+								class="nav-link" href="/productList"
 								onmouseover="showDropdownMenu()">상품목록</a>
 								<div class="dropdown-menu popover" id="productDropdownMenu">
 									<a href="productList" class="dropdown-item">전체</a>
 									<div class="dropdown-divider"></div>
 									<!-- 선 추가 -->
-									<a href="subCategoryProductList?categoryPK=1"
+									<a href="/subCategoryProductList?categoryPK=1"
 										class="dropdown-item">스킨케어</a> <a
-										href="subCategoryProductList?categoryPK=2"
+										href="/subCategoryProductList?categoryPK=2"
 										class="dropdown-item">클렌징</a> <a
-										href="subCategoryProductList?categoryPK=3"
+										href="/subCategoryProductList?categoryPK=3"
 										class="dropdown-item">마스크 팩</a>
 								</div></li>
-							<li class="nav-item"><a class="nav-link" href="contact">회사정보</a></li>
+							<li class="nav-item"><a class="nav-link" href="/contact">회사정보</a></li>
 						</ul>
 					</div>
 					<ul class="nav-shop justify-content-center justify-content-md-end">
@@ -64,15 +64,15 @@
 						</c:if>
 						<c:if test="${not empty sessionMid}">
 							<li class="nav-item"><a class="button button-header"
-								href="logout" id="logout">로그아웃</a></li>
+								href="/logout" id="logout">로그아웃</a></li>
 							<li class="nav-item"><a class="button button-header"
-								href="mypage" id="mypage">마이페이지</a></li>
+								href="/mypage" id="mypage">마이페이지</a></li>
 						</c:if>
 						<c:if test="${empty sessionMid}">
 							<li class="nav-item"><a class="button button-header"
-								href="login" id="login">로그인</a></li>
+								href="/login" id="login">로그인</a></li>
 							<li class="nav-item"><a class="button button-header"
-								href="register" id="register">회원가입</a></li>
+								href="/register" id="register">회원가입</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -103,7 +103,7 @@
 		function adjustPopoverPosition() {
 			var dropdownMenu = document.getElementById("productDropdownMenu");
 			var productListLink = document
-					.querySelector('.nav-link[href="productList"]');
+					.querySelector('.nav-link[href="/productList"]');
 
 			dropdownMenu.style.top = productListLink.offsetHeight + "px";
 		}
