@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.webWeavers.weaveGlow.biz.address.IAddressDAO">
-	<select id="selectAll" resultType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	<select id="selectAll" resultMap="addressAll">
 		SELECT ADDRESS_PK, 
 			   ADDRESS_ZONECODE, 
 			   ADDRESS_JIBUN, 
 			   ADDRESS_ROAD, 
 			   ADDRESS_DETAIL, 
-			   ADDRESS_NAME 
-		FROM ADDRESS 
-		WHERE MEMBER_ID = #{memberId}
+			   ADDRESS_NAME FROM 
+			   ADDRESS 
+		WHERE MEMBER_ID = #{memberID}
 	</select>
+	
 	<select id="selectOne" resultType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 		SELECT ADDRESS_ZONECODE, 
-			   ADDRESS_JIBUN, ADDRESS_ROAD, 
+			   ADDRESS_JIBUN, 
+			   ADDRESS_ROAD, 
 			   ADDRESS_DETAIL, 
 			   ADDRESS_NAME 
 		FROM ADDRESS 
 		WHERE ADDRESS_PK = #{addressPK}
 	</select>
-	<select id="insert" resultType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	
+	<select id="insert" parameterType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 		INSERT INTO ADDRESS (ADDRESS_PK, MEMBER_ID, ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME)
 			SELECT IFNULL(MAX(ADDRESS_PK), 0) + 1 AS ADDRESS_PK,
-			  #{memberId} AS MEMBER_ID, 
-          	  #{zoneCode} AS ADDRESS_ZONECODE, 
-           	  #{jibun} AS ADDRESS_JIBUN, 
-              #{road} AS ADDRESS_ROAD, 
-        	  #{detail} AS ADDRESS_DETAIL, 
-        	  #{name} AS ADDRESS_NAME 
-    		FROM ADDRESS
+			  #{memberID} AS MEMBER_ID, 
+          	  #{addressZonecode} AS ADDRESS_ZONECODE, 
+           	  #{addressJibun} AS ADDRESS_JIBUN, 
+              #{addressRoad} AS ADDRESS_ROAD, 
+        	  #{addressDetail} AS ADDRESS_DETAIL, 
+        	  #{addressName} AS ADDRESS_NAME 
+    	FROM ADDRESS
 	</select>
-	<select id="update" resultType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	
+	<select id="update" parameterType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 		UPDATE ADDRESS
         	SET ADDRESS_ZONECODE = #{zoneCode},
             	ADDRESS_JIBUN = #{jibun},
@@ -40,9 +44,18 @@
             	ADDRESS_NAME = #{name}
         WHERE ADDRESS_PK = #{addressPk}
 	</select>
-	<select id="delete" resultType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	
+	<select id="delete" parameterType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 		DELETE FROM ADDRESS 
-		WHERE ADDRESS_PK= #[deleteAddressPK]
+		WHERE ADDRESS_PK= #{addressPK}
 	</select>
 	
+	<resultMap id="addressAll" type="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	<result column= "ADDRESS_PK" property="addressPK" jdbcType="INTEGER" javaType="int"/>
+	<result column= "ADDRESS_ZONECODE" property="addressZonecode" jdbcType="VARCHAR" javaType="String"/>
+	<result column= "ADDRESS_JIBUN" property="addressJibun" jdbcType="VARCHAR" javaType="String"/>
+	<result column= "ADDRESS_ROAD" property="addressRoad" jdbcType="VARCHAR" javaType="String"/>
+	<result column= "ADDRESS_DETAIL" property="addressDetail" jdbcType="VARCHAR" javaType="String"/>
+	<result column= "ADDRESS_NAME" property="addressName" jdbcType="VARCHAR" javaType="String"/>	 
+	</resultMap>
 </mapper>
