@@ -91,7 +91,7 @@
 										<table id="products" border="1" style="table-layout:auto;">
 											<thead>
 												<tr style="color: #000000;">
-													<th>상품번호</th>
+													<th>매출순위</th>
 													<th>상품명</th>
 													<th>카테고리</th>
 													<th>가격</th>
@@ -102,7 +102,8 @@
 											<tbody>
     <c:forEach var="data" items="${productDatas}">
         <tr>
-            <td>${data.productPK}</td>
+            <c:set var="productCount" value="${productCount + 1}" />
+            <td>${productCount}</td>
             <td>${data.productName}</td>
             <td>${data.categoryName}</td>
             <td><fmt:formatNumber type="currency" value="${data.productPrice}" /></td>
