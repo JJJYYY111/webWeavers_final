@@ -59,12 +59,15 @@ public class MemberController {
 	public @ResponseBody int smsService(MemberDTO memberDTO) {
 		System.out.println("[로그] 본인인증번호발송서비스진입");
 		
+		// memberDTO 검색조건 저장
+		memberDTO.setSearchCondition("certification");
+		// 문자인증 서비스 sendMessage()의 리턴값 변수에 저장
 		int resultNum = smsService.sendMessage(memberDTO);
 		
 		if(resultNum > 0) {
 			return resultNum;	// 메시지발송 성공 : 인증번호 * 7777 응답
 		} else {
-			return -1;			// 메시지발송 실패
+			return -1;			// 메시지발송 실패 : -1 응답
 		}
 		
 	}
@@ -196,9 +199,6 @@ public class MemberController {
 		
 		if (memberDTO.getMemberMarketing() != null) {
 			memberDTO.setMemberMarketing("Y");
-		}
-		else {
-			memberDTO.setMemberMarketing("N");
 		}
 		System.out.println(memberDTO);
 		// 입력받은 정보의 추가가 된 경우
