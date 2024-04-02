@@ -239,6 +239,8 @@
 												</div>
 											</div>
 										</div>
+										</div>
+										
 										<hr>
 										<div class="form-actions">
 											<div class="text-right">

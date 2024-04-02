@@ -15,3 +15,4 @@
 
 <link rel="stylesheet" href="/resources/css/style.css">
 <link rel="stylesheet" href="/resources/weaveGlowCSS/wgLayout.css">
+<link rel="stylesheet" href="/resources/weaveGlowCSS/productDetailCSS.css">

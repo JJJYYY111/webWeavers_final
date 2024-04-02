@@ -107,6 +107,31 @@ public class KakaoService {
 		    
 		    return result;
 		 }
+	  public String kakaoLogout(String access_Token) {
+		    String reqURL = "https://kapi.kakao.com/v1/user/logout";
+		    String result = "";
+	        String line = "";
+	        
+		    try {
+		        URL url = new URL(reqURL);
+		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		        conn.setRequestMethod("POST");
+		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+		        
+		        int responseCode = conn.getResponseCode();
+		        System.out.println("responseCode : " + responseCode);
+		        
+		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		        
+		        while ((line = br.readLine()) != null) {
+		            result += line;
+		        }
+		        System.out.println(result);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		    return result;
 
+}
 }
 

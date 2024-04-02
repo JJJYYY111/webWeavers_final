@@ -1,8 +1,74 @@
+/* 좋아요순 버튼을 누르면 정렬하게 */
+$("#like").on("click", function() {
+    
+    $.ajax({
+        type: "POST",
+        url: "/reviewLikeButton",
+        data: {
+            'searchCondition': 'like',
+        },
+        dataType: 'json',
+        success: function(datas) {
+            var tableHTML = '';
+            datas.forEach(function(data) {
+                tableHTML += `
+                    <div class="review_item">
+                        <span>${data.reviewRegdate}</span>
+                        <h4>
+                            작성자 : ${data.memberNickname}
+                            <button onclick="reviewLikeClick(${data.reviewPK},'${sessionMid}')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
+                                <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
+                            </button>
+                            ${data.reviewLikeCnt}
+                        </h4>
+                        <div class="d-flex">
+                            ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
+                        </div>
+                        <div><textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea></div>
+                    </div>
+                `;
+            });
+            $(".review_list").html(tableHTML);
+        },
+        error: function(error) {
+            console.log('실패');
+            console.log('에러의 종류:' + error);
+        }
+    });
+});
+
+
+
+/* 최신순 버튼을 누르면 정렬하게 */
+
+$("#recent").on("click", function() {
+	
+	$.ajax({
+													
+		type: "POST",
+		url: "/reviewRecentButton",
+		data: {
+           'searchCondition': 'recent',
+         },
+         dataType:'json',
+         
+        success:function(datas) {
+                                                    	
+                                                    	    
+        },
+       error: function (error) {
+                                                    	
+   	 		console.log('실패')
+    		console.log('에러의 종류:' + error)
+        }
+	 });
+												
+	});
 
 /* 리뷰 좋아요 */
 
-function reviewLikeClick(rpk, mid) {
-    if (mid == null || mid == '' || mid == 'undefined') { // 로그아웃 상태
+function reviewLikeClick(reviewPK, memberID) {
+    if (memberID == null || memberID == '' || memberID == 'undefined') { // 로그아웃 상태
         alert('리뷰 좋아요 실패, 로그인 후 이용가능합니다!');
     } else {
         $.ajax({

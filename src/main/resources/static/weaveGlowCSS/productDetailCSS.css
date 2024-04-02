@@ -1,0 +1,25 @@
+.button-with-line-container {
+  display: flex;
+  justify-content: flex-end; 
+}
+
+.button-with-line {
+	 position: relative; 
+  margin-bottom: 10px;
+  border: none; 
+  background: none; 
+  outline: none;
+  cursor: pointer; 
+  margin-left: 10px; 
+  margin-right: 10px; 
+}
+
+.button-with-line::after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: black;
+}

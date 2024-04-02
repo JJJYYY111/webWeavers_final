@@ -1,5 +1,8 @@
 package com.webWeavers.weaveGlow.controller.common;
 
+import java.awt.PageAttributes.MediaType;
+import java.net.http.HttpHeaders;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,9 +59,23 @@ public class KakaoLoginPageController {
 		       
 		      String phoneNumber = kakaoAccount.getAsJsonObject().get("phone_number").getAsString();
 		       
-		       boolean hasEmail = false;
-		       String email = "";
+		      String birthyear = kakaoAccount.getAsJsonObject().get("birthyear").getAsString();
+		      
+		      String birthday = kakaoAccount.getAsJsonObject().get("birthday").getAsString();
 
+		      
+		       boolean hasEmail = false;
+		       
+		       String email = "";
+		       
+		       // 생년월일 데이터를 합쳐서 DATE 형식으로 변환
+		       String memberBirth = null;
+		       
+		       if (!birthyear.isEmpty() && !birthday.isEmpty()) {
+		    	   memberBirth = birthyear + "-" + birthday.substring(0, 2) + "-" + birthday.substring(2, 4);
+		       }
+
+		       
 		       if (kakaoAccount != null && !kakaoAccount.isJsonNull()) {
 		           JsonElement hasEmailElement = kakaoAccount.getAsJsonObject().get("has_email");
 		           if (hasEmailElement != null && !hasEmailElement.isJsonNull()) {
@@ -117,5 +134,15 @@ public class KakaoLoginPageController {
 		       //세션- 로그인아이디
 		return "redirect:/main";
 	}
+	
+	@RequestMapping(value="/logout")
+	public String logout(HttpSession session) {
+		kakaoService.kakaoLogout((String)session.getAttribute("access_Token"));
+	    session.removeAttribute("access_Token");
+	    session.removeAttribute("userId");
+	    return "index";
+	}
+
+	  
 
 }
