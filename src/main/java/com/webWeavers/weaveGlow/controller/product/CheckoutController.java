@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.webWeavers.weaveGlow.biz.address.AddressDTO;
 import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductDTO;
@@ -43,11 +44,14 @@ public class CheckoutController {
 	SerialService serialService;
 	
 	@RequestMapping("/checkout")
-	public String checkout(CartDTO cartDTO, MemberDTO memberDTO, HttpSession session, Model model) {
-		
-		cartDTO.setMemberID((String)session.getAttribute("sessionMid"));
-		
-		List<CartDTO> cdatas = cartService.selectAll(cartDTO);
+	public String checkout(CartDTO cartDTO, MemberDTO memberDTO, HttpSession session, Model model, 
+							@RequestParam("selectedProducts") List<Integer> selectedProducts) {
+		List<CartDTO> cdatas = new ArrayList<CartDTO>();
+		cartDTO.setSearchCondition("cartAddPurchaseList");
+		for(int data : selectedProducts) {
+			cartDTO.setCartPK(data);
+			cdatas.add(cartService.selectOne(cartDTO));
+		}
 		if(cdatas.isEmpty()) { // 장바구니에 물품이 없을경우 유효성검사	
 			return "user/cart";
 		}
@@ -100,14 +104,21 @@ public class CheckoutController {
 	}
 	
 	@RequestMapping("/checkoutSuccess")
-	public String checkoutSuccess(CartDTO cartDTO, AddressDTO addressDTO, SerialDTO serialDTO, BuyProductDTO buyProductDTO, ProductDTO pDTO, MemberDTO memberDTO, HttpSession session, Model model) {
+	public String checkoutSuccess(CartDTO cartDTO, AddressDTO addressDTO, SerialDTO serialDTO, 
+									BuyProductDTO buyProductDTO, ProductDTO pDTO, 
+									MemberDTO memberDTO, HttpSession session, Model model,
+									@RequestParam("selectedProducts") List<Integer> selectedProducts) {
 	      String mid = (String)session.getAttribute("sessionMid");
 	      
 	      boolean flag = false;
 	      
-	      cartDTO.setMemberID(mid);
-	      List<CartDTO> datas = cartService.selectAll(cartDTO);
 	      
+	      List<CartDTO> datas = new ArrayList<CartDTO>();
+			cartDTO.setSearchCondition("cartAddPurchaseList");
+			for(int data : selectedProducts) {
+				cartDTO.setCartPK(data);
+				datas.add(cartService.selectOne(cartDTO));
+			}
 	      if(datas.isEmpty()) { // 만약 장바구니에 물품이 없을경우 장바구니페이지로 보냄 (유효성 검사)
 	    	  return "redirect:/cart";
 	      }
@@ -155,23 +166,11 @@ public class CheckoutController {
 	      
 	      // 구매한 개수만큼 반복(선택구매)★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 	      // 구매가 완료 되었다면 장바구니에서 구매한 물건들 전부삭제 => 해당 사용자의 장바구니 전부 비우기
-	      try {
-	         // 장바구니DTO에 사용자의 id와 '전체삭제'조건을 입력
-	         cartDTO.setMemberID(mid);
-	         cartDTO.setSearchCondition("deleteAll");
-	         flag = cartService.delete(cartDTO); // 장바구니DTO를 사용하여 삭제기능인 D(DELETE)기능을 사용하여 해당유저의 장바구니의 모든 상품 삭제
-	         if(flag) { // 장바구니 테이블에서 데이터 삭제가 성공했다면
-	            System.out.println("CART 테이블에 데이터 삭제 성공!"); // 삭제성공문구 출력
+	      cartDTO.setSearchCondition("deleteOne");
+	         for(CartDTO data : datas) {
+	        	 cartDTO.setCartPK(data.getCartPK());
+	        	 cartService.delete(cartDTO);
 	         }
-	         else { // 장바구니 테이블에서 데이터삭제가 실패했다면
-	            throw new Exception(); // 강제로 예외 발생
-	         }
-	      }
-	      
-	      catch (Exception e) { // 예외가 발생했다면
-	         System.out.println("CART테이블에 데이터 삭제 실패"); // 삭제실패문구 출력
-	         e.printStackTrace();
-	      }
 	      
 	      // 최근구매한 상품들을 출력해서 결제완료페이지에 보내줘야하므로
 	      // bDTO에 id와 검색조건을 설정하여 검색기능인 R(selectAll)기능을 사용하여 최근 구매한 상품목록을 받아옴 

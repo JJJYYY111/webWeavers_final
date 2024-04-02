@@ -259,7 +259,7 @@
 									<label for="f-option4">결제 정보 확인</label>
 								</div>
 								<div class="text-center">
-									<button type="submit" class="button button-paypal">Proceed to Paypal</button>
+									<button type="submit" class="button button-paypal" onclick="requestPay()">Proceed to Paypal</button>
 								</div>
 							</div>
 						</div>
@@ -273,5 +273,36 @@
 	<!-- ================ /내용 ================= -->
 	<common:footer />
 	<script src="/resources/js/addressModal.js"></script>
+	<script>
+        var IMP = window.IMP; 
+        IMP.init("imp80131154"); 
+        
+        function requestPay() {
+            IMP.request_pay({
+                pg: "kcp.{store-2023deb0-3d89-4f01-9594-198dd679fd49}",
+                pay_method: "card",
+                merchant_uid: "ORD20180131-0000011",   // 주문번호
+                name: "노르웨이 회전 의자",
+                amount: 64900,                         // 숫자 타입
+                buyer_email: "gildong@gmail.com",
+                buyer_name: "홍길동",
+                buyer_tel: "010-4242-4242",
+                buyer_addr: "서울특별시 강남구 신사동",
+                buyer_postcode: "01181"
+            }, function (rsp) { // callback
+                $.ajax({
+                   type: 'POST',
+                   url: '/verify/' + rsp.imp_uid
+                }).done(function(data) {
+                    if(rsp.paid_amount === data.response.amount){
+                        alert("결제 성공");
+                    } else {
+                        alert("결제 실패");
+                    }
+                });
+            });
+        }
+    </script>
+     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </body>
 </html>

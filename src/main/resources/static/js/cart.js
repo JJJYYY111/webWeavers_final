@@ -144,3 +144,8 @@ function getProductPPK() {
     return ppk;
 }
 
+function selectedDelete(){
+	document.cartForm.action = "cartDeleteSelected";
+	console.log(document.cartForm.action);
+}
+

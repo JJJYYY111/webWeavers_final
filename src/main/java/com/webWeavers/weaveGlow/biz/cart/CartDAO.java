@@ -20,11 +20,16 @@ public class CartDAO {
 			+ "FROM CART C \r\n"
 			+ "JOIN PRODUCT P ON (C.PRODUCT_PK = P.PRODUCT_PK) \r\n"
 			+ "WHERE C.MEMBER_ID = ?";
-	// 장바구니 선택 > NULL이 아니면 개수 추가
-	private static final String SELECTONE = "SELECT C.CART_PK, C.CART_CNT, C.MEMBER_ID, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG, P.PRODUCT_PRICE \r\n"
+	// 장바구니에 상품추가시 상품이 이미 존재하는지 확인용도
+	private static final String SELECTONE_CHECKPRODUCT = "SELECT C.CART_PK, C.CART_CNT, C.MEMBER_ID, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG, P.PRODUCT_PRICE \r\n"
 			+ "FROM CART C \r\n"
 			+ "JOIN PRODUCT P ON (C.PRODUCT_PK = P.PRODUCT_PK) \r\n"
 			+ "WHERE C.MEMBER_ID = ? AND C.PRODUCT_PK = ?";
+	// 선택한 상품을 구매하기위해 해당 상품을 검색할 때 필요한 쿼리문
+	private static final String SELECTONE_ADDLIST = "SELECT C.CART_PK, C.CART_CNT, C.MEMBER_ID, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG, P.PRODUCT_PRICE \r\n"
+			+ "FROM CART C \r\n"
+			+ "JOIN PRODUCT P ON (C.PRODUCT_PK = P.PRODUCT_PK) \r\n"
+			+ "WHERE C.CART_PK = ?";
 	// 장바구니 추가_상품상세페이지
 	private static final String INSERT = "INSERT INTO CART (MEMBER_ID, PRODUCT_PK, CART_CNT) VALUES (?, ?, ?)";
 	// 장바구니 개수 추가 (기존 수량 + 추가 수량)_상품상세페이지
@@ -38,8 +43,8 @@ public class CartDAO {
 	// 장바구니 개별 상품 수량,감소_장바구니 페이지
 	private static final String UPDATE_CNT= "UPDATE CART SET CART_CNT = ? WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
 	// 장바구니 상품 개별 삭제_장바구니페이지
-	private static final String DELETE_ONE = "DELETE FROM CART WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
-	// 장바구니 비우기_장바구 페이지
+	private static final String DELETE_ONE = "DELETE FROM CART WHERE CART_PK = ?";
+	// 장바구니 비우기_장바구니 페이지
 	private static final String DELETE_ALL = "DELETE FROM CART WHERE MEMBER_ID = ?";
 
 	public List<CartDTO> selectAll(CartDTO cartDTO) {
@@ -53,13 +58,20 @@ public class CartDAO {
 	}
 
 	public CartDTO selectOne(CartDTO cartDTO) {
-		Object[] arg = { cartDTO.getMemberID(), cartDTO.getProductPK() };
+		Object[] arg1 = { cartDTO.getMemberID(), cartDTO.getProductPK() };
+		Object[] arg2 = { cartDTO.getCartPK() };
 		try {
-			return jdbcTemplate.queryForObject(SELECTONE, arg, new CartRowMapper());
+			if(cartDTO.getSearchCondition().equals("cartCheck")) {
+				return jdbcTemplate.queryForObject(SELECTONE_CHECKPRODUCT, arg1, new CartRowMapper());
+			}
+			else if(cartDTO.getSearchCondition().equals("cartAddPurchaseList")) {
+				return jdbcTemplate.queryForObject(SELECTONE_ADDLIST, arg2, new CartRowMapper());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+		return null;
 	}
 
 	public boolean insert(CartDTO cartDTO) {
@@ -106,7 +118,7 @@ public class CartDAO {
 		int result = 0;
 		try {
 			if (cartDTO.getSearchCondition().equals("deleteOne")) {
-				result = jdbcTemplate.update(DELETE_ONE, cartDTO.getMemberID(), cartDTO.getProductPK());
+				result = jdbcTemplate.update(DELETE_ONE, cartDTO.getCartPK());
 			} else if (cartDTO.getSearchCondition().equals("deleteAll")) {
 				result = jdbcTemplate.update(DELETE_ALL, cartDTO.getMemberID());
 			} else {
