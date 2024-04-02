@@ -8,7 +8,6 @@
 <html dir="ltr" lang="en">
 
 <head>
-<common:head />
 <common:adminHead />
 <title>회원 정보 변경</title>
 <!-- Custom CSS -->

@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-<common:head />
 <common:adminHead />
 <title>상품목록현황</title>
 <!-- This page plugin CSS -->

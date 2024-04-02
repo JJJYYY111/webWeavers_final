@@ -7,7 +7,6 @@
           <html dir="ltr" lang="en">
 
           <head>
-          <common:head />
            <common:adminHead />
             <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
             <title>상품등록</title>

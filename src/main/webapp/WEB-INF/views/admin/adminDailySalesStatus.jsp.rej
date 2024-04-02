@@ -1,9 +1,0 @@
-diff a/src/main/webapp/WEB-INF/views/admin/adminDailySalesStatus.jsp b/src/main/webapp/WEB-INF/views/admin/adminDailySalesStatus.jsp	(rejected hunks)
-@@ -18,7 +18,6 @@
- 	href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
- 	rel="stylesheet" />
- <!-- Custom CSS -->
--<link href="/resources/admin/dist/css/style.min.css" rel="stylesheet" />
- <!-- This Page CSS -->
- <!-- 3.17일 추가 -->
- <link href="/resources/admin/assets/libs/morris.js/morris.css" rel="stylesheet">
