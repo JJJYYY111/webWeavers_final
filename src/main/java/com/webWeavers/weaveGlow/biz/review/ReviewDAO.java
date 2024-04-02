@@ -35,7 +35,7 @@ public class ReviewDAO {
 		}
 		// 리뷰 따봉순
 		else if(sortType.equals("reviewLike")) {
-			query += "RLS.REVIEWLIKE_CNT DESC";
+			query += "REVIEWLIKE_CNT DESC";
 		}
 		
 		return query;
@@ -167,7 +167,7 @@ class ReviewMyListRowMapper implements RowMapper<ReviewDTO> {
 	}
 }
 
-//selectOne_?
+//selectOne_User_MyReviewListPage
 class ReviewRowMapper implements RowMapper<ReviewDTO> {
 	@Override
 	public ReviewDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

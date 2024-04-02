@@ -6,7 +6,7 @@ import lombok.Data;
 public class ReviewLikeDTO {
 
 	private int reviewLikePK;
-	private int productPK;
+	private int reviewPK;
 	private String memberID;
 
 }

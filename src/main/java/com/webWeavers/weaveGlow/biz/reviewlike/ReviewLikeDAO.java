@@ -13,10 +13,10 @@ public class ReviewLikeDAO {
 //	private static final String SELECTALL = "";
 //	private static final String SELECTONE = "";
 	// 리뷰 좋아요 추가
-	private static final String INSERT = "REVIEWLIKE (MEMBER_ID, PRODUCT_PK) VALUES (?, ?)";
+	private static final String INSERT = "REVIEWLIKE (MEMBER_ID, REVIEW_PK) VALUES (?, ?)";
 //	private static final String UPDATE = "";
 	// 리뷰 좋아요 취소
-	private static final String DELETE = "REVIEWLIKE WHERE MEMBER_ID = ? AND PRODUCT_PK = ?"; 
+	private static final String DELETE = "REVIEWLIKE WHERE MEMBER_ID = ? AND REVIEW_PK = ?"; 
 	
 //	private List<ReviewLikeDTO> selectAll(ReviewLikeDTO reviewLikeDTO) {
 //		return null;
@@ -28,7 +28,7 @@ public class ReviewLikeDAO {
 
 	public boolean insert(ReviewLikeDTO reviewLikeDTO) {
 		try {
-			int result = jdbcTemplate.update(INSERT, reviewLikeDTO.getMemberID(), reviewLikeDTO.getProductPK());
+			int result = jdbcTemplate.update(INSERT, reviewLikeDTO.getMemberID(), reviewLikeDTO.getReviewPK());
 			if(result <= 0) {
 				return false;
 			}
@@ -45,7 +45,7 @@ public class ReviewLikeDAO {
 
 	public boolean delete(ReviewLikeDTO reviewLikeDTO) {
 		try {
-			int result = jdbcTemplate.update(DELETE, reviewLikeDTO.getMemberID(), reviewLikeDTO.getProductPK());
+			int result = jdbcTemplate.update(DELETE, reviewLikeDTO.getMemberID(), reviewLikeDTO.getReviewPK());
 			if(result <= 0 ) {
 				return false;
 			}
