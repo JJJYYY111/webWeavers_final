@@ -364,3 +364,63 @@ div.popup > div.popup-box{
 	font-family: sans-serif;
 }
 
+
+
+/*============custom modal=============*/
+.custom-modal-layout{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #dedede40;
+}
+
+.custom-modal-main{
+	width: 25%;
+    height: 30%;
+    background: white;
+    position: absolute;
+    top: 30%;
+    left: 37.5%;
+    box-shadow: 0px 0px 5px #475654;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-modal-tittle{
+	padding: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    background: #38526d;
+    color: #fff;
+    height: 20%;
+    line-height: calc(100% + 20px);
+}
+
+.custom-modal-content{
+	height: 60%;
+    padding: 20px;
+}
+
+.custom-modal-footer{
+	position: relative;
+    height: 20%;
+}
+
+.custom-modal-button{
+	display: inline-block;
+    background: #626fe8;
+    width: 40%;
+    height: 60%;
+    left: 30%;
+    position: absolute;
+    text-align: center;
+    bottom: 20%;
+    line-height: 220%;
+    border-radius: 100px;
+    color: #fff;
+}

@@ -308,9 +308,21 @@ function cancelAction() {
     window.location.href = "mypage.do";
 }
 
+
+
+
+// --------------------[SMS 문자인증 - 비밀번호 입력 필수]--------------------
+// [ID찾기 - 유효성 검사]
+if(document.findID){
+	console.log('ID찾기 유효성');
+	var certificationNumEl = document.getElementById('certificationNum')		// 문자 인증번호 요소 저장	
+	certificationNumEl.dataset.formCheck = 'N'									// 유효성 미통과 --> N, 통과 --> Y
+	smsCertification(certificationNumEl, 'confirmSmsNumCheck');
+}
+
 // 초기 인증번호 발송 전 -1 저장
 var smsCertificationNum = -1;
-// [문자 인증번호 발송]
+// [문자 인증번호 발송 - 회원가입, ID찾기, PW찾기]
 function smsService(elementID){
 	console.log(elementID);
     console.log("들어옴");
@@ -368,5 +380,79 @@ function smsCertification(element, innerTextId){								// 매개변수(인증�
 	})
 	
 }
+// -------------------------------------------------------
+if(document.getElementById("findIdBtn")){
+	document.getElementById("findIdBtn").onclick = sendID;
+}
+function sendID(){
+	
+	var memberName = document.getElementById("findName").value
+	var memberPhone = document.getElementById('findPhone').value
+	
+	if(memberName == '' || memberName == null){
+		showModal('이름 입력ㄱㄱ', 'closeModal')
+		return;
+	}else if(memberPhone == '' || memberPhone == null){
+		showModal('폰번호 입력ㄱㄱ', 'closeModal')
+		return;
+	}
+	
+	$.ajax({
+		type: "POST",
+		url: "/async/sendID",											
+		data: {"memberName" : memberName, "memberPhone" : memberPhone},							
+		dataType: 'text',
+		success: function(data) {
+			if(data > 0){
+				showModal('보내짐', 'sendIDSuccess')
+			}else{
+				showModal('다시입력', 'closeModal')
+			}
+		},
+		error: function(error) {
+			console.log('에러발생')
+			console.log('에러종류: ' + error)
+		}
+	})
+}
 
+function sendIDSuccess(){
+	$.ajax({
+		type: "get",
+		url: "/async/sendID",	// 성공시 로그인 페이지 이동 url
+		success: function() {
+		},
+		error: function(error) {
+			console.log('에러발생')
+			console.log('에러종류: ' + error)
+		}
+	})
+}
+
+
+
+
+function showModal(contentText, functionName){
+	var modalDoc = `
+		<div id="custom_modal" class="custom-modal-layout">
+		    <div class="custom-modal-main">
+		        <div class="custom-modal-tittle">
+		            안녕 나는 모달이얌
+		        </div>
+		        <div class="custom-modal-content">
+		            ${contentText}
+		        </div>
+		        <div class="custom-modal-footer">
+		            <div class="custom-modal-button" onclick=${functionName}()>확인</div>
+		        </div>
+		    </div>
+		</div>
+	`
+	
+	$("#modal_site").html(modalDoc);
+}
+
+function closeModal(){
+	$("#modal_site").html('');
+}
 
