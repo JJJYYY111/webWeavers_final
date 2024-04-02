@@ -17,40 +17,38 @@ public class ReviewDAO {
 	
 	// 정렬별 리뷰목록 쿼리문 반환 함수_상품상세페이지
 	private static String selectAllQuery(String sortType) {
-		String query = "WITH RLS AS (SELECT REVIEW_PK, COUNT(REVIEWLIKE_PK) REVIEWLIKE_CNT FROM REVIEWLIKE GROUP BY REVIEW_PK)\r\n"
+		String query = 
+				"WITH RLS AS (\r\n"	// 리뷰별 리뷰따봉 개수를 구하는 REVIEWLIKE CTE
+				+ "	SELECT REVIEW_PK, COUNT(REVIEWLIKE_PK) CNT\r\n"
+				+ "	FROM REVIEWLIKE\r\n"
+				+ "	GROUP BY REVIEW_PK\r\n"
+				+ ")\r\n"
 				+ "SELECT\r\n"
-				+ "	P.PRODUCT_PK, R.REVIEW_PK, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG,\r\n"
-				+ "	RLS.REVIEWLIKE_CNT, M.MEMBER_NICKNAME, M.GRADE_PK\r\n"
+				+ "	P.PRODUCT_PK, R.REVIEW_PK, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG,\r\n"	// 리뷰 정보
+				+ "	COALESCE(RLS.CNT, 0) REVIEWLIKE_CNT,\r\n"															// 리뷰 따봉 개수
+				+ "	CASE WHEN RL.REVIEW_PK IS NOT NULL THEN 1 ELSE 0 END AS HasRLPK,\r\n"								// 회원의 리뷰따봉 유무
+				+ "	M.MEMBER_NICKNAME, M.GRADE_PK\r\n"																	// 리뷰 작성자 정보
 				+ "FROM PRODUCT P\r\n"
 				+ "LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"
 				+ "INNER JOIN SERIAL S ON B.SERIAL_PK = S.SERIAL_PK\r\n"
 				+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
 				+ "INNER JOIN REVIEW R ON B.BUYPRODUCT_PK = R.BUYPRODUCT_PK\r\n"
+				+ "LEFT JOIN REVIEWLIKE RL ON R.REVIEW_PK = RL.REVIEW_PK AND RL.MEMBER_ID = ?\r\n"
 				+ "LEFT JOIN RLS ON R.REVIEW_PK = RLS.REVIEW_PK\r\n"
 				+ "WHERE P.PRODUCT_PK = ?\r\n"
-				+ "ORDER BY ";
+				+ "ORDER BY R.REVIEW_REGDATE DESC\r\n";
+		
 		// 최신 리뷰순
 		if(sortType.equals("regdate")) {
-			query += "R.REVIEW_REGDATE DESC;";
+			query += "ORDER BY R.REVIEW_REGDATE DESC";
 		}
 		// 리뷰 따봉순
 		else if(sortType.equals("reviewLike")) {
-			query += "REVIEWLIKE_CNT DESC";
+			query += "ORDER BY REVIEWLIKE_CNT DESC";
 		}
 		
 		return query;
 	}
-	
-//	// 상품상세페이지_리뷰 목록
-//	private static final String SELECTALL_PRODUCTREVIEW = "SELECT\r\n"
-//			+ "P.PRODUCT_PK, R.REVIEW_PK, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG, M.MEMBER_NICKNAME, M.GRADE_PK\r\n"
-//			+ "FROM PRODUCT P\r\n"
-//			+ "LEFT JOIN BUYPRODUCT B ON P.PRODUCT_PK = B.PRODUCT_PK\r\n"
-//			+ "INNER JOIN SERIAL S ON B.SERIAL_PK = S.SERIAL_PK\r\n"
-//			+ "LEFT JOIN MEMBER M ON S.MEMBER_ID = M.MEMBER_ID\r\n"
-//			+ "INNER JOIN REVIEW R ON B.BUYPRODUCT_PK = R.BUYPRODUCT_PK\r\n"
-//			+ "WHERE P.PRODUCT_PK = ?\r\n"
-//			+ "ORDER BY R.REVIEW_REGDATE DESC";
 	
 	// 마이페이지_리뷰 목록
 	private static final String SELECTALL_MYREVIEW = "SELECT\r\n"
@@ -73,7 +71,7 @@ public class ReviewDAO {
 //	private static final String DELETE = ""; 
 	
 	public List<ReviewDTO> selectAll(ReviewDTO reviewDTO) {
-		Object[] args1 = { reviewDTO.getProductPK() };
+		Object[] args1 = { reviewDTO.getMemberID(), reviewDTO.getProductPK() };
 		Object[] args2 = { reviewDTO.getMemberID() };
 		try {
 			if (reviewDTO.getSearchCondition().equals("regdate")) {
@@ -144,6 +142,7 @@ class ReviewListRowMapper implements RowMapper<ReviewDTO> {
 		data.setReviewContent(rs.getString("REVIEW_CONTENT"));
 		data.setReviewImg(rs.getString("REVIEW_IMG"));
 		data.setReviewLikeCnt(rs.getInt("REVIEWLIKE_CNT"));
+		data.setReviewLike(rs.getInt("HasRLPK"));
 		data.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
 		data.setGradePK(rs.getInt("GRADE_PK"));
 		return data;

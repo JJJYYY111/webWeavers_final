@@ -16,6 +16,7 @@ public class ReviewDTO {
 
 	private String searchCondition;
 	
+	private int reviewLike;		// User_상품상세페이지 사용자의 리뷰따봉 유무
 	private int reviewLikeCnt;
 	private String memberID;
 	private String memberNickname;
