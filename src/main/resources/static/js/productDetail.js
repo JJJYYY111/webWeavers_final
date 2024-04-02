@@ -52,9 +52,27 @@ $("#recent").on("click", function() {
          },
          dataType:'json',
          
-        success:function(datas) {
-                                                    	
-                                                    	    
+          success: function(datas) {
+            var tableHTML = '';
+            datas.forEach(function(data) {
+                tableHTML += `
+                    <div class="review_item">
+                        <span>${data.reviewRegdate}</span>
+                        <h4>
+                            작성자 : ${data.memberNickname}
+                            <button onclick="reviewLikeClick(${data.reviewPK},'${sessionMid}')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
+                                <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
+                            </button>
+                            ${data.reviewLikeCnt}
+                        </h4>
+                        <div class="d-flex">
+                            ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
+                        </div>
+                        <div><textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea></div>
+                    </div>
+                `;
+            });
+            $(".review_list").html(tableHTML);
         },
        error: function (error) {
                                                     	
