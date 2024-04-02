@@ -80,8 +80,8 @@ public class KakaoLoginPageController {
 		       //이메일로 유저 판단
 		       //안되어있다
 		       //회원가입-> 이름과 이메일 들고 감
-		       memberDTO.setSearchCondition("emailCheck");
-		       memberDTO.setMemberEmail(email);
+		       memberDTO.setSearchCondition("memberNickNameCheck");
+		       memberDTO.setMemberEmail(nickname);
 		       memberDTO = memberService.selectOne(memberDTO);
 		       
 		       String randomID = RandomStringUtils.random(7, true, true);
