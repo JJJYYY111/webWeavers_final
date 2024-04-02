@@ -311,8 +311,10 @@ function cancelAction() {
 // 초기 인증번호 발송 전 -1 저장
 var smsCertificationNum = -1;
 // [문자 인증번호 발송]
-function smsService(){
-	var userPhoneNumber = document.getElementById('registPhone').value			// 휴대폰 요소 저장
+function smsService(elementID){
+	console.log(elementID);
+    console.log("들어옴");
+	var userPhoneNumber = document.getElementById(elementID).value				// 휴대폰 요소 저장
 	const phoneRegex = /^01[0-9]{1}[0-9]{4}[0-9]{4}$/
 	console.log(userPhoneNumber)
 	if(!phoneRegex.test(userPhoneNumber)){										// 휴대폰 정규식에 맞지않으면 알람창 띄우기

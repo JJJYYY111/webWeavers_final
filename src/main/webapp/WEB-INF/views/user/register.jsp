@@ -231,7 +231,7 @@
 									onblur="this.placeholder = '전화번호 입력'"   value="${memberDTO.memberPhone}"
 									style="display: inline-block;" required>
 									<a class="col-md-1" style="float: right;"
-									onclick="smsService()" value="본인인증서비스요청"> <i
+									onclick="smsService('registPhone')" value="본인인증서비스요청"> <i
 									class="ti-mobile"></i>
 								</a>									
 							</div>
