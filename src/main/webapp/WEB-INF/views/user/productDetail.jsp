@@ -193,9 +193,15 @@
 																		<c:if test="${data.gradePK != 5}">
     <span>${data.reviewRegdate}</span><br><br>
     <h4>작성자 : ${data.memberNickname} 
-        <button style="margin-top: 3px; background: #ffffff; border: none;">
-            <img src="/resources/reviewLike.png" alt="좋아요" style="width: 25px;">123
+        <button onclick="reviewLikeClick(${data.reviewPK},'${sessionMid}')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;" >
+            <c:if test="${data.reviewLike == 1}"> <!-- 1이면 리뷰 좋아요 -->
+            <img src="/resources/reviewLikeRed.png" alt="좋아요" style="width: 25px;">
+            </c:if>
+            <c:if test="${data.reviewLike == 0}">
+            <img src="/resources/reviewLike.png" alt="좋아요를 누르지 않은 상태" style="width: 25px;">
+            </c:if>
         </button>
+       ${data.reviewLikeCnt}
     </h4>
 </c:if><br>
 																		

@@ -35,8 +35,7 @@ public class ReviewDAO {
 				+ "INNER JOIN REVIEW R ON B.BUYPRODUCT_PK = R.BUYPRODUCT_PK\r\n"
 				+ "LEFT JOIN REVIEWLIKE RL ON R.REVIEW_PK = RL.REVIEW_PK AND RL.MEMBER_ID = ?\r\n"
 				+ "LEFT JOIN RLS ON R.REVIEW_PK = RLS.REVIEW_PK\r\n"
-				+ "WHERE P.PRODUCT_PK = ?\r\n"
-				+ "ORDER BY R.REVIEW_REGDATE DESC\r\n";
+				+ "WHERE P.PRODUCT_PK = ?\r\n";
 		
 		// 최신 리뷰순
 		if(sortType.equals("regdate")) {

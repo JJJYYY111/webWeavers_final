@@ -1,27 +1,4 @@
 
-document.getElementById('reviewForm').addEventListener('submit', function(event) {
-	const message = document.getElementById('content').value.trim();
-	const messageError = document.getElementById('messageError');
-
-	// 리뷰 내용이 비어 있는지 확인
-	if (message === '') {
-		messageError.textContent = '리뷰 내용을 입력하세요.';
-		event.preventDefault(); // 제출 중지
-	} else {
-		messageError.textContent = ''; // 에러 메시지 제거
-	}
-});
-
-
-function uploadImage() {
-	const fileInput = document.getElementById('imageInput');
-	const formData = new FormData();
-	formData.append('image', fileInput.files[0]);
-
-	// 서버로 이미지 업로드 요청을 보내고 이미지 URL을 얻어옴
-	// 이후 해당 URL을 이미지 태그의 src 속성에 할당하여 프리뷰를 표시할 수 있음
-}
-
 
 // ==================================================
 /*	const dataTransfer = new DataTransfer();

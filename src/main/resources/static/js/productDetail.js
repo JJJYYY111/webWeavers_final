@@ -1,3 +1,68 @@
+
+/* 리뷰 좋아요 */
+
+function reviewLikeClick(rpk, mid) {
+    if (mid == null || mid == '' || mid == 'undefined') { // 로그아웃 상태
+        alert('리뷰 좋아요 실패, 로그인 후 이용가능합니다!');
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "/reviewLike",
+            data: {
+                'memberID': memberID,
+                'reviewPK': reviewPK
+            },
+            dataType: "text",
+            success: function(data) {
+                //data가 1이면 좋아요 성공
+                if (data == 1) {
+                    reviewLikeCnt += 1; //리뷰 좋아요 수 증가	
+                    document.querySelectorAll('button.review-btn-' + rpk).forEach(button => {
+                        button.innerHTML = '<img src="/resources/reviewLikeRed.png" alt="좋아요" style="width: 25px;">';
+                    });
+                }
+                //data가 2면 좋아요 취소
+                else if (data == 2) {
+                    reviewLikeCnt -= 1; // 리뷰 좋아요 수 감소
+                    document.querySelectorAll('button.review-btn-' + rpk).forEach(button => {
+                        button.innerHTML = '<img src="/resources/reviewLike.png" alt="좋아요를 누르지 않은 상태" style="width: 25px;">';
+                    });
+                } else if (data == 0) {
+                    alert('로그인 후 이용가능합니다.')
+                }
+            },
+            error: function(error) {
+                console.log('에러발생');
+                console.log('에러종류: ' + error);
+            }
+        });
+    }
+}
+
+/* 리뷰  */
+document.getElementById('reviewForm').addEventListener('submit', function(event) {
+	const message = document.getElementById('content').value.trim();
+	const messageError = document.getElementById('messageError');
+
+	// 리뷰 내용이 비어 있는지 확인
+	if (message === '') {
+		messageError.textContent = '리뷰 내용을 입력하세요.';
+		event.preventDefault(); // 제출 중지
+	} else {
+		messageError.textContent = ''; // 에러 메시지 제거
+	}
+});
+
+
+function uploadImage() {
+	const fileInput = document.getElementById('imageInput');
+	const formData = new FormData();
+	formData.append('image', fileInput.files[0]);
+
+	// 서버로 이미지 업로드 요청을 보내고 이미지 URL을 얻어옴
+	// 이후 해당 URL을 이미지 태그의 src 속성에 할당하여 프리뷰를 표시할 수 있음
+}
+
 // 리뷰 별점 개수 및 평균값
     
 window.onload = function(){ // 화면이 로드가 완료되면 실행
