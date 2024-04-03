@@ -65,8 +65,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                 </form>
             </div>
         </div>
-        <div id="modal_site">
-        </div>
+        <div id="modal_site"></div>
 
         <!--================ /내용 =================-->
 

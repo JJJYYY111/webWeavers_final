@@ -312,25 +312,15 @@ function cancelAction() {
 
 
 // --------------------[SMS 문자인증 - 비밀번호 입력 필수]--------------------
-// [ID찾기 - 유효성 검사]
-if(document.findID){
-	console.log('ID찾기 유효성');
-	var certificationNumEl = document.getElementById('certificationNum')		// 문자 인증번호 요소 저장	
-	certificationNumEl.dataset.formCheck = 'N'									// 유효성 미통과 --> N, 통과 --> Y
-	smsCertification(certificationNumEl, 'confirmSmsNumCheck');
-}
-
 // 초기 인증번호 발송 전 -1 저장
 var smsCertificationNum = -1;
 // [문자 인증번호 발송 - 회원가입, ID찾기, PW찾기]
-function smsService(elementID){
-	console.log(elementID);
-    console.log("들어옴");
-	var userPhoneNumber = document.getElementById(elementID).value				// 휴대폰 요소 저장
+function smsService(){
+	var userPhoneNumber = document.getElementById('registPhone').value			// 휴대폰 요소 저장
 	const phoneRegex = /^01[0-9]{1}[0-9]{4}[0-9]{4}$/
 	console.log(userPhoneNumber)
-	if(!phoneRegex.test(userPhoneNumber)){										// 휴대폰 정규식에 맞지않으면 알람창 띄우기
-		alert("잘못된 번호입니다.")
+	if(!phoneRegex.test(userPhoneNumber)){										// 휴대폰 정규식에 맞지않으면 모달창 띄우기
+		showModal('휴대폰 형식에 맞지않습니다.', 'closeModal')
 		return;
 	}
 	
@@ -341,7 +331,7 @@ function smsService(elementID){
 		dataType: 'text',
 		success: function(data) {
 			console.log(data)
-			alert("인증번호 발송!")
+			showModal('인증번호를 발송했습니다.', 'closeModal')
 			smsCertificationNum = data / 7777;									// 최소한의 보안을 위해 * 7777 한 인증번호 다시 / 7777
 		},
 		error: function(error) {
@@ -390,10 +380,10 @@ function sendID(){
 	var memberPhone = document.getElementById('findPhone').value
 	
 	if(memberName == '' || memberName == null){
-		showModal('이름 입력ㄱㄱ', 'closeModal')
+		showModal('이름을 입력해주세요.', 'closeModal')
 		return;
 	}else if(memberPhone == '' || memberPhone == null){
-		showModal('폰번호 입력ㄱㄱ', 'closeModal')
+		showModal('핸드폰번호를 입력해주세요.', 'closeModal')
 		return;
 	}
 	
@@ -437,7 +427,7 @@ function showModal(contentText, functionName){
 		<div id="custom_modal" class="custom-modal-layout">
 		    <div class="custom-modal-main">
 		        <div class="custom-modal-tittle">
-		            안녕 나는 모달이얌
+		            WeaveGlow
 		        </div>
 		        <div class="custom-modal-content">
 		            ${contentText}

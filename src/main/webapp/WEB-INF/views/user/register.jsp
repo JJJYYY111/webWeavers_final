@@ -231,10 +231,11 @@
 									onblur="this.placeholder = '전화번호 입력'"   value="${memberDTO.memberPhone}"
 									style="display: inline-block;" required>
 									<a class="col-md-1" style="float: right;"
-									onclick="smsService('registPhone')" value="본인인증서비스요청"> <i
+									onclick="smsService()" value="본인인증서비스요청"> <i
 									class="ti-mobile"></i>
 								</a>									
 							</div>
+							<div id="modal_site"></div>
 							<div class="col-md-12"
 								style="text-align: left; font-size: 13px; padding: 3px">
 								<div class="col-md-4 label-text"></div>
