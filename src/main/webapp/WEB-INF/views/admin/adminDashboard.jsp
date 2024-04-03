@@ -184,7 +184,7 @@
 									</ul>
 
 									<div id="morris-area-chart" height="150"></div>
-									<div id="morris-line-chart"></div>
+									<div id="morris-line-chart" height="150"></div>
 									<%-- <canvas id="morris-area-chart"  height="150"></canvas> --%>
 								</div>
 							</div>
