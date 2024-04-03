@@ -372,6 +372,7 @@ function smsCertification(element, innerTextId){								// 매개변수(인증�
 if(document.getElementById('findIdBtn')){
 	document.getElementById('findIdBtn').onclick = sendID;						// 버튼 클릭 시 함수 실행
 }
+// [문자 아이디 전송]
 function sendID(){
 	var memberName = document.getElementById('findName').value					// 사용자가 입력한 값 (이름)
 	var memberPhone = document.getElementById('findPhone').value				// 사용자가 입력한 값 (전화번호)
@@ -392,7 +393,7 @@ function sendID(){
 		dataType: 'text',
 		success: function(data) {
 			if(data > 0){
-				showModal('아이디가 문자로 전송됐습니다. 로그인페이지로 이동합니다.', 'successSmsSendID')	// 성공 : 로그인 페이지로 이동 안내
+				showModal('아이디가 문자로 전송됐습니다. 로그인페이지로 이동합니다.', 'loginPage')	// 성공 : 로그인 페이지로 이동 안내
 			}
 			else{
 				showModal('일치하는 회원이 없습니다. 다시 입력바랍니다.', 'closeModal')					// 실패 : 재입력 안내
@@ -404,18 +405,9 @@ function sendID(){
 		}
 	})
 }
-
-function sendIDSuccess(){
-	$.ajax({
-		type: 'GET',
-		url: '/async/successSmsSendID',	// 성공시 로그인 페이지 이동 url
-		success: function() {
-		},
-		error: function(error) {
-			console.log('에러발생')
-			console.log('에러종류: ' + error)
-		}
-	})
+// [로그인 페이지로 이동]
+function loginPage(){
+	 location.href = '/login';
 }
 
 // -------------------- 문자 API (coolSMS) - 모달창 --------------------
@@ -443,4 +435,3 @@ function showModal(contentText, functionName){
 function closeModal(){
 	$('#modal_site').html('');
 }
-

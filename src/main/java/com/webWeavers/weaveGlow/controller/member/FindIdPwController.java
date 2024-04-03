@@ -35,10 +35,6 @@ public class FindIdPwController {
 		return smsService.sendMessage(memberDTO);
 		
 	}
-	
-	@RequestMapping("/async/successSmsSendID")
-	public String login() {
-		return "user/login";
-	}
+
 	
 }
