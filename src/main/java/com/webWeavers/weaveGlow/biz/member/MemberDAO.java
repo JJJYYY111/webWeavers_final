@@ -48,7 +48,8 @@ public class MemberDAO {
 														+ " MEMBER_EMAIL=?, GRADE_PK=? WHERE MEMBER_ID=?";
 	// 회원 휴면상태(탈퇴)
 	private static final String UPDATE_UNREGISTER = "UPDATE MEMBER SET GRADE_PK=5 WHERE MEMBER_ID=?";
-
+	// 회원 비밀번호수정(사용자_비밀번호찾기 > 비밀번호변경)
+	private static final String UPDATE_PASSWORD = "UPDATE MEMBER SET MEMBER_PASSWORD=? WHERE MEMBER_ID=?";
 	private static final String DELETE = "";
 
 	public List<MemberDTO> selectAll(MemberDTO memberDTO) {
@@ -122,6 +123,11 @@ public class MemberDAO {
 			result = jdbcTemplate.update(UPDATE_ADMIN, memberDTO.getMemberPassword(), memberDTO.getMemberName(), 
 										memberDTO.getMemberBirth(), memberDTO.getMemberPhone(), memberDTO.getMemberNickname(),
 										memberDTO.getMemberEmail(), memberDTO.getGradePK(), memberDTO.getMemberID());
+			if (result <= 0) {
+				return false;
+			}
+		} else if (memberDTO.getSearchCondition().equals("updatePW")) {
+			result = jdbcTemplate.update(UPDATE_PASSWORD, memberDTO.getMemberPassword(),memberDTO.getMemberID());
 			if (result <= 0) {
 				return false;
 			}

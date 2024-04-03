@@ -48,15 +48,6 @@ public class FindIdPwController {
 			return -1;
 		}
 		
-		// 임시 비밀번호 생성
-		String randPW = "";
-		memberDTO.setMemberPassword(randPW);
-		
-		// 사용자 비밀번호 업데이트
-		memberService.update(memberDTO);
-		
-		// 업데이트 성공이면
-		
 		// sendMessage 검색조건 저장
 		memberDTO.setSearchCondition("sendPW");
 		// 서비스 이용 후 return (성공:1, 실패:-1)

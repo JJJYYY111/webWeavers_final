@@ -64,7 +64,7 @@ function sendPhonePW(){
 		dataType: 'text',
 		success: function(data) {
 			if(data > 0){
-				showModal('임시비밀번호가 문자로 전송됐습니다. 비밀번호 변경 페이지로 이동합니다.', 'changePasswordPage')		// 성공 : 로그인 페이지로 이동 안내
+				showModal('임시비밀번호가 문자로 전송됐습니다. 로그인페이지로 이동합니다.', 'loginPage')		// 성공 : 로그인 페이지로 이동 안내
 			}
 			else{
 				showModal('일치하는 회원이 없습니다. 다시 입력바랍니다.', 'closeModal')										// 실패 : 재입력 안내
@@ -89,7 +89,7 @@ function showModal(contentText, functionName){
 	var modalDoc = `
 		<div id="custom_modal" class="custom-modal-layout">
 		    <div class="custom-modal-main">
-		        <div class="custom-modal-tittle">
+		        <div class="custom-modal-title">
 		            WeaveGlow
 		        </div>
 		        <div class="custom-modal-content">

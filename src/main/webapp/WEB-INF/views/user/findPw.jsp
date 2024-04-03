@@ -17,11 +17,10 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="margin: 0 auto; width: 1000px; padding: 100px;">
                         <h4 class="card-title mb-2">인증방법선택</h4>
-                        <h7> 회원정보에 등록한 정보와 입력한 정보가 같아야, 회원님의 임시 비밀번호가 전송됩니다.</h7>
-
-                        <ul class="nav nav-tabs nav-justified nav-bordered mb-3">
+                        <h7 style="display: inline-block; margin-bottom: 30px;"> 회원정보에 등록한 정보와 입력한 정보가 같아야, 회원님의 임시 비밀번호가 전송됩니다.</h7>
+                        <ul class="nav nav-tabs nav-justified nav-bordered mb-3" style="    margin-bottom: 60px !important;">
                             <li class="nav-item">
                                 <a href="#home-b2" data-toggle="tab" class="nav-link active">
                                     <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
@@ -49,11 +48,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                                     <input type="text" class="form-control col-md-4" id="memberPhone" name="memberPhone"
                                         placeholder="휴대전화번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '휴대전화번호'"/>
                                 </div>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-12 form-group" style="margin-top: 50px;">
                                     <div class="col-md-5 label-text"></div>
-                                    <button id="findPwPhoneBtn" class="btn btn-outline-secondary waves-effect waves-light" type="button" onclick="sendPhonePW()">
-                                        <span class="btn-label"><i class="fa fa-mobile"></i></span>보내기
-                                    </button>
+                                    <button id="findPwPhoneBtn" class="btn btn-outline-secondary waves-effect waves-light" type="button" onclick="sendPhonePW()">보내기</button>
                                 </div>  
                             </div>
                             <div class="tab-pane" id="profile-b2">
@@ -68,10 +65,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                                     <input type="text" class="form-control col-md-4" id="memberEmail" name="memberEmail"
                                         placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'"/>
                                 </div>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-12 form-group" style="margin-top: 50px;">
                                     <div class="col-md-5 label-text"></div>
-                                    <button id="findPwEmailBtn" class="btn btn-outline-secondary waves-effect waves-light" type="button" onclick="sendEmailPW()">
-                                        <span class="btn-label"><i class="fa fa-envelope"></i></span>보내기
+                                    <button id="findPwEmailBtn" class="btn btn-outline-secondary waves-effect waves-light" type="button" onclick="sendEmailPW()">보내기</button>
                                     </button>
                                 </div>  
                             </div>
