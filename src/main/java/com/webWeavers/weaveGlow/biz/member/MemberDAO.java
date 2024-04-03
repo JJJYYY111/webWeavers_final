@@ -82,10 +82,10 @@ public class MemberDAO {
 				Object[] args = { memberDTO.getMemberID() };
 				return jdbcTemplate.queryForObject(SELECTONE_IDCHECK, args, new MemberRowMapper2());
 			} else if (memberDTO.getSearchCondition().equals("idForgot")) {
-				Object[] args = { memberDTO.getMemberID() };
+				Object[] args = { memberDTO.getMemberName(), memberDTO.getMemberPhone() };
 				return jdbcTemplate.queryForObject(SELECTONE_IDFORGOT, args, new MemberIDRowMapper());
 			} else if (memberDTO.getSearchCondition().equals("pwForgot")) {
-				Object[] args = { memberDTO.getMemberPassword() };
+				Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberPhone() };
 				return jdbcTemplate.queryForObject(SELECTONE_PWFORGOT, args, new MemberPasswordRowMapper());
 			}
 		} catch (Exception e) {
