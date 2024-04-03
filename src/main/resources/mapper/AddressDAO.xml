@@ -8,12 +8,12 @@
 			   ADDRESS_JIBUN, 
 			   ADDRESS_ROAD, 
 			   ADDRESS_DETAIL, 
-			   ADDRESS_NAME FROM 
-			   ADDRESS 
+			   ADDRESS_NAME 
+		FROM ADDRESS 
 		WHERE MEMBER_ID = #{memberID}
 	</select>
 	
-	<select id="selectOne" resultType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	<select id="selectOne" resultMap="addressOne">
 		SELECT ADDRESS_ZONECODE, 
 			   ADDRESS_JIBUN, 
 			   ADDRESS_ROAD, 
@@ -58,4 +58,13 @@
 	<result column= "ADDRESS_DETAIL" property="addressDetail" jdbcType="VARCHAR" javaType="String"/>
 	<result column= "ADDRESS_NAME" property="addressName" jdbcType="VARCHAR" javaType="String"/>	 
 	</resultMap>
+	
+	<resultMap id="addressOne" type="com.webWeavers.weaveGlow.biz.address.AddressDTO">
+	<result column= "ADDRESS_ZONECODE" property="addressZonecode" jdbcType="VARCHAR" javaType="String"/>
+	<result column= "ADDRESS_JIBUN" property="addressJibun" jdbcType="VARCHAR" javaType="String"/>
+	<result column= "ADDRESS_ROAD" property="addressRoad" jdbcType="VARCHAR" javaType="String"/>
+	<result column= "ADDRESS_DETAIL" property="addressDetail" jdbcType="VARCHAR" javaType="String"/>
+	<result column= "ADDRESS_NAME" property="addressName" jdbcType="VARCHAR" javaType="String"/>	 
+	</resultMap>
+	
 </mapper>
