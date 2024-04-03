@@ -29,19 +29,27 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th scope="col"><span
-										style="text-align: left; width: 200px;">
+									<th scope="col" class="col-lg-4" style="text-align: left;">
+										<span
+										style="display: inline-block; text-align: center;">
 											<button
 												class="btn waves-effect waves-light btn-outline-primary"
-												onclick="selectAllProduct()" style="text-align: left;">전체선택</button>
+												onclick="selectAllProduct('selectAll'); event.preventDefault();"
+												name="selectAll">전체선택</button>
+											<button
+												class="btn waves-effect waves-light btn-outline-primary"
+												onclick="selectAllProduct('unselectAll'); event.preventDefault();"
+												name="unselectAll">전체해제</button>
 											<button
 												class="btn waves-effect waves-light btn-outline-primary"
 												onclick="selectedDelete()" style="text-align: left;">선택삭제</button>
-									</span> <span scope="col" style="margin-left: 27%; margin-right: 30%;">Product</span>
+									</span> <span style="display: inline-block; margin-left: 20%; text-align: right;">
+											Product </span>
 									</th>
-									<th scope="col" style="text-align: center;">Price</th>
-									<th scope="col" style="text-align: center;">Quantity</th>
-									<th scope="col" style="text-align: center;">Total</th>
+
+									<th scope="col"  style="text-align: center;">Price</th>
+									<th scope="col"  style="text-align: center;">Quantity</th>
+									<th scope="col"  style="text-align: center;">Total</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -162,6 +170,17 @@
 	</section>
 	<!-- ================ /내용 ================= -->
 	<script src="/resources/js/cart.js"></script>
+	<!-- <script>
+    function selectAllProduct() {
+        // 선택된 모든 제품 체크박스 가져오기
+        const checkboxes = document.querySelectorAll('input[name="selectedProducts"]');
+        
+        // 모든 체크박스를 선택 상태로 변경
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = true;
+        });
+    }
+</script> -->
 	<common:footer />
 </body>
 </html>

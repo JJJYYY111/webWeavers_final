@@ -149,7 +149,9 @@ function selectedDelete(){
 	console.log(document.cartForm.action);
 }
 
-const submitCheck = document.getElementById('cartForm');
+//--------구매버튼 클릭시 체크박스 확인 -----
+
+/*const submitCheck = document.getElementById('cartForm');
 
 submitCheck.addEventListener("submit", (event) => {
 	
@@ -164,5 +166,57 @@ submitCheck.addEventListener("submit", (event) => {
 		alert("상품을 선택해주세요!");
 	  event.preventDefault();
 	}
+});*/
+
+//--------구매버튼 클릭시 체크박스 확인 -----
+
+const submitCheck = document.getElementById('cartForm');
+
+submitCheck.addEventListener("submit", (event) => {
+    var checkFlag = false; // 기본값 false
+    const checkboxes = document.querySelectorAll('input[name="selectedProducts"]');
+    
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            checkFlag = true;
+        }
+    });
+    if (!checkFlag) {
+        alert("상품을 선택해주세요!");
+        event.preventDefault(); // 폼 제출 기본 동작 막음
+    }
 });
+
+//-------- 전체선택 버튼 코드----
 	
+/*function selectAllProduct() {
+        // 선택된 모든 제품 체크박스 가져오기
+        const checkboxes = document.querySelectorAll('input[name="selectedProducts"]');
+        
+        // 모든 체크박스를 선택 상태로 변경
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = true;
+        });
+    }*/
+    
+    
+ //-------- 전체선택,해제 선택 버튼 코드----
+ 
+    
+    function selectAllProduct(buttonName) {
+    // 선택된 모든 제품 체크박스 가져오기
+    const checkboxes = document.querySelectorAll('input[name="selectedProducts"]');
+    
+    // 버튼의 이름에 따라 동작 분기
+    if (buttonName === "selectAll") {
+        // 모든 체크박스를 선택 상태로 변경
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = true;
+        });
+    } else if (buttonName === "unselectAll") {
+        // 모든 체크박스를 선택 해제 상태로 변경
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+        });
+    }
+}
