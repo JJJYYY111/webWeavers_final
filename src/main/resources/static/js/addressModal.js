@@ -249,16 +249,3 @@ function selectOneAddress(){ // 비동기처리로 DB에서 선택한 주소를 
 	})
 }
 
-function checkoutSubmit(){
-	if(document.getElementById('checkout_zonecode').value == ""){
-		alert("배송지를 입력해주세요");
-		return false;
-	}
-	else if(document.getElementById('checkout_roadAddress').value == ""){
-		alert("배송지를 입력해주세요");
-		return false;
-	}
-	return true;
-}
-
-

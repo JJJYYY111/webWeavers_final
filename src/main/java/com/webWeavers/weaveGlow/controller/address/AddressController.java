@@ -51,6 +51,7 @@ public class AddressController {
 			if (addressDTO.getAddressDetail() == null) { // 해당 주소의 상세주소가 null일 경우
 				addressDTO.setAddressDetail(""); // 해당 주소의 상세주소를 빈칸으로 수정
 			}
+			System.out.println(addressDTO);
 			// Gson 라이브러리를 사용하여 객체를 JSON 문자열로 변환
 			Gson gson = new Gson(); // Gson객체 생성
 			json = gson.toJson(addressDTO); // aDTO객체를 json타입으로 변환하여 문자열로 저장
