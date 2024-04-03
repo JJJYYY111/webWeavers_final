@@ -224,22 +224,3 @@ function selectAllProduct() {
 }
 
 
-//-------------------0403 삭제 js 추가
-
-function deleteCartItem(cartPK){
-	$.ajax({
-		type : 'GET',
-		url : 'cartDelete?cartPK='+cartPK,
-		success: function(data){
-			//삭제 성공시 새로고침
-			location.reload();
-		},
-		error:function(){
-			alert('삭제요청 실패');
-		}
-	});
-	
-}
-
-
-

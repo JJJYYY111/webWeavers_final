@@ -70,7 +70,7 @@ public class CartController {
 		if(!cartService.delete(cartDTO)) {
 			return "redirect:/error";
 		}
-		return "user/cart";
+		return "redirect:/cart";
 	}
 	
 	@RequestMapping("/cartDeleteSelected") // ("/async/idcheck" 혹은 "/async/pwcheck")

@@ -122,18 +122,18 @@
 											</td>
 											<!-- //0403 cartDelete로 다이렉트 -->
 											<!-- //0403 삭제 js 추가 -->
-											<td><input type="button" name="close" id="close"
+											<%-- <td><input type="button" name="close" id="close"
 												style="display: none;"> <label for="close">
 													<a onclick="deleteCartItem(${data.cartPK})"> <img
 														src="/resources/img/close.png" alt="닫기버튼"
 														style="width: 20px; height: 20px"></a>
-											</label></td>
-											<%-- <td><input type="button" name="close" id="close"
+											</label></td> --%>
+											<td><input type="button" name="close" id="close"
 												style="display: none;"> <label for="close">
 													<a href="cartDelete?cartPK=${data.cartPK}"><img
 														src="/resources/img/close.png" alt="닫기버튼"
 														style="width: 20px; height: 20px"></a>
-											</label></td> --%>
+											</label></td>
 
 										</tr>
 									</c:forEach>
