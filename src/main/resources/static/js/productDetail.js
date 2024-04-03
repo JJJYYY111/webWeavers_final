@@ -1,80 +1,72 @@
 /* 좋아요순 버튼을 누르면 정렬하게 */
 $("#like").on("click", function() {
-    
+    // 원하는 형식으로 날짜를 포맷하는 함수
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더해줍니다.
+        var day = date.getDate();
+
+        // 월과 일이 한 자리 수인 경우 앞에 0을 붙여줍니다.
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return year + '-' + month + '-' + day;
+    }
+
     $.ajax({
         type: "POST",
         url: "/reviewOrderedList",
         data: {
-			'productPK' : document.getElementById('productNumber').value,
+            'productPK' : document.getElementById('productNumber').value,
             'searchCondition': 'reviewLike'
         },
         dataType: 'json',
         success: function(datas) {
             var tableHTML = '';
             datas.forEach(function(data) {
+                var parts = data.reviewRegdate.split(/[\s,]+/); // "4월 3, 2024"와 같은 문자열을 공백이나 쉼표를 기준으로 분할하여 parts 배열에 저장
+                var monthIndex = parseInt(parts[0].replace("월", "")) - 1; // 월을 숫자로 변환
+                var day = parseInt(parts[1].replace(",", "")); // 일을 숫자로 변환
+                var year = parseInt(parts[2]); // 연도를 숫자로 변환
+
+                var reviewDate = new Date(year, monthIndex, day); // Date 객체 생성
+
+                // YYYY-MM-DD 형식으로 변환
+                var formattedDate = formatDate(reviewDate);
+
                 tableHTML += `
-                					<div class="review_item">
-										<div class="media">
-											<div class="media-body">
-												<c:if test="${data.gradePK == 5}">
-													<h4>탈퇴한 회원의 리뷰입니다.</h4>
-												</c:if>
-												<!-- 리뷰리스트에서 리뷰를 작성한 회원이 탈퇴하였을 경우 해당 리뷰는 탈퇴한 회원이라는 문구로 표시 -->
-												<c:if test="${data.gradePK != 5}">
-													<span>${data.reviewRegdate}</span>
-													<br>
-													<br>
-													<h4>
-														<span>작성자 : ${data.memberNickname}</span>
-														<button
-															onclick="reviewLikeClick('${data.reviewPK}',`+document.getElementById('sessionMid').value +`)"
-															class="review-btn-${data.reviewPK}"
-															style="margin-top: 3px; background: #ffffff; border: none;">
-															<c:if test="${data.reviewLike == 1}">
-																<!-- 1이면 리뷰 좋아요 -->
-																<img src="/resources/reviewLikeRed.png" alt="좋아요"
-																	style="width: 25px;">
-															</c:if>
-															<c:if test="${data.reviewLike == 0}">
-																<img src="/resources/reviewLike.png"
-																	alt="좋아요를 누르지 않은 상태" style="width: 25px;">
-															</c:if>
-														</button>
-														<span id="reviewCnt">${data.reviewLikeCnt}</span>
-													</h4>
-												</c:if>
-												<br> <input class="starValue" type="hidden"
-													name="reviewScope" id="scope_${data.reviewPK}"
-													value="${data.reviewScope}">
-												<!-- 해당 회원이 작성한 리뷰 별점 	-->
-												<star:star id="${data.reviewPK}"
-													defaultRating="${data.reviewScope}" />
-											</div>
-											<div class="d-flex">
-												<c:if test="${data.reviewImg == null}">
-												</c:if>
-												<c:if test="${data.reviewImg != null}">
-													<div class="feature-img">
-														<img style="max-width: 200%; max-height: 200px;"
-															class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지">
-														<!-- 리뷰 작성할때 사용자가 등록한 이미지 -->
-													</div>
-												</c:if>
-
-
-											</div>
-										</div>
-
-										<br>
-										<div>
-											<textarea class="col-lg-12" rows="3" name="reviewContent"
-												placeholder="리뷰 내용" readonly
-												style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}
-																	</textarea>
-										</div>
-									</div>
-                
-                                    
+                    <div class="review_item">
+                        <div class="media">
+                            <div class="media-body">
+                                <span>${formattedDate}</span>
+                                <br>
+                                <br>
+                                <h4>
+                                    <span>작성자 : ${data.memberNickname}</span>
+                                    <button onclick="reviewLikeClick('${data.reviewPK}','${data.sessionMid}')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
+                                        <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
+                                    </button>
+                                    <span id="reviewCnt${data.reviewPK}">${data.reviewLikeCnt}</span>
+                                </h4>
+                                <br>
+                                <input class="starValue" type="hidden" name="reviewScope" id="scope_${data.reviewPK}" value="${data.reviewScope}">
+                                <!-- 해당 회원이 작성한 리뷰 별점 -->
+                                <star:star id="${data.reviewPK}" defaultRating="${data.reviewScope}" />
+                            </div>
+                            <div class="d-flex">
+                                <!-- 리뷰 작성할 때 사용자가 등록한 이미지 -->
+                                ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea>
+                        </div>
+                    </div>
                 `;
             });
             $(".review_list").html(tableHTML);
@@ -85,6 +77,7 @@ $("#like").on("click", function() {
         }
     });
 });
+
 
 /*<div class="review_item">
                         <span>${data.reviewRegdate}</span>
@@ -104,47 +97,84 @@ $("#like").on("click", function() {
 /* 최신순 버튼을 누르면 정렬하게 */
 
 $("#recent").on("click", function() {
-	
-	$.ajax({
-													
-		type: "POST",
-		url: "/reviewOrderedList",
-		data: {
-			'productPK' : document.getElementById('productNumber').value,
-			'searchCondition': 'regdate'
-         },
-         dataType:'json',
-         
-          success: function(datas) {
-            var tableHTML = '';
+	 function formatDate(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더해줍니다.
+        var day = date.getDate();
+
+        // 월과 일이 한 자리 수인 경우 앞에 0을 붙여줍니다.
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return year + '-' + month + '-' + day;
+    }
+	 var sessionMid = `${sessionMid}`;
+    $.ajax({
+        type: "POST",
+        url: "/reviewOrderedList",
+        data: {
+            'productPK': document.getElementById('productNumber').value,
+            'searchCondition': 'regdate',
+            'sessionMid': sessionMid
+        },
+        dataType: 'json',
+        success: function(datas) {
+			console.log('데이터: '+ datas);
+            var reviewListHTML = '';
             datas.forEach(function(data) {
-                tableHTML += `
+				 var parts = data.reviewRegdate.split(/[\s,]+/); // "4월 3, 2024"와 같은 문자열을 공백이나 쉼표를 기준으로 분할하여 parts 배열에 저장
+                var monthIndex = parseInt(parts[0].replace("월", "")) - 1; // 월을 숫자로 변환
+                var day = parseInt(parts[1].replace(",", "")); // 일을 숫자로 변환
+                var year = parseInt(parts[2]); // 연도를 숫자로 변환
+
+                var reviewDate = new Date(year, monthIndex, day); // Date 객체 생성
+
+                // YYYY-MM-DD 형식으로 변환
+                var formattedDate = formatDate(reviewDate);
+                reviewListHTML += `
                     <div class="review_item">
-                        <span>${data.reviewRegdate}</span>
-                        <h4>
-                            작성자 : ${data.memberNickname}
-                            <button onclick="reviewLikeClick('${data.reviewPK}',`+document.getElementById('sessionMid').value +`)" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
-                                <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
-                            </button>
-                            ${data.reviewLikeCnt}
-                        </h4>
-                        <div class="d-flex">
-                            ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
+                        <div class="media">
+                            <div class="media-body">
+                               <span>${formattedDate}</span>
+                                <br>
+                                <br>
+                                <h4>
+                                    <span>작성자 : ${data.memberNickname}</span>
+                                    <button onclick="reviewLikeClick('${data.reviewPK}','` + document.getElementById('sessionMid').value + `')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
+                                        <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
+                                    </button>
+                                    <span id="reviewCnt${data.reviewPK}">${data.reviewLikeCnt}</span>
+                                </h4>
+                                <br>
+                                <input class="starValue" type="hidden" name="reviewScope" id="scope_${data.reviewPK}" value="${data.reviewScope}">
+                                <!-- 해당 회원이 작성한 리뷰 별점 -->
+                                <star:star id="${data.reviewPK}" defaultRating="${data.reviewScope}" />
+                            </div>
+                            <div class="d-flex">
+                                <!-- 리뷰 작성할 때 사용자가 등록한 이미지 -->
+                                ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
+                            </div>
                         </div>
-                        <div><textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea></div>
+                        <br>
+                        <div>
+                            <textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea>
+                        </div>
                     </div>
                 `;
             });
-            $(".review_list").html(tableHTML);
+            $(".review_list").html(reviewListHTML);
         },
-       error: function (error) {
-                                                    	
-   	 		console.log('실패')
-    		console.log('에러의 종류:' + error)
+        error: function(error) {
+            console.log('실패');
+            console.log('에러의 종류:' + error);
         }
-	 });
-												
-	});
+    });
+});
+
 
 /* 리뷰 좋아요 */
 

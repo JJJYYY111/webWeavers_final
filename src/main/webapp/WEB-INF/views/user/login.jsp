@@ -47,8 +47,7 @@
 							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit"
-									class="button button-login w-100">
-									로그인</button>
+									class="button button-login w-100">로그인</button>
 							</div>
 							<!-- 로그인 실패 문구 -->
 							<c:set var="loginFail" value="${msg}" />
@@ -58,10 +57,8 @@
 						</form>
 						<div class="list-area">
 							<ul class="grid-container">
-								<li><a href="findID" id="" class="">아이디
-										찾기</a></li>
-								<li><a href="findPW" id="" class="">비밀번호
-										찾기</a></li>
+								<li><a href="findID" id="" class="">아이디 찾기</a></li>
+								<li><a href="findPW" id="" class="">비밀번호 찾기</a></li>
 							</ul>
 						</div>
 						<a style="display: inline-block; margin-right: 280px;"
