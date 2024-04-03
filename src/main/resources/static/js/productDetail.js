@@ -3,29 +3,78 @@ $("#like").on("click", function() {
     
     $.ajax({
         type: "POST",
-        url: "/reviewLikeButton",
+        url: "/reviewOrderedList",
         data: {
-            'searchCondition': 'like',
+			'productPK' : document.getElementById('productNumber').value,
+            'searchCondition': 'reviewLike'
         },
         dataType: 'json',
         success: function(datas) {
             var tableHTML = '';
             datas.forEach(function(data) {
                 tableHTML += `
-                    <div class="review_item">
-                        <span>${data.reviewRegdate}</span>
-                        <h4>
-                            작성자 : ${data.memberNickname}
-                            <button onclick="reviewLikeClick(${data.reviewPK},'${sessionMid}')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
-                                <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
-                            </button>
-                            ${data.reviewLikeCnt}
-                        </h4>
-                        <div class="d-flex">
-                            ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
-                        </div>
-                        <div><textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea></div>
-                    </div>
+                					<div class="review_item">
+										<div class="media">
+											<div class="media-body">
+												<c:if test="${data.gradePK == 5}">
+													<h4>탈퇴한 회원의 리뷰입니다.</h4>
+												</c:if>
+												<!-- 리뷰리스트에서 리뷰를 작성한 회원이 탈퇴하였을 경우 해당 리뷰는 탈퇴한 회원이라는 문구로 표시 -->
+												<c:if test="${data.gradePK != 5}">
+													<span>${data.reviewRegdate}</span>
+													<br>
+													<br>
+													<h4>
+														<span>작성자 : ${data.memberNickname}</span>
+														<button
+															onclick="reviewLikeClick('${data.reviewPK}',`+document.getElementById('sessionMid').value +`)"
+															class="review-btn-${data.reviewPK}"
+															style="margin-top: 3px; background: #ffffff; border: none;">
+															<c:if test="${data.reviewLike == 1}">
+																<!-- 1이면 리뷰 좋아요 -->
+																<img src="/resources/reviewLikeRed.png" alt="좋아요"
+																	style="width: 25px;">
+															</c:if>
+															<c:if test="${data.reviewLike == 0}">
+																<img src="/resources/reviewLike.png"
+																	alt="좋아요를 누르지 않은 상태" style="width: 25px;">
+															</c:if>
+														</button>
+														<span id="reviewCnt">${data.reviewLikeCnt}</span>
+													</h4>
+												</c:if>
+												<br> <input class="starValue" type="hidden"
+													name="reviewScope" id="scope_${data.reviewPK}"
+													value="${data.reviewScope}">
+												<!-- 해당 회원이 작성한 리뷰 별점 	-->
+												<star:star id="${data.reviewPK}"
+													defaultRating="${data.reviewScope}" />
+											</div>
+											<div class="d-flex">
+												<c:if test="${data.reviewImg == null}">
+												</c:if>
+												<c:if test="${data.reviewImg != null}">
+													<div class="feature-img">
+														<img style="max-width: 200%; max-height: 200px;"
+															class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지">
+														<!-- 리뷰 작성할때 사용자가 등록한 이미지 -->
+													</div>
+												</c:if>
+
+
+											</div>
+										</div>
+
+										<br>
+										<div>
+											<textarea class="col-lg-12" rows="3" name="reviewContent"
+												placeholder="리뷰 내용" readonly
+												style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}
+																	</textarea>
+										</div>
+									</div>
+                
+                                    
                 `;
             });
             $(".review_list").html(tableHTML);
@@ -37,7 +86,20 @@ $("#like").on("click", function() {
     });
 });
 
-
+/*<div class="review_item">
+                        <span>${data.reviewRegdate}</span>
+                        <h4>
+                            작성자 : ${data.memberNickname}
+                            <button onclick="reviewLikeClick('${data.reviewPK}','${sessionMid}')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
+                                <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
+                            </button>
+                            ${data.reviewLikeCnt}
+                        </h4>
+                        <div class="d-flex">
+                            ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
+                        </div>
+                        <div><textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea></div>
+                    </div>*/
 
 /* 최신순 버튼을 누르면 정렬하게 */
 
@@ -46,9 +108,10 @@ $("#recent").on("click", function() {
 	$.ajax({
 													
 		type: "POST",
-		url: "/reviewRecentButton",
+		url: "/reviewOrderedList",
 		data: {
-           'searchCondition': 'recent',
+			'productPK' : document.getElementById('productNumber').value,
+			'searchCondition': 'regdate'
          },
          dataType:'json',
          
@@ -60,7 +123,7 @@ $("#recent").on("click", function() {
                         <span>${data.reviewRegdate}</span>
                         <h4>
                             작성자 : ${data.memberNickname}
-                            <button onclick="reviewLikeClick(${data.reviewPK},'${sessionMid}')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
+                            <button onclick="reviewLikeClick('${data.reviewPK}',`+document.getElementById('sessionMid').value +`)" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
                                 <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
                             </button>
                             ${data.reviewLikeCnt}
@@ -93,22 +156,23 @@ function reviewLikeClick(reviewPK, memberID) {
             type: "POST",
             url: "/reviewLike",
             data: {
-                'memberID': memberID,
                 'reviewPK': reviewPK
             },
             dataType: "text",
             success: function(data) {
                 //data가 1이면 좋아요 성공
+                var reviewLikeCnt = parseInt(document.getElementById('reviewCnt'+reviewPK).innerText);
+
                 if (data == 1) {
-                    reviewLikeCnt += 1; //리뷰 좋아요 수 증가	
-                    document.querySelectorAll('button.review-btn-' + rpk).forEach(button => {
+                    document.getElementById('reviewCnt'+reviewPK).innerText = reviewLikeCnt+1; //리뷰 좋아요 수 증가
+                    document.querySelectorAll('button.review-btn-' + reviewPK).forEach(button => {
                         button.innerHTML = '<img src="/resources/reviewLikeRed.png" alt="좋아요" style="width: 25px;">';
                     });
                 }
                 //data가 2면 좋아요 취소
                 else if (data == 2) {
-                    reviewLikeCnt -= 1; // 리뷰 좋아요 수 감소
-                    document.querySelectorAll('button.review-btn-' + rpk).forEach(button => {
+                    document.getElementById('reviewCnt'+reviewPK).innerText = reviewLikeCnt-1; // 리뷰 좋아요 수 감소
+                    document.querySelectorAll('button.review-btn-' + reviewPK).forEach(button => {
                         button.innerHTML = '<img src="/resources/reviewLike.png" alt="좋아요를 누르지 않은 상태" style="width: 25px;">';
                     });
                 } else if (data == 0) {
@@ -124,7 +188,10 @@ function reviewLikeClick(reviewPK, memberID) {
 }
 
 /* 리뷰  */
-document.getElementById('reviewForm').addEventListener('submit', function(event) {
+var reviewForm = document.getElementById('reviewForm');
+if(reviewForm != null){
+	
+reviewForm.addEventListener('submit', function(event) {
 	const message = document.getElementById('content').value.trim();
 	const messageError = document.getElementById('messageError');
 
@@ -136,6 +203,7 @@ document.getElementById('reviewForm').addEventListener('submit', function(event)
 		messageError.textContent = ''; // 에러 메시지 제거
 	}
 });
+}
 
 
 function uploadImage() {

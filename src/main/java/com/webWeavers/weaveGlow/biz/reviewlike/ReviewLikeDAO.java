@@ -19,10 +19,10 @@ public class ReviewLikeDAO {
 	// 사용자 리뷰 좋아요 유무
 	private static final String SELECTONE = "SELECT REVIEWLIKE_PK FROM REVIEWLIKE WHERE MEMBER_ID = ? AND REVIEW_PK = ?";
 	// 리뷰 좋아요 추가
-	private static final String INSERT = "REVIEWLIKE (MEMBER_ID, REVIEW_PK) VALUES (?, ?)";
+	private static final String INSERT = "INSERT INTO REVIEWLIKE (MEMBER_ID, REVIEW_PK) VALUES (?, ?)";
 //	private static final String UPDATE = "";
 	// 리뷰 좋아요 취소
-	private static final String DELETE = "REVIEWLIKE WHERE MEMBER_ID = ? AND REVIEW_PK = ?"; 
+	private static final String DELETE = "DELETE FROM REVIEWLIKE WHERE MEMBER_ID = ? AND REVIEW_PK = ?"; 
 	
 //	private List<ReviewLikeDTO> selectAll(ReviewLikeDTO reviewLikeDTO) {
 //		return null;

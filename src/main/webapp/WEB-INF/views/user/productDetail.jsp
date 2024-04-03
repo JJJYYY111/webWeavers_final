@@ -31,6 +31,8 @@
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
+					<input type="hidden" id="productNumber" value="${productPK}">
+					<input type="hidden" id="sessionMid" value="${sessionMid}">
 					<div class="s_product_text">
 						<h4>${productName}</h4>
 						<h2>
@@ -196,9 +198,9 @@
 													<br>
 													<br>
 													<h4>
-														작성자 : ${data.memberNickname}
+														<span>작성자 : ${data.memberNickname}</span>
 														<button
-															onclick="reviewLikeClick(${data.reviewPK},'${sessionMid}')"
+															onclick="reviewLikeClick('${data.reviewPK}','${sessionMid}')"
 															class="review-btn-${data.reviewPK}"
 															style="margin-top: 3px; background: #ffffff; border: none;">
 															<c:if test="${data.reviewLike == 1}">
@@ -211,7 +213,7 @@
 																	alt="좋아요를 누르지 않은 상태" style="width: 25px;">
 															</c:if>
 														</button>
-														${data.reviewLikeCnt}
+														<span id="reviewCnt${data.reviewPK}">${data.reviewLikeCnt}</span>
 													</h4>
 												</c:if>
 												<br> <input class="starValue" type="hidden"

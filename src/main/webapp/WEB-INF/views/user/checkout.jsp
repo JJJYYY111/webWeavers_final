@@ -23,18 +23,20 @@
 				</div>
 				<div class="modal-body" id="addressList">
 					<div>
-						<button class="btn btn-primary" 
-							data-bs-toggle="modal" data-bs-target="#modalboxInsert"
-							data-bs-toggle="modal" data-bs-dismiss="modal" onclick="modalInsertEmpty()">배송지 추가</button>
-						<br>
-						<br>
+						<button class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#modalboxInsert" data-bs-toggle="modal"
+							data-bs-dismiss="modal" onclick="modalInsertEmpty()">배송지
+							추가</button>
+						<br> <br>
 					</div>
 					<table class="table" id="cart" style="text-align: right;">
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary" onclick="selectAllSubmit()" data-bs-dismiss="modal">확인</button>
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-primary"
+						onclick="selectAllSubmit()" data-bs-dismiss="modal">확인</button>
 				</div>
 			</div>
 		</div>
@@ -52,24 +54,29 @@
 				</div>
 				<div class="modal-body" id="abc">
 					<br>
-					<button class="btn btn-primary" onclick="addAddressInsert()">주소 찾기</button>
+					<button class="btn btn-primary" onclick="addAddressInsert()">주소
+						찾기</button>
 					<br>
 					<div>
-						<br> 배송지명 &nbsp;<input type="text" class="addressModalInput" id="modalInsert_aname"> <br>
-						<br> 우편번호 &nbsp;<input type="text" class="addressModalInput" id="modalInsert_zonecode" readonly> <br>
-						<br> 지번주소 &nbsp;<input type="text" class="addressModalInput" id="modalInsert_jibunAddress"> <br>
-						<br> 도로명주소 &nbsp;<input type="text" class="addressModalInput" id="modalInsert_roadAddress" readonly> <br>
-						<br> 상세주소 &nbsp;<input type="text" class="addressModalInput" id="modalInsert_detail"> <br>
-						<br>
+						<br> 배송지명 &nbsp;<input type="text" class="addressModalInput"
+							id="modalInsert_aname"> <br> <br> 우편번호 &nbsp;<input
+							type="text" class="addressModalInput" id="modalInsert_zonecode"
+							readonly> <br> <br> 지번주소 &nbsp;<input
+							type="text" class="addressModalInput"
+							id="modalInsert_jibunAddress"> <br> <br> 도로명주소
+						&nbsp;<input type="text" class="addressModalInput"
+							id="modalInsert_roadAddress" readonly> <br> <br>
+						상세주소 &nbsp;<input type="text" class="addressModalInput"
+							id="modalInsert_detail"> <br> <br>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-target="#modalboxSelectAll" data-bs-toggle="modal"
 						data-bs-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary" onclick="return addSubmit()"
-						data-bs-target="#modalboxSelectAll" data-bs-toggle="modal"
-						data-bs-dismiss="modal">확인</button>
+					<button type="button" class="btn btn-primary"
+						onclick="return addSubmit()" data-bs-target="#modalboxSelectAll"
+						data-bs-toggle="modal" data-bs-dismiss="modal">확인</button>
 				</div>
 			</div>
 		</div>
@@ -87,16 +94,22 @@
 				</div>
 				<div class="modal-body" id="zzz">
 					<br>
-					<button class="btn btn-primary" onclick="addAddressUpdate()">주소 찾기</button>
+					<button class="btn btn-primary" onclick="addAddressUpdate()">주소
+						찾기</button>
 					<br>
 					<div>
-						<input type="hidden" id="modalUpdate_apk">
+						<input type="hidden" id="modalUpdate_apk"> <br> 배송지명
+						&nbsp;<input type="text" class="addressModalInput"
+							id="modalUpdate_aname"> <br>
+						<br> 우편번호 &nbsp;<input type="text" class="addressModalInput"
+							id="modalUpdate_zonecode" readonly> <br>
+						<br> 지번주소 &nbsp;<input type="text" class="addressModalInput"
+							id="modalUpdate_jibunAddress"> <br>
+						<br> 도로명주소 &nbsp;<input type="text" class="addressModalInput"
+							id="modalUpdate_roadAddress" readonly> <br>
+						<br> 상세주소 &nbsp;<input type="text" class="addressModalInput"
+							id="modalUpdate_detail"> <br>
 						<br>
-						배송지명 &nbsp;<input type="text" class="addressModalInput" id="modalUpdate_aname"> <br><br> 
-						우편번호 &nbsp;<input type="text" class="addressModalInput" id="modalUpdate_zonecode" readonly> <br><br> 
-						지번주소 &nbsp;<input type="text" class="addressModalInput" id="modalUpdate_jibunAddress"> <br><br> 
-						도로명주소 &nbsp;<input type="text" class="addressModalInput" id="modalUpdate_roadAddress" readonly> <br><br> 
-						상세주소 &nbsp;<input type="text" class="addressModalInput" id="modalUpdate_detail"> <br><br>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -104,15 +117,16 @@
 						data-bs-target="#modalboxSelectAll" data-bs-toggle="modal"
 						data-bs-dismiss="modal">취소</button>
 					<button type="button" class="btn btn-primary"
-						onclick="return changeSubmit()" data-bs-target="#modalboxSelectAll"
-						data-bs-toggle="modal" data-bs-dismiss="modal">확인</button>
+						onclick="return changeSubmit()"
+						data-bs-target="#modalboxSelectAll" data-bs-toggle="modal"
+						data-bs-dismiss="modal">확인</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- 모달 주소 삭제  -->
-	
+
 	<div class="modal fade" id="modalboxDelete" tabindex="-1"
 		aria-labelledby="modalDeleteTitle" aria-hidden="true">
 		<div
@@ -122,12 +136,12 @@
 					<h5 class="modal-title" id="modalDeleteTitle">배송지 삭제</h5>
 				</div>
 				<div class="modal-body">
-					<h2>정말 삭제하시겠습니까?</h2><br>
+					<h2>정말 삭제하시겠습니까?</h2>
+					<br>
 					<h3 class="billing-title">
 						배송지 : <span id="modalDelete_aname"></span>
 					</h3>
-					<input type="hidden" id="modalDelete_apk">
-					<br>
+					<input type="hidden" id="modalDelete_apk"> <br>
 					<button type="button" class="btn btn-secondary"
 						data-bs-target="#modalboxSelectAll" data-bs-toggle="modal"
 						data-bs-dismiss="modal">취소</button>
@@ -149,39 +163,43 @@
 		<div class="container">
 			<div class="billing_details">
 				<div class="row">
-					<form class="row contact_form" id="checkoutForm" onsubmit="return checkoutSubmit()" action="checkoutSuccess"
-						method="post" style="margin: auto;">
+					<form class="row contact_form" id="checkoutForm" name="checkoutForm" action="checkoutSuccess"
+						 method="post" style="margin: auto;">
 						<!-- 주문자 정보 -->
 						<div class="col-lg-7">
 							<h3>Billing Details</h3>
 							<div class="col-md-12 form-group p_star">
-								<input type="text" class="form-control checkoutInfo" id="checkoutName"
-									name="memberName" placeholder="이름" value="${memberName}" required readonly>
+								<input type="text" class="form-control checkoutInfo"
+									id="checkoutName" name="memberName" placeholder="이름"
+									value="${memberDTO.memberName}" required readonly>
 							</div>
 
 							<div class="col-md-12 form-group p_star">
-								<input type="text" class="form-control checkoutInfo" id="checkoutPhone"
-									name="memberPhone" placeholder="연락처" value="${memberPhone}" required readonly>
+								<input type="text" class="form-control checkoutInfo"
+									id="checkoutPhone" name="memberPhone" placeholder="연락처"
+									value="${memberDTO.memberPhone}" required readonly>
 							</div>
 
 							<div class="col-md-12 form-group p_star">
-								<input type="text" class="form-control checkoutInfo" id="checkoutEmail"
-									name="memberEmail" placeholder="이메일" value="${memberEmail}" required readonly>
+								<input type="text" class="form-control checkoutInfo"
+									id="checkoutEmail" name="memberEmail" placeholder="이메일"
+									value="${memberDTO.memberEmail}" required readonly>
 							</div>
 
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
-								<c:if test="${memberMarketing == 'Y'}">
-									<input type="checkbox" id="f-option3" name="memberMarketing" checked>
-									<label for="f-option3">이메일로 영수증을 받으시려면 체크 해주세요</label>
-								</c:if>
-								<c:if test="${memberMarketing == 'N'}">
-									<input type="checkbox" id="f-option3" name="memberMarketing">
-									<label for="f-option3">이메일로 영수증을 받으시려면 체크 해주세요</label>
-								</c:if>
+									<c:if test="${memberDTO.memberMarketing == 'Y'}">
+										<input type="checkbox" id="f-option3" name="memberMarketing"
+											checked>
+										<label for="f-option3">이메일로 영수증을 받으시려면 체크 해주세요</label>
+									</c:if>
+									<c:if test="${memberDTO.memberMarketing == 'N'}">
+										<input type="checkbox" id="f-option3" name="memberMarketing">
+										<label for="f-option3">이메일로 영수증을 받으시려면 체크 해주세요</label>
+									</c:if>
 								</div>
 							</div>
-							
+
 							<!-- 주소 검색 -->
 							<div class="col-md-10 form-group">
 								<div class="input-group">
@@ -198,21 +216,23 @@
 							<div class="col-md-10 form-group">
 								<input type="text" class="form-control"
 									id="checkout_roadAddress" name="addressRoad"
-									placeholder="도로명주소" 
+									placeholder="도로명주소"
 									style="display: inline-block; background-color: #fff" readonly>
 							</div>
 							<div class="col-md-10 form-group">
 								<input type="text" class="form-control"
 									id="checkout_jibunAddress" name="addressJibun"
-									placeholder="지번주소" 
+									placeholder="지번주소"
 									style="display: inline-block; background-color: #fff" readonly>
 							</div>
 							<div class="col-md-10 form-group">
 								<input type="text" class="form-control" id="checkout_detail"
-									name="addressDetail" placeholder="상세주소" style="display: inline-block; background-color: #fff" readonly>
+									name="addressDetail" placeholder="상세주소"
+									style="display: inline-block; background-color: #fff" readonly>
 							</div>
-							<input type="hidden" class="form-control" id="apk" name="addressPK">
-							<input type="hidden" class="form-control" id="aname" name="addressName">
+							<input type="hidden" class="form-control" id="apk"
+								name="addressPK"> <input type="hidden"
+								class="form-control" id="aname" name="addressName">
 							<!-- /주소 검색 -->
 						</div>
 						<!-- /주문자 정보 -->
@@ -221,24 +241,29 @@
 							<div class="order_box">
 								<h2>주문 내역</h2>
 								<ul class="list" id="orderList">
-									<li style="font-weight: bold;">상품<span class="last" style="float: right;">합계</span></li>
+									<li style="font-weight: bold;">상품<span class="last"
+										style="float: right;">합계</span></li>
 									<c:if test="${fn:length(cdatas) <= 0}">상품이 없습니다.</c:if>
 									<c:if test="${fn:length(cdatas) > 0}">
 										<c:forEach var='data' items='${cdatas}'>
-											<li>
-											<span style="width: 70%; display: inline-block;">${data.productName} x ${data.cartCnt}</span> 
-											<span class="last" style="float: right;"><span class="productPrice"><fmt:formatNumber value="${data.productPrice*data.cartCnt}" currencyCode="KRW" /></span>원</span>
-											</li>
+											<li><span style="width: 70%; display: inline-block;" name="productName">${data.productName}
+													x ${data.cartCnt}</span> <span class="last" style="float: right;"><span
+													class="productPrice"><fmt:formatNumber
+															value="${data.productPrice*data.cartCnt}"
+															currencyCode="KRW" /></span>원</span></li>
+											<input type="hidden" name="selectedProducts" value="${data.cartPK}">
 										</c:forEach>
 									</c:if>
 								</ul>
 								<ul class="list list_2">
-									<li style="font-weight: bold;">총 금액 <span class="last" style="float: right;"><span id="totalPrice"></span>원</span></li>
+									<li style="font-weight: bold;">총 금액 <span class="last"
+										style="float: right;"><span id="totalPrice"></span>원</span></li>
 								</ul>
 								<!-- 추후에 구현할 예정부분 -->
 								<div class="payment_item">
 									<div class="radion_btn">
-										<input type="radio" id="f-option5" name="selector"><label for="f-option5">Check payments</label>
+										<input type="radio" id="f-option5" name="selector"><label
+											for="f-option5">Check payments</label>
 										<div class="check"></div>
 									</div>
 									<p>Please send a check to Store Name, Store Street, Store
@@ -246,9 +271,9 @@
 								</div>
 								<div class="payment_item active">
 									<div class="radion_btn">
-										<input type="radio" id="f-option6" name="selector">
-										<label for="f-option6">Paypal</label>
-										<img src="/resources/img/product/card.jpg" alt="결제카드 이미지">
+										<input type="radio" id="f-option6" name="selector"> <label
+											for="f-option6">Paypal</label> <img
+											src="/resources/img/product/card.jpg" alt="결제카드 이미지">
 										<div class="check"></div>
 									</div>
 									<p>Pay via PayPal; you can pay with your credit card if you
@@ -259,13 +284,13 @@
 									<label for="f-option4">결제 정보 확인</label>
 								</div>
 								<div class="text-center">
-									<button type="submit" class="button button-paypal" onclick="requestPay()">Proceed to Paypal</button>
+									<button type="button" class="button button-paypal" onclick="checkoutSubmit()">Proceed to Paypal</button>
 								</div>
 							</div>
 						</div>
 						<!-- 결제 정보 -->
 					</form>
-					
+
 				</div>
 			</div>
 		</div>
@@ -273,36 +298,9 @@
 	<!-- ================ /내용 ================= -->
 	<common:footer />
 	<script src="/resources/js/addressModal.js"></script>
-	<script>
-        var IMP = window.IMP; 
-        IMP.init("imp80131154"); 
-        
-        function requestPay() {
-            IMP.request_pay({
-                pg: "kcp.{store-2023deb0-3d89-4f01-9594-198dd679fd49}",
-                pay_method: "card",
-                merchant_uid: "ORD20180131-0000011",   // 주문번호
-                name: "노르웨이 회전 의자",
-                amount: 64900,                         // 숫자 타입
-                buyer_email: "gildong@gmail.com",
-                buyer_name: "홍길동",
-                buyer_tel: "010-4242-4242",
-                buyer_addr: "서울특별시 강남구 신사동",
-                buyer_postcode: "01181"
-            }, function (rsp) { // callback
-                $.ajax({
-                   type: 'POST',
-                   url: '/verify/' + rsp.imp_uid
-                }).done(function(data) {
-                    if(rsp.paid_amount === data.response.amount){
-                        alert("결제 성공");
-                    } else {
-                        alert("결제 실패");
-                    }
-                });
-            });
-        }
-    </script>
-     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	<script src="/resources/js/checkout.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	
 </body>
 </html>

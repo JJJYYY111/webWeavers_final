@@ -169,9 +169,8 @@ submitCheck.addEventListener("submit", (event) => {
 });*/
 
 //--------구매버튼 클릭시 체크박스 확인 -----
-
 const submitCheck = document.getElementById('cartForm');
-
+if(submitCheck != null){
 submitCheck.addEventListener("submit", (event) => {
     var checkFlag = false; // 기본값 false
     const checkboxes = document.querySelectorAll('input[name="selectedProducts"]');
@@ -185,7 +184,9 @@ submitCheck.addEventListener("submit", (event) => {
         alert("상품을 선택해주세요!");
         event.preventDefault(); // 폼 제출 기본 동작 막음
     }
-});
+});	
+}
+
 
 //-------- 전체선택 버튼 코드----
 	

@@ -63,10 +63,7 @@ public class CheckoutController {
 		if(memberDTO == null) { // 해당 사용자가 존재하지 않는다면
 			return "redirect:/error";
 		}
-		model.addAttribute("memberName", memberDTO.getMemberName());
-		model.addAttribute("memberPhone", memberDTO.getMemberEmail());
-		model.addAttribute("memberEmail", memberDTO.getMemberPhone());
-		model.addAttribute("memberMarketing", memberDTO.getMemberMarketing());
+		model.addAttribute("memberDTO", memberDTO);
 		return "user/checkout";
 	}
 	

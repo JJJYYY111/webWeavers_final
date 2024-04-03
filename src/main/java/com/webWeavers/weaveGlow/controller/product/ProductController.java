@@ -84,6 +84,7 @@ public class ProductController {
 		}
 		
 		reviewDTO.setSearchCondition("regdate");
+		reviewDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		List<ReviewDTO> rdatas = reviewService.selectAll(reviewDTO);
 		// 리뷰 리스트의 저장된 리뷰가 없는 경우
 		if ( rdatas == null || rdatas.size() <= 0) {
