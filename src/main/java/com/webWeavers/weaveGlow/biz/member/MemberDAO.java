@@ -35,7 +35,7 @@ public class MemberDAO {
 	private static final String SELECTONE_IDCHECK = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, "
 														+ " MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_ID=?";
 	// 회원ID 찾기
-	private static final String SELECTONE_IDFORGOT = "SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NAME=? AND MEMBER_PHONE=? ";
+	private static final String SELECTONE_IDFORGOT = "SELECT MEMBER_ID, MEMBER_PHONE FROM MEMBER WHERE MEMBER_NAME=? AND MEMBER_PHONE=? ";
 	// 회원PW 찾기
 	private static final String SELECTONE_PWFORGOT = "SELECT MEMBER_PASSWORD FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_PHONE=? ";
 	// 회원 가입
@@ -204,6 +204,7 @@ public class MemberDAO {
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 			MemberDTO data = new MemberDTO();
 			data.setMemberID(rs.getString("MEMBER_ID"));
+			data.setMemberPhone(rs.getString("MEMBER_PHONE"));
 			return data;
 		}
 	}

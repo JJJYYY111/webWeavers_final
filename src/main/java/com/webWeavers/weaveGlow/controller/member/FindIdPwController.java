@@ -19,20 +19,21 @@ public class FindIdPwController {
 	
 	@RequestMapping("/async/smsSendID")
 	public @ResponseBody int smsSendID(MemberDTO memberDTO) {	
-		System.out.println("[로그] ID발송진입");
-		System.out.println("처음받은 memberDTO"+memberDTO);
+		
+		// selectOne 검색조건 저장
 		memberDTO.setSearchCondition("idForgot");
-		System.out.println("서치컨디션저장한 memberDTO"+memberDTO);
 		memberDTO = memberService.selectOne(memberDTO);
-		System.out.println("selectOne한"+memberDTO);
+		
+		// 일치하는 회원이 없으면 실패
 		if(memberDTO == null) {
-			System.out.println("들어오면안된다고");
 			return -1;
 		}
-		// memberDTO 검색조건 저장
+		
+		// sendMessage 검색조건 저장
 		memberDTO.setSearchCondition("sendID");
 		// 서비스 이용 후 return (성공:1, 실패:-1)
 		return smsService.sendMessage(memberDTO);
+		
 	}
 	
 	@RequestMapping("/async/successSmsSendID")

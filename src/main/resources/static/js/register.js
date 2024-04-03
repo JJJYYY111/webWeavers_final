@@ -392,7 +392,7 @@ function sendID(){
 		dataType: 'text',
 		success: function(data) {
 			if(data > 0){
-				showModal('아이디가 문자로 전송됐습니다. 로그인페이지로 이동합니다.', 'sendIDSuccess')	// 성공 : 로그인 페이지로 이동 안내
+				showModal('아이디가 문자로 전송됐습니다. 로그인페이지로 이동합니다.', 'successSmsSendID')	// 성공 : 로그인 페이지로 이동 안내
 			}
 			else{
 				showModal('일치하는 회원이 없습니다. 다시 입력바랍니다.', 'closeModal')					// 실패 : 재입력 안내

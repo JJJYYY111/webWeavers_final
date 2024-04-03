@@ -31,13 +31,14 @@ public class SmsService {
 		}
 		// 아이디 찾기 : 문자내용 > 회원 ID
 		else if(memberDTO.getSearchCondition().equals("sendID")) {
-			message.setText("[WeaveGlow ID]" + memberDTO.getMemberID());
+			message.setText("[WeaveGlow ID] " + memberDTO.getMemberID());
 		}
 		// 비밀번호 찾기 : 문자내용 > 임시 비밀번호
 		else if(memberDTO.getSearchCondition().equals("sendPW")) {
 			randPW = "";
-			message.setText("[WeaveGlow 임시 비밀번호]" + randPW);
+			message.setText("[WeaveGlow 임시 비밀번호] " + randPW);
 		}
+		System.out.println("메시지 내용"+message);
 
 		try {
 		  // send 메서드로 문자 전송
