@@ -202,21 +202,24 @@ submitCheck.addEventListener("submit", (event) => {
     
  //-------- 전체선택,해제 선택 버튼 코드----
  
-    
-    function selectAllProduct(buttonName) {
+function selectAllProduct() {
     // 선택된 모든 제품 체크박스 가져오기
     const checkboxes = document.querySelectorAll('input[name="selectedProducts"]');
     
-    // 버튼의 이름에 따라 동작 분기
-    if (buttonName === "selectAll") {
-        // 모든 체크박스를 선택 상태로 변경
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = true;
-        });
-    } else if (buttonName === "unselectAll") {
-        // 모든 체크박스를 선택 해제 상태로 변경
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = false;
-        });
-    }
+    // 하나라도 체크된 체크박스가 있는지 확인하기 위한 변수
+    let anyChecked = false;
+
+    // 모든 체크박스를 확인하여 하나라도 체크된 체크박스가 있는지 확인
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            anyChecked = true;
+            return; // 체크된 체크박스가 있으면 반복문 종료
+        }
+    });
+
+    // 하나라도 체크된 체크박스가 있는 경우 모든 체크박스 해제, 그렇지 않으면 모든 체크박스 선택
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = !anyChecked;
+    });
 }
+

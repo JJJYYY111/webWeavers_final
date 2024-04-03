@@ -30,26 +30,22 @@
 							<thead>
 								<tr>
 									<th scope="col" class="col-lg-4" style="text-align: left;">
-										<span
-										style="display: inline-block; text-align: center;">
+										<span style="display: inline-block; text-align: center;">
 											<button
 												class="btn waves-effect waves-light btn-outline-primary"
-												onclick="selectAllProduct('selectAll'); event.preventDefault();"
-												name="selectAll">전체선택</button>
-											<button
-												class="btn waves-effect waves-light btn-outline-primary"
-												onclick="selectAllProduct('unselectAll'); event.preventDefault();"
-												name="unselectAll">전체해제</button>
+												onclick="selectAllProduct(); event.preventDefault();"
+												name="selectAll">전체 선택/해제</button> 
 											<button
 												class="btn waves-effect waves-light btn-outline-primary"
 												onclick="selectedDelete()" style="text-align: left;">선택삭제</button>
-									</span> <span style="display: inline-block; margin-left: 20%; text-align: right;">
+									</span> <span
+										style="display: inline-block; margin-left: 20%; text-align: right;">
 											Product </span>
 									</th>
 
-									<th scope="col"  style="text-align: center;">Price</th>
-									<th scope="col"  style="text-align: center;">Quantity</th>
-									<th scope="col"  style="text-align: center;">Total</th>
+									<th scope="col" style="text-align: center; padding-bottom: 20px;">Price</th>
+									<th scope="col" style="text-align: center; padding-bottom: 20px;">Quantity</th>
+									<th scope="col" style="text-align: center; padding-bottom: 20px;">Total</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -121,12 +117,14 @@
 															currencyCode="KRW" /></span>원
 												</h5>
 											</td>
+											<!-- //0403 cartDelete로 다이렉트 -->
 											<td><input type="button" name="close" id="close"
 												style="display: none;"> <label for="close">
 													<a href="cartDelete?cartPK=${data.cartPK}"><img
 														src="/resources/img/close.png" alt="닫기버튼"
 														style="width: 20px; height: 20px"></a>
 											</label></td>
+											
 										</tr>
 									</c:forEach>
 								</c:if>
