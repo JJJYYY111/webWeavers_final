@@ -55,8 +55,8 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("/async/smsService")
-	public @ResponseBody int smsService(MemberDTO memberDTO) {
+	@RequestMapping("/async/smsCertification")
+	public @ResponseBody int smsCertification(MemberDTO memberDTO) {
 		System.out.println("[로그] 본인인증번호발송서비스진입");
 		
 		// memberDTO 검색조건 저장

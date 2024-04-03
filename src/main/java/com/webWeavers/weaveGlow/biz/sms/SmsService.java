@@ -24,14 +24,17 @@ public class SmsService {
 		
 		int randNum = -1;
 		String randPW;
+		// 회원가입 문자인증 : 문자내용 > 랜덤번호
 		if(memberDTO.getSearchCondition().equals("certification")) {
 			randNum = (int)(Math.random() * (99999 - 10000 + 1)) + 10000;	// 인증번호 5자리, 랜덤 생성
 			message.setText("[WeaveGlow 인증번호] " + randNum);
 		}
-		else if(memberDTO.getSearchCondition().equals("findID")) {
+		// 아이디 찾기 : 문자내용 > 회원 ID
+		else if(memberDTO.getSearchCondition().equals("sendID")) {
 			message.setText("[WeaveGlow ID]" + memberDTO.getMemberID());
 		}
-		else if(memberDTO.getSearchCondition().equals("findPW")) {
+		// 비밀번호 찾기 : 문자내용 > 임시 비밀번호
+		else if(memberDTO.getSearchCondition().equals("sendPW")) {
 			randPW = "";
 			message.setText("[WeaveGlow 임시 비밀번호]" + randPW);
 		}
@@ -39,10 +42,13 @@ public class SmsService {
 		try {
 		  // send 메서드로 문자 전송
 		  messageService.send(message);
-		  // 최소한의 보안을 위해 인증번호 * 7777
+		  // 회원가입 문자인증
 		  if(memberDTO.getSearchCondition().equals("certification")) {
+			  // 최소한의 보안을 위해 인증번호 * 7777
 			  return randNum * 7777;
-		  }else {
+		  }
+		  // 아이디찾기, 비밀번호찾기
+		  else {
 			  return 1;
 		  }
 		  

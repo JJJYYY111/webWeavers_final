@@ -188,7 +188,7 @@ function pwValueCheck(element, pwElement, innerTextId){
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}
 		else if(registPwText != registUserText){								// 비밀번호가 일치하지 않으면,
-			checkEl.innerText = "비밀번호가 일치하지 않습니다. 다시 확인해주세요"				// innerText 메시지 출력
+			checkEl.innerText = "비밀번호가 일치하지 않습니다. 다시 확인해주세요"			// innerText 메시지 출력
 			checkEl.style.color = 'red'
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}	
@@ -279,7 +279,7 @@ function registNickNameCheck(element, innerTextId, url, text) {
 	})
 }
 
-// --------------------[회원탈퇴 - 약관 동의 필수]--------------------
+// -------------------- 회원탈퇴 - 약관 동의 필수 --------------------
 function checkUnregisterForm() {
 	document.unregisterForm.onsubmit = function() {								// unregisterForm <form>을 제출할때 함수 실행
 		for (box of unregisterForm.selector) {									// <form>의 모든 체크박스(selector)를 확인
@@ -292,7 +292,7 @@ function checkUnregisterForm() {
 	}
 }
 
-// --------------------[회원확인 - 비밀번호 입력 필수]--------------------
+// -------------------- 회원확인 - 비밀번호 입력 필수 --------------------
 function checkPwForm(){
 	document.pwCheckForm.onsubmit = function() {								// pwCheckForm <form>을 제출할때 함수 실행
 		if (!pwCheckForm.mpw.value) {											// <form>의 mpw요소의 값이 비어있다면,
@@ -311,23 +311,23 @@ function cancelAction() {
 
 
 
-// --------------------[SMS 문자인증 - 비밀번호 입력 필수]--------------------
+// -------------------- 문자 API (coolSMS) - 회원가입 --------------------
 // 초기 인증번호 발송 전 -1 저장
 var smsCertificationNum = -1;
-// [문자 인증번호 발송 - 회원가입, ID찾기, PW찾기]
+// [문자 인증번호 발송]
 function smsService(){
-	var userPhoneNumber = document.getElementById('registPhone').value			// 휴대폰 요소 저장
-	const phoneRegex = /^01[0-9]{1}[0-9]{4}[0-9]{4}$/
-	console.log(userPhoneNumber)
-	if(!phoneRegex.test(userPhoneNumber)){										// 휴대폰 정규식에 맞지않으면 모달창 띄우기
-		showModal('휴대폰 형식에 맞지않습니다.', 'closeModal')
+	var userPhoneNumber = document.getElementById('registPhone').value			// 전화번호 요소 저장
+	const phoneRegex = /^01[0-9]{1}[0-9]{4}[0-9]{4}$/							// 전화번호 정규식
+	//console.log(userPhoneNumber)
+	if(!phoneRegex.test(userPhoneNumber)){										// 전화번호 정규식에 맞지않으면 모달창 띄우기
+		showModal('전화번호 형식에 맞지않습니다.', 'closeModal')
 		return;
 	}
 	
 	$.ajax({
-		type: "POST",
-		url: "/async/smsService",												// 요청 url
-		data: { "memberPhone" : userPhoneNumber},								// 컨트롤러에게 전달할 사용자가 입력한 값
+		type: 'POST',
+		url: '/async/smsCertification',												// 요청 url
+		data: { 'memberPhone' : userPhoneNumber},								// 컨트롤러에게 전달할 사용자가 입력한 값
 		dataType: 'text',
 		success: function(data) {
 			console.log(data)
@@ -340,7 +340,6 @@ function smsService(){
 		}
 	})
 }
-
 // [문자 인증번호 확인]
 function smsCertification(element, innerTextId){								// 매개변수(인증번호 확인 요소, 인증번호 확인 알람 요소)
 	element.addEventListener('blur', event => {									// 요소에 'blur' 이벤트가 발생하면 함수 실행
@@ -352,12 +351,12 @@ function smsCertification(element, innerTextId){								// 매개변수(인증�
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}
 		else if(smsCertificationNum < 0){										// 인증번호를 발송하지 않으면, 
-			checkEl.innerText = '휴대폰 인증번호가 발송되지 않았습니다.';						// innerText 메시지 출력
+			checkEl.innerText = '휴대폰 인증번호가 발송되지 않았습니다.';					// innerText 메시지 출력
 			checkEl.style.color = 'red'
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}
 		else if(smsCertificationNum != registUserText){							// 인증번호가 일치하지 않으면,
-			checkEl.innerText = '인증번호가 일치하지 않습니다.';							// innerText 메시지 출력
+			checkEl.innerText = '인증번호가 일치하지 않습니다.';						// innerText 메시지 출력
 			checkEl.style.color = 'red'
 			event.target.dataset.formCheck = 'N'								// 미통과 --> 'N'
 		}
@@ -368,35 +367,35 @@ function smsCertification(element, innerTextId){								// 매개변수(인증�
 		}
 		
 	})
-	
 }
-// -------------------------------------------------------
-if(document.getElementById("findIdBtn")){
-	document.getElementById("findIdBtn").onclick = sendID;
+// -------------------- 문자 API (coolSMS) - 아이디 찾기 --------------------
+if(document.getElementById('findIdBtn')){
+	document.getElementById('findIdBtn').onclick = sendID;						// 버튼 클릭 시 함수 실행
 }
 function sendID(){
+	var memberName = document.getElementById('findName').value					// 사용자가 입력한 값 (이름)
+	var memberPhone = document.getElementById('findPhone').value				// 사용자가 입력한 값 (전화번호)
 	
-	var memberName = document.getElementById("findName").value
-	var memberPhone = document.getElementById('findPhone').value
-	
-	if(memberName == '' || memberName == null){
-		showModal('이름을 입력해주세요.', 'closeModal')
+	if(memberName == '' || memberName == null){									// 이름 값이 공백이거나 null이면,
+		showModal('이름을 입력해주세요.', 'closeModal')							// 모달창 띄우고 return
 		return;
-	}else if(memberPhone == '' || memberPhone == null){
-		showModal('핸드폰번호를 입력해주세요.', 'closeModal')
+	}
+	else if(memberPhone == '' || memberPhone == null){							// 전화번호 값이 공백이거나 null이면,
+		showModal('핸드폰번호를 입력해주세요.', 'closeModal')						// 모달창 띄우고 return
 		return;
 	}
 	
 	$.ajax({
-		type: "POST",
-		url: "/async/sendID",											
-		data: {"memberName" : memberName, "memberPhone" : memberPhone},							
+		type: 'POST',
+		url: '/async/smsSendID',												// 해당 url로 ajax 요청
+		data: {'memberName' : memberName, 'memberPhone' : memberPhone},			// { "멤버변수명" : 입력값 } 전달				
 		dataType: 'text',
 		success: function(data) {
 			if(data > 0){
-				showModal('보내짐', 'sendIDSuccess')
-			}else{
-				showModal('다시입력', 'closeModal')
+				showModal('아이디가 문자로 전송됐습니다. 로그인페이지로 이동합니다.', 'sendIDSuccess')	// 성공 : 로그인 페이지로 이동 안내
+			}
+			else{
+				showModal('일치하는 회원이 없습니다. 다시 입력바랍니다.', 'closeModal')					// 실패 : 재입력 안내
 			}
 		},
 		error: function(error) {
@@ -408,8 +407,8 @@ function sendID(){
 
 function sendIDSuccess(){
 	$.ajax({
-		type: "get",
-		url: "/async/sendID",	// 성공시 로그인 페이지 이동 url
+		type: 'GET',
+		url: '/async/successSmsSendID',	// 성공시 로그인 페이지 이동 url
 		success: function() {
 		},
 		error: function(error) {
@@ -419,9 +418,8 @@ function sendIDSuccess(){
 	})
 }
 
-
-
-
+// -------------------- 문자 API (coolSMS) - 모달창 --------------------
+// 인자(모달내용, 확인버튼클릭시 수행할 함수명)
 function showModal(contentText, functionName){
 	var modalDoc = `
 		<div id="custom_modal" class="custom-modal-layout">
@@ -439,10 +437,10 @@ function showModal(contentText, functionName){
 		</div>
 	`
 	
-	$("#modal_site").html(modalDoc);
+	$('#modal_site').html(modalDoc);
 }
-
+// 모달창 닫기 > html 비우기
 function closeModal(){
-	$("#modal_site").html('');
+	$('#modal_site').html('');
 }
 
