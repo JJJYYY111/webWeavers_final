@@ -35,6 +35,33 @@ public class FindIdPwController {
 		return smsService.sendMessage(memberDTO);
 		
 	}
+	
+	@RequestMapping("/async/smsSendPW")	
+	public @ResponseBody int smsSendPW(MemberDTO memberDTO) {
+		
+		// selectOne 검색조건 저장
+		memberDTO.setSearchCondition("pwForgot");
+		memberDTO = memberService.selectOne(memberDTO);
+		
+		// 일치하는 회원이 없으면 실패
+		if(memberDTO == null) {
+			return -1;
+		}
+		
+		// 임시 비밀번호 생성
+		String randPW = "";
+		memberDTO.setMemberPassword(randPW);
+		
+		// 사용자 비밀번호 업데이트
+		memberService.update(memberDTO);
+		
+		// 업데이트 성공이면
+		
+		// sendMessage 검색조건 저장
+		memberDTO.setSearchCondition("sendPW");
+		// 서비스 이용 후 return (성공:1, 실패:-1)
+		return smsService.sendMessage(memberDTO);
+	}
 
 	
 }

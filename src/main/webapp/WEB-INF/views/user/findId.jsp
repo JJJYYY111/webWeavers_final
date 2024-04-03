@@ -61,6 +61,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <!--================ /내용 =================-->
 
         <common:footer />
-        <script src="/resources/js/register.js"></script>
+        <script src="/resources/js/coolSMS.js"></script>
     </body>
 </html>

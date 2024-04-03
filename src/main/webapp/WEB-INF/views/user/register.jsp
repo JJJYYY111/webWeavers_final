@@ -313,5 +313,6 @@
 
 	<common:footer />
 	<script src="/resources/js/register.js"></script>
+	<script src="/resources/js/coolSMS.js"></script>	
 </body>
 </html>

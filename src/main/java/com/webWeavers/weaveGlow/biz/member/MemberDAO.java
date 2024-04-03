@@ -37,7 +37,7 @@ public class MemberDAO {
 	// 회원ID 찾기
 	private static final String SELECTONE_IDFORGOT = "SELECT MEMBER_ID, MEMBER_PHONE FROM MEMBER WHERE MEMBER_NAME=? AND MEMBER_PHONE=? ";
 	// 회원PW 찾기
-	private static final String SELECTONE_PWFORGOT = "SELECT MEMBER_PASSWORD FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_PHONE=? ";
+	private static final String SELECTONE_PWFORGOT = "SELECT MEMBER_ID, MEMBER_PHONE FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_PHONE=? ";
 	// 회원 가입
 	private static final String INSERT = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_MARKETING)"
 														+ " VALUES (?,?,?,?,?,?,?,?)";
@@ -83,10 +83,10 @@ public class MemberDAO {
 				return jdbcTemplate.queryForObject(SELECTONE_IDCHECK, args, new MemberRowMapper2());
 			} else if (memberDTO.getSearchCondition().equals("idForgot")) {
 				Object[] args = { memberDTO.getMemberName(), memberDTO.getMemberPhone() };
-				return jdbcTemplate.queryForObject(SELECTONE_IDFORGOT, args, new MemberIDRowMapper());
+				return jdbcTemplate.queryForObject(SELECTONE_IDFORGOT, args, new MemberSmsRowMapper());
 			} else if (memberDTO.getSearchCondition().equals("pwForgot")) {
 				Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberPhone() };
-				return jdbcTemplate.queryForObject(SELECTONE_PWFORGOT, args, new MemberPasswordRowMapper());
+				return jdbcTemplate.queryForObject(SELECTONE_PWFORGOT, args, new MemberSmsRowMapper());
 			}
 		} catch (Exception e) {
 			System.out.println("[로그1] 데이터가 없습니다.");
@@ -199,7 +199,7 @@ public class MemberDAO {
 		}
 	}
 	
-	class MemberIDRowMapper implements RowMapper<MemberDTO> {
+	class MemberSmsRowMapper implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 			MemberDTO data = new MemberDTO();
@@ -209,11 +209,12 @@ public class MemberDAO {
 		}
 	}
 	
-	class MemberPasswordRowMapper implements RowMapper<MemberDTO> {
+	class MemberEmailRowMapper implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 			MemberDTO data = new MemberDTO();
-			data.setMemberID(rs.getString("MEMBER_PASSWORD"));
+			data.setMemberID(rs.getString("MEMBER_ID"));
+			data.setMemberEmail(rs.getString("MEMBER_Email"));
 			return data;
 		}
 	}
