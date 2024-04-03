@@ -11,8 +11,24 @@
 </head>
 <body>
 
+<form id=joinForm action="/user/joinForm" method="POST">
+<input type="hidden" value="${memberDTO.memberID}" name="memberID"> 
+<input type="hidden" value="${memberDTO.memberPassword}" name="memberPassword"> 
+<input type="hidden" value="${memberDTO.memberName}" name="memberName"> 
+<input type="hidden" value="${memberDTO.memberBirth}" name="memberBirth"> 
+<input type="hidden" value="${memberDTO.memberPhone}" name="memberPhone"> 
+<input type="hidden" value="${memberDTO.memberNickname}" name="memberNickname"> 
+<input type="hidden" value="${memberDTO.memberEmail}" name="memberEmail"> 
+
+
+  </form>
+
+
 <script>
-console.log();
+window.onload = function() {
+    document.getElementById("joinForm").submit();
+};
+		    	
 console.log('콘솔창');
 </script>
 </body>

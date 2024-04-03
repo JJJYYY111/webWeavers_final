@@ -261,6 +261,7 @@
 							</div>
 							</c:if>
 							
+							<c:if test="${ empty snsLogin}">
 							<div class="col-md-12 form-group">
 								<div class="col-md-4 label-text">생년월일</div>
 								<input type="date" class="form-control col-md-8"
@@ -269,6 +270,15 @@
 									onblur="this.placeholder = '생년월일'"
 									style="display: inline-block;" required>
 							</div>
+							</c:if>
+								<c:if test="${not empty snsLogin}">
+								<div class="col-md-12 form-group">
+								<div class="col-md-4 label-text">생년월일</div>
+							<input type="text" class="form-control col-md-8"
+									 value="${memberDTO.memberBirth}"  name="memberBirth"
+									style="display: inline-block;" required>
+									</div>
+							</c:if>
 
 							<div class="col-md-12 form-group" style="margin: 0;">
 								<div class="col-md-4 label-text">이메일</div>
