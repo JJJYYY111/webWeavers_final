@@ -86,12 +86,12 @@ public class MemberController {
 	
 	@RequestMapping("/findID")
 	public String findID() {
-		return "user/findID";
+		return "user/findId";
 	}
 	
 	@RequestMapping("/findPW")
 	public String findPW() {
-		return "user/findPW";
+		return "user/findPw";
 	}
 
 	@RequestMapping("/memberSelectOne")
