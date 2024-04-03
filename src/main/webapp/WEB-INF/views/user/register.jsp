@@ -235,7 +235,6 @@
 									class="ti-mobile"></i>
 								</a>									
 							</div>
-							<div id="modal_site"></div>
 							<div class="col-md-12"
 								style="text-align: left; font-size: 13px; padding: 3px">
 								<div class="col-md-4 label-text"></div>
@@ -293,11 +292,13 @@
 
 						</div>
 					</div>
+					<div id="modal_site"></div>
 					<!-- 회원가입 -->
 				</form>
 			</div>
 		</div>
 	</section>
+	
 	<!--================ /내용 =================-->
 
 	<common:footer />
