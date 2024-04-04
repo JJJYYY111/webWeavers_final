@@ -17,7 +17,9 @@ form .cur-row {
 	transform: translate(-50%, -50%);
 }
 
-
+#alertModalMemberName {
+    z-index: 9999; /* 다른 요소보다 위에 표시되도록 설정 */
+}
 
 .custom {
 	appearance: none;

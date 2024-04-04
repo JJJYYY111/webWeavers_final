@@ -1,3 +1,21 @@
+/*===============필터 검색 회원 이름 유효성 모달 창==============================*/
+// 회원이름 입력 필드에 숫자와 특수문자를 입력하지 못하도록 유효성 검사
+document.getElementById("memberName").addEventListener("input", function(event) {
+    let inputValue = this.value;
+
+    // 정규 표현식을 사용하여 입력된 값이 숫자 또는 특수문자를 포함하는지 확인
+    if (/[0-9~!@#$%^&*()_+|<>?:{}]/.test(inputValue)) {
+        // 숫자 또는 특수문자가 포함되어 있으면 모달 창을 띄우고 입력 값을 수정합니다.
+        $('#alertMessageMemberName').text('숫자와 특수문자는 입력할 수 없습니다.');
+        $('#alertModalMemberName').modal('show'); // 모달 창 띄우기
+        
+        // 숫자 또는 특수문자를 제거하여 유효한 값을 입력 필드에 할당합니다.
+        let validValue = inputValue.replace(/[0-9~!@#$%^&*()_+|<>?:{}]/g, '');
+        this.value = validValue;
+    }
+});
+
+
 /* 주문 관리 필터 검색*/
 $(document).on("click", "#search", function() {
 	console.log('들어옴')

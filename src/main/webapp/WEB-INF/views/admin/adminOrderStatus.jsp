@@ -114,7 +114,7 @@
 										</div>
 
 										<br>
-										<div class="table-wrapper"  style="overflow-x: auto;">
+										<div class="table-wrapper" style="overflow-x: auto;">
 											<table id="products" border="1"
 												style="table-layout: auto; width: 100%">
 
@@ -135,21 +135,19 @@
 														console
 																.log('[로그1] 테이블확인');
 													</script>
-														
+
 													<c:forEach var="data" items="${serialDatas}">
 
 														<tr style="color: #000000;">
 															<td class="productName" id="${data.serialPK}">${data.serialPK}</td>
 															<td class="productName" id="${data.serialPK}">${data.serialRegdate}</td>
 															<td class="productName" id="${data.serialPK}">${data.memberName}</td>
-															<td class="productName" id="${data.serialPK}">
-															<c:if test="${data.buyProductCnt == 0}">
+															<td class="productName" id="${data.serialPK}"><c:if
+																	test="${data.buyProductCnt == 0}">
          																	   ${data.productName}
-        															</c:if> 
-        												<c:if test="${data.buyProductCnt >= 1}">
+        															</c:if> <c:if test="${data.buyProductCnt >= 1}">
          														   ${data.productName} 외 ${data.buyProductCnt}개
-       														 </c:if>
-       														 </td>
+       														 </c:if></td>
 															<td class="productName" id="${data.serialPK}"><span
 																class="totalPrice">${data.totalPrice}</span></td>
 
@@ -168,9 +166,6 @@
 												</tbody>
 
 											</table>
-
-											
-
 											<!-- 모달 -->
 											<div id="myModal" class="modal">
 												<!-- 모달 내용 -->
@@ -207,7 +202,28 @@
 				</div>
 			</div>
 		</div>
-
+	</div>
+		<!-- 필터 검색 회원 이름 유효성 모달 창  -->
+	<div class="modal fade" id="alertModalMemberName" tabindex="-1" role="dialog" aria-labelledby="alertModalMemberNameLabel" aria-hidden="true" data-backdrop="static">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="alertModalMemberNameLabel">경고</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- 경고 메시지를 표시할 곳 -->
+					<p id="alertMessageMemberName"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- footer -->
