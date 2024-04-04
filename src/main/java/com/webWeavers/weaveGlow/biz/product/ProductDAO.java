@@ -177,6 +177,7 @@ public class ProductDAO {
 	private static final String INSERT = "INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DETAILIMG, PRODUCT_IMG, PRODUCT_STATUS, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
 	// Admin_상품수정페이지
 	private static final String UPDATE = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_DETAILIMG = ?, PRODUCT_IMG = ?, PRODUCT_STATUS = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_PK = ?";
+	private static final String UPDATE_BYSELLING = "UPDATE PRODUCT SET PRODUCT_QUANTITY = PRODUCT_QUANTITY - ? WHERE PRODUCT_PK = ?";
 //	private static final String DELETE = "";
 	
 	// ------------------------------------- AdminPage_매출관리 -------------------------------------
@@ -485,10 +486,16 @@ public class ProductDAO {
 	
 	// Admin_상품수정페이지
 	public boolean update(ProductDTO productDTO) {
+		int result = 0;
 		try {
-			int result = jdbcTemplate.update(UPDATE, productDTO.getProductName(), productDTO.getProductPrice(),
-					productDTO.getProductDetailImg(), productDTO.getProductImg(), productDTO.getProductStatus(),
-					productDTO.getProductQuantity(), productDTO.getProductPK());
+			if(productDTO.getSearchCondition().equals("updateAdminProduct")) {
+				result = jdbcTemplate.update(UPDATE, productDTO.getProductName(), productDTO.getProductPrice(),
+						productDTO.getProductDetailImg(), productDTO.getProductImg(), productDTO.getProductStatus(),
+						productDTO.getProductQuantity(), productDTO.getProductPK());
+			} // 판매된 상품 갯수만큼 갯수 수정
+			else if(productDTO.getSearchCondition().equals("updateBySelling")) {
+				result = jdbcTemplate.update(UPDATE_BYSELLING, productDTO.getProductQuantity(), productDTO.getProductPK());
+			}
 			if (result <= 0) {
 				return false;
 			}

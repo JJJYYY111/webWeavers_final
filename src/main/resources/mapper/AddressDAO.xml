@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.webWeavers.weaveGlow.biz.address.IAddressDAO">
-	<select id="selectAll" resultMap="addressAll">
+	<select id="selectAll" resultType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 		SELECT ADDRESS_PK, 
 			   ADDRESS_ZONECODE, 
 			   ADDRESS_JIBUN, 
@@ -13,7 +13,7 @@
 		WHERE MEMBER_ID = #{memberID}
 	</select>
 	
-	<select id="selectOne" resultMap="addressOne">
+	<select id="selectOne" resultType="com.webWeavers.weaveGlow.biz.address.AddressDTO">
 		SELECT ADDRESS_ZONECODE, 
 			   ADDRESS_JIBUN, 
 			   ADDRESS_ROAD, 
@@ -50,21 +50,5 @@
 		WHERE ADDRESS_PK= #{addressPK}
 	</delete>
 	
-	<resultMap id="addressAll" type="com.webWeavers.weaveGlow.biz.address.AddressDTO">
-	<result column= "ADDRESS_PK" property="addressPK" jdbcType="INTEGER" javaType="int"/>
-	<result column= "ADDRESS_ZONECODE" property="addressZonecode" jdbcType="VARCHAR" javaType="String"/>
-	<result column= "ADDRESS_JIBUN" property="addressJibun" jdbcType="VARCHAR" javaType="String"/>
-	<result column= "ADDRESS_ROAD" property="addressRoad" jdbcType="VARCHAR" javaType="String"/>
-	<result column= "ADDRESS_DETAIL" property="addressDetail" jdbcType="VARCHAR" javaType="String"/>
-	<result column= "ADDRESS_NAME" property="addressName" jdbcType="VARCHAR" javaType="String"/>	 
-	</resultMap>
-	
-	<resultMap id="addressOne" type="com.webWeavers.weaveGlow.biz.address.AddressDTO">
-	<result column= "ADDRESS_ZONECODE" property="addressZonecode" jdbcType="VARCHAR" javaType="String"/>
-	<result column= "ADDRESS_JIBUN" property="addressJibun" jdbcType="VARCHAR" javaType="String"/>
-	<result column= "ADDRESS_ROAD" property="addressRoad" jdbcType="VARCHAR" javaType="String"/>
-	<result column= "ADDRESS_DETAIL" property="addressDetail" jdbcType="VARCHAR" javaType="String"/>
-	<result column= "ADDRESS_NAME" property="addressName" jdbcType="VARCHAR" javaType="String"/>	 
-	</resultMap>
-	
+		
 </mapper>
