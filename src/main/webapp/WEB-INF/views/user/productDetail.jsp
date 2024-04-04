@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="common"%>
-<%@ taglib prefix="star" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -11,6 +10,8 @@
 <head>
 <title>WeaveGlow - ProductDetail</title>
 <common:head />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -128,49 +129,24 @@
 									<div class="rating_list">
 										<h3>List</h3>
 										<ul class="list">
-											<li><a>5 Star <i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i> <span
-													id="starVal5"></span> <!-- 별점5점인 리뷰가 몇개인지 갯수 -->
-											</a></li>
-											<li><a>4 Star <i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"
-													style="color: black;"></i> <span id="starVal4"></span> <!-- 별점4점인 리뷰가 몇개인지 갯수 -->
-											</a></li>
-											<li><a>3 Star <i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i><i
-													class="fa fa-star" style="color: black;"></i><i
-													class="fa fa-star" style="color: black;"></i> <span
-													id="starVal3"></span> <!-- 별점3점인 리뷰가 몇개인지 갯수 -->
-											</a></li>
-											<li><a>2 Star <i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"
-													style="color: black;"></i><i class="fa fa-star"
-													style="color: black;"></i><i class="fa fa-star"
-													style="color: black;"></i> <span id="starVal2"></span> <!-- 별점2점인 리뷰가 몇개인지 갯수 -->
-											</a></li>
-											<li><a>1 Star <i class="fa fa-star"></i><i
-													class="fa fa-star" style="color: black;"></i><i
-													class="fa fa-star" style="color: black;"></i><i
-													class="fa fa-star" style="color: black;"></i><i
-													class="fa fa-star" style="color: black;"></i> <span
-													id="starVal1"></span> <!-- 별점1점인 리뷰가 몇개인지 갯수 -->
-											</a></li>
+											<c:forEach var="i" begin="5" end="1">
+												<li><a>${i} Star <c:forEach var="j" begin="1"
+															end="${i}">
+															<i class="fas fa-star"></i>
+														</c:forEach> <span id="starVal${i}"></span> <!-- 별점${i}점인 리뷰가 몇개인지 갯수 -->
+												</a></li>
+											</c:forEach>
 										</ul>
 									</div>
 								</div>
 							</div>
 							<hr>
 
-<div class="button-with-line-container">
-  <button class="button-with-line" id="like" value="reviewLike" >좋아요순</button>
-  <button class="button-with-line" id="recent" value="regdate">최신순</button>
-</div>
-<hr>
-
-													<br>
-							
+							<div class="button-with-line-container">
+								<button class="button-with-line" id="like" value="reviewLike">좋아요순</button>
+								<button class="button-with-line" id="recent" value="regdate">최신순</button>
+							</div>
+							<hr>
 							<div class="review_list">
 								<c:if test="${fn:length(rdatas) <= 0}">
 									<br>
@@ -182,8 +158,8 @@
 								<!-- 리뷰가 없을 경우 -->
 								<c:forEach var='data' items='${rdatas}'>
 
-									
-									<br>
+
+
 									<!-- 일반 회원의 리뷰 -->
 
 									<div class="review_item">
@@ -220,8 +196,21 @@
 													name="reviewScope" id="scope_${data.reviewPK}"
 													value="${data.reviewScope}">
 												<!-- 해당 회원이 작성한 리뷰 별점 	-->
-												<star:star id="${data.reviewPK}"
-													defaultRating="${data.reviewScope}" />
+												<div class="starRating" id="starRating-${data.reviewPK}">
+
+												</div>
+												<script>
+                                        // 리뷰 별점을 표시하는 스크립트
+                                        var starHTML = '';
+                                        for (var i = 0; i < ${data.reviewScope}; i++) {
+                                            starHTML += '<i class="fas fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                                        }
+                                        for (var i = ${data.reviewScope}; i < 5; i++) {
+                                            starHTML += '<i class="far fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                                        }
+                                        document.getElementById('starRating-${data.reviewPK}').innerHTML = starHTML;
+                                    </script>
+
 											</div>
 											<div class="d-flex">
 												<c:if test="${data.reviewImg == null}">
@@ -257,7 +246,7 @@
 		</div>
 	</section>
 	<!--================ /상품 상세정보 =================-->
-	
+
 	<script src="/resources/js/productDetail.js"></script>
 	<script src="/resources/js/cart.js"></script>
 	<common:footer />

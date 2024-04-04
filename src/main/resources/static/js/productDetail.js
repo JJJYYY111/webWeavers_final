@@ -26,7 +26,7 @@ $("#like").on("click", function() {
         },
         dataType: 'json',
         success: function(datas) {
-            var tableHTML = '';
+            var reviewListHTML  = '';
             datas.forEach(function(data) {
                 var parts = data.reviewRegdate.split(/[\s,]+/); // "4월 3, 2024"와 같은 문자열을 공백이나 쉼표를 기준으로 분할하여 parts 배열에 저장
                 var monthIndex = parseInt(parts[0].replace("월", "")) - 1; // 월을 숫자로 변환
@@ -37,25 +37,35 @@ $("#like").on("click", function() {
 
                 // YYYY-MM-DD 형식으로 변환
                 var formattedDate = formatDate(reviewDate);
+                
+                
+                // 별점을 평점에 맞게 그리기
+                var starHTML = '';
+                for (var i = 0; i < data.reviewScope; i++) {
+                    starHTML += '<i class="fas fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                }
+                for (var i = data.reviewScope; i < 5; i++) {
+                    starHTML += '<i class="far fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                }
 
-                tableHTML += `
+                   reviewListHTML += `
                     <div class="review_item">
                         <div class="media">
                             <div class="media-body">
-                                <span>${formattedDate}</span>
+                               <span>${formattedDate}</span>
                                 <br>
                                 <br>
                                 <h4>
                                     <span>작성자 : ${data.memberNickname}</span>
-                                    <button onclick="reviewLikeClick('${data.reviewPK}','${data.sessionMid}')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
+                                    <button onclick="reviewLikeClick('${data.reviewPK}','` + document.getElementById('sessionMid').value + `')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
                                         <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
                                     </button>
                                     <span id="reviewCnt${data.reviewPK}">${data.reviewLikeCnt}</span>
                                 </h4>
                                 <br>
-                                <input class="starValue" type="hidden" name="reviewScope" id="scope_${data.reviewPK}" value="${data.reviewScope}">
-                                <!-- 해당 회원이 작성한 리뷰 별점 -->
-                                <star:star id="${data.reviewPK}" defaultRating="${data.reviewScope}" />
+                                <div class="starRating">
+                                    ${starHTML}
+                                </div>
                             </div>
                             <div class="d-flex">
                                 <!-- 리뷰 작성할 때 사용자가 등록한 이미지 -->
@@ -69,7 +79,7 @@ $("#like").on("click", function() {
                     </div>
                 `;
             });
-            $(".review_list").html(tableHTML);
+            $(".review_list").html(reviewListHTML);
         },
         error: function(error) {
             console.log('실패');
