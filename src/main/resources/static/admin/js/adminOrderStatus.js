@@ -5,11 +5,11 @@ document.getElementById("memberName").addEventListener("input", function(event) 
 
     // 정규 표현식을 사용하여 입력된 값이 숫자 또는 특수문자를 포함하는지 확인
     if (/[0-9~!@#$%^&*()_+|<>?:{}]/.test(inputValue)) {
-        // 숫자 또는 특수문자가 포함되어 있으면 모달 창을 띄우고 입력 값을 수정합니다.
+        // 숫자 또는 특수문자가 포함되어 있으면 모달 창을 띄우고 입력 값을 수정
         $('#alertMessageMemberName').text('숫자와 특수문자는 입력할 수 없습니다.');
         $('#alertModalMemberName').modal('show'); // 모달 창 띄우기
         
-        // 숫자 또는 특수문자를 제거하여 유효한 값을 입력 필드에 할당합니다.
+        // 숫자 또는 특수문자를 제거하여 유효한 값을 입력 필드에 할당
         let validValue = inputValue.replace(/[0-9~!@#$%^&*()_+|<>?:{}]/g, '');
         this.value = validValue;
     }
@@ -19,18 +19,20 @@ document.getElementById("memberName").addEventListener("input", function(event) 
 /* 주문 관리 필터 검색*/
 $(document).on("click", "#search", function() {
 	console.log('들어옴')
-	var selectElement = document.getElementById("serialStatus"); // select 요소 가져오기
+	var selectElement = document.getElementById("serialStatus"); 
+	// select 요소 가져오기
 
-	var serialStatus = selectElement.options[selectElement.selectedIndex].value; // 선택된 option의 값 가져오기
+	var serialStatus = selectElement.options[selectElement.selectedIndex].value; 
+	// 선택된 option의 값 가져오기
 
-	console.log('로그 [' + serialStatus + ']');
+	console.log('로그1 [' + serialStatus + ']');
 	var memberName = document.getElementById("memberName").value;
 
-	console.log('로그1' + memberName);
+	console.log('로그2 [' + memberName + ']');
 
 	var serialRegdate = document.getElementById("serialRegdate").value;
 	//memberId의 위에서 value를 가져온다.
-	console.log('로그	2' + serialRegdate);
+	console.log('로그	3 [' + serialRegdate+']');
 
 	$.ajax({
 

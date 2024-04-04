@@ -1,17 +1,19 @@
 
 /*  <!-- 상세설명 이미지 저장  -->  */
 function DetailloadFile(input) {
-	let file = input.files[0]; // 선택파일 가져오기
+	let file = input.files[0]; 
+	// 선택파일 가져오기
 
-	let newImage = document.createElement("img"); //새 이미지 태그 생성
+	let newImage = document.createElement("img"); 
+	//새 이미지 태그 생성
 
 	//이미지 source 가져오기
 	newImage.src = URL.createObjectURL(file);
-	newImage.style.width = "100%"; //div에 꽉차게 넣으려고
+	newImage.style.width = "100%"; 
+	//div에 꽉차게 조절
 	newImage.style.height = "100%";
-	//newImage.style.objectFit = "cover"; // div에 넘치지 않고 들어가게
 
-	// 이전에 표시된 이미지를 지우기 위해 이미지 표시 div를 찾고, 모든 자식 노드를 삭제합니다.
+	// 이전에 표시된 이미지를 지우기 위해 이미지 표시 div를 찾고, 모든 자식 삭제
 	let container = document.getElementById('show-image');
 	container.innerHTML = "";
 
@@ -130,7 +132,7 @@ function swtBasic() {
 /*  취소 버튼 누르면 상품 현황 페이지로 이동 */
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('cancelButton').addEventListener('click', function() {
-        window.location.href = "/adminProductStatus"; // your_cancel_url에는 이동하길 원하는 페이지의 URL을 입력합니다.
+        window.location.href = "/adminProductStatus"; 
     });
 });
 	

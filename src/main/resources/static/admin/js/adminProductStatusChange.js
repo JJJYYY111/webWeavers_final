@@ -9,9 +9,8 @@ function DetailloadFile(input) {
 	newImage.src = URL.createObjectURL(file);
 	newImage.style.width = "100%"; //div에 꽉차게 넣으려고
 	newImage.style.height = "100%";
-	//newImage.style.objectFit = "cover"; // div에 넘치지 않고 들어가게
 
-	// 이전에 표시된 이미지를 지우기 위해 이미지 표시 div를 찾고, 모든 자식 노드를 삭제합니다.
+	// 이전에 표시된 이미지를 지우기 위해 이미지 표시 div를 찾고, 모든 자식 노드를 삭제
 	let container = document.getElementById('show-image');
 	container.innerHTML = "";
 
@@ -46,7 +45,7 @@ function swtBasic() {
 /*  취소 버튼 누르면 상품 현황 페이지로 이동 */
 document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('cancelButton').addEventListener('click', function() {
-		window.location.href = "/adminProductStatus"; // your_cancel_url에는 이동하길 원하는 페이지의 URL을 입력합니다.
+		window.location.href = "/adminProductStatus"; 
 	});
 });
 
@@ -140,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 `;
         }
-        console.log('로그 ['+productPK+']');
+        console.log('로그1 ['+productPK+']');
         //서브 카테고리 체크박스 선택되는거 비동기
         $.ajax({
 			
@@ -155,16 +154,15 @@ document.addEventListener('DOMContentLoaded', function () {
             	
             	success:function(datas) {
             		
-            		console.log('로그'+datas);
+            		console.log('로그2 ['+datas+']');
         
             		$.each(datas, function(index, data){
-            		    console.log("[로그1]"+data.subCategoryPK);
+            		    console.log("로그3 ["+data.subCategoryPK+']');
             	        const selectedSubCategoryCheckbox = subCategoryElement.querySelector('input[name="subCategoryName"][value="' + data.subCategoryPK + '"]');
             	        if (selectedSubCategoryCheckbox !== null) {
             	            selectedSubCategoryCheckbox.checked = true;
             	        }
             			
-            		
             		});
             		
             },

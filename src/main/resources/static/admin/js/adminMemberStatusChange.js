@@ -15,20 +15,19 @@ document.getElementById("memberName").addEventListener("input", function(event) 
 });
 
 /*==========================================================================*/
-// 전화번호 입력 필드에 유효성 검사를 추가합니다.
+// 전화번호 입력 필드에 유효성 검사를 추가
 document.getElementById("registPhone").addEventListener("input", function(event) {
     let inputValue = this.value;
 
-    // 입력 값에서 숫자만 남기고 다른 문자를 제거합니다.
+    // 입력 값에서 숫자만 남기고 다른 문자를 제거
     let cleanedValue = inputValue.replace(/\D/g, '');
 
-    // 입력 값이 11자리 이상이면 모달 창을 띄우고 입력 값을 잘라냅니다.
+    // 입력 값이 11자리 이상이면 모달 창을 띄우고 입력 값 자름
     if (cleanedValue.length > 11) {
         document.getElementById('phoneValidationMessage').textContent = '11자리 이상의 전화번호는 입력할 수 없습니다.';
         $('#phoneValidationModal').modal('show');
         cleanedValue = cleanedValue.slice(0, 11);
     }
 
-    // 정제된 값을 입력 필드에 할당합니다.
     this.value = cleanedValue;
 });

@@ -31,13 +31,15 @@
 
 /* ==================회원 검색 필터===========================================*/
 $("#search").on("click", function() {
-	console.log('[로그1] 서치 들어옴')
-	var selectElement = document.getElementById("gradeName"); // select 요소 가져오기
-	var gradeName = selectElement.options[selectElement.selectedIndex].text; // 선택된 option의 값 가져오기
+	// 사용자가 검색버튼을 누르면
+	console.log('[로그1] 서치 들어옴');
+	var selectElement = document.getElementById("gradeName"); 
+	// select 요소 가져오기
+	var gradeName = selectElement.options[selectElement.selectedIndex].text; 
+	// 선택된 option의 값 가져오기
 	if (gradeName == '선택') {
 		gradeName = "";
 	}
-	//console.log(memberGrade);
 	var memberName = document.getElementById("memberName").value;
 	if (memberName == null) {
 		memberName == "";
@@ -46,7 +48,7 @@ $("#search").on("click", function() {
 	console.log('로그2 [' + memberName + ']');
 
 	var memberID = document.getElementById("memberID").value;
-	//memberRegdate의 위에서 value를 가져온다.
+	// memberRegdate의 위에서 value를 가져옴
 	if (memberID == null) {
 		memberID == "";
 	}
@@ -63,9 +65,9 @@ $("#search").on("click", function() {
 		},
 		dataType: 'json',
 		success: function(datas) {
-			//datas = JSON.parse(datas);
 			console.log('로그4 [' + datas + ']');
 			var tableHTML = "<table id='search' border='1'>";
+			// 테이블 다시 만듦
 			tableHTML += "<thead><tr><th>ID</th><th>이름</th><th>등급</th><th>생일</th><th>가입일</th><th>email수신동의</th></tr></thead>";
 			tableHTML += "<tbody>";
 			for (var i = 0; i < datas.length; i++) {
