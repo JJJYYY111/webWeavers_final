@@ -66,8 +66,7 @@
 																	id="registMid" name="memberID" placeholder="아이디 입력"
 																	onfocus="this.placeholder = ''"
 																	onblur="this.placeholder = '아이디 입력'"
-																	style="display: inline-block;" value="${memberID}"
-																	readonly>
+																	style="display: inline-block;" value="${memberID}">
 															</div>
 														</div>
 													</div>
@@ -90,7 +89,7 @@
 																	placeholder="비밀번호 입력" onfocus="this.placeholder = ''"
 																	onblur="this.placeholder = '비밀번호 입력'"
 																	style="display: inline-block;"
-																	value="${memberPassword}" readonly>
+																	value="${memberPassword}">
 															</div>
 														</div>
 													</div>
@@ -109,7 +108,7 @@
 														<div class="row">
 															<div class="col-lg-10">
 																<input type="text" class="form-control col-md-12"
-																	id="memberName" name="memberName" placeholder="이름 입력"
+																	id="registName" name="memberName" placeholder="이름 입력"
 																	onfocus="this.placeholder = ''"
 																	onblur="this.placeholder = '이름 입력'"
 																	style="display: inline-block;" value="${memberName}">
@@ -239,58 +238,36 @@
 												</div>
 											</div>
 										</div>
-									</div>
-
-									<hr>
-									<div class="form-actions">
-										<div class="text-right">
-											<button type="submit" class="btn btn-info">완료</button>
-											<button type="button" class="btn btn-dark"
-												onclick="history.go(-1)">취소</button>
-											<button type="reset" class="btn btn-outline-dark float-left">리셋</button>
 										</div>
+										
+										<hr>
+										<div class="form-actions">
+											<div class="text-right">
+												<button type="submit" class="btn btn-info">완료</button>
+												<button type="button" class="btn btn-dark"
+													onclick="history.go(-1)">취소</button>
+												<button type="reset" class="btn btn-outline-dark float-left">리셋</button>
+											</div>
+										</div>
+										</form>
 									</div>
-								</form>
 							</div>
+							<!-- 개인정보수정 -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-			<!-- 필터 검색 회원 전화번호 유효성 모달 창 -->
-<div class="modal fade" id="alertModalPhone" tabindex="-1" role="dialog" aria-labelledby="alertModalPhoneLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="alertModalPhoneLabel">경고</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- 경고 메시지를 표시할 곳 -->
-                <p id="alertMessagePhone"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
-            </div>
-        </div>
-    </div>
-</div>
-<common:adminMemberNameModal />
-
-	<!-- footer -->
-	<footer class="footer text-center text-muted">
-		Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
-	</footer>
+		<!-- footer -->
+		<footer class="footer text-center text-muted">
+			All Rights Reserved by Adminmart. Designed and Developed by <a
+				href="https://wrappixel.com">WrapPixel</a>.
+		</footer>
 	<!-- All Jquery -->
 	<script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap tether Core JavaScript -->
-	<script
-		src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-	<script
-		src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+	<script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- apps -->
 	<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
 	<script src="/resources/admin/dist/js/feather.min.js"></script>
@@ -302,8 +279,6 @@
 	<!--Custom JavaScript -->
 	<script src="/resources/admin/dist/js/custom.min.js"></script>
 	<script src="/resources/admin/js/gradeChange.js"></script>
-	<!-- 유효성  -->
-	<script src="/resources/admin/js/adminMemberStatusChange.js"></script>
 
 </body>
 
