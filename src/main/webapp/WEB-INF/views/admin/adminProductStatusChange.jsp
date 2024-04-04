@@ -13,9 +13,6 @@
 	src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- 파비콘 -->
-<link rel="icon" type="/resources/image/png" sizes="16x16"
-	href="/resources/admin/assets/images/favicon.png" />
 <title>상품수정</title>
 <!-- 플러그인 -->
 <link

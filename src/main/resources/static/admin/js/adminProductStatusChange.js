@@ -89,9 +89,6 @@ function deleteImage() {
 document.addEventListener('DOMContentLoaded', function () {
     console.log('들어온거 확인');
     // 저장된 카테고리 및 서브 카테고리 가져오기
-     alert('1234');
-
-    alert('asdf');
    
     // 카테고리 체크 박스 선택
     var categoryRadios = document.querySelectorAll('input[name="categoryName"]');
