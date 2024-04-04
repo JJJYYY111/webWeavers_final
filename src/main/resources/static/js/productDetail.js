@@ -97,7 +97,7 @@ $("#like").on("click", function() {
 /* 최신순 버튼을 누르면 정렬하게 */
 
 $("#recent").on("click", function() {
-	 function formatDate(date) {
+    function formatDate(date) {
         var year = date.getFullYear();
         var month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더해줍니다.
         var day = date.getDate();
@@ -112,7 +112,8 @@ $("#recent").on("click", function() {
 
         return year + '-' + month + '-' + day;
     }
-	 var sessionMid = `${sessionMid}`;
+
+    var sessionMid = `${sessionMid}`;
     $.ajax({
         type: "POST",
         url: "/reviewOrderedList",
@@ -123,10 +124,10 @@ $("#recent").on("click", function() {
         },
         dataType: 'json',
         success: function(datas) {
-			console.log('데이터: '+ datas);
+            console.log('데이터: ' + datas);
             var reviewListHTML = '';
             datas.forEach(function(data) {
-				 var parts = data.reviewRegdate.split(/[\s,]+/); // "4월 3, 2024"와 같은 문자열을 공백이나 쉼표를 기준으로 분할하여 parts 배열에 저장
+                var parts = data.reviewRegdate.split(/[\s,]+/); // "4월 3, 2024"와 같은 문자열을 공백이나 쉼표를 기준으로 분할하여 parts 배열에 저장
                 var monthIndex = parseInt(parts[0].replace("월", "")) - 1; // 월을 숫자로 변환
                 var day = parseInt(parts[1].replace(",", "")); // 일을 숫자로 변환
                 var year = parseInt(parts[2]); // 연도를 숫자로 변환
@@ -135,6 +136,16 @@ $("#recent").on("click", function() {
 
                 // YYYY-MM-DD 형식으로 변환
                 var formattedDate = formatDate(reviewDate);
+
+                // 별점을 평점에 맞게 그리기
+                var starHTML = '';
+                for (var i = 0; i < data.reviewScope; i++) {
+                    starHTML += '<i class="fas fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                }
+                for (var i = data.reviewScope; i < 5; i++) {
+                    starHTML += '<i class="far fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                }
+
                 reviewListHTML += `
                     <div class="review_item">
                         <div class="media">
@@ -150,9 +161,9 @@ $("#recent").on("click", function() {
                                     <span id="reviewCnt${data.reviewPK}">${data.reviewLikeCnt}</span>
                                 </h4>
                                 <br>
-                                <input class="starValue" type="hidden" name="reviewScope" id="scope_${data.reviewPK}" value="${data.reviewScope}">
-                                <!-- 해당 회원이 작성한 리뷰 별점 -->
-                                <star:star id="${data.reviewPK}" defaultRating="${data.reviewScope}" />
+                                <div class="starRating">
+                                    ${starHTML}
+                                </div>
                             </div>
                             <div class="d-flex">
                                 <!-- 리뷰 작성할 때 사용자가 등록한 이미지 -->
@@ -174,6 +185,8 @@ $("#recent").on("click", function() {
         }
     });
 });
+
+
 
 
 /* 리뷰 좋아요 */
