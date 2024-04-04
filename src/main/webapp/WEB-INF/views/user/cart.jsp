@@ -178,17 +178,6 @@
 	</section>
 	<!-- ================ /내용 ================= -->
 	<script src="/resources/js/cart.js"></script>
-	<!-- <script>
-    function selectAllProduct() {
-        // 선택된 모든 제품 체크박스 가져오기
-        const checkboxes = document.querySelectorAll('input[name="selectedProducts"]');
-        
-        // 모든 체크박스를 선택 상태로 변경
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = true;
-        });
-    }
-</script> -->
 	<common:footer />
 </body>
 </html>
