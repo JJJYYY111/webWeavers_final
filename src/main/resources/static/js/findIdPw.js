@@ -3,10 +3,10 @@ if(document.getElementById('findIdBtn')){
 	document.getElementById('findIdBtn').onclick = sendID;						// 버튼 클릭 시 함수 실행
 }
 // [문자 아이디 전송]
-function sendID(){
+function sendPhoneID(){
 	//console.log('smsSendID ajax진입')	
-	var memberName = document.getElementById('findName').value					// 사용자가 입력한 값 (이름)
-	var memberPhone = document.getElementById('findPhone').value				// 사용자가 입력한 값 (전화번호)
+	var memberName = document.getElementById('memberName-01').value				// 사용자가 입력한 값 (이름)
+	var memberPhone = document.getElementById('memberPhone').value				// 사용자가 입력한 값 (전화번호)
 	
 	if(memberName == '' || memberName == null){									// 이름 값이 공백이거나 null이면,
 		showModal('이름을 입력해주세요.', 'closeModal')							// 모달창 띄우고 return
@@ -36,10 +36,7 @@ function sendID(){
 		}
 	})
 }
-// [로그인 페이지로 이동]
-function loginPage(){
-	 location.href = '/login';
-}
+
 
 // -------------------- 문자 API (coolSMS) - 비밀번호 찾기 --------------------
 function sendPhonePW(){
@@ -114,7 +111,7 @@ function sendEmailPW(){
 	})	
 }
 
-// -------------------- 문자 API (coolSMS) - 모달창 --------------------
+// -------------------- 아이디/비밀번호 찾기 - 모달창 --------------------
 // 인자(모달내용, 확인버튼클릭시 수행할 함수명)
 function showModal(contentText, functionName){
 	var modalDoc = `
@@ -135,7 +132,11 @@ function showModal(contentText, functionName){
 	
 	$('#modal_site').html(modalDoc);
 }
-// 모달창 닫기 > html 비우기
+// 모달창 확인 > 모달창 닫기 (html 비우기)
 function closeModal(){
 	$('#modal_site').html('');
+}
+// 모달창 확인 > 로그인 페이지로 이동
+function loginPage(){
+	 location.href = '/login';
 }
