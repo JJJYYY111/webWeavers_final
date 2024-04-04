@@ -171,7 +171,7 @@
 				</div>
 			</div>
 			
-			<!-- 필터 검색 회원 이름 유효성 모달 창  -->
+			<!-- 필터 검색 회원 이름 유효성 모달 창  --> 
 			<div class="modal fade" id="alertModalMemberName" tabindex="-1"
 				role="dialog" aria-labelledby="alertModalMemberNameLabel"
 				aria-hidden="true">
