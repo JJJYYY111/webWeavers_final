@@ -145,31 +145,51 @@ public class MailService{
 	public int sendIdPwEmail(MemberDTO memberDTO) {
 		MimeMessage message = emailSender.createMimeMessage();
 		
-		String randPW = getRandomPassword(10);
-		
-		String html = "<h3>[WeaveGlow] 임시 비밀번호</h3><br>"
-						+ "<span>발급된 임시 비밀번호는 " + randPW + " 입니다.<br>"
-						+ "로그인 후 마이페이지에서 비밀번호 변경바랍니다.";
-		try {
-			message.setFrom(new InternetAddress("wgw1008@gmail.com"));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(memberDTO.getMemberEmail()));
-			message.setSubject("[WeaveGlow] 임시 비밀번호");
-			message.setText(html, "UTF-8", "html");
-			
-			// 임시 비밀번호 발급 전, 회원 비밀번호 update
-			memberDTO.setMemberPassword(randPW);
-			memberDTO.setSearchCondition("updatePW");			
-			if(!memberService.update(memberDTO)) {
+		if (memberDTO.getSearchCondition().equals("sendID")) {
+			String html = "<h3>[WeaveGlow] 아이디</h3><br>"
+					+ "고객님의 정보와 일치하는 아이디 입니다.<br>"
+					+ "[ " + memberDTO.getMemberID() + " ]";			
+			try {
+				message.setFrom(new InternetAddress("wgw1008@gmail.com"));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(memberDTO.getMemberEmail()));
+				message.setSubject("[WeaveGlow] 아이디");
+				message.setText(html, "UTF-8", "html");
+
+				// send 메서드로 이메일 전송
+				emailSender.send(message);
+			} catch (Exception e) {
+				e.printStackTrace();
 				return -1;
-			}			
-			
-			// send 메서드로 이메일 전송
-			emailSender.send(message);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return -1;
+			}
 		}
-		
+
+		else if (memberDTO.getSearchCondition().equals("sendPW")) {
+			String randPW = getRandomPassword(10);
+			
+			String html = "<h3>[WeaveGlow] 임시 비밀번호</h3><br>"
+							+ "발급된 임시 비밀번호는 " + randPW + " 입니다.<br>"
+							+ "로그인 후 마이페이지에서 비밀번호 변경바랍니다.";
+			try {
+				message.setFrom(new InternetAddress("wgw1008@gmail.com"));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(memberDTO.getMemberEmail()));
+				message.setSubject("[WeaveGlow] 임시 비밀번호");
+				message.setText(html, "UTF-8", "html");
+
+				// 임시 비밀번호 발급 전, 회원 비밀번호 update
+				memberDTO.setMemberPassword(randPW);
+				memberDTO.setSearchCondition("updatePW");
+				if (!memberService.update(memberDTO)) {
+					return -1;
+				}
+
+				// send 메서드로 이메일 전송
+				emailSender.send(message);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return -1;
+			}
+		}
+
 		return 1;
 	}
 	

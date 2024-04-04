@@ -1,7 +1,4 @@
 // -------------------- 문자 API (coolSMS) - 아이디 찾기 --------------------
-if(document.getElementById('findIdBtn')){
-	document.getElementById('findIdBtn').onclick = sendID;						// 버튼 클릭 시 함수 실행
-}
 // [문자 아이디 전송]
 function sendPhoneID(){
 	//console.log('smsSendID ajax진입')	
@@ -24,7 +21,7 @@ function sendPhoneID(){
 		dataType: 'text',
 		success: function(data) {
 			if(data > 0){
-				showModal('아이디가 문자로 전송됐습니다. 로그인페이지로 이동합니다.', 'loginPage')	// 성공 : 로그인 페이지로 이동 안내
+				showModal('아이디가 문자로 전송됐습니다. 로그인페이지로 이동합니다.', 'loginPage')		// 성공 : 로그인 페이지로 이동 안내
 			}
 			else{
 				showModal('일치하는 회원이 없습니다. 다시 입력바랍니다.', 'closeModal')					// 실패 : 재입력 안내
@@ -36,7 +33,6 @@ function sendPhoneID(){
 		}
 	})
 }
-
 
 // -------------------- 문자 API (coolSMS) - 비밀번호 찾기 --------------------
 function sendPhonePW(){
@@ -74,11 +70,44 @@ function sendPhonePW(){
 	
 }
 
+// -------------------- 이메일 API - 아이디 찾기 --------------------
+function sendEmailID(){
+	console.log('emailSendID ajax진입')
+	var memberName = document.getElementById('memberName-02').value				// 사용자가 입력한 값 (이름)
+	var memberEmail = document.getElementById('memberEmail').value				// 사용자가 입력한 값 (이메일)
+
+	if(memberName == '' || memberName == null){									// 입력 값이 공백이거나 null이면,
+		showModal('이름을 입력해주세요.', 'closeModal')							// 모달창 띄우고 return
+		return;
+	}
+	else if(memberEmail == '' || memberEmail == null){							// 이메일 값이 공백이거나 null이면,
+		showModal('이메일을 입력해주세요.', 'closeModal')							// 모달창 띄우고 return
+		return;
+	}	
+	
+	$.ajax({
+		type: 'POST',
+		url: '/async/emailSendID',												// 해당 url로 ajax 요청
+		data: {'memberName' : memberName, 'memberEmail' : memberEmail},			// { "멤버변수명" : 입력값 } 전달				
+		dataType: 'text',
+		success: function(data) {
+			if(data > 0){
+				showModal('아이디가 이메일로 전송됐습니다. 로그인페이지로 이동합니다.', 'loginPage')		// 성공 : 로그인 페이지로 이동 안내
+			}
+			else{
+				showModal('일치하는 회원이 없습니다. 다시 입력바랍니다.', 'closeModal')					// 실패 : 재입력 안내
+			}
+		},
+		error: function(error) {
+			console.log('에러발생')
+			console.log('에러종류: ' + error)
+		}
+	})	
+}
+
 // -------------------- 이메일 API - 비밀번호 찾기 --------------------
 function sendEmailPW(){
-	console.log('emailSendPW ajax진입')
-	console.log(document.getElementById('memberID-02').value)
-	console.log(document.getElementById('memberEmail').value)
+	//console.log('emailSendPW ajax진입')
 	var memberID = document.getElementById('memberID-02').value					// 사용자가 입력한 값 (아이디)
 	var memberEmail = document.getElementById('memberEmail').value				// 사용자가 입력한 값 (이메일)
 

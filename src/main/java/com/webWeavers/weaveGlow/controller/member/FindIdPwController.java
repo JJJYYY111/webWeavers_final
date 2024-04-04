@@ -57,6 +57,24 @@ public class FindIdPwController {
 		return smsService.sendMessage(memberDTO);
 	}
 	
+	@RequestMapping("/async/emailSendID")
+	public @ResponseBody int emailSendID(MemberDTO memberDTO) {
+		// selectOne 검색조건 저장
+		memberDTO.setSearchCondition("idFindEmail");
+		memberDTO = memberService.selectOne(memberDTO);
+		
+		// 일치하는 회원이 없으면 실패
+		if(memberDTO == null) {
+			return -1;
+		}
+		
+		// sendMessage
+		memberDTO.setSearchCondition("sendID");
+		// 서비스 이용 후 return (성공:1, 실패:-1)
+		return mailService.sendIdPwEmail(memberDTO);
+	}	
+	
+	
 	@RequestMapping("/async/emailSendPW")
 	public @ResponseBody int emailSendPW(MemberDTO memberDTO) {
 		// selectOne 검색조건 저장
