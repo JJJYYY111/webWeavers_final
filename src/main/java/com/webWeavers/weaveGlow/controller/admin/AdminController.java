@@ -160,6 +160,7 @@ public class AdminController {
 		if(!productDetailImage.isEmpty()) {
 			productDTO.setProductDetailImg(imageService.imageUpdate(productDetailImage, data.getProductDetailImg(), "product"));
 		}
+		productDTO.setSearchCondition("updateAdminProduct");
 		productService.update(productDTO);
 		
 		categorizationService.delete(categorizationDTO);
@@ -249,6 +250,13 @@ public class AdminController {
 	public @ResponseBody String adminMonthlySalesGraph(ProductDTO productDTO, Gson gson) {
 		productDTO.setSearchCondition("adminMonthlySalesGraph");
 		return gson.toJson(productService.selectAll(productDTO));
+	}
+	@RequestMapping("/adminDonutGraph")
+	public @ResponseBody String adminDonutGraph(ProductDTO productDTO, Gson gson) {
+		productDTO.setSearchCondition("adminCategorySalesDonut");
+		List<ProductDTO> datas = productService.selectAll(productDTO);
+		System.out.println("도넛진입 :"+datas);
+		return gson.toJson(datas);
 	}
 	
 	

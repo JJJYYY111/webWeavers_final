@@ -456,23 +456,36 @@ $(function () {
 
 
 //----------------------------------------------------------------------------------------------
-
+//=========================================================
+// ========================= 바 차트===================
 
 $(function () {
 	"use strict";
 	// 변경된 데이터
-	var newData = [4000, 3000, 2000, 1000];
-
-	// Bar chart
-	new Chart(document.getElementById("bar-chart"), {
+	var salesData = [0, 0, 0, 0];
+	
+	$.ajax({
+                type: 'POST',
+                url: 'adminDonutGraph',
+                dataType: 'json',
+                success: function(datas) {
+                    console.log('로그' + datas);
+                    var totlaPrice = 0;
+            datas.forEach(function(data) {
+                salesData[data.categoryPK] = data.categoryTotal;
+                totlaPrice += data.categoryTotal;
+            });
+            salesData[0] = totlaPrice
+           	// Bar chart
+            new Chart(document.getElementById("bar-chart"), {
 		type: 'bar',
 		data: {
 			labels: ["총매출", "스킨케어", "클렌징", "마스크,팩"],
 			datasets: [
 				{
-					label: "Population (millions)",
+					label: "가격(원)",
 					backgroundColor: ["#6174d5", "#5f76e8", "#768bf4", "#7385df", "#b1bdfa"],
-					data: newData // 변경된 데이터를 사용
+					data: salesData // 변경된 데이터를 사용
 				}
 			]
 		},
@@ -496,6 +509,12 @@ $(function () {
 			}
 		}
 	});
+            
+                },
+                error: function(error) {
+                    console.log('에러의 종류:' + error);
+                }
+            });
 });
 
 
@@ -669,19 +688,39 @@ $(function () {
  }); 
  
  
+ //================================
+ //===================================
+ //============도넛 ====================
+ 
   $(function () {
 	// // 초기에 차트를 생성합니다.
-	// var myChart = createBarChart(chartData);
-	//donut
-new Chart(document.getElementById("donut-chart"), {
+	// 데이터 준비
+	var salesData = [0, 0, 0];
+    $.ajax({
+                type: 'POST',
+                url: 'adminDonutGraph',
+                dataType: 'json',
+                success: function(datas) {
+                    console.log('로그' + datas);
+                    var totlaPrice = 0;
+            datas.forEach(function(data) {
+                totlaPrice += data.categoryTotal;
+            });
+            
+            datas.forEach(function(data) {
+                salesData[data.categoryPK-1] = Math.round((data.categoryTotal/totlaPrice)*100);
+                console.log(salesData[data.categoryPK-1]);
+            });
+            
+            new Chart(document.getElementById("donut-chart"), {
 	type: 'doughnut',
 	data: {
-	  labels: ['스킨', '클렌징', '마스크'],
+	  labels: ['스킨', '클렌징', '마스크팩'],
 	  datasets: [
 		{
 		  label: "donut (chart)",
 		  backgroundColor: ["#e74a3b", "#3498db", "#f1c40f"],
-		  data: [300, 50, 100],
+		  data: salesData,
 		  hoverOffset: 4
 		}
 	  ]
@@ -693,6 +732,15 @@ new Chart(document.getElementById("donut-chart"), {
 	  }
 	}
   });
+            
+            
+                },
+                error: function(error) {
+                    console.log('에러의 종류:' + error);
+                }
+            });
+	
+
 
  }); 
  
