@@ -397,3 +397,64 @@ $(function () {
 
     });
 });  
+
+$(function () {
+    "use strict";
+
+    // 데이터 준비
+    var labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+    var salesData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    // 데이터 요청
+    $.ajax({
+        type: "POST",
+        url: "adminMonthlySalesGraph",
+        dataType: 'json',
+        success: function(datas) {
+            console.log('로그' + datas);
+            datas.forEach(function(data) {
+                var monthIndex = parseInt(data.month.substr(-2, 2)) - 1;
+                salesData[monthIndex] = data.totalPrice;
+            });
+
+            // 차트 생성
+            new Chart(document.getElementById("curve-area-chart"), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '매출액',
+                        data: salesData,
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        pointBackgroundColor: 'rgb(75, 192, 192)',
+                        pointBorderColor: 'rgb(75, 192, 192)'
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Monthly Sales Chart'
+                    },
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: '월'
+                            }
+                        }],
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: '매출액'
+                            }
+                        }]
+                    }
+                }
+            });
+        },
+        error: function(error) {
+            console.log('에러의 종류:' + error);
+        }
+    });
+});

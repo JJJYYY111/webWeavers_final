@@ -17,7 +17,8 @@
 	rel="stylesheet" />
 <!-- Custom CSS -->
 
-  <link rel="stylesheet" href="/resources/admin/adminCSS/monthlySalesCSS.css">	
+<link rel="stylesheet"
+	href="/resources/admin/adminCSS/monthlySalesCSS.css">
 
 </head>
 
@@ -71,11 +72,11 @@
 								<ul class="list-inline text-right">
 									<li class="list-inline-item">
 										<h5>
-											<i class="fa fa-circle mr-1 text-info"></i> 매출(원) 
+											<i class="fa fa-circle mr-1 text-info"></i> 매출(원)
 										</h5>
 									</li>
 								</ul>
-								<div id="morris-area-chart"></div>
+								<canvas id="curve-area-chart" height="150"></canvas>
 							</div>
 						</div>
 					</div>
@@ -88,7 +89,7 @@
 								<div class='cur-row' style="color: #000000;">
 									<br>
 									<div class="table-wrapper" name="productList">
-										<table id="products" border="1" style="table-layout:auto;">
+										<table id="products" border="1" style="table-layout: auto;">
 											<thead>
 												<tr style="color: #000000;">
 													<th>매출순위</th>
@@ -100,62 +101,73 @@
 												</tr>
 											</thead>
 											<tbody>
-    <c:forEach var="data" items="${productDatas}">
-        <tr>
-            <c:set var="productCount" value="${productCount + 1}" />
-            <td>${productCount}</td>
-            <td>${data.productName}</td>
-            <td>${data.categoryName}</td>
-            <td><fmt:formatNumber type="currency" value="${data.productPrice}" /></td>
-            <td>${data.totalCnt}</td>
-            <td><fmt:formatNumber type="currency" value="${data.totalPrice}" /></td>
-        </tr>
-        <c:set var="totalPrice" value="${totalPrice + data.totalPrice}" />
-    </c:forEach>
-    <tr style="color: #000000;">
-        <th colspan="5">총금액</th>
-        <td><fmt:formatNumber type="currency" value="${totalPrice}" /></td>
-    </tr>
-</tbody>
+												<c:forEach var="data" items="${productDatas}">
+													<tr>
+														<c:set var="productCount" value="${productCount + 1}" />
+														<td>${productCount}</td>
+														<td>${data.productName}</td>
+														<td>${data.categoryName}</td>
+														<td><fmt:formatNumber type="currency"
+																value="${data.productPrice}" /></td>
+														<td>${data.totalCnt}</td>
+														<td><fmt:formatNumber type="currency"
+																value="${data.totalPrice}" /></td>
+													</tr>
+													<c:set var="totalPrice"
+														value="${totalPrice + data.totalPrice}" />
+												</c:forEach>
+												<tr style="color: #000000;">
+													<th colspan="5">총금액</th>
+													<td><fmt:formatNumber type="currency"
+															value="${totalPrice}" /></td>
+												</tr>
+											</tbody>
 										</table>
 										<div id="nav"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-</div>
 					</div>
 				</div>
-				<!-- footer -->
-				<footer class="footer text-center text-muted">
-					Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
-				</footer>
 			</div>
+			<!-- footer -->
+			<footer class="footer text-center text-muted">
+				Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
+			</footer>
 		</div>
-		<!-- All Jquery -->
-		<script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-		<!-- Bootstrap tether Core JavaScript -->
-		<script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-		<script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-		<!-- apps -->
-		<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
-		<script src="/resources/admin/dist/js/feather.min.js"></script>
-		<!-- slimscrollbar scrollbar JavaScript -->
-		<script
-			src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-		<script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
-		<!--Menu sidebar -->
-		<script src="/resources/admin/dist/js/sidebarmenu.js"></script>
-		<!--Custom JavaScript -->
-		<script src="/resources/admin/dist/js/custom.min.js"></script>
-		<!--This page plugins -->
-		<script
-			src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-		<script src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
-		<!--Morris JavaScript -->
-		<script src="/resources/admin/assets/libs/raphael/raphael.min.js"></script>
-		<script src="/resources/admin/assets/libs/morris.js/morris.min.js"></script>
-		<script src="/resources/admin/dist/js/pages/morris/morris-data copy.js"></script>
+	</div>
+	<!-- All Jquery -->
+	<script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap tether Core JavaScript -->
+	<script
+		src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+	<script
+		src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- apps -->
+	<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
+	<script src="/resources/admin/dist/js/feather.min.js"></script>
+	<!-- slimscrollbar scrollbar JavaScript -->
+	<script
+		src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+	<script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
+	<!--Menu sidebar -->
+	<script src="/resources/admin/dist/js/sidebarmenu.js"></script>
+	<!--Custom JavaScript -->
+	<script src="/resources/admin/dist/js/custom.min.js"></script>
+	<!--This page plugins -->
+	<script
+		src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+	<!-- Chart JS -->
+	<!-- <script src="/resources/admin/dist/js/pages/chartjs/chartjs.init copy.js"></script> -->
+	<script src="/resources/admin/assets/libs/chart.js/dist/Chart.min.js"></script>
+	<!--Morris JavaScript -->
+	<script src="/resources/admin/assets/libs/raphael/raphael.min.js"></script>
+	<script src="/resources/admin/assets/libs/morris.js/morris.min.js"></script>
+	<!-- <script src="/resources/admin/dist/js/pages/morris/morris-data copy.js"></script> -->
+	<script src="/resources/admin/dist/js/pages/morris/graphZip.js"></script>
 </body>
 
 </html>

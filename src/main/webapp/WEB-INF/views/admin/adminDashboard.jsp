@@ -153,7 +153,8 @@
 									<div>
 										<%-- <canvas id="bar-chart" height="150"></canvas> --%>
 										<canvas id="bar-chart" height="150"></canvas>
-										<div id="morris-donut-chart" height="150"></div>
+										<canvas id="donut-chart" height="150"></canvas>
+										<!-- <div id="morris-donut-chart" height="150"></div> -->
 									</div>
 								</div>
 							</div>
@@ -183,9 +184,11 @@
 										</li>
 									</ul>
 
-									<div id="morris-area-chart" height="150"></div>
-									<div id="morris-line-chart" height="150"></div>
-									<%-- <canvas id="morris-area-chart"  height="150"></canvas> --%>
+									<!-- <div id="morris-area-chart" height="150"></div>
+									<div id="morris-line-chart2" ></div>
+									 -->
+									 <canvas id="curve-line-chart"  height="150"></canvas> 
+									<canvas id="comparison-line-chart"  height="150"></canvas>
 								</div>
 							</div>
 						</div>
@@ -235,6 +238,7 @@
 	<script src="/resources/admin/assets/libs/morris.js/morris.min.js"></script>
 	<!-- <script src="/resources/admin/dist/js/pages/morris/morris-data copy.js"></script> -->
 	<script src="/resources/admin/dist/js/pages/morris/graphZip.js"></script>
+<!-- 	<script src="/resources/admin/dist/js/graphChanges.js"></script> -->
 
 </body>
 
