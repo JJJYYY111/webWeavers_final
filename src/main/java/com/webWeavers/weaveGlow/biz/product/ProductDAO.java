@@ -237,25 +237,12 @@ public class ProductDAO {
 
 		    
 		 // 카테고리별 매출 구하고 백분율로 나누기(도넛차트) 
-		private static final String SELECTALL_CATEGORY_SALES =
-				"SELECT CASE P.CATEGORY_PK "
-				+ "WHEN 1 THEN '스킨케어' "
-				+ "WHEN 2 THEN '클렌징' "
-				+ "WHEN 3 THEN '마스크팩' "
-				+ "ELSE '기타' "
-				+ "END AS CATEGORY_NAME, "
-				+ "SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS CATEGORY_TOTAL, " // 각 카테고리별 매출
-				+ "ROUND((SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) / total_sales.total_sales) * 100, 1) AS PERCENTAGE "
-				+ "FROM BUYPRODUCT B "
-				+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK " // 제품 정보를 가져오기 위해 BUYPRODUCT와 PRODUCT 테이블을 조인
-				+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK " // 시리얼 정보를 가져오기 위해 BUYPRODUCT와 SERIAL 테이블을 조인
-				+ "JOIN (SELECT SUM(B1.BUYPRODUCT_CNT * P1.PRODUCT_PRICE) AS total_sales "
-				+ "FROM BUYPRODUCT B1 "
-				+ "JOIN PRODUCT P1 ON B1.PRODUCT_PK = P1.PRODUCT_PK "
-				+ "JOIN SERIAL S1 ON S1.SERIAL_PK = B1.SERIAL_PK "
-				+ "WHERE DATE(S1.SERIAL_REGDATE) = CURDATE()) AS total_sales ON 1=1 " // 서브쿼리의 결과를 total_sales라는 이름으로 가져와서
-				+ "WHERE DATE(S.SERIAL_REGDATE) = CURDATE() " // 오늘의 날짜에 해당하는 데이터만 선택
-				+ "GROUP BY P.CATEGORY_PK, total_sales.total_sales "; // total_sales 컬럼도 GROUP BY 절에 추가
+		private static final String SELECTALL_CATEGORY_SALES ="SELECT S.CATEGORY_PK, "
+				+ "SUM(TEMP2.BUYPRODUCT_CNT * TEMP2.PRODUCT_PRICE)AS CATEGORY_TOTAL "
+				+ "FROM (SELECT B.BUYPRODUCT_CNT, P.PRODUCT_PRICE, (SELECT CZ.SUBCATEGORY_PK FROM CATEGORIZATION CZ WHERE CZ.PRODUCT_PK = P.PRODUCT_PK LIMIT 1) AS TEMP "
+				+ "FROM BUYPRODUCT B JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK) TEMP2 "
+				+ "JOIN SUBCATEGORY S ON TEMP2.TEMP = S.SUBCATEGORY_PK "
+				+ "GROUP BY S.CATEGORY_PK "; 
 	
 		// 검색조건별 매출현황 쿼리문 반환 함수		
 		private static String selectAllProductSalesQuery(ProductDTO productDTO) {
@@ -686,9 +673,8 @@ class ProductSalesByCategoryAdminRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
-		data.setCategoryName(rs.getString("CATEGORY_NAME"));
+		data.setCategoryPK(rs.getInt("CATEGORY_PK"));
 		data.setCategoryTotal(rs.getInt("CATEGORY_TOTAL"));
-		data.setPercentAge(rs.getInt("PERCENTAGE"));
 		
 		return data;
 	}
