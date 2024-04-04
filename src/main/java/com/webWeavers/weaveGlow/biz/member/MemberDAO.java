@@ -34,10 +34,14 @@ public class MemberDAO {
 	// 회원ID 중복체크
 	private static final String SELECTONE_IDCHECK = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, "
 														+ " MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_ID=?";
-	// 회원ID 찾기
-	private static final String SELECTONE_IDFORGOT = "SELECT MEMBER_ID, MEMBER_PHONE FROM MEMBER WHERE MEMBER_NAME=? AND MEMBER_PHONE=? ";
-	// 회원PW 찾기
-	private static final String SELECTONE_PWFORGOT = "SELECT MEMBER_ID, MEMBER_PHONE FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_PHONE=? ";
+	// 회원ID 찾기_SMS
+	private static final String SELECTONE_IDFINDSMS = "SELECT MEMBER_ID, MEMBER_PHONE FROM MEMBER WHERE MEMBER_NAME=? AND MEMBER_PHONE=? ";
+	// 회원PW 찾기_SMS
+	private static final String SELECTONE_PWFINDSMS = "SELECT MEMBER_ID, MEMBER_PHONE FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_PHONE=? ";
+	// 회원ID 찾기_Email
+	private static final String SELECTONE_IDFINDEMAIL = "SELECT MEMBER_ID, MEMBER_EMAIL FROM MEMBER WHERE MEMBER_NAME=? AND MEMBER_EMAIL=? ";
+	// 회원PW 찾기_Email
+	private static final String SELECTONE_PWFINDEMAIL = "SELECT MEMBER_ID, MEMBER_EMAIL FROM MEMBER WHERE MEMBER_ID=? AND MEMBER_EMAIL=? ";	
 	// 회원 가입
 	private static final String INSERT = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_MARKETING)"
 														+ " VALUES (?,?,?,?,?,?,?,?)";
@@ -82,12 +86,18 @@ public class MemberDAO {
 			} else if (memberDTO.getSearchCondition().equals("idCheck")) {
 				Object[] args = { memberDTO.getMemberID() };
 				return jdbcTemplate.queryForObject(SELECTONE_IDCHECK, args, new MemberRowMapper2());
-			} else if (memberDTO.getSearchCondition().equals("idForgot")) {
+			} else if (memberDTO.getSearchCondition().equals("idFindSms")) {
 				Object[] args = { memberDTO.getMemberName(), memberDTO.getMemberPhone() };
-				return jdbcTemplate.queryForObject(SELECTONE_IDFORGOT, args, new MemberSmsRowMapper());
-			} else if (memberDTO.getSearchCondition().equals("pwForgot")) {
+				return jdbcTemplate.queryForObject(SELECTONE_IDFINDSMS, args, new MemberSmsRowMapper());
+			} else if (memberDTO.getSearchCondition().equals("pwFindSms")) {
 				Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberPhone() };
-				return jdbcTemplate.queryForObject(SELECTONE_PWFORGOT, args, new MemberSmsRowMapper());
+				return jdbcTemplate.queryForObject(SELECTONE_PWFINDSMS, args, new MemberSmsRowMapper());
+			} else if (memberDTO.getSearchCondition().equals("idFindEmail")) {
+				Object[] args = { memberDTO.getMemberName(), memberDTO.getMemberEmail() };
+				return jdbcTemplate.queryForObject(SELECTONE_IDFINDEMAIL, args, new MemberEmailRowMapper());				
+			} else if (memberDTO.getSearchCondition().equals("pwFindEmail")) {
+				Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberEmail() };
+				return jdbcTemplate.queryForObject(SELECTONE_PWFINDEMAIL, args, new MemberEmailRowMapper());						
 			}
 		} catch (Exception e) {
 			System.out.println("[로그1] 데이터가 없습니다.");

@@ -1,17 +1,18 @@
 package com.webWeavers.weaveGlow.biz.mail;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.webWeavers.weaveGlow.biz.address.AddressDTO;
 import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductDTO;
+import com.webWeavers.weaveGlow.biz.member.MemberDTO;
+import com.webWeavers.weaveGlow.biz.member.MemberService;
 
 import jakarta.mail.Message;
-import jakarta.mail.Message.RecipientType;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
@@ -20,6 +21,8 @@ public class MailService{
 	
 	@Autowired
 	private JavaMailSender emailSender;
+	@Autowired
+	private MemberService memberService;
 	
 	public void SendMail(AddressDTO addressDTO, List<BuyProductDTO> datas, String recipientAddress){
 		
@@ -136,6 +139,69 @@ public class MailService{
 //			e.printStackTrace();
 //			return "checkoutSuccess";
 //		}
+	}
+	
+	// 아이디|비밀번호 이메일로 찾기
+	public int sendIdPwEmail(MemberDTO memberDTO) {
+		MimeMessage message = emailSender.createMimeMessage();
+		
+		String randPW = getRandomPassword(10);
+		
+		String html = "<h3>[WeaveGlow] 임시 비밀번호</h3><br>"
+						+ "<span>발급된 임시 비밀번호는 " + randPW + " 입니다.<br>"
+						+ "로그인 후 마이페이지에서 비밀번호 변경바랍니다.";
+		try {
+			message.setFrom(new InternetAddress("wgw1008@gmail.com"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(memberDTO.getMemberEmail()));
+			message.setSubject("[WeaveGlow] 임시 비밀번호");
+			message.setText(html, "UTF-8", "html");
+			
+			// 임시 비밀번호 발급 전, 회원 비밀번호 update
+			memberDTO.setMemberPassword(randPW);
+			memberDTO.setSearchCondition("updatePW");			
+			if(!memberService.update(memberDTO)) {
+				return -1;
+			}			
+			
+			// send 메서드로 이메일 전송
+			emailSender.send(message);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+		return 1;
+	}
+	
+	// 임시 비밀번호를 생성하기 위한 문자후보목록
+	private static final char[] CharArray = new char[]{
+	        // 숫자
+	        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+	        // 대문자
+	        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+	        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+	        // 소문자
+	        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+	        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+	        // 특수기호
+	        '@', '$', '!', '%', '*', '?', '&'
+	};
+	
+	// 매개변수로 받은 수의 길이만큼 임시 비밀번호 생성하는 메서드
+	public String getRandomPassword(int length) {
+		// 보안을 강화하기 위해 SecureRandom 사용
+	    SecureRandom random = new SecureRandom();
+	    StringBuilder stringBuilder = new StringBuilder();
+	    
+	    // 랜덤문자배열 변수에 저장 (반복문 실행될 때마다 .length 호출 방지)
+	    int charArrayLength = CharArray.length;
+	    for (int i = 0; i < length; i++) {
+	    	// 랜덤 인덱스로 랜덤 문자 선택 > stringBuilder 객체에 문자 추가
+	        stringBuilder.append(CharArray[random.nextInt(charArrayLength)]);
+	    }
+	    
+	    // StringBuilder > String 객체로 변환 후 반환
+	    return stringBuilder.toString();
 	}
 
 }
