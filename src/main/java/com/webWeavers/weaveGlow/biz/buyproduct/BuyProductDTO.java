@@ -22,6 +22,5 @@ public class BuyProductDTO {
 	private int productPrice;
 	private String productImg;
 	private int reviewCheck;
-
 	
 }

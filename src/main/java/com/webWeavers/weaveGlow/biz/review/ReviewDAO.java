@@ -49,7 +49,7 @@ public class ReviewDAO {
 		return query;
 	}
 	
-	// 마이페이지_리뷰 목록
+	// 리뷰목록_마이페이지
 	private static final String SELECTALL_MYREVIEW = "SELECT\r\n"
 			+ "	B.BUYPRODUCT_PK, P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_IMG, R.REVIEW_REGDATE, R.REVIEW_SCOPE, R.REVIEW_CONTENT, R.REVIEW_IMG\r\n"
 			+ "FROM MEMBER M\r\n"
@@ -73,15 +73,19 @@ public class ReviewDAO {
 		Object[] args1 = { reviewDTO.getMemberID(), reviewDTO.getProductPK() };
 		Object[] args2 = { reviewDTO.getMemberID() };
 		try {
+			// 리뷰목록(최신순)_상품상세페이지
 			if (reviewDTO.getSearchCondition().equals("regdate")) {
 				return jdbcTemplate.query(selectAllQuery("regdate"), args1, new ReviewListRowMapper());
-			} else if(reviewDTO.getSearchCondition().equals("reviewLike")) {
+			}
+			// 리뷰목록(따봉순)_상품상세페이지
+			else if(reviewDTO.getSearchCondition().equals("reviewLike")) {
 				return jdbcTemplate.query(selectAllQuery("reviewLike"), args1, new ReviewListRowMapper());
-			} else if (reviewDTO.getSearchCondition().equals("myReview")) {
+			} 
+			// 리뷰목록_마이페이지
+			else if (reviewDTO.getSearchCondition().equals("myReview")) {
 				return jdbcTemplate.query(SELECTALL_MYREVIEW, args2, new ReviewMyListRowMapper());
 			}
 		} catch (Exception e) {
-			System.out.println("reviewSelectAll오류진입");
 			e.printStackTrace();
 			return null;
 		}

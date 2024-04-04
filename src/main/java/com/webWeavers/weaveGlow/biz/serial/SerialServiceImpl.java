@@ -15,14 +15,17 @@ public class SerialServiceImpl implements SerialService {
 
 	@Override
 	public List<SerialDTO> selectAll(SerialDTO serialDTO) {
+		// 전체 주문현황_(관리자)주문관리페이지
 		if (serialDTO.getSearchCondition().equals("orderList")) {
 			return serialDAO.selectAllOrderList();
 		}
+		// 주문번호별 상품현황_(관리자)주문관리페이지
 		else if (serialDTO.getSearchCondition().equals("orderProduct")) {
 			Map<String, Object> map = new HashMap<String, Object>();	
 			map.put("serialPK", serialDTO.getSerialPK());
 			return serialDAO.selectAllOrderProduct(map);
 		}
+		// 주문검색_(관리자)주문관리페이지	
 		else if (serialDTO.getSearchCondition().equals("orderSearch")) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("serialStatus", serialDTO.getSerialStatus());

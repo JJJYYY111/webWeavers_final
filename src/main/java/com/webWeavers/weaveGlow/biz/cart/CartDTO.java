@@ -9,11 +9,12 @@ public class CartDTO {
 	private int productPK;
 	private String memberID;
 	private int cartCnt;
+	
+	private String searchCondition;	
 
+	// 장바구니페이지
 	private String productName;
 	private String productImg;
 	private int productPrice;
-
-	private String searchCondition;
 
 }

@@ -20,7 +20,7 @@ public class BuyProductDAO {
 			+ "	S.SERIAL_PK, S.SERIAL_REGDATE, S.SERIAL_DELIVERYADDRESS,\r\n"
 			+ "	B.BUYPRODUCT_PK, B.BUYPRODUCT_CNT,\r\n"
 			+ "	P.PRODUCT_PK, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_NAME,\r\n"
-			+ "	IF(R.REVIEW_PK IS NOT NULL, 1, 0) REVIEWCHECK\r\n"
+			+ "	IF(R.REVIEW_PK IS NOT NULL, 1, 0) REVIEWCHECK\r\n"	// BUYPRODUCT_PK 기준으로 REVIEW, BUYPRODUCT 테이블 조인 -> 구매한 상품의 리뷰 작성 유무 확인
 			+ "FROM SERIAL S\r\n"
 			+ "LEFT JOIN BUYPRODUCT B ON S.SERIAL_PK = B.SERIAL_PK\r\n"
 			+ "LEFT JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
@@ -34,7 +34,7 @@ public class BuyProductDAO {
 			+ "FROM SERIAL S\r\n"
 			+ "JOIN BUYPRODUCT B ON B.SERIAL_PK = S.SERIAL_PK\r\n"
 			+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK\r\n"
-			+ "WHERE S.MEMBER_ID = ? AND S.SERIAL_PK = (SELECT MAX(SERIAL_PK) FROM SERIAL)";
+			+ "WHERE S.MEMBER_ID = ? AND S.SERIAL_PK = (SELECT MAX(SERIAL_PK) FROM SERIAL)";	// SERIAL테이블에 데이터 INSERT 후 BUYPRODUCT테이블에 데이터 INSERT -> SERIAL_PK 최대값
 	// 구매상품선택 > 리뷰수정
 	private static final String SELECTONE = "SELECT B.BUYPRODUCT_PK, B.BUYPRODUCT_CNT, S.SERIAL_PK, S.SERIAL_REGDATE, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_PK FROM BUYPRODUCT B JOIN SERIAL S ON B.SERIAL_PK=S.SERIAL_PK JOIN PRODUCT P ON B.PRODUCT_PK=P.PRODUCT_PK WHERE B.BUYPRODUCT_PK = ?";
 	// 구매상품추가
@@ -45,9 +45,12 @@ public class BuyProductDAO {
 	public List<BuyProductDTO> selectAll(BuyProductDTO buyProductDTO) {
 		Object[] args = { buyProductDTO.getMemberID() };
 		try {
+			// 구매목록페이지
 			if (buyProductDTO.getSearchCondition().equals("checkoutList")) {
 				return jdbcTemplate.query(SELECTALL_CHECKOUTLIST, args, new BuyProductRowMapper1());
-			} else if (buyProductDTO.getSearchCondition().equals("checkoutSuccess")) {
+			}
+			// 구매완료페이지_최근구매내역
+			else if (buyProductDTO.getSearchCondition().equals("checkoutSuccess")) {
 				return jdbcTemplate.query(SELECTALL_CHECKOUTSUCCESS, args, new BuyProductRowMapper2());
 			}
 		}catch (Exception e) {
@@ -60,6 +63,7 @@ public class BuyProductDAO {
 	public BuyProductDTO selectOne(BuyProductDTO buyProductDTO) {
 		Object[] args = { buyProductDTO.getBuyProductPK() };
 	try {
+		// 구매상품선택 > 리뷰수정
 		return jdbcTemplate.queryForObject(SELECTONE, args, new BuyProductRowMapper2());
 	}catch(Exception e) {
 		e.printStackTrace();
@@ -75,14 +79,14 @@ public class BuyProductDAO {
 		return true;
 	}
 
-	public boolean update(BuyProductDTO buyProductDTO) {
-		return false;
-	}
+//	private boolean update(BuyProductDTO buyProductDTO) {
+//		return false;
+//	}
 
-	private boolean delete(BuyProductDTO buyProductDTO) {
-
-		return false;
-	}
+//	private boolean delete(BuyProductDTO buyProductDTO) {
+//
+//		return false;
+//	}
 	
 }
 

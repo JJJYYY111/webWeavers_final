@@ -145,6 +145,7 @@ public class MailService{
 	public int sendIdPwEmail(MemberDTO memberDTO) {
 		MimeMessage message = emailSender.createMimeMessage();
 		
+		// 아이디 찾기
 		if (memberDTO.getSearchCondition().equals("sendID")) {
 			String html = "<h3>[WeaveGlow] 아이디</h3><br>"
 					+ "고객님의 정보와 일치하는 아이디 입니다.<br>"
@@ -162,7 +163,7 @@ public class MailService{
 				return -1;
 			}
 		}
-
+		// 비밀번호 찾기
 		else if (memberDTO.getSearchCondition().equals("sendPW")) {
 			String randPW = getRandomPassword(10);
 			

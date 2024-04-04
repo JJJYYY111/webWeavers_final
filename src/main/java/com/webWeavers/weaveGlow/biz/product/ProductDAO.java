@@ -17,67 +17,30 @@ public class ProductDAO {
 	
 	
 	// ------------------------------------- UserPage -------------------------------------
-//	// User_메인페이지, 상품목록페이지
-//	// 정렬별 상품목록 쿼리문 반환 함수
-//	private static String selectAllProductListQuery(String sortType) {
-//		
-//		String query = "WITH WS AS (SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT FROM WISHLIST GROUP BY PRODUCT_PK),\r\n"	// 상품별 찜 개수 CTE
-//				+ "BS AS ( SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) SALES FROM BUYPRODUCT GROUP BY PRODUCT_PK)\r\n"		// 상품별 판매량 CTE
-//				+ "SELECT P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG, P.PRODUCT_REGDATE, BS.SALES, WS.CNT,\r\n"
-//				+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
-//				+ "FROM PRODUCT P\r\n"
-//				+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
-//				+ "LEFT JOIN  BS ON P.PRODUCT_PK = BS.PRODUCT_PK\r\n"
-//				+ "LEFT JOIN WS ON P.PRODUCT_PK = WS.PRODUCT_PK\r\n"
-//				+ "ORDER BY\r\n";
-//		
-//		// 메인페이지,상품목록페이지(판매량순)
-//		if(sortType.equals("sales")) {
-//			query += "BS.SALES DESC, ";
-//		}
-//		// 상품목록페이지(신상순)
-//		else if(sortType.equals("regdate")) {
-//			query += "P.PRODUCT_REGDATE DESC, ";
-//		}
-//		// 메인페이지(찜순)
-//		else if(sortType.equals("wish")) {
-//			query += "WS.CNT DESC, ";
-//		}
-//		// 상품목록페이지(낮은가격순)
-//		else if(sortType.equals("rowPrice")) {
-//			query += "P.PRODUCT_PRICE ASC, ";
-//		}
-//		
-//		query += "P.PRODUCT_PK DESC";
-//		
-//		System.out.println(query);
-//		
-//		return query;
-//	}
 	
 	// User_메인페이지
 	// 정렬별 상품목록 쿼리문 반환 함수
 	private static String selectAllMainPageProductList(String sortType) {
 		String query = 
-				"WITH P_BUYCNT AS (\r\n"
+				"WITH P_BUYCNT AS (\r\n"	// 상품별 총 구매수량 정보 CTE --> 인기순 정렬을 하기위함 
 				+ "	SELECT PRODUCT_PK, SUM(BUYPRODUCT_CNT) CNT\r\n"
 				+ "	FROM BUYPRODUCT\r\n"
 				+ "	GROUP BY PRODUCT_PK\r\n"
-				+ "), P_WISHCNT AS (\r\n"
+				+ "), P_WISHCNT AS (\r\n"	// 상품별 찜 개수 정보 CTE --> 추천순 정렬을 하기위함 
 				+ "	SELECT PRODUCT_PK, COUNT(WISHLIST_PK) CNT\r\n"
 				+ "	FROM WISHLIST\r\n"
 				+ "	GROUP BY PRODUCT_PK\r\n"
 				+ ")\r\n"
 				+ "SELECT\r\n"
 				+ "	P.PRODUCT_PK, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_IMG,\r\n"
-				+ "	COALESCE(PB.CNT, 0) AS sales,\r\n"
-				+ "	COALESCE(PW.CNT, 0) AS wish,\r\n"
-				+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"
+				+ "	COALESCE(PB.CNT, 0) AS sales,\r\n"	// 상품별 총 판매량
+				+ "	COALESCE(PW.CNT, 0) AS wish,\r\n"	// 상품별 총 찜개수
+				+ "	CASE WHEN W.WISHLIST_PK IS NOT NULL THEN 1 ELSE 0 END AS HasWPK\r\n"	// 상품별 사용자의 찜 유무 확인
 				+ "FROM PRODUCT P\r\n"
 				+ "LEFT JOIN WISHLIST W ON P.PRODUCT_PK = W.PRODUCT_PK AND W.MEMBER_ID = ?\r\n"
 				+ "LEFT JOIN P_BUYCNT PB ON PB.PRODUCT_PK = P.PRODUCT_PK\r\n"
 				+ "LEFT JOIN P_WISHCNT PW ON PW.PRODUCT_PK = P.PRODUCT_PK\r\n"			
-				+ "ORDER BY " + sortType + " DESC, P.PRODUCT_PK ASC LIMIT 8";
+				+ "ORDER BY " + sortType + " DESC, P.PRODUCT_PK ASC LIMIT 8";	// sortType - 정렬조건
 		
 		return query;
 	}
@@ -98,9 +61,11 @@ public class ProductDAO {
 		
 		// 카테고리 및 서브카테고리 조건
 		if(productDTO.getCategoryPK() > 0) {
+			// System.out.println("[로그] 카테고리");
 			query += "	AND C.CATEGORY_PK = " + productDTO.getCategoryPK();
 		}
 		if(productDTO.getSubCategoryPK() > 0) {
+			// System.out.println("[로그] 서브카테고리");
 			query += "	AND S.SUBCATEGORY_PK = " + productDTO.getSubCategoryPK();
 		}
 		
@@ -164,7 +129,6 @@ public class ProductDAO {
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY, PRODUCT_STATUS\r\n"
 			+ "FROM PRODUCT\r\n"
 			+ "ORDER BY PRODUCT_PK ASC\r\n";
-//			+ "LIMIT ?, 10";	// 페이징처리 (앞단 페이지 번호 필요) (?행부터 10개 데이터 추출 / 0,10,20,30,40,... 이렇게 번호 넘어오면 좋을것같음) -> 앞단에서 처리 예정
 	// Admin_상품수정페이지
 	private static final String SELECTONE_UPDATE = "SELECT\r\n"
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_REGDATE,\r\n"
@@ -260,9 +224,11 @@ public class ProductDAO {
 		
 		// 카테고리 및 서브카테고리 조건
 		if(productDTO.getCategoryPK() > 0) {
+			//System.out.println("[로그] 카테고리");
 			query += "	AND C.CATEGORY_PK = " + productDTO.getCategoryPK();
 		}
 		if(productDTO.getSubCategoryPK() > 0) {
+			//System.out.println("[로그] 서브카테고리");
 			query += "	AND S.SUBCATEGORY_PK = " + productDTO.getSubCategoryPK();
 		}
 		
@@ -353,30 +319,13 @@ public class ProductDAO {
 		
 		try {
 			// User_메인페이지(판매량순, 찜순)
-			if (productDTO.getSearchCondition().equals("userMain")) {	// 쿼리반환함수 인자 : DTO를 줘도되지만 정렬조건만 있어도돼서 개별로줌 (추후삭제할 주석)
+			if (productDTO.getSearchCondition().equals("userMain")) {	// 쿼리반환함수 인자 : DTO를 줘도되지만 정렬조건만 있어도돼서 개별로줌
 				return jdbcTemplate.query(selectAllMainPageProductList(productDTO.getSortType()), args1, new ProductListUserRowMapper());
 			}
 			// User_상품목록페이지(판매량순, 신상순, 낮은가격순)
-			else if (productDTO.getSearchCondition().equals("userProductList")) {	// 쿼리반환함수 인자 : 줘야할 정보가 많아서 DTO줌 (추후삭제할 주석)
+			else if (productDTO.getSearchCondition().equals("userProductList")) {	// 쿼리반환함수 인자 : 줘야할 정보가 많아서 DTO줌
 				return jdbcTemplate.query(selectAllProductListPage(productDTO), args1, new ProductListUserRowMapper());
 			}			
-			// 컨트롤러에서 잘되는거 확인한 후 지울 예정인 주석들....
-//			// User_상품목록페이지(판매량순)
-//			else if (productDTO.getSearchCondition().equals("sales")) {
-//				return jdbcTemplate.query(selectAllProductListQuery("sales"), args1, new ProductListUserRowMapper());
-//			}
-//			// User_상품목록페이지(신상순)
-//			else if (productDTO.getSearchCondition().equals("regdate")) {
-//				return jdbcTemplate.query(selectAllProductListQuery("regdate"), args1, new ProductListUserRowMapper());
-//			}
-//			// User_상품목록페이지(찜순)
-//			else if (productDTO.getSearchCondition().equals("wish")) {
-//				return jdbcTemplate.query(selectAllProductListQuery("wish"), args1, new ProductListUserRowMapper());
-//			}
-//			// User_상품목록페이지(낮은가격순)
-//			else if (productDTO.getSearchCondition().equals("rowPrice")) {
-//				return jdbcTemplate.query(selectAllProductListQuery("rowPrice"), args1, new ProductListUserRowMapper());
-//			}
 			// User_상품검색페이지
 			else if (productDTO.getSearchCondition().equals("searchName")) {
 				return jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
@@ -400,22 +349,28 @@ public class ProductDAO {
 			// Admin_오늘 총 매출
 			else if (productDTO.getSearchCondition().equals("adminTodaySales")) {
 				return jdbcTemplate.query(SELECTALL_TODAYSALES_TOTAL, new ProductSalesTotalTodayAdminRowMapper());
-			}// Admin_어제 총 매출
+			}
+			// Admin_어제 총 매출
 			else if (productDTO.getSearchCondition().equals("adminPvdaySales")) {
 				return jdbcTemplate.query(SELECTALL_PVDAYSALES_TOTAL, new ProductSalesTotalPvdayAdminRowMapper());
-			}// Admin_오늘 3시간별 매출(줄 그래프)
+			}
+			// Admin_오늘 3시간별 매출(줄 그래프)
 			else if (productDTO.getSearchCondition().equals("adminTodaySalesByHours")) {
 				return jdbcTemplate.query(SELECTALL_TODAYSALES_THREEHOUR, new ProductSalesTodayHourAdminRowMapper());
-			}// Admin_어제 3시간별 매출(줄 그래프)
+			}
+			// Admin_어제 3시간별 매출(줄 그래프)
 			else if (productDTO.getSearchCondition().equals("adminPvdaySalesByHours")) {
 				return jdbcTemplate.query(SELECTALL_PVDAYSALES_THREEHOUR, new ProductSalesPvdayHourAdminRowMapper());
-			}// Admin_ 이번달 총매출
+			}
+			// Admin_이번달 총 매출
 			else if (productDTO.getSearchCondition().equals("adminSalesThisMonth")) {
 				return jdbcTemplate.query(SELECTALL_SALES_THISMONTH, new ProductSalesThisMonthAdminRowMapper());
-			}// Admin_월별매출(막대 그래프)
+			}
+			// Admin_월별매출(막대 그래프)
 			else if (productDTO.getSearchCondition().equals("adminMonthlySalesGraph")) {
 				return jdbcTemplate.query(SELECTALL_MONTHLY_SALES, new ProductMonthlySalesAdminRowMapper());
-			}// Admin_카테고리별 매출 백분율(도넛차트)
+			}
+			// Admin_카테고리별 매출 백분율(도넛차트)
 			else if (productDTO.getSearchCondition().equals("adminCategorySalesDonut")) {
 				return jdbcTemplate.query(SELECTALL_CATEGORY_SALES, new ProductSalesByCategoryAdminRowMapper());
 			}
@@ -479,7 +434,8 @@ public class ProductDAO {
 				result = jdbcTemplate.update(UPDATE, productDTO.getProductName(), productDTO.getProductPrice(),
 						productDTO.getProductDetailImg(), productDTO.getProductImg(), productDTO.getProductStatus(),
 						productDTO.getProductQuantity(), productDTO.getProductPK());
-			} // 판매된 상품 갯수만큼 갯수 수정
+			}
+			// 판매된 상품수만큼 재고수량 수정
 			else if(productDTO.getSearchCondition().equals("updateBySelling")) {
 				result = jdbcTemplate.update(UPDATE_BYSELLING, productDTO.getProductQuantity(), productDTO.getProductPK());
 			}
