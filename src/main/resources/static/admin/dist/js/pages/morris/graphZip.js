@@ -244,6 +244,55 @@ $(function () {
 });
 
 $(function () {
+    // LINE CHART
+    // 여기가 차트
+    var graphJson = [
+            { y: '0~3시' , 어제: 0, 오늘: 0 },
+            { y: '3~6시' , 어제: 0, 오늘: 0 },
+            { y: '6~9시' , 어제: 0, 오늘: 0 },
+            { y: '9~12시' , 어제: 0, 오늘: 0 },
+            { y: '12~15시' , 어제: 0, 오늘: 0 },
+            { y: '15~18시' , 어제: 0, 오늘: 0 },
+            { y: '18~21시' , 어제: 0, 오늘: 0 },
+            { y: '21~24시' , 어제: 0, 오늘: 0 }
+        ];
+    
+    $.ajax({
+			type: "POST",
+			url: "adminTodaySalesGraph",
+            dataType: 'json',
+            	success:function(datas) {
+            		
+            		console.log('로그'+datas);
+        
+            		$.each(datas, function(index, data){
+            		    graphJson[(data.totalTemp)/3].item2 = data.totalPrice
+            		});
+            		var line = new Morris.Line({
+        element: 'morris-line-chart2',
+        resize: true,
+        data: graphJson,
+        xkey: 'y',
+        ykeys: [ 'item2'],
+        labels: [ '오늘'],
+        gridLineColor: '#eef0f2',
+        lineColors: [ '#01caf1'],
+        lineWidth: 1,
+        hideHover: 'auto',
+        parseTime: false // x축이 시간 형식이 아님을 나타내는 옵션
+
+    });
+            },
+            error: function (error) {
+            	
+                console.log('에러의 종류:' + error)
+            }
+		});
+		
+   
+});
+
+$(function () {
     // Morris donut chart
 
     Morris.Donut({
@@ -263,26 +312,7 @@ $(function () {
         colors: ['#5f76e8', '#01caf1', '#8fa0f3']
     });
 });
-$(function () {
-    // Morris donut chart
 
-    Morris.Donut({
-        element: 'morris-donut-chart2',
-        data: [{
-            label: "스킨",
-            value: 30,
-
-        }, {
-            label: "클렌징",
-            value: 60
-        }, {
-            label: "마스크",
-            value: 10
-        }],
-        resize: true,
-        colors: ['#5f76e8', '#01caf1', '#8fa0f3']
-    });
-});
 $(function () {
     // Morris bar chart
     Morris.Bar({
@@ -423,6 +453,10 @@ $(function () {
 
 // 	});
 // });
+
+
+//----------------------------------------------------------------------------------------------
+
 
 $(function () {
 	"use strict";
@@ -634,42 +668,310 @@ $(function () {
 
  }); 
  
+ 
+  $(function () {
+	// // 초기에 차트를 생성합니다.
+	// var myChart = createBarChart(chartData);
+	//donut
+new Chart(document.getElementById("donut-chart"), {
+	type: 'doughnut',
+	data: {
+	  labels: ['스킨', '클렌징', '마스크'],
+	  datasets: [
+		{
+		  label: "donut (chart)",
+		  backgroundColor: ["#e74a3b", "#3498db", "#f1c40f"],
+		  data: [300, 50, 100],
+		  hoverOffset: 4
+		}
+	  ]
+	},
+	options: {
+	  title: {
+		display: true,
+		text: 'Donut Chart'
+	  }
+	}
+  });
+
+ }); 
+ 
+   $(function () {
+	// // 초기에 차트를 생성합니다.
+ // 차트 생성
+        new Chart(document.getElementById("curve-line-chart"), {
+            type: 'line', // 곡선 차트 유형 설정
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                    {
+                        label: "My Dataset",
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)', //반투명 
+                        pointBackgroundColor: 'rgb(75, 192, 192)',
+                        pointBorderColor: 'rgb(75, 192, 192)'
+                    }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'curve-line-chart'
+                }
+            }
+        });
+ });  
+ 
+ 
+/*   $(function () {
+ // 데이터 준비
+        var labels = ['0~3시', '3~6시', '6~9시', '9~12시', '12~15시', '15~18시', '18~21시', '21~24시'];
+        var datasetYesterday = {
+            label: "어제",
+            data: [0, 0, 0, 0, 0, 0, 0, 0],
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            pointBackgroundColor: 'rgb(75, 192, 192)',
+            pointBorderColor: 'rgb(75, 192, 192)'
+        };
+        var datasetToday = {
+            label: "오늘",
+            data: [0, 0, 0, 0, 0, 0, 0, 0],
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            pointBorderColor: 'rgb(255, 99, 132)'
+        };
+
+        // 차트 생성
+        new Chart(document.getElementById("comparison-line-chart"), {
+            type: 'line', // 곡선 차트 유형 설정
+            data: {
+                labels: labels,
+                datasets: [datasetYesterday, datasetToday]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Comparison Line Chart'
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: '시간대'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: '판매량'
+                        }
+                    }]
+                }
+            }
+        });
+  }); */
+  
+  $(function () {
+            // 데이터 준비
+            var labels = ['0~3시', '3~6시', '6~9시', '9~12시', '12~15시', '15~18시', '18~21시', '21~24시'];
+             var datasetYesterday = {
+                label: "어제",
+                data: [0, 0, 0, 0, 0, 0, 0, 0],
+                borderColor: 'rgb(75, 192, 192)',
+                /*backgroundColor: 'rgba(75, 192, 192, 0.2)',*/
+                backgroundColor: 'rgba(0, 0, 0, 0)',
+                pointBackgroundColor: 'rgb(75, 192, 192)',
+                pointBorderColor: 'rgb(75, 192, 192)'
+                
+            };
+            var datasetToday = {
+                label: "오늘",
+                data: [0, 0, 0, 0, 0, 0, 0, 0],
+                borderColor: 'rgb(255, 99, 132)',
+                /*backgroundColor: 'rgba(255, 99, 132, 0.2)',*/
+                backgroundColor: 'rgba(0, 0, 0, 0)',
+                pointBackgroundColor: 'rgb(255, 99, 132)',
+                pointBorderColor: 'rgb(255, 99, 132)'
+                
+            };
+
+            // 차트 생성
+            var lineChart = new Chart(document.getElementById("comparison-line-chart"), {
+                type: 'line', // 곡선 차트 유형 설정
+                data: {
+                    labels: labels,
+                    datasets: [datasetYesterday, datasetToday]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Comparison Line Chart'
+                    },
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: '시간대'
+                            }
+                        }],
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: '판매량'
+                            }
+                        }]
+                    }
+                }
+            });
+
+            // 어제 데이터 요청
+            $.ajax({
+                type: 'POST',
+                url: 'adminYesterdaySalesGraph',
+                dataType: 'json',
+                success: function(datas) {
+                    datas.forEach(function(data, index) {
+                        lineChart.data.datasets[0].data[index] = data.totalPrice;
+                    });
+                    lineChart.update(); // 차트 업데이트
+                },
+                error: function(error) {
+                    console.log('에러의 종류:' + error);
+                }
+            });
+
+            // 오늘 데이터 요청
+            $.ajax({
+                type: 'POST',
+                url: 'adminTodaySalesGraph',
+                dataType: 'json',
+                success: function(datas) {
+                    datas.forEach(function(data, index) {
+                        lineChart.data.datasets[1].data[index] = data.totalPrice;
+                    });
+                    lineChart.update(); // 차트 업데이트
+                },
+                error: function(error) {
+                    console.log('에러의 종류:' + error);
+                }
+            });
+        });
+  
+  
+  $(function () {
+    "use strict";
+
+    // 데이터 준비
+    var labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+    var salesData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    // 데이터 요청
+    $.ajax({
+        type: "POST",
+        url: "adminMonthlySalesGraph",
+        dataType: 'json',
+        success: function(datas) {
+            console.log('로그' + datas);
+            datas.forEach(function(data) {
+                var monthIndex = parseInt(data.month.substr(-2, 2)) - 1;
+                salesData[monthIndex] = data.totalPrice;
+            });
+
+            // 차트 생성
+            new Chart(document.getElementById("curve-area-chart"), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '매출액',
+                        data: salesData,
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        pointBackgroundColor: 'rgb(75, 192, 192)',
+                        pointBorderColor: 'rgb(75, 192, 192)'
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Monthly Sales Chart'
+                    },
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: '월'
+                            }
+                        }],
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: '매출액'
+                            }
+                        }]
+                    }
+                }
+            });
+        },
+        error: function(error) {
+            console.log('에러의 종류:' + error);
+        }
+    });
+});
+
+  
  // graphZip.js
 
 $(document).ready(function() {
-    // 초기에는 바바 그래프만 보이도록 설정
-    $("#morris-donut-chart").hide();
+    // 현재 페이지 URL 가져오기
+    var currentPageURL = window.location.href;
 
-    // 바바 버튼 클릭 시 실행되는 함수
-    $("#baba-button").click(function() {
-        // 바바 버튼을 클릭하면 바바 그래프를 보이고 도낫 그래프를 숨김
-        $("#bar-chart").show();
-        $("#morris-donut-chart").hide();
-    });
+    // adminDashboard 페이지에서만 실행될 스크립트
+    if (currentPageURL.indexOf("adminDashboard") !== -1) {
+        // 초기에는 바바 그래프만 보이도록 설정
+        $("#donut-chart").hide();
 
-    // 도낫 버튼 클릭 시 실행되는 함수
-    $("#donut-button").click(function() {
-        // 도낫 버튼을 클릭하면 도낫 그래프를 보이고 바바 그래프를 숨김
-        $("#morris-donut-chart").show();
-        $("#bar-chart").hide();
-    });
+        // 바바 버튼 클릭 시 실행되는 함수
+        $("#baba-button").click(function() {
+            // 바바 버튼을 클릭하면 바바 그래프를 보이고 도낫 그래프를 숨김
+            $("#bar-chart").show();
+            $("#donut-chart").hide();
+        });
+
+        // 도낫 버튼 클릭 시 실행되는 함수
+        $("#donut-button").click(function() {
+            // 도낫 버튼을 클릭하면 도낫 그래프를 보이고 바바 그래프를 숨김
+            $("#donut-chart").show();
+            $("#bar-chart").hide();
+        });
+    }
 });
 
 $(document).ready(function() {
-    // 초기에는 월 매출 그래프만 보이도록 설정
-    $("#morris-line-chart").hide();
+    // 현재 페이지 URL 가져오기
+    var currentPageURL = window.location.href;
 
-    // 월 매출 버튼 클릭 시 실행되는 함수
-    $("#monthly-sales-button").click(function() {
-        // 월 매출 버튼을 클릭하면 월 매출 그래프를 보이고 일 매출 그래프를 숨김
-        $("#morris-area-chart").show();
-        $("#morris-line-chart").hide();
-    });
+    // adminDashboard 페이지에서만 실행될 스크립트
+    if (currentPageURL.indexOf("adminDashboard") !== -1) {
+        // 초기에는 월 매출 그래프만 보이도록 설정
+        $("#comparison-line-chart").hide();
 
-    // 일 매출 버튼 클릭 시 실행되는 함수
-    $("#daily-sales-button").click(function() {
-        // 일 매출 버튼을 클릭하면 일 매출 그래프를 보이고 월 매출 그래프를 숨김
-        $("#morris-line-chart").show();
-        $("#morris-area-chart").hide();
-    });
+        // 월 매출 버튼 클릭 시 실행되는 함수
+        $("#monthly-sales-button").click(function() {
+            // 월 매출 버튼을 클릭하면 월 매출 그래프를 보이고 일 매출 그래프를 숨김
+            $("#curve-line-chart").show();
+            $("#comparison-line-chart").hide();
+        });
+
+        // 일 매출 버튼 클릭 시 실행되는 함수
+        $("#daily-sales-button").click(function() {
+            // 일 매출 버튼을 클릭하면 일 매출 그래프를 보이고 월 매출 그래프를 숨김
+            $("#comparison-line-chart").show();
+            $("#curve-line-chart").hide();
+        });
+    }
 });
+
