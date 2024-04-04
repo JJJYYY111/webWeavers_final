@@ -19,5 +19,6 @@ public class MemberDTO {
 	private int gradePK;
 	private String gradeName;
 	private String searchCondition;
+	private int totalMember;
 
 }

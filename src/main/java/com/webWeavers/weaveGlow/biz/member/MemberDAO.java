@@ -14,7 +14,7 @@ public class MemberDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
+	
 	private static final String SELECTALL = "SELECT M.MEMBER_ID, M.MEMBER_NAME, G.GRADE_NAME, M.MEMBER_BIRTH, M.MEMBER_REGDATE, M.MEMBER_MARKETING "
 												+" FROM MEMBER M JOIN GRADE G ON (M.GRADE_PK = G.GRADE_PK) " ;
 	// 관리자페이지 회원현황 - 회원검색
@@ -27,6 +27,8 @@ public class MemberDAO {
 	// 회원 닉네임 중복체크
 	private static final String SELECTONE_MEMBER_NICKNAMECHECK = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_BIRTH, MEMBER_PHONE, MEMBER_NICKNAME, "
 														+ " MEMBER_EMAIL, MEMBER_MARKETING, GRADE_PK FROM MEMBER WHERE MEMBER_NICKNAME=?";
+	// 전체 회원 수 (탈퇴, 관리자)
+	private static final String SELECTONE_TOTALMEMBER = "SELECT COUNT(MEMBER_ID) AS TOTALMEMBER FROM MEMBER WHERE GRADE_PK >= 3";
 	// 회원정보 조회
 	private static final String SELECTONE_MEMBERINFO = "SELECT M.MEMBER_ID, M.MEMBER_PASSWORD, M.MEMBER_NAME, M.MEMBER_BIRTH, M.MEMBER_PHONE, M.MEMBER_NICKNAME, "
 														+ " M.MEMBER_EMAIL, M.MEMBER_MARKETING, M.GRADE_PK,  G.GRADE_NAME" + " FROM MEMBER M JOIN GRADE G "
@@ -98,6 +100,8 @@ public class MemberDAO {
 			} else if (memberDTO.getSearchCondition().equals("pwFindEmail")) {
 				Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberEmail() };
 				return jdbcTemplate.queryForObject(SELECTONE_PWFINDEMAIL, args, new MemberEmailRowMapper());						
+			} else if (memberDTO.getSearchCondition().equals("totalMember")) {
+				return jdbcTemplate.queryForObject(SELECTONE_TOTALMEMBER, new TotalMemberRowMapper());
 			}
 		} catch (Exception e) {
 			System.out.println("[로그1] 데이터가 없습니다.");
@@ -231,6 +235,15 @@ public class MemberDAO {
 			MemberDTO data = new MemberDTO();
 			data.setMemberID(rs.getString("MEMBER_ID"));
 			data.setMemberEmail(rs.getString("MEMBER_Email"));
+			return data;
+		}
+	}
+	
+	class TotalMemberRowMapper implements RowMapper<MemberDTO> {
+		@Override
+		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+			MemberDTO data = new MemberDTO();
+			data.setTotalMember(rs.getInt("TOTALMEMBER"));
 			return data;
 		}
 	}
