@@ -118,7 +118,7 @@
 															<div class="col-md-5" style="margin-left: 15px;">
 																<input type="text" name="productPrice"
 																	class="form-control"
-																	value="<fmt:formatNumber type='currency' value='${productDTO.productPrice}' />">
+																	value='${productDTO.productPrice}' />
 															</div>
 														</div>
 														<br>
