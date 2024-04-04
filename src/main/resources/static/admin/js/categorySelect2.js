@@ -31,7 +31,6 @@ function changeFirstCategory() {
     }
 }
 
-
 $(document).on("click", "#searchButton", function () {
     console.log('들어옴')
     var categorySelectElement = document.getElementById("categorySelect"); // select 요소 가져오기
@@ -92,4 +91,51 @@ $(document).on("click", "#searchButton", function () {
     });
 });
 
+$(document).ready(function() {
+    // 리셋 버튼 클릭 시 실행될 함수
+    $('#resetButton').on('click', function() {
+        // 각 입력 요소의 값을 초기화
+        $('#registFirstDay').val('');
+        $('#registLastDay').val('');
+        $('#categorySelect').val('0');
+        
+        // 두 번째 카테고리를 초기화
+        $('#subCategorySelect').empty(); // 옵션 초기화
+        $('#subCategorySelect').append('<option value="0">SubCategory</option>'); // 기본값으로 설정
+    });
+});
 
+// 오늘 날짜 설정
+$(document).ready(function() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    $('#registFirstDay').attr('max', today);
+    $('#registLastDay').attr('max', today);
+});
+
+// 시작일이 종료일보다 이후일 경우 종료일을 시작일로 설정
+$(document).ready(function() {
+    $('#registFirstDay').change(function() {
+        var startDate = new Date($('#registFirstDay').val());
+        var endDate = new Date($('#registLastDay').val());
+
+        if (startDate > endDate) {
+            $('#registLastDay').val($('#registFirstDay').val());
+        }
+    });
+});
+
+// 종료일이 시작일보다 이전일 경우 시작일을 종료일로 설정
+$(document).ready(function() {
+    $('#registLastDay').change(function() {
+        var startDate = new Date($('#registFirstDay').val());
+        var endDate = new Date($('#registLastDay').val());
+
+        if (endDate < startDate) {
+            $('#registFirstDay').val($('#registLastDay').val());
+        }
+    });
+});

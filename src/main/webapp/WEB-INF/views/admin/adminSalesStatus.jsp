@@ -16,8 +16,8 @@
 	href="/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
 	rel="stylesheet" />
 <!-- Custom CSS -->
-<link rel="stylesheet" href="/resources/admin/adminCSS/salesStatusCSS.css">    
-
+<link rel="stylesheet"
+	href="/resources/admin/adminCSS/salesStatusCSS.css">
 </head>
 
 <body>
@@ -40,8 +40,7 @@
 			<!-- ============================================================== -->
 			<div class="page-breadcrumb">
 				<div class="row">
-					<div class="col-7 align-self-center">
-					</div>
+					<div class="col-7 align-self-center"></div>
 				</div>
 			</div>
 			<!-- ============================================================== -->
@@ -52,9 +51,10 @@
 							<div class="card-body">
 								<h4 class="card-title">주문통계내역 조회</h4>
 								<hr>
-									<!-- <form action="#"> -->
+								<!-- action='#' -->
+								<form id="searchForm" action="#">
 									<div class="col-lg-12 form-body">
-										<div class="card-body-select" >
+										<div class="card-body-select">
 											<div class="form-group">
 												<div class="row">
 													<label class="col-lg-1 text-center"
@@ -109,15 +109,18 @@
 												</div>
 											</div>
 										</div>
-										<br><hr><br>
+										<br>
+										<hr>
+										<br>
 										<div class="form-actions">
 											<div class="text-right">
 												<button type="button" id="searchButton" class="btn btn-info">검색</button>
-												<button type="reset" class="btn btn-dark">리셋</button>
+												<button type="reset" id="resetButton" class="btn btn-dark">리셋</button>
 											</div>
 										</div>
 									</div>
-									
+								</form>
+
 								<h4 class="card-title">상품조회</h4>
 								<hr>
 								<div class="table-responsive">
@@ -136,7 +139,7 @@
 										</thead>
 
 										<script>
-										/* console.log('[로그2]데이터 확인 '+ ${productSaleDatas}); */
+											/* console.log('[로그2]데이터 확인 '+ ${productSaleDatas}); */
 										</script>
 
 										<tbody id="salesSearchdatas">
@@ -147,9 +150,11 @@
 													<td>${data.productName}</td>
 													<td>${data.categoryName}</td>
 													<td>${data.subCategoryName}</td>
-													 <td><fmt:formatNumber type="currency" value="${data.productPrice}" /></td>
+													<td><fmt:formatNumber type="currency"
+															value="${data.productPrice}" /></td>
 													<td>${data.totalCnt}</td>
-													 <td><fmt:formatNumber type="currency" value="${data.totalPrice}" /></td>
+													<td><fmt:formatNumber type="currency"
+															value="${data.totalPrice}" /></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -157,38 +162,41 @@
 								</div>
 							</div>
 						</div>
-						</div>
 					</div>
 				</div>
-				</div>
-				<!-- footer -->
-				<footer class="footer text-center text-muted">
-					Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
-				</footer>
 			</div>
-		<!-- All Jquery -->
-		<script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-		<!-- Bootstrap tether Core JavaScript -->
-		<script src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-		<script src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-		<!-- apps -->
-		<!-- apps -->
-		<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
-		<script src="/resources/admin/dist/js/feather.min.js"></script>
-		<!-- slimscrollbar scrollbar JavaScript -->
-		<script
-			src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-		<script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
-		<!--Menu sidebar -->
-		<script src="/resources/admin/dist/js/sidebarmenu.js"></script>
-		<!--Custom JavaScript -->
-		<script src="/resources/admin/dist/js/custom.min.js"></script>
-		<!--This page plugins -->
-		<script
-			src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-		<script src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+		</div>
+		<!-- footer -->
+		<footer class="footer text-center text-muted">
+			Web Wevers <a href="http://koreaitsecurity.net/">WebWevers</a>
+		</footer>
+	</div>
+	<!-- All Jquery -->
+	<script src="/resources/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap tether Core JavaScript -->
+	<script
+		src="/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+	<script
+		src="/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- apps -->
+	<!-- apps -->
+	<script src="/resources/admin/dist/js/app-style-switcher.js"></script>
+	<script src="/resources/admin/dist/js/feather.min.js"></script>
+	<!-- slimscrollbar scrollbar JavaScript -->
+	<script
+		src="/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+	<script src="/resources/admin/assets/extra-libs/sparkline/sparkline.js"></script>
+	<!--Menu sidebar -->
+	<script src="/resources/admin/dist/js/sidebarmenu.js"></script>
+	<!--Custom JavaScript -->
+	<script src="/resources/admin/dist/js/custom.min.js"></script>
+	<!--This page plugins -->
+	<script
+		src="/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
-		<script src="/resources/admin/js/categorySelect2.js"></script>
+	<script src="/resources/admin/js/categorySelect2.js"></script>
 </body>
 
 </html>

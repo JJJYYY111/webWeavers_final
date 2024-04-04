@@ -187,7 +187,7 @@
 									<!-- <div id="morris-area-chart" height="150"></div>
 									<div id="morris-line-chart2" ></div>
 									 -->
-									 <canvas id="curve-line-chart"  height="150"></canvas> 
+									 <canvas id="curve-area-chart" height="150"></canvas>
 									<canvas id="comparison-line-chart"  height="150"></canvas>
 								</div>
 							</div>

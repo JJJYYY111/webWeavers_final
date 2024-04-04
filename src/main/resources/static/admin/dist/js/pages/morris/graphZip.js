@@ -962,7 +962,7 @@ $(document).ready(function() {
         // 월 매출 버튼 클릭 시 실행되는 함수
         $("#monthly-sales-button").click(function() {
             // 월 매출 버튼을 클릭하면 월 매출 그래프를 보이고 일 매출 그래프를 숨김
-            $("#curve-line-chart").show();
+            $("#curve-area-chart").show();
             $("#comparison-line-chart").hide();
         });
 
@@ -970,7 +970,7 @@ $(document).ready(function() {
         $("#daily-sales-button").click(function() {
             // 일 매출 버튼을 클릭하면 일 매출 그래프를 보이고 월 매출 그래프를 숨김
             $("#comparison-line-chart").show();
-            $("#curve-line-chart").hide();
+            $("#curve-area-chart").hide();
         });
     }
 });
