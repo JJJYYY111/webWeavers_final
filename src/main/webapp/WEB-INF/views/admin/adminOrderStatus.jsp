@@ -209,6 +209,8 @@
 		</div>
 
 	</div>
+	
+	<common:adminMemberNameModal />
 
 	<!-- footer -->
 	<footer class="footer text-center text-muted">
@@ -240,5 +242,6 @@
 	<script src="/resources/admin/dist/js/tablePage.js"></script>
 	<!-- 필터검색 -->
 	<script src="/resources/admin/js/adminOrderStatus.js"></script>
+	
 </body>
 </html>

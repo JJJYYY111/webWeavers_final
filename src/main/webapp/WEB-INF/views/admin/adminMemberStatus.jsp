@@ -171,30 +171,7 @@
 				</div>
 			</div>
 			
-			<!-- 필터 검색 회원 이름 유효성 모달 창  -->
-			<div class="modal fade" id="alertModalMemberName" tabindex="-1"
-				role="dialog" aria-labelledby="alertModalMemberNameLabel"
-				aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="alertModalMemberNameLabel">경고</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<!-- 경고 메시지를 표시할 곳 -->
-							<p id="alertMessageMemberName"></p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">확인</button>
-						</div>
-					</div>
-				</div>
-			</div>
+			<common:adminMemberNameModal />
 
 			<!-- footer -->
 			<footer class="footer text-center text-muted">
