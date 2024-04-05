@@ -5,14 +5,12 @@ $(document).ready(function() {
     // 주문 관리 페이징 처리
     var $products = $('#products');
     if ($products.length) {
-        var $products = $('#products');
         createPagination($products, 'productNav', rowPerPage);
     }
 
     // 회원 페이징 처리
     var $memberTable = $('#memberTable');
     if ($memberTable.length) {
-        var $memberTable = $('#memberTable');
         createPagination($memberTable, 'memberNav', rowPerPage);
     }
 });
