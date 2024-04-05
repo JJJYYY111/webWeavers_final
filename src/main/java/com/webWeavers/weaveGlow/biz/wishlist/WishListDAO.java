@@ -21,7 +21,7 @@ public class WishListDAO {
 	// 상품상세페이지_찜 유무
 	private static final String SELECTONE = "SELECT WISHLIST_PK, MEMBER_ID, PRODUCT_PK FROM WISHLIST WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
 	// 상품 찜 추가
-	private static final String INSERT = "INSERT INTO WISHLIST (MEMBER_ID, PRODUCT_PK) VALUES (?, ?);";
+	private static final String INSERT = "INSERT INTO WISHLIST (MEMBER_ID, PRODUCT_PK) VALUES (?, ?)";
 //	private static final String UPDATE = "";
 	// 상품 찜 취소
 	private static final String DELETE = "DELETE FROM WISHLIST WHERE MEMBER_ID = ? AND PRODUCT_PK = ?";
