@@ -12,12 +12,9 @@
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md">
                 <div class="navbar-header" data-logobg="skin6">
-                    <!-- This is for the sidebar toggle which is visible on mobile only -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
                             class="ti-menu ti-close"></i></a>
-                    <!-- Logo -->
                     <div class="navbar-brand">
-                        <!-- Logo icon -->
                         <a href="adminDashboard">
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
@@ -25,7 +22,6 @@
                                 <!-- Light Logo icon -->
                                 <img src="/resources//admin/assets/imageslogo_small.png" alt="homepage" class="light-logo" />
                             </b>
-                            <!--End Logo icon -->
                             <!-- Logo text -->
                             <span class="logo-text">
                                 <!-- dark Logo text -->

@@ -4,8 +4,11 @@ $(document).ready(function() {
 
     // 주문 관리 페이징 처리
     var $products = $('#products');
+     //테이블에 id를 부여해준 후 id가 'products'인 요소를 선택
     if ($products.length) {
+		 // id가 'products'인 요소의 개수 (여러개일 수 있다)
         createPagination($products, 'productNav', rowPerPage);
+        //상품목록요소, 네비게이션 요소, 페이지 행 수 - 매개변수
     }
 
     // 회원 페이징 처리

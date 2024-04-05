@@ -8,7 +8,6 @@
 <html dir="ltr" lang="en">
 
 <head>
-<common:head />
 <common:adminHead />
 
 <title>월별 매출현황</title>
