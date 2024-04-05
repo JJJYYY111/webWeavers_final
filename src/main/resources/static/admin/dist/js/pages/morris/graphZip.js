@@ -1,5 +1,5 @@
 // Dashboard 1 Morris-chart
-$(function () {
+/*$(function () {
     "use strict";
     var monthlySalesGraph = [{
             y: '1월',
@@ -84,12 +84,12 @@ $(function () {
     
 });
 
-/*// 여기서 아래 그래프의 높이를 위 그래프와 같도록 설정 dashboard
+// 여기서 아래 그래프의 높이를 위 그래프와 같도록 설정 dashboard
 $(function () {
     var barChartHeight = $("#bar-chart").height();
     $("#morris-area-chart").height(barChartHeight);
 });
-*/
+
 
 
 
@@ -426,7 +426,7 @@ $(function () {
         hideHover: 'auto'
 
     });
-});  
+});  */
 
 // $(function () {
 // 	"use strict";
@@ -493,7 +493,7 @@ $(function () {
 			legend: { display: false },
 			title: {
 				display: true,
-				text: '카테고리별 매출 현황',
+				text: 'Category Sales Chart',
 				fontSize: 15
 			},
 			scales: {
@@ -503,7 +503,10 @@ $(function () {
 				}],
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
+						beginAtZero: true,
+						callback: function(value, index, values) {
+                                    return value.toLocaleString(); // 숫자 형식을 변경하여 반환
+                                }
 					}
 				}]
 			}
@@ -866,6 +869,12 @@ $(function () {
                             }
                         }],
                         yAxes: [{
+							ticks: {
+                                beginAtZero: true,
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString(); // 숫자 형식을 변경하여 반환
+                                }
+                            },
                             scaleLabel: {
                                 display: true,
                                 labelString: '판매량'
@@ -955,9 +964,15 @@ $(function () {
                             }
                         }],
                         yAxes: [{
+							ticks: {
+                                beginAtZero: true,
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString(); // 숫자 형식을 변경하여 반환
+                                }
+                            },
                             scaleLabel: {
                                 display: true,
-                                labelString: '매출액'
+                                labelString: '매출액',
                             }
                         }]
                     }

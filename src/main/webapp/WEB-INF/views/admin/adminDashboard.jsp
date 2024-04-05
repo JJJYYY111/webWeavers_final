@@ -23,13 +23,13 @@
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
 	<!-- ============================================================== -->
-	<div class="preloader">
+	<!-- <div class="preloader">
 		<div class="lds-ripple">
 			<div class="lds-pos"></div>
 			;
 			<div class="lds-pos"></div>
 		</div>
-	</div>
+	</div> -->
 	<!-- ============================================================== -->
 	<div id="main-wrapper" data-theme="light" data-layout="vertical"
 		data-navbarbg="skin6" data-sidebartype="full"
@@ -123,7 +123,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 				<div class="row col-lg-12">
 					<!-- column -->
@@ -131,7 +130,7 @@
 						<div class="card h-90">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">매출현황</h4>
+									<h4 class="card-title">카테고리별 매출 현황</h4>
 									<ul class="list-inline text-right">
 										<li class="list-inline-item">
 											<h5>
@@ -151,10 +150,8 @@
 										</li>
 									</ul>
 									<div>
-										<%-- <canvas id="bar-chart" height="150"></canvas> --%>
 										<canvas id="bar-chart" height="150"></canvas>
 										<canvas id="donut-chart" height="150"></canvas>
-										<!-- <div id="morris-donut-chart" height="150"></div> -->
 									</div>
 								</div>
 							</div>
@@ -183,11 +180,7 @@
 											</h5>
 										</li>
 									</ul>
-
-									<!-- <div id="morris-area-chart" height="150"></div>
-									<div id="morris-line-chart2" ></div>
-									 -->
-									 <canvas id="curve-area-chart" height="150"></canvas>
+									<canvas id="curve-area-chart" height="150"></canvas>
 									<canvas id="comparison-line-chart"  height="150"></canvas>
 								</div>
 							</div>
@@ -233,12 +226,11 @@
 	<!-- Chart JS -->
 	<!-- <script src="/resources/admin/dist/js/pages/chartjs/chartjs.init copy.js"></script> -->
 	<script src="/resources/admin/assets/libs/chart.js/dist/Chart.min.js"></script>
-	<!--Morris JavaScript -->
+	<!-- 
 	<script src="/resources/admin/assets/libs/raphael/raphael.min.js"></script>
 	<script src="/resources/admin/assets/libs/morris.js/morris.min.js"></script>
-	<!-- <script src="/resources/admin/dist/js/pages/morris/morris-data copy.js"></script> -->
+	<script src="/resources/admin/dist/js/pages/morris/morris-data copy.js"></script> -->
 	<script src="/resources/admin/dist/js/pages/morris/graphZip.js"></script>
-<!-- 	<script src="/resources/admin/dist/js/graphChanges.js"></script> -->
 
 </body>
 
