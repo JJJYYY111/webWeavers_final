@@ -46,6 +46,7 @@ public class KakaoService {
 
 	            
 	            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	            //서버로부터 데이터를 읽어옴
 	           
 	            String line = "";
 	            String result = "";

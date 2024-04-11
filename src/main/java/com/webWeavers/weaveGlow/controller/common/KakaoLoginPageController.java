@@ -45,9 +45,6 @@ public class KakaoLoginPageController {
 	    //JSON 형식의 문자열을 읽어와서 JsonElement 객체로 변환
 	    JsonElement element = parser.parse(info);
 
-	    int id = element.getAsJsonObject().get("id").getAsInt();
-	    //"id"를 정수형태로 저장되는 메서드
-	    
 	    JsonElement kakaoAccount = element.getAsJsonObject().get("kakao_account");
 
 	    JsonElement profile = kakaoAccount.getAsJsonObject().get("profile");
