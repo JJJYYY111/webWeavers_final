@@ -15,9 +15,10 @@ public class MemberDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	// 관리자페이지 회원현황출력
 	private static final String SELECTALL = "SELECT M.MEMBER_ID, M.MEMBER_NAME, G.GRADE_NAME, M.MEMBER_BIRTH, M.MEMBER_REGDATE, M.MEMBER_MARKETING "
 												+" FROM MEMBER M JOIN GRADE G ON (M.GRADE_PK = G.GRADE_PK) " ;
-	// 관리자페이지 회원현황 - 회원검색
+	// 관리자페이지 회원현황검색
 	private static final String SELECTALL_USERSEARCH = "SELECT  M.MEMBER_ID, M.MEMBER_NAME, G.GRADE_NAME, M.MEMBER_BIRTH, M.MEMBER_REGDATE, M.MEMBER_MARKETING "
 														+ " FROM MEMBER M JOIN GRADE G ON (M.GRADE_PK = G.GRADE_PK) "
 														+ " WHERE G.GRADE_NAME LIKE CONCAT('%',?,'%') AND M.MEMBER_NAME LIKE CONCAT('%',?,'%') AND M.MEMBER_ID LIKE CONCAT('%',?,'%') ";
@@ -62,10 +63,10 @@ public class MemberDAO {
 		try {
 			
 			if (memberDTO.getSearchCondition().equals("allMemberInfo")) {
-				return jdbcTemplate.query(SELECTALL, new MemberRowMapper4());
+				return jdbcTemplate.query(SELECTALL, new MemberRowMapper3());
 			} else if (memberDTO.getSearchCondition().equals("userSearch")) {
 				Object[] args = { memberDTO.getGradeName(), memberDTO.getMemberName(),memberDTO.getMemberID() };
-				return jdbcTemplate.query(SELECTALL_USERSEARCH, args, new MemberRowMapper4());
+				return jdbcTemplate.query(SELECTALL_USERSEARCH, args, new MemberRowMapper3());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,6 +157,7 @@ public class MemberDAO {
 
 	// RowMapper 인터페이스 사용
 
+	// selectOne 회원정보
 	class MemberRowMapper1 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -173,7 +175,7 @@ public class MemberDAO {
 			return data;
 		}
 	}
-
+	// selectOne 로그인, 회원 닉네임, ID 중복체크
 	class MemberRowMapper2 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -191,21 +193,8 @@ public class MemberDAO {
 		}
 	}
 	
+	// selectAll 전체회원정보조회, 회원 검색
 	class MemberRowMapper3 implements RowMapper<MemberDTO> {
-		@Override
-		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-			MemberDTO data = new MemberDTO();
-			data.setMemberID(rs.getString("MEMBER_ID"));
-			data.setMemberName(rs.getString("MEMBER_NAME"));
-			data.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
-			data.setMemberMarketing(rs.getString("MEMBER_MARKETING"));
-			data.setGradePK(rs.getInt("GRADE_PK"));
-			data.setGradeName(rs.getString("GRADE_NAME"));
-			return data;
-		}
-	}
-
-	class MemberRowMapper4 implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 			MemberDTO data = new MemberDTO();
@@ -219,6 +208,7 @@ public class MemberDAO {
 		}
 	}
 	
+	// selectOne 회원 ID찾기, PW찾기 할 때 문자인증
 	class MemberSmsRowMapper implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -229,6 +219,7 @@ public class MemberDAO {
 		}
 	}
 	
+	// selectOne 회원 ID찾기, PW찾기 할 때 이메일인증
 	class MemberEmailRowMapper implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -239,6 +230,7 @@ public class MemberDAO {
 		}
 	}
 	
+	// selectOne 탈퇴, 관리자 제외한 전체 회원수 조회
 	class TotalMemberRowMapper implements RowMapper<MemberDTO> {
 		@Override
 		public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

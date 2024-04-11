@@ -13,13 +13,17 @@ import org.springframework.stereotype.Repository;
 public class AddressDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
+	
+	// 사용자_전체주소출력
 	private static final String SELECTALL = "SELECT ADDRESS_PK, ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME FROM ADDRESS WHERE MEMBER_ID = ?";
+	// 사용자_주소선택
 	private static final String SELECTONE = "SELECT ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME FROM ADDRESS WHERE ADDRESS_PK = ?";
-
+	// 사용자_주소추가
 	private static final String INSERT = "INSERT INTO ADDRESS (ADDRESS_PK, MEMBER_ID, ADDRESS_ZONECODE, ADDRESS_JIBUN, ADDRESS_ROAD, ADDRESS_DETAIL, ADDRESS_NAME)"
 										+ " SELECT IFNULL(MAX(ADDRESS_PK), 0) + 1 , ?, ?, ?, ?, ?, ? FROM ADDRESS";
+	// 사용자_주소수정
 	private static final String UPDATE = "UPDATE ADDRESS SET ADDRESS_ZONECODE=?, ADDRESS_JIBUN=?, ADDRESS_ROAD=?, ADDRESS_DETAIL=?, ADDRESS_NAME=? WHERE ADDRESS_PK=?";
+	// 사용자_주소삭제
 	private static final String DELETE = "DELETE FROM ADDRESS WHERE ADDRESS_PK=?";
 
 	public List<AddressDTO> selectAll(AddressDTO addressDTO) {
@@ -72,6 +76,7 @@ public class AddressDAO {
 
 }
 
+// selectAll 사용자 전체주소 출력
 class AddressRowMapper1 implements RowMapper<AddressDTO> {
 	@Override
 	public AddressDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -85,7 +90,7 @@ class AddressRowMapper1 implements RowMapper<AddressDTO> {
 		return data;
 	}
 }
-
+// selectOne 사용자 주소 선택
 class AddressRowMapper2 implements RowMapper<AddressDTO> {
 	@Override
 	public AddressDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

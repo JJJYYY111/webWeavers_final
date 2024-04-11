@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public class CategoryDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
+	// 조인을 위한 테이블
 	private static final String SELECTALL = "SELECT CATEGORY_PK, CATEGORY_NAME FROM CATEGORY";
 	private static final String SELECTONE = "SELECT CATEGORY_PK, CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_PK = ?";
 

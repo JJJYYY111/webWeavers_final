@@ -13,8 +13,10 @@ import org.springframework.stereotype.Repository;
 public class SubCategoryDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
+	
+	// 관리자 페이지 상품상세 카테고리출력
 	private static final String SELECTALL = "SELECT S.SUBCATEGORY_PK, S.SUBCATEGORY_NAME, C.CATEGORY_PK, C.CATEGORY_NAME FROM SUBCATEGORY S JOIN CATEGORY C ON S.CATEGORY_PK = C.CATEGORY_PK";
+	// 관리자 페이지 상품상세 카테고리선택 
 	private static final String SELECTONE = "SELECT SUBCATEGORY_PK, SUBCATEGORY_NAME FROM SUBCATEGORY WHERE SUBCATEGORY_PK = ?";
 
 	private static final String INSERT = "";
@@ -53,6 +55,7 @@ public class SubCategoryDAO {
 
 }
 
+// selectAll, selectOne
 class SubCategoryRowMapper implements RowMapper<SubCategoryDTO> {
 	@Override
 	public SubCategoryDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

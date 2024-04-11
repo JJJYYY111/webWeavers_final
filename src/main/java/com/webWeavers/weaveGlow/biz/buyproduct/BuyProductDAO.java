@@ -90,6 +90,8 @@ public class BuyProductDAO {
 	
 }
 
+// selectAll 사용자 구매목록 페이지 출력
+// selectAll 사용자 구매완료 페이지 최근 구매내역 출력
 class BuyProductRowMapper1 implements RowMapper<BuyProductDTO> {
 	@Override
 	public BuyProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -107,7 +109,7 @@ class BuyProductRowMapper1 implements RowMapper<BuyProductDTO> {
 		return data;
 	}
 }
-
+//selectOne 사용자 구매상품선택
 class BuyProductRowMapper2 implements RowMapper<BuyProductDTO> {
 	@Override
 	public BuyProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
