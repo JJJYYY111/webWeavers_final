@@ -61,13 +61,22 @@
 								<li><a href="findPW" id="" class="">비밀번호 찾기</a></li>
 							</ul>
 						</div>
-						<a style="display: inline-block; margin-right: 280px;"
+						<a style="display: inline-block; width: 30%;"
 							href="https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=b76a1451cae3876d403c07b8baec5c88&amp;redirect_uri=http://localhost:8088/user/callback">
 							<button
 								style="border: 0px solid white; background: none; padding: 0;">
 								<img src="/resources/uploadi
 								mg/kakao_login_medium_narrow.png" alt="카카오톡"
-								style="width: 100%"/>
+								style="width: 110%"/>
+							</button>
+						</a>
+						<a style="display: inline-block; width: 40%;"
+							href="https://nid.naver.com/oauth2.0/authorize?client_id=_oxmjIERuaCMnvt3ruj0&response_type=code&state=STATE_STRING&redirect_uri=http://localhost:8088/naver/callbackNaver">
+							
+							<button
+								style="border: 0px solid white; background: none; padding: 0;">
+								<img src="/resources/uploadimg/NaverLoginLong.png" alt="네이버"
+									width="80%" />
 							</button>
 						</a>
 					</div>
