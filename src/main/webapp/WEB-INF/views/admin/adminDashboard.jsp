@@ -144,7 +144,7 @@
 											<h5>
 												<button id="donut-button"
 													style="border: 0; border-color: paleturquoise; background-color: rgb(255, 255, 255); outline: none; text-decoration: none;">
-													<i class="fa fa-circle mr-1 text-cyan"></i>도낫
+													<i class="fa fa-circle mr-1 text-cyan"></i> 도낫
 												</button>
 											</h5>
 										</li>

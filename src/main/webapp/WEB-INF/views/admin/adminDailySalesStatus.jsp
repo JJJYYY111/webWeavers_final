@@ -66,7 +66,7 @@
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">Line Chart</h4>
-								<ul class="list-inline text-right">
+								<!-- <ul class="list-inline text-right">
 									<li class="list-inline-item">
 										<h5>
 											<i class="fa fa-circle mr-1 text-info"></i>어제
@@ -77,7 +77,7 @@
 											<i class="fa fa-circle mr-1 text-cyan"></i>오늘
 										</h5>
 									</li>
-								</ul>
+								</ul> -->
 								<!-- <div id="morris-line-chart"></div> -->
 								<canvas id="comparison-line-chart"  height="150"></canvas>
 							</div>

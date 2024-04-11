@@ -491,11 +491,11 @@ $(function () {
 		},
 		options: {
 			legend: { display: false },
-			title: {
+			/*title: {
 				display: true,
 				text: 'Category Sales Chart',
 				fontSize: 15
-			},
+			},*/
 			scales: {
 				xAxes: [{
 					categoryPercentage: 0.5, // 막대 간 간격 설정
@@ -728,12 +728,12 @@ $(function () {
 		}
 	  ]
 	},
-	options: {
+	/*options: {
 	  title: {
 		display: true,
 		text: 'Donut Chart'
 	  }
-	}
+	}*/
   });
             
             
@@ -828,16 +828,14 @@ $(function () {
   $(function () {
             // 데이터 준비
             var labels = ['0~3시', '3~6시', '6~9시', '9~12시', '12~15시', '15~18시', '18~21시', '21~24시'];
-             var datasetYesterday = {
-                label: "어제",
-                data: [0, 0, 0, 0, 0, 0, 0, 0],
-                borderColor: 'rgb(75, 192, 192)',
-                /*backgroundColor: 'rgba(75, 192, 192, 0.2)',*/
-                backgroundColor: 'rgba(0, 0, 0, 0)',
-                pointBackgroundColor: 'rgb(75, 192, 192)',
-                pointBorderColor: 'rgb(75, 192, 192)'
-                
-            };
+            var datasetYesterday = {
+    			label: "어제",
+  				data: [0, 0, 0, 0, 0, 0, 0, 0],
+ 				borderColor: 'rgb(54, 162, 235)', // 파란색으로 변경
+  				backgroundColor: 'rgba(0, 0, 0, 0)', // 투명 배경색
+  			  	pointBackgroundColor: 'rgb(54, 162, 235)', // 파란색으로 변경
+  				pointBorderColor: 'rgb(54, 162, 235)' // 파란색으로 변경
+			};
             var datasetToday = {
                 label: "오늘",
                 data: [0, 0, 0, 0, 0, 0, 0, 0],
@@ -857,10 +855,10 @@ $(function () {
                     datasets: [datasetYesterday, datasetToday]
                 },
                 options: {
-                    title: {
+                    /*title: {
                         display: true,
                         text: 'Comparison Line Chart'
-                    },
+                    },*/
                     scales: {
                         xAxes: [{
                             scaleLabel: {
@@ -875,10 +873,10 @@ $(function () {
                                     return value.toLocaleString(); // 숫자 형식을 변경하여 반환
                                 }
                             },
-                            scaleLabel: {
+                           /* scaleLabel: {
                                 display: true,
-                                labelString: '판매량'
-                            }
+                                labelString: '판매량',
+                            }*/
                         }]
                     }
                 }
@@ -952,10 +950,10 @@ $(function () {
                     }]
                 },
                 options: {
-                    title: {
+                   /* title: {
                         display: true,
                         text: 'Monthly Sales Chart'
-                    },
+                    },*/
                     scales: {
                         xAxes: [{
                             scaleLabel: {
@@ -970,10 +968,10 @@ $(function () {
                                     return value.toLocaleString(); // 숫자 형식을 변경하여 반환
                                 }
                             },
-                            scaleLabel: {
+                           /* scaleLabel: {
                                 display: true,
                                 labelString: '매출액',
-                            }
+                            }*/
                         }]
                     }
                 }

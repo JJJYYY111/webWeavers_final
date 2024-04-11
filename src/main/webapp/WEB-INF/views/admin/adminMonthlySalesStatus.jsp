@@ -68,13 +68,13 @@
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">Product line Chart</h4>
-								<ul class="list-inline text-right">
+								<!-- <ul class="list-inline text-right">
 									<li class="list-inline-item">
 										<h5>
 											<i class="fa fa-circle mr-1 text-info"></i> 매출(원)
 										</h5>
 									</li>
-								</ul>
+								</ul> -->
 								<canvas id="curve-area-chart" height="150"></canvas>
 							</div>
 						</div>
