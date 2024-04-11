@@ -133,10 +133,10 @@
 								<span class="col-md-8" id="idCheck"> <!-- 유효성 확인 문구 innerText -->
 								</span>
 							</div>
-							<c:if test="${not empty snsLogin}">
+							<c:if test="${not empty memberDTO}">
 							<input type="hidden" value="${memberDTO.memberPassword}" name="memberPassword">
 							</c:if>
-							<c:if test="${ empty snsLogin}">
+							<c:if test="${ empty memberDTO}">
 							
 							<div class="col-md-12 form-group" style="margin: 0;">
 								<div class="col-md-4 label-text">비밀번호</div>
@@ -241,10 +241,10 @@
 								<span class="col-md-8" id="phoneCheck"> <!-- 유효성 확인 문구 innerText -->
 								</span>
 							</div>
-							<c:if test="${not empty snsLogin}">
+							<c:if test="${not empty memberDTO}">
 							<input type="hidden"  name="certificationNum">
 							</c:if>
-							<c:if test="${ empty snsLogin}">
+							<c:if test="${ empty memberDTO}">
 							<div class="col-md-12 form-group" style="margin: 0;">
 								<div class="col-md-4 label-text">인증번호 확인</div>
 								<input type="text" class="form-control col-md-8"
@@ -261,7 +261,7 @@
 							</div>
 							</c:if>
 							
-							<c:if test="${ empty snsLogin}">
+							<c:if test="${ empty memberDTO}">
 							<div class="col-md-12 form-group">
 								<div class="col-md-4 label-text">생년월일</div>
 								<input type="date" class="form-control col-md-8"
@@ -271,7 +271,7 @@
 									style="display: inline-block;" required>
 							</div>
 							</c:if>
-								<c:if test="${not empty snsLogin}">
+								<c:if test="${not empty memberDTO}">
 								<div class="col-md-12 form-group">
 								<div class="col-md-4 label-text">생년월일</div>
 							<input type="text" class="form-control col-md-8"

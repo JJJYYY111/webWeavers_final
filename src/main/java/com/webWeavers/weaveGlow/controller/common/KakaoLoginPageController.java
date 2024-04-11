@@ -193,9 +193,6 @@ public class KakaoLoginPageController {
 	public String joinForm(Model model, MemberDTO memberDTO) {
 		
 		 model.addAttribute("memberDTO", memberDTO);
-         
-         model.addAttribute("snsLogin", "sns");
-       //회원가입 갔을 때 sns로 로그인 했는지 판단 유무
 		
 		return "/user/register";
 	}

@@ -65,8 +65,9 @@
 							href="https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=b76a1451cae3876d403c07b8baec5c88&amp;redirect_uri=http://localhost:8088/user/callback">
 							<button
 								style="border: 0px solid white; background: none; padding: 0;">
-								<img src="/resources/uploadimg/kakaoLogin.png" alt="카카오톡"
-									width="70" />
+								<img src="/resources/uploadi
+								mg/kakao_login_medium_narrow.png" alt="카카오톡"
+								style="width: 100%"/>
 							</button>
 						</a>
 					</div>

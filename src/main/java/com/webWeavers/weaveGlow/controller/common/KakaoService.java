@@ -16,7 +16,7 @@ public class KakaoService {
 	        String access_Token = "";
 	        String refresh_Token = "";
 	        String reqURL = "https://kauth.kakao.com/oauth/token";
-	        //엑세스 토근 요청
+	        //엑세스 토큰 요청
 
 	        try {
 	            URL url = new URL(reqURL);
