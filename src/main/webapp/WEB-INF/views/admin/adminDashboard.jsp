@@ -56,15 +56,15 @@
 					<div class="card border-right">
 						<div class="card-body" style="max-width: 96%;">
 							<div
-								class=" d-flex d-lg-flex d-md-block align-items-center justify-content-center">
+								class="d-flex d-lg-flex d-md-block align-items-center justify-content-center">
 								<div style="text-align: center">
 									<h6
 										class="text-muted font-weight-normal mb-0 w-100 text-truncate"
 										style="line-height: 2.5">이번달 총 매출액</h6>
-
 									<h2
 										class="text-dark mb-1 w-100 text-truncate font-weight-medium">
-										<sup class="set-doller">&nbsp;₩</sup>&nbsp;<span>${monthlyTotalSales.totalPrice}원</span>
+										<sup class="set-doller">&nbsp;₩</sup>&nbsp;<span><fmt:formatNumber
+												type="number" value="${monthlyTotalSales.totalPrice}" /></span>
 									</h2>
 								</div>
 								<div class="ml-auto mt-md-3 mt-lg-0">
@@ -84,7 +84,8 @@
 
 									<h2
 										class="text-dark mb-1 w-100 text-truncate font-weight-medium">
-										<sup class="set-doller">&nbsp;₩</sup>&nbsp;<span>${dailyTotalSales.totalPrice}원</span>
+										<sup class="set-doller">&nbsp;₩</sup>&nbsp;<span><fmt:formatNumber
+												type="number" value="${dailyTotalSales.totalPrice}" /></span>
 									</h2>
 								</div>
 								<div class="ml-auto mt-md-3 mt-lg-0">
@@ -155,7 +156,7 @@
 												<button id="donut-button"
 													style="border: 0; border-color: paleturquoise; background-color: rgb(255, 255, 255); outline: none; text-decoration: none;">
 													<i class="far fa-circle mr-1 text-cyan"></i> 도넛
-													
+
 												</button>
 											</h5>
 										</li>
@@ -235,14 +236,8 @@
 	<script
 		src="/resources/admin/dist/js/pages/dashboards/dashboard1.min.js"></script>
 	<!-- Chart JS -->
-	<!-- <script src="/resources/admin/dist/js/pages/chartjs/chartjs.init copy.js"></script> -->
 	<script src="/resources/admin/assets/libs/chart.js/dist/Chart.min.js"></script>
-	<!-- 
-	<script src="/resources/admin/assets/libs/raphael/raphael.min.js"></script>
-	<script src="/resources/admin/assets/libs/morris.js/morris.min.js"></script>
-	<script src="/resources/admin/dist/js/pages/morris/morris-data copy.js"></script> -->
 	<script src="/resources/admin/dist/js/pages/morris/graphZip.js"></script>
-
 </body>
 
 </html>
