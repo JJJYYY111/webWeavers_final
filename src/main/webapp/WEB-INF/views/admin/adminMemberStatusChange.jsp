@@ -219,7 +219,7 @@
 														<div class="row">
 															<div class="col-lg-5">
 																<input type="text" class="form-control col-md-12"
-																	id="registGreadPK" name="gradeName"
+																	id="registGradePK" name="gradeName"
 																	style="display: inline-block;" value="${gradePK}"
 																	readonly>
 															</div>
@@ -246,7 +246,7 @@
 											<button type="submit" class="btn btn-info">완료</button>
 											<button type="button" class="btn btn-dark"
 												onclick="history.go(-1)">취소</button>
-											<button type="reset" class="btn btn-outline-dark float-left">리셋</button>
+										<!-- 	<button type="reset" class="btn btn-outline-dark float-left">리셋</button> -->
 										</div>
 									</div>
 								</form>

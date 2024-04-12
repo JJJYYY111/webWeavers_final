@@ -39,11 +39,12 @@
 // 페이지 로드 시 초기 값 설정
 document.addEventListener('DOMContentLoaded', function() {
     var selectElement = document.getElementById('inlineFormCustomSelect');
-    var textField = document.getElementById('registGreadPK');
+    var textField = document.getElementById('registGradePK');
     var initialGradePK = textField.value;
 
     // 함수를 사용하여 초기 값 설정
     function setInitialGrade(value) {
+		console.log("콘솔34");
         switch (value) {
             case '1':
                 textField.value = '탈퇴';

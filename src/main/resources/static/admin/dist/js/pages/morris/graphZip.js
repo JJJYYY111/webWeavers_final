@@ -889,7 +889,7 @@ $(function () {
                 dataType: 'json',
                 success: function(datas) {
                     datas.forEach(function(data, index) {
-                        lineChart.data.datasets[0].data[index] = data.totalPrice;
+                        lineChart.data.datasets[0].data[(data.pvtotalTemp)/3] = data.totalPrice;
                     });
                     lineChart.update(); // 차트 업데이트
                 },
@@ -905,7 +905,7 @@ $(function () {
                 dataType: 'json',
                 success: function(datas) {
                     datas.forEach(function(data, index) {
-                        lineChart.data.datasets[1].data[index] = data.totalPrice;
+                        lineChart.data.datasets[1].data[(data.totalTemp)/3] = data.totalPrice;
                     });
                     lineChart.update(); // 차트 업데이트
                 },
