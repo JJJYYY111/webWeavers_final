@@ -74,7 +74,7 @@ public class NaverLoginController {
 	    memberDTO.setSearchCondition("memberNickNameCheck");
 	    memberDTO.setMemberNickname(nickname);
 	    memberDTO = memberService.selectOne(memberDTO);
-	    //닉네임으로 유저 판단 후 사용자가 없다면 회원가입페이지로 이동
+	    //닉네임으로 유저 판단 후 사용자 정보가 없다면 회원가입페이지로 이동
 	    
 	    phoneNumber = phoneNumber.replaceAll("[\\+\\-]", "");
 	    //사용자 편의를 위해 아이디와 비밀번호를 랜덤으로 생성하여 DB에 저장
@@ -112,7 +112,7 @@ public class NaverLoginController {
         }
        
 
-        // 랜덤으로 생성했던 ID를 저장 세션에 저장
+        // 랜덤으로 생성했던 ID를 세션에 저장
         httpSession.setAttribute("sessionMid", memberDTO.getMemberID());
 	   
 	    } catch(ParseException e) {

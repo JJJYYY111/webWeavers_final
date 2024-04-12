@@ -129,6 +129,8 @@ public class ProductDAO {
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY, PRODUCT_STATUS\r\n"
 			+ "FROM PRODUCT\r\n"
 			+ "ORDER BY PRODUCT_PK ASC\r\n";
+	// Admin_상품총갯수조회
+	private static final String SELECTALL_ADMIN_TOTALPRODUCTNUM = 
 	// Admin_상품수정페이지
 	private static final String SELECTONE_UPDATE = "SELECT\r\n"
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_REGDATE,\r\n"
@@ -147,21 +149,6 @@ public class ProductDAO {
 	// ------------------------------------- AdminPage_매출관리 -------------------------------------
 	
 	// -----------------------------전일 매출, 월별 매출 -----------------------------------
-		// 오늘 총 매출 
-		private static final String SELECTALL_TODAYSALES_TOTAL =
-				"SELECT SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS TOTAL "
-						+ "FROM BUYPRODUCT B 	"
-						+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK " // BUYPRODUCT 테이블과 PRODUCT 테이블을 PRODUCT_PK를 기준으로 조인
-						+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK " // BUYPRODUCT 테이블과 SERIAL 테이블을 SERIAL_PK를 기준으로 조인
-						+ "WHERE DATE(S.SERIAL_REGDATE) = CURDATE()";
-
-		// 어제 총 매출 --
-		private static final String SELECTALL_PVDAYSALES_TOTAL = 
-				"SELECT SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS PV_TOTAL "  
-				+ "FROM BUYPRODUCT B "
-				+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK " // BUYPRODUCT 테이블과 PRODUCT 테이블을 PRODUCT_PK를 기준으로 조인
-				+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK " // BUYPRODUCT 테이블과 SERIAL 테이블을 SERIAL_PK를 기준으로 조인
-				+ "WHERE DATE(S.SERIAL_REGDATE) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
 
 		// 3시간별 비교 매출 총합
 		private static final String SELECTALL_TODAYSALES_THREEHOUR = 
@@ -181,14 +168,7 @@ public class ProductDAO {
 				+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK "
 				+ "WHERE DATE(S.SERIAL_REGDATE) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)) AS PV_TOTAL " // 구매시간을 기준으로 시간을 계산 = 하루 전 날짜만
 				+ "GROUP BY TEMP "; 
-		// 이번 달 총 매출
-		private static final String SELECTALL_SALES_THISMONTH =
-				"SELECT SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS MONTH_TOTAL " // 현재월의 총매출
-				+ "FROM BUYPRODUCT B "
-				+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK " // BUYPRODUCT 테이블과 PRODUCT 테이블을 PRODUCT_PK를 기준으로 조인
-				+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK " // BUYPRODUCT 테이블과 SERIAL 테이블을 SERIAL_PK를 기준으로 조인
-				+ "WHERE YEAR(S.SERIAL_REGDATE) = YEAR(CURDATE()) " // 구매년도가 현재 년도와 같은지 확인
-				+ "AND MONTH(S.SERIAL_REGDATE) = MONTH(CURDATE())"; // 구매월이 현재 월과 같은지 확인
+
 		// 월별 매출 차트 
 		private static final String SELECTALL_MONTHLY_SALES = 
 				"SELECT DATE_FORMAT(S.SERIAL_REGDATE, '%Y-%m') AS MONTH, "
@@ -312,6 +292,30 @@ public class ProductDAO {
 		return query;
 	}
 	
+	// 이번 달 총 매출
+			private static final String SELECTONE_SALES_THISMONTH =
+					"SELECT SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS MONTH_TOTAL " // 현재월의 총매출
+					+ "FROM BUYPRODUCT B "
+					+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK " // BUYPRODUCT 테이블과 PRODUCT 테이블을 PRODUCT_PK를 기준으로 조인
+					+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK " // BUYPRODUCT 테이블과 SERIAL 테이블을 SERIAL_PK를 기준으로 조인
+					+ "WHERE YEAR(S.SERIAL_REGDATE) = YEAR(CURDATE()) " // 구매년도가 현재 년도와 같은지 확인
+					+ "AND MONTH(S.SERIAL_REGDATE) = MONTH(CURDATE())"; // 구매월이 현재 월과 같은지 확인
+	// 오늘 총 매출 
+			private static final String SELECTONE_TODAYSALES_TOTAL =
+					"SELECT SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS TOTAL "
+							+ "FROM BUYPRODUCT B 	"
+							+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK " // BUYPRODUCT 테이블과 PRODUCT 테이블을 PRODUCT_PK를 기준으로 조인
+							+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK " // BUYPRODUCT 테이블과 SERIAL 테이블을 SERIAL_PK를 기준으로 조인
+							+ "WHERE DATE(S.SERIAL_REGDATE) = CURDATE()";
+
+	// 어제 총 매출 --
+			private static final String SELECTONE_PVDAYSALES_TOTAL = 
+					"SELECT SUM(B.BUYPRODUCT_CNT * P.PRODUCT_PRICE) AS PV_TOTAL "  
+					+ "FROM BUYPRODUCT B "
+					+ "JOIN PRODUCT P ON B.PRODUCT_PK = P.PRODUCT_PK " // BUYPRODUCT 테이블과 PRODUCT 테이블을 PRODUCT_PK를 기준으로 조인
+					+ "JOIN SERIAL S ON S.SERIAL_PK = B.SERIAL_PK " // BUYPRODUCT 테이블과 SERIAL 테이블을 SERIAL_PK를 기준으로 조인
+					+ "WHERE DATE(S.SERIAL_REGDATE) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+	
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
 		System.out.println(productDTO.getMemberID());
 		Object[] args1 = { productDTO.getMemberID() };
@@ -348,11 +352,11 @@ public class ProductDAO {
 			}
 			// Admin_오늘 총 매출
 			else if (productDTO.getSearchCondition().equals("adminTodaySales")) {
-				return jdbcTemplate.query(SELECTALL_TODAYSALES_TOTAL, new ProductSalesTotalTodayAdminRowMapper());
+				return jdbcTemplate.query(SELECTONE_TODAYSALES_TOTAL, new ProductSalesTotalTodayAdminRowMapper());
 			}
 			// Admin_어제 총 매출
 			else if (productDTO.getSearchCondition().equals("adminPvdaySales")) {
-				return jdbcTemplate.query(SELECTALL_PVDAYSALES_TOTAL, new ProductSalesTotalPvdayAdminRowMapper());
+				return jdbcTemplate.query(SELECTONE_PVDAYSALES_TOTAL, new ProductSalesTotalPvdayAdminRowMapper());
 			}
 			// Admin_오늘 3시간별 매출(줄 그래프)
 			else if (productDTO.getSearchCondition().equals("adminTodaySalesByHours")) {
@@ -364,7 +368,7 @@ public class ProductDAO {
 			}
 			// Admin_이번달 총 매출
 			else if (productDTO.getSearchCondition().equals("adminSalesThisMonth")) {
-				return jdbcTemplate.query(SELECTALL_SALES_THISMONTH, new ProductSalesThisMonthAdminRowMapper());
+				return jdbcTemplate.query(SELECTONE_SALES_THISMONTH, new ProductSalesThisMonthAdminRowMapper());
 			}
 			// Admin_월별매출(막대 그래프)
 			else if (productDTO.getSearchCondition().equals("adminMonthlySalesGraph")) {
