@@ -577,7 +577,7 @@ class ProductSalesTotalNumAdminRowMapper implements RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
-		data.setTotalPrice(rs.getInt("TOTAL_PRODUCTNUM"));
+		data.setProductQuantity(rs.getInt("TOTAL_PRODUCTNUM"));
 		
 		return data;
 	}

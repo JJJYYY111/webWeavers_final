@@ -40,14 +40,24 @@ public class AdminController {
 	@Autowired
 	ImageService imageService;
 	
+	// 관리자페이지 - 관리자메인페이지로 이동하는 메서드
 	@RequestMapping("/adminDashboard")
-	public String adminDashboard() {
+	public String adminDashboard(ProductDTO productDTO, MemberDTO memberDTO, Model model) {
+		productDTO.setSearchCondition("adminSalesThisMonth");
+		model.addAttribute("monthlyTotalSales", productService.selectOne(productDTO));
+		productDTO.setSearchCondition("adminTodaySales");
+		model.addAttribute("dailyTotalSales", productService.selectOne(productDTO));
+		productDTO.setSearchCondition("adminSalesProductTotalNum");
+		model.addAttribute("productTotalCount", productService.selectOne(productDTO));
+		memberDTO.setSearchCondition("totalMember");
+		model.addAttribute("memberTotalCount", memberService.selectOne(memberDTO));
 		return "admin/adminDashboard";
 	}
 	
 	// 회원관리 ======================================================================
 	// ============================================================================
 	
+	// 관리자페이지 - 회원목록으로 이동하는 메서드
 	@RequestMapping("/adminMemberStatus")
 	public String adminMemberStatus(MemberDTO memberDTO, Model model) {
 		memberDTO.setSearchCondition("allMemberInfo");
@@ -55,7 +65,7 @@ public class AdminController {
 		return "admin/adminMemberStatus";
 	}
 	
-	
+	// 관리자페이지 - 해당 회원의 정보수정페이지로 이동하는 메서드
 	@RequestMapping("/adminMemberStatusChange")
 	public String adminMemberStatusChange(MemberDTO memberDTO, Model model) {
 		memberDTO.setSearchCondition("idCheck");
@@ -71,6 +81,7 @@ public class AdminController {
 		return "admin/adminMemberStatusChange";
 	}
 	
+	// 관리자페이지 - 회원정보수정을 수행하는 메서드 
 	@RequestMapping("/adminMemberUpdate")
 	public String adminMemberUpdate(MemberDTO memberDTO) {
 		memberDTO.setSearchCondition("adminUpdateMember");
@@ -81,25 +92,18 @@ public class AdminController {
 		return "redirect:/adminMemberStatus";
 	}
 	
-	@RequestMapping("/adminMemberSearch")
-	public @ResponseBody String adminMemberSearch(MemberDTO memberDTO) {
+	// 관리자페이지 - 회원검색기능의 메서드
+	@RequestMapping("/async/adminMemberSearch")
+	public @ResponseBody String adminMemberSearch(MemberDTO memberDTO, Gson gson) {
 		memberDTO.setSearchCondition("userSearch");
 		System.out.println(memberDTO);
-		List<MemberDTO> datas = memberService.selectAll(memberDTO);
-		System.out.println(datas);
-		String json;
-		if (datas == null) { // 만약 주소목록이 비어있다면
-			json = "[]"; // 빈 배열을 반환
-		}
-		Gson gson = new Gson(); // Gson 객체 생성
-		json = gson.toJson(datas);
-		System.out.println(json);
-		return json;
+		return gson.toJson(memberService.selectAll(memberDTO));
 	}
 
 	// 상품관리 ======================================================================	
 	// ============================================================================
 	
+	// 관리자페이지 - 상품목록으로 이동하는 메서드
 	@RequestMapping("/adminProductStatus")
 	public String adminProductStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminProductList");
@@ -107,11 +111,13 @@ public class AdminController {
 		return "admin/adminProductStatus";
 	}
 	
+	// 관리자페이지 - 상품등록페이지로 이동하는 메서드
 	@RequestMapping("/adminProductRegistration")
 	public String adminProductRegistration() {
 		return "admin/adminProductRegistration";
 	}
 	
+	// 관리자페이지 - 상품등록기능을 수행하는 메서드
 	@RequestMapping("/adminProductInsert")
 	public String adminProductInsert(ProductDTO productDTO, CategorizationDTO categorizationDTO, 
 									@RequestParam("productImage") MultipartFile productImage, 
@@ -136,6 +142,7 @@ public class AdminController {
 		return "redirect:/adminProductStatus";
 	}
 	
+	// 관리자페이지 - 상품정보수정페이지로 이동하는 메서드
 	@RequestMapping("/adminProductStatusChange")
 	public String adminProductStatusChange(ProductDTO productDTO, CategoryDTO categoryDTO, CategorizationDTO categorizationDTO, Model model) {
 		productDTO.setSearchCondition("adminProduct");
@@ -144,6 +151,7 @@ public class AdminController {
 		return "admin/adminProductStatusChange";
 	}
 	
+	// 관리자페이지 - 상품정보수정을 수행하는 메서드
 	@RequestMapping("/adminProductUpdate")
 	public String adminProductUpdate(ProductDTO productDTO, CategorizationDTO categorizationDTO, 
 										@RequestParam("productImage") MultipartFile productImage, 
@@ -172,7 +180,8 @@ public class AdminController {
 		return "redirect:/adminProductStatus";
 	}
 	
-	@RequestMapping("/adminCategoryCheckbox")
+	// 관리자페이지 - 상품수정페이지에 해당 상품의 카테고리분류를 나타내기위한 메서드
+	@RequestMapping("/async/adminCategoryCheckbox")
 	public @ResponseBody String adminCategoryCheckbox(CategorizationDTO categorizationDTO, Gson gson, SubCategoryDTO subCategoryDTO) {
 		return gson.toJson(categorizationService.selectAll(categorizationDTO));
 	}
@@ -180,6 +189,7 @@ public class AdminController {
 	// 주문관리 ======================================================================
 	// ============================================================================
 	
+	// 관리자페이지 - 주문관리페이지로 이동하는 메서드
 	@RequestMapping("/adminOrderStatus")
 	public String adminOrderStatus(SerialDTO serialDTO, Model model) {
 		serialDTO.setSearchCondition("orderList");
@@ -187,19 +197,22 @@ public class AdminController {
 		return "admin/adminOrderStatus";
 	}
 	
-	@RequestMapping("/adminDetailOrderList")
+	// 관리자페이지 - 해당 주문번호의 구매한 상품들을 출력하기위한 메서드
+	@RequestMapping("/async/adminDetailOrderList")
 	public @ResponseBody String adminGetOrderList(SerialDTO serialDTO, Gson gson) {
 		serialDTO.setSearchCondition("orderProduct");
 		return gson.toJson(serialService.selectAll(serialDTO));
 	}
 	
-	@RequestMapping("/adminSearchSerial")
+	// 관리자페이지 - 특정 주문번호를 검색하기위한 메서드
+	@RequestMapping("/async/adminSearchSerial")
 	public @ResponseBody String adminSearchSerial(SerialDTO serialDTO, Gson gson) {
 		serialDTO.setSearchCondition("orderSearch");
 		return gson.toJson(serialService.selectAll(serialDTO));
 	}
 	
-	@RequestMapping("/adminSerialStatusChange")
+	// 관리자페이지 - 해당주문번호의 주문상태수정기능을 수행하는 메서드
+	@RequestMapping("/async/adminSerialStatusChange")
 	public @ResponseBody String adminSerialStatus(SerialDTO serialDTO, Gson gson) {
 		return String.valueOf(serialService.update(serialDTO));
 	}
@@ -207,6 +220,7 @@ public class AdminController {
 	// 매출관리 ======================================================================
 	// ============================================================================
 	
+	// 관리자페이지 - 총매출현황페이지로 이동하는 메서드
 	@RequestMapping("/adminSalesStatus")
 	public String adminSalesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminProductSales");
@@ -214,12 +228,14 @@ public class AdminController {
 		return "admin/adminSalesStatus";
 	}
 	
-	@RequestMapping("/adminSearchSales")
+	// 관리자페이지 - 특정상품의 판매현황을 검색하기위한 메서드
+	@RequestMapping("/async/adminSearchSales")
 	public @ResponseBody String adminSearchSales(ProductDTO productDTO, Gson gson){
 		productDTO.setSearchCondition("adminProductSales");
 		return gson.toJson(productService.selectAll(productDTO));
 	}
 	
+	// 관리자페이지 - 일일매출현황페이지로 이동하는 메서드
 	@RequestMapping("/adminDailySalesStatus")
 	public String adminDailySalesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminDailySales");
@@ -227,18 +243,21 @@ public class AdminController {
 		return "admin/adminDailySalesStatus";
 	}
 	
-	@RequestMapping("/adminTodaySalesGraph")
+	// 관리자페이지 - 금일매출현황그래프를 나타내기위한 메서드
+	@RequestMapping("/async/adminTodaySalesGraph")
 	public @ResponseBody String adminTodaySalesGraph(ProductDTO productDTO, Gson gson) {
 		productDTO.setSearchCondition("adminTodaySalesByHours");
 		return gson.toJson(productService.selectAll(productDTO));
 	}
 	
-	@RequestMapping("/adminYesterdaySalesGraph")
+	// 관리자페이지 - 전일매출현황그래프를 나타내기위한 메서드
+	@RequestMapping("/async/adminYesterdaySalesGraph")
 	public @ResponseBody String adminYesterdaySalesGraph(ProductDTO productDTO, Gson gson) {
 		productDTO.setSearchCondition("adminPvdaySalesByHours");
 		return gson.toJson(productService.selectAll(productDTO));
 	}
 	
+	// 관리자페이지 - 월별매출현황페이지로 이동하는 메서드
 	@RequestMapping("/adminMonthlySalesStatus")
 	public String adminMonthlySalesStatus(ProductDTO productDTO, Model model) {
 		productDTO.setSearchCondition("adminMonthlySales");
@@ -246,12 +265,15 @@ public class AdminController {
 		return "admin/adminMonthlySalesStatus";
 	}
 	
-	@RequestMapping("/adminMonthlySalesGraph")
+	// 관리자페이지 - 월별매출현황그래프를 나타내기위한 메서드
+	@RequestMapping("/async/adminMonthlySalesGraph")
 	public @ResponseBody String adminMonthlySalesGraph(ProductDTO productDTO, Gson gson) {
 		productDTO.setSearchCondition("adminMonthlySalesGraph");
 		return gson.toJson(productService.selectAll(productDTO));
 	}
-	@RequestMapping("/adminDonutGraph")
+	
+	// 관리자페이지 - 카테고리별 매출현황을 도넛그래프로 나타내기위한 메서드
+	@RequestMapping("/async/adminDonutGraph")
 	public @ResponseBody String adminDonutGraph(ProductDTO productDTO, Gson gson) {
 		productDTO.setSearchCondition("adminCategorySalesDonut");
 		List<ProductDTO> datas = productService.selectAll(productDTO);

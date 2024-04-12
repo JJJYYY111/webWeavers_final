@@ -74,7 +74,7 @@
 
 									<h2
 										class="text-dark mb-1 w-100 text-truncate font-weight-medium">
-										<sup class="set-doller">&nbsp;₩</sup>&nbsp;18,306
+										<sup class="set-doller">&nbsp;₩</sup>&nbsp;<span>${monthlyTotalSales.totalPrice}원</span>
 									</h2>
 								</div>
 								<div class="ml-auto mt-md-3 mt-lg-0">
@@ -94,7 +94,7 @@
 
 									<h2
 										class="text-dark mb-1 w-100 text-truncate font-weight-medium">
-										<sup class="set-doller">&nbsp;₩</sup>&nbsp;18,306
+										<sup class="set-doller">&nbsp;₩</sup>&nbsp;<span>${dailyTotalSales.totalPrice}원</span>
 									</h2>
 								</div>
 								<div class="ml-auto mt-md-3 mt-lg-0">
@@ -110,11 +110,31 @@
 								<div style="text-align: center">
 									<h6
 										class="text-muted font-weight-normal mb-0 w-100 text-truncate"
-										style="line-height: 2.5">일일 방문자수</h6>
+										style="line-height: 2.5">총 회원수(탈퇴제외)</h6>
 
 									<h2
 										class="text-dark mb-1 w-100 text-truncate font-weight-medium">
-										<sup class="set-doller"></sup>&nbsp;1000명
+										<span>${memberTotalCount.totalMember}명</span>
+									</h2>
+								</div>
+								<div class="ml-auto mt-md-3 mt-lg-0">
+									<span class="opacity-7 text-muted"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card border-right">
+						<div class="card-body">
+							<div
+								class="d-flex d-lg-flex d-md-block align-items-center justify-content-center">
+								<div style="text-align: center">
+									<h6
+										class="text-muted font-weight-normal mb-0 w-100 text-truncate"
+										style="line-height: 2.5">판매중인 상품수</h6>
+
+									<h2
+										class="text-dark mb-1 w-100 text-truncate font-weight-medium">
+										<span>${productTotalCount.productQuantity}개</span>
 									</h2>
 								</div>
 								<div class="ml-auto mt-md-3 mt-lg-0">
