@@ -87,7 +87,7 @@ public class ReviewController {
 		return "redirect:/reviewList";
 	}
 	
-	@RequestMapping("/reviewLike")
+	@RequestMapping("/async/reviewLike")
 	public @ResponseBody String reviewLike(ReviewLikeDTO reviewLikeDTO, HttpSession session) {
 		reviewLikeDTO.setMemberID((String)session.getAttribute("sessionMid"));	// wDTO에 세션ID 저장 (로그인 상태, 로그아웃 상태 체크)
 		ReviewLikeDTO data = reviewLikeService.selectOne(reviewLikeDTO);					// selectOne()을 통해 리턴값(객체) 저장
@@ -105,7 +105,7 @@ public class ReviewController {
 		}
 	}
 	
-	@RequestMapping("/reviewOrderedList")
+	@RequestMapping("/async/reviewOrderedList")
 	public @ResponseBody String reviewOrderedList(ReviewDTO reviewDTO, HttpSession session, Gson gson) {
 		reviewDTO.setMemberID((String)session.getAttribute("sessionMid"));
 		List<ReviewDTO> datas = reviewService.selectAll(reviewDTO);

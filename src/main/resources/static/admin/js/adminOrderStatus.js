@@ -37,7 +37,7 @@ $(document).on("click", "#search", function() {
 	$.ajax({
 
 		type: "POST",
-		url: "adminSearchSerial",
+		url: "/async/adminSearchSerial",
 		data: {
 			'serialStatus': serialStatus,
 			'memberName': memberName,
@@ -107,7 +107,7 @@ $(document).on('click', '.productName', function() {
 
 	$.ajax({
 		type: "POST",
-		url: "adminDetailOrderList",
+		url: "/async/adminDetailOrderList",
 		data: {
 			'serialPK': serialPK
 		},
@@ -200,7 +200,7 @@ $(document).on('change', '.serialStatus', function() {
 
 	$.ajax({
 		type: "POST",
-		url: "adminSerialStatusChange",
+		url: "/async/adminSerialStatusChange",
 		data: {
 			'serialStatus': selectedStatus, // 변수명 수정
 			'serialPK': serialPK

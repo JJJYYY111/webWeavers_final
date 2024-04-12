@@ -52,7 +52,7 @@ $(document).on("click", "#searchButton", function () {
 
     $.ajax({
         type: "POST",
-        url: "adminSearchSales",
+        url: "/async/adminSearchSales",
         data: {
             'categoryPK': categoryPK,
             'subCategoryPK': subCategoryPK,

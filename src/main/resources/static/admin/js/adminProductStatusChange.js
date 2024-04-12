@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $.ajax({
 			
 			type: "POST",
-			url: "adminCategoryCheckbox",
+			url: "/async/adminCategoryCheckbox",
 			data: {
                 'productPK': productPK
                 

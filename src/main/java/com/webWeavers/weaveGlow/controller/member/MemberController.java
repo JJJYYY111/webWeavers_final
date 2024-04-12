@@ -27,10 +27,10 @@ public class MemberController {
 	@Autowired
 	SmsService smsService;
 
+	// id중복검사를 수행하는 메서드
 	@RequestMapping("/async/idCheck")
 	public @ResponseBody String idCheck(MemberDTO memberDTO) {
 		System.out.println("아이디중복검사진입");
-		System.out.println(memberDTO);
 		memberDTO.setSearchCondition("idCheck"); // memberDTO에 검색조건 저장
 
 		if (memberService.selectOne(memberDTO) == null) { // memberDTO가 null인 경우(중복x)
@@ -39,11 +39,11 @@ public class MemberController {
 			return "0"; // 0 응답
 		}
 	}
-	
+
+	// 닉네임중복검사를 수행하는 메서드
 	@RequestMapping("/async/nickNameCheck")
 	public @ResponseBody String nickNameCheck(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("닉네임중복검사진입");
-		System.out.println(memberDTO);
 		memberDTO.setSearchCondition("memberNickNameCheck"); // mDTO에 검색조건 저장
 
 		memberDTO = memberService.selectOne(memberDTO); // selectOne()을 통해 리턴값(객체) 저장
@@ -54,50 +54,55 @@ public class MemberController {
 			return "0"; // 0 응답
 		}
 	}
-	
+
+	// sms본인인증확인을 진행하는 메서드
 	@RequestMapping("/async/smsCertification")
 	public @ResponseBody int smsCertification(MemberDTO memberDTO) {
 		System.out.println("[로그] 본인인증번호발송서비스진입");
-		
+
 		// memberDTO 검색조건 저장
 		memberDTO.setSearchCondition("certification");
 		// 문자인증 서비스 sendMessage()의 리턴값 변수에 저장
 		int resultNum = smsService.sendMessage(memberDTO);
-		
-		if(resultNum > 0) {
-			return resultNum;	// 메시지발송 성공 : 인증번호 * 7777 응답
+
+		if (resultNum > 0) {
+			return resultNum; // 메시지발송 성공 : 인증번호 * 7777 응답
 		} else {
-			return -1;			// 메시지발송 실패 : -1 응답
+			return -1; // 메시지발송 실패 : -1 응답
 		}
-		
+
 	}
 
+	// ID찾기페이지로 이동하는 메서드
+	@RequestMapping("/findID")
+	public String findID() {
+		return "user/findId";
+	}
+
+	// 비밀번호찾기페이지로 이동하는 메서드
+	@RequestMapping("/findPW")
+	public String findPW() {
+		return "user/findPw";
+	}
+
+	// 로그인 페이지로 이동하는 메서드
 	@RequestMapping("/login")
 	public String login() {
 		return "user/login";
 	}
 
+	// 로그아웃을 수행하는 메서드
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("sessionMid");
 		session.removeAttribute("grade");
 		return "redirect:/main";
 	}
-	
-	@RequestMapping("/findID")
-	public String findID() {
-		return "user/findId";
-	}
-	
-	@RequestMapping("/findPW")
-	public String findPW() {
-		return "user/findPw";
-	}
 
+	// 로그인을 수행하는 메서드
 	@RequestMapping("/memberSelectOne")
 	public String memberSelectOne(MemberDTO memberDTO, HttpSession session, Model model) {
 		memberDTO.setSearchCondition("login");
-		System.out.println(memberDTO);
 		memberDTO = memberService.selectOne(memberDTO);
 
 		// 확인된 사용자 정보가 비어있거나 사용자의 등급이 5등급 인 경우
@@ -106,60 +111,55 @@ public class MemberController {
 			return "user/login";
 		}
 		// 확인된 사용자 정보가 있거나 사용자의 등급이 5등급 아닌 경우
-		else {
-			session.setAttribute("sessionMid", memberDTO.getMemberID());
-			session.setAttribute("grade", memberDTO.getGradePK());
- 			return "redirect:/main";
-		}
+		session.setAttribute("sessionMid", memberDTO.getMemberID());
+		session.setAttribute("grade", memberDTO.getGradePK());
+		return "redirect:/main";
 	}
 
+	// 회원정보수정을 수행하는 메서드
 	@RequestMapping("/memberUpdate")
 	public String memberUpdate(MemberDTO memberDTO, HttpSession session) {
+		System.out.println("회원정보수정진입");
 		memberDTO.setSearchCondition("updateInfo");
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
-		System.out.println("회원정보수정진입");
-		System.out.println(memberDTO);
 		if (!memberService.update(memberDTO)) { // 성공했으면 mypage로 이동
 			return "redirect:/error";
 		}
 		return "redirect:/mypage";
 	}
 
+	// 마이페이지로 이동하는 메서드
 	@RequestMapping("/mypage")
 	public String myPage(MemberDTO memberDTO, HttpSession session, Model model) {
-		// 서버에서 입력 받은 사용자정보의 사용방식을 구분하기위해 작성
 		memberDTO.setSearchCondition("memberInfo");
 
-		// 서버로부터 사용자 ID 정보를 받아와 MemberDTO에 저장
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		memberDTO = memberService.selectOne(memberDTO);
-		// 확인된 사용자 정보가 비어있는 경우
 		if (memberDTO == null) {
 			return "redirect:/error";
 		}
-		// 확인된 사용자 정보가 있는 경우
-		else {
-			model.addAttribute("data", memberDTO);
-			return "user/mypage";
-		}
+		model.addAttribute("data", memberDTO);
+		return "user/mypage";
 	}
 
+	// 비밀번호확인페이지로 이동하는 메서드 - 회원상태변경 진입시
 	@RequestMapping("/profileChangePasswordCheck")
 	public String profileChangePasswordCheck() {
 		return "user/profileChangePasswordCheck";
 	}
-
+	
+	// 비밀번호확인페이지로 이동하는 메서드 - 회원탈퇴시
 	@RequestMapping("/unregisterPasswordCheck")
 	public String unregisterPasswordCheck() {
 		return "user/unregisterPasswordCheck";
 	}
-
+	
+	// 회원정보수정을 수행하는 메서드
 	@RequestMapping("/profileChange")
 	public String profileChange(MemberDTO memberDTO, HttpSession session, Model model) {
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 
 		memberDTO.setSearchCondition("login");
-		System.out.println(memberDTO);
 		memberDTO = memberService.selectOne(memberDTO);
 
 		if (memberDTO == null) {
@@ -175,52 +175,39 @@ public class MemberController {
 		model.addAttribute("marketing", memberDTO.getMemberMarketing());
 		return "user/profileChange";
 	}
-
+	
+	// 회원가입페이지로 이동하는 메서드
 	@RequestMapping("/register")
 	public String register() {
 		return "user/register";
 	}
-
-	@RequestMapping("/registerSuccess")
+	
+	// 회원등록완료페이지로 이동하는 메서드
+	@RequestMapping("/registerSuccess") // 얘도 트랜잭션?
 	public String registerSuccess(MemberDTO memberDTO, AddressDTO addressDTO) {
-////		 Date 객체를 선언하고 초기화
-////		 "yyyy-MM-dd" 형식의 날짜 문자열을 처리하기 위한 formatter 생성
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		try {
-//			// request.getParameter("birth")로부터 전달된 생년월일 문자열을 Date 객체로 변환
-//		memberDTO.setMemberBirth(formatter.parse(memberBirthDate));	
-//		} catch (Exception e ) {
-//			// 예외가 발생한 경우
-//			e.printStackTrace();
-//		}
-		
-		System.out.println("회원가입기능진입");
-		System.out.println(memberDTO);
-		
+
 		if (memberDTO.getMemberMarketing() != null) {
 			memberDTO.setMemberMarketing("Y");
-		}
-		else {
+		} else {
 			memberDTO.setMemberMarketing("N");
 		}
-		System.out.println(memberDTO);
-		// 입력받은 정보의 추가가 된 경우
+		
 		if (!memberService.insert(memberDTO)) {
 			return "redirect:/register";
 		}
+		
 		addressDTO.setAddressName("기본배송지");
 		// 상세주소를 입력하지 않은 경우
 		if (addressDTO.getAddressDetail() == null) {
 			addressDTO.setAddressDetail("");
 		}
-
 		if (!addressService.insert(addressDTO)) {
 			return "redirect:/register";
 		}
 		return "user/registerSuccess";
-
 	}
-
+	
+	// 회원탈퇴페이지로 이동하는 메서드
 	@RequestMapping("/unregister")
 	public String unregister(MemberDTO memberDTO, HttpSession session) {
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
@@ -230,7 +217,8 @@ public class MemberController {
 		}
 		return "user/unregister";
 	}
-
+	
+	// 회원탈퇴완료페이지로 이동하는 메서드
 	@RequestMapping("/unregisterSuccess")
 	public String unregisterSuccess(MemberDTO memberDTO, HttpSession session) {
 		// 유저의 정보를 담는 mDTO에 id와 검색조건을 설정

@@ -57,7 +57,7 @@ $("#search").on("click", function() {
 	$.ajax({
 
 		type: "POST",
-		url: "/adminMemberSearch",
+		url: "/async/adminMemberSearch",
 		data: {
 			'gradeName': gradeName,
 			'memberName': memberName,

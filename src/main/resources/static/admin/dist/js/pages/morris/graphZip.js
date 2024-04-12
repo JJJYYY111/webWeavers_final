@@ -466,7 +466,7 @@ $(function () {
 	
 	$.ajax({
                 type: 'POST',
-                url: 'adminDonutGraph',
+                url: '/async/adminDonutGraph',
                 dataType: 'json',
                 success: function(datas) {
                     console.log('로그' + datas);
@@ -701,7 +701,7 @@ $(function () {
 	var salesData = [0, 0, 0];
     $.ajax({
                 type: 'POST',
-                url: 'adminDonutGraph',
+                url: '/async/adminDonutGraph',
                 dataType: 'json',
                 success: function(datas) {
                     console.log('로그' + datas);
@@ -885,7 +885,7 @@ $(function () {
             // 어제 데이터 요청
             $.ajax({
                 type: 'POST',
-                url: 'adminYesterdaySalesGraph',
+                url: '/async/adminYesterdaySalesGraph',
                 dataType: 'json',
                 success: function(datas) {
                     datas.forEach(function(data, index) {
@@ -901,7 +901,7 @@ $(function () {
             // 오늘 데이터 요청
             $.ajax({
                 type: 'POST',
-                url: 'adminTodaySalesGraph',
+                url: '/async/adminTodaySalesGraph',
                 dataType: 'json',
                 success: function(datas) {
                     datas.forEach(function(data, index) {
@@ -926,7 +926,7 @@ $(function () {
     // 데이터 요청
     $.ajax({
         type: "POST",
-        url: "adminMonthlySalesGraph",
+        url: "/async/adminMonthlySalesGraph",
         dataType: 'json',
         success: function(datas) {
             console.log('로그' + datas);

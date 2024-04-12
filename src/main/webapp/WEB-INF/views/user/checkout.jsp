@@ -246,7 +246,7 @@
 									<c:if test="${fn:length(cdatas) <= 0}">상품이 없습니다.</c:if>
 									<c:if test="${fn:length(cdatas) > 0}">
 										<c:forEach var='data' items='${cdatas}'>
-											<li><span style="width: 70%; display: inline-block;" name="productName">${data.productName}
+											<li><span style="width: 70%; display: inline-block;" name="productName">${data.productName}</span><span style="width: 70%; display: inline-block;">
 													x ${data.cartCnt}</span> <span class="last" style="float: right;"><span
 													class="productPrice"><fmt:formatNumber
 															value="${data.productPrice*data.cartCnt}"

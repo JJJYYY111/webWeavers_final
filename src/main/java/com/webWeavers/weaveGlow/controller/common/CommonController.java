@@ -33,12 +33,14 @@ public class CommonController {
 	@Autowired
 	CategorizationService categorizationService;
 	
+	// contact페이지로 이동하는 메서드
 	@RequestMapping("/contact")
 	public String contact() {
 		System.out.println("contact진입");
 		return "user/contact";
 	}
-
+	
+	// index기능을 수행하는 메서드
 	@RequestMapping("/")
 	public String root(ProductDTO productDTO) {
 		System.out.println("로그 : index진입");
@@ -49,7 +51,8 @@ public class CommonController {
 		}
 		return "redirect:/main";
 	}
-
+	
+	// 상품테이블에 상품이 존재하지 않을 경우 웹크롤링을 통해 상품테이블에 상품을 넣는 메서드
 	@RequestMapping("/crawling")
 	public String Crawling(SubCategoryDTO subCategoryDTO, CategorizationDTO categorizationDTO) {
 		List<String> urlDatas = new ArrayList<String>();
@@ -130,10 +133,11 @@ public class CommonController {
 		}
 		return "redirect:/main";
 	}
-
+	
+	// 메인페이지로 이동하는 메서드
 	@RequestMapping("/main")
 	public String main(ProductDTO productDTO, HttpSession session, Model model) {
-		System.out.println("메인 인덱스 진입");
+		System.out.println("메인 페이지 진입");
 		
 		productDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		productDTO.setSearchCondition("userMain");

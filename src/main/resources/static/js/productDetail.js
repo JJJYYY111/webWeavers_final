@@ -19,7 +19,7 @@ $("#like").on("click", function() {
 
     $.ajax({
         type: "POST",
-        url: "/reviewOrderedList",
+        url: "/async/reviewOrderedList",
         data: {
             'productPK' : document.getElementById('productNumber').value,
             'searchCondition': 'reviewLike'
@@ -126,7 +126,7 @@ $("#recent").on("click", function() {
     var sessionMid = `${sessionMid}`;
     $.ajax({
         type: "POST",
-        url: "/reviewOrderedList",
+        url: "/async/reviewOrderedList",
         data: {
             'productPK': document.getElementById('productNumber').value,
             'searchCondition': 'regdate',
@@ -207,7 +207,7 @@ function reviewLikeClick(reviewPK, memberID) {
     } else {
         $.ajax({
             type: "POST",
-            url: "/reviewLike",
+            url: "/async/reviewLike",
             data: {
                 'reviewPK': reviewPK
             },
