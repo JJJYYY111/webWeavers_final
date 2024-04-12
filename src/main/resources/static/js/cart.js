@@ -35,6 +35,7 @@ function updateQuantity(ppk, updown, price) {
         return; // 더 이상 수량을 감소하지 않음
     }
 		console.log(qty);
+		
     // jQuery를 사용하여 AJAX POST 요청을 보냄
     $.ajax({
         url: 'async/cartUpdate',
@@ -67,23 +68,44 @@ function updateQuantity(ppk, updown, price) {
     });
 }
 
+// 체크 박스 클릭시 해당 상품 총합 추가
+$(document).on('change', 'input[name="selectedProducts"]', function() {
+    // 체크된 상품의 가격을 기반으로 전체 소계를 업데이트함
+    updateSubtotal();
+});
+
+// 전체 선택 및 해제 버튼에 이벤트 추가
+$('#selectAllCheckbox').change(function() {
+    selectAllProduct(); // 전체 선택 함수 호출
+});
+
+
+$(document).ready(function() {
+    // 페이지 로드 시에도 총 가격을 초기화하기 위해 updateSubtotal 함수 호출
+    updateSubtotal();
+});
+
 // updateSubtotal 함수: 장바구니의 전체 소계를 업데이트함
 function updateSubtotal() {
     var total = 0;
 
-    // 모든 제품 가격 요소를 가져와서 총 가격을 계산함
-    var productPrices = document.getElementsByClassName('productPrice');
-	console.log(priceStrToInt(productPrices[0].textContent), productPrices[0].textContent)
-    for (var i = 0; i < productPrices.length; i++) {
-        total += priceStrToInt(productPrices[i].textContent);
-		//console.log(total)
-    }
+    // 모든 체크된 상품 행을 선택함
+    var checkedProducts = document.querySelectorAll('input[name="selectedProducts"]:checked');
 
-	var formattedPrice = total.toLocaleString();
+    // 각 체크된 상품의 가격을 합산함
+    checkedProducts.forEach((checkbox) => {
+        var productRow = checkbox.closest('tr'); // 상품 행 가져옴
+        var productPriceElement = productRow.querySelector('.productPrice'); // 상품 가격 요소 가져옴
+        var productPrice = priceStrToInt(productPriceElement.textContent); // 상품 가격을 숫자로 변환하여 가져옴
+        total += productPrice; // 총 가격에 상품 가격 추가
+    });
 
-    // 수정: jQuery를 사용하여 화면에 전체 소계를 업데이트함
-    $('#totalPrice').text(formattedPrice);
+    // 숫자를 통화 형식으로 변환하여 총 가격을 표시함
+    var formattedPrice = total.toLocaleString();
+    $('#cartTotalPrice').text(formattedPrice); // jQuery를 사용하여 화면에 전체 소계를 업데이트 함
+    
 }
+
 
 
 /* 장바구니 추가 */
@@ -150,25 +172,6 @@ function selectedDelete(){
 }
 
 //--------구매버튼 클릭시 체크박스 확인 -----
-
-/*const submitCheck = document.getElementById('cartForm');
-
-submitCheck.addEventListener("submit", (event) => {
-	
-	var checkFlag = false;
-	var selectedCheck = document.cartForm.selectedProducts;
-	for (i = 0; i < selectedCheck.length; i++) {
-            if (selectedCheck[i].checked) {
-                checkFlag = true;
-            }
-        }
-	if(!checkFlag){
-		alert("상품을 선택해주세요!");
-	  event.preventDefault();
-	}
-});*/
-
-//--------구매버튼 클릭시 체크박스 확인 -----
 const submitCheck = document.getElementById('cartForm');
 if(submitCheck != null){
 submitCheck.addEventListener("submit", (event) => {
@@ -187,20 +190,6 @@ submitCheck.addEventListener("submit", (event) => {
 });	
 }
 
-
-//-------- 전체선택 버튼 코드----
-	
-/*function selectAllProduct() {
-        // 선택된 모든 제품 체크박스 가져오기
-        const checkboxes = document.querySelectorAll('input[name="selectedProducts"]');
-        
-        // 모든 체크박스를 선택 상태로 변경
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = true;
-        });
-    }*/
-    
-    
  //-------- 전체선택,해제 선택 버튼 코드----
  
 function selectAllProduct() {
@@ -222,6 +211,9 @@ function selectAllProduct() {
     checkboxes.forEach((checkbox) => {
         checkbox.checked = !anyChecked;
     });
+    
+    // 변경된 체크박스 상태를 확인하고 총 가격 업데이트
+    updateSubtotal();
 }
 
 

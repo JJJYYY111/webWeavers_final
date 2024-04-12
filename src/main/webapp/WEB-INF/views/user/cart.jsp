@@ -147,9 +147,9 @@
 									</td>
 									<td></td>
 									<td>
-										<h5>
-											<span id="totalPrice"></span>원
-										</h5>
+										 <h5>
+											<span id="cartTotalPrice"></span>원
+										</h5> 
 									</td>
 								</tr>
 								<!-- /합계 -->
