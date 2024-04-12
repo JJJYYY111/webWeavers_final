@@ -26,60 +26,64 @@ $("#like").on("click", function() {
         },
         dataType: 'json',
         success: function(datas) {
-            var reviewListHTML  = '';
-            datas.forEach(function(data) {
-                var parts = data.reviewRegdate.split(/[\s,]+/); // "4월 3, 2024"와 같은 문자열을 공백이나 쉼표를 기준으로 분할하여 parts 배열에 저장
-                var monthIndex = parseInt(parts[0].replace("월", "")) - 1; // 월을 숫자로 변환
-                var day = parseInt(parts[1].replace(",", "")); // 일을 숫자로 변환
-                var year = parseInt(parts[2]); // 연도를 숫자로 변환
+            if (datas.length === 0) { // 리뷰가 없을 경우
+                $(".review_list").html('<div class="review_item text-center"><br><br><h4>리뷰가 없습니다.</h4><br><br></div>');
+            } else {
+                var reviewListHTML = '';
+                datas.forEach(function(data) {
+                    var parts = data.reviewRegdate.split(/[\s,]+/); // "4월 3, 2024"와 같은 문자열을 공백이나 쉼표를 기준으로 분할하여 parts 배열에 저장
+                    var monthIndex = parseInt(parts[0].replace("월", "")) - 1; // 월을 숫자로 변환
+                    var day = parseInt(parts[1].replace(",", "")); // 일을 숫자로 변환
+                    var year = parseInt(parts[2]); // 연도를 숫자로 변환
 
-                var reviewDate = new Date(year, monthIndex, day); // Date 객체 생성
+                    var reviewDate = new Date(year, monthIndex, day); // Date 객체 생성
 
-                // YYYY-MM-DD 형식으로 변환
-                var formattedDate = formatDate(reviewDate);
-                
-                
-                // 별점을 평점에 맞게 그리기
-                var starHTML = '';
-                for (var i = 0; i < data.reviewScope; i++) {
-                    starHTML += '<i class="fas fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
-                }
-                for (var i = data.reviewScope; i < 5; i++) {
-                    starHTML += '<i class="far fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
-                }
+                    // YYYY-MM-DD 형식으로 변환
+                    var formattedDate = formatDate(reviewDate);
+                    
+                    
+                    // 별점을 평점에 맞게 그리기
+                    var starHTML = '';
+                    for (var i = 0; i < data.reviewScope; i++) {
+                        starHTML += '<i class="fas fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                    }
+                    for (var i = data.reviewScope; i < 5; i++) {
+                        starHTML += '<i class="far fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                    }
 
-                   reviewListHTML += `
-                    <div class="review_item">
-                        <div class="media">
-                            <div class="media-body">
-                               <span>${formattedDate}</span>
-                                <br>
-                                <br>
-                                <h4>
-                                    <span>작성자 : ${data.memberNickname}</span>
-                                    <button onclick="reviewLikeClick('${data.reviewPK}','` + document.getElementById('sessionMid').value + `')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
-                                        <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
-                                    </button>
-                                    <span id="reviewCnt${data.reviewPK}">${data.reviewLikeCnt}</span>
-                                </h4>
-                                <br>
-                                <div class="starRating">
-                                    ${starHTML}
+                    reviewListHTML += `
+                        <div class="review_item">
+                            <div class="media">
+                                <div class="media-body">
+                                   <span>${formattedDate}</span>
+                                    <br>
+                                    <br>
+                                    <h4>
+                                        <span>작성자 : ${data.memberNickname}</span>
+                                        <button onclick="reviewLikeClick('${data.reviewPK}','` + document.getElementById('sessionMid').value + `')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
+                                            <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
+                                        </button>
+                                        <span id="reviewCnt${data.reviewPK}">${data.reviewLikeCnt}</span>
+                                    </h4>
+                                    <br>
+                                    <div class="starRating">
+                                        ${starHTML}
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <!-- 리뷰 작성할 때 사용자가 등록한 이미지 -->
+                                    ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
                                 </div>
                             </div>
-                            <div class="d-flex">
-                                <!-- 리뷰 작성할 때 사용자가 등록한 이미지 -->
-                                ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
+                            <br>
+                            <div>
+                                <textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea>
                             </div>
                         </div>
-                        <br>
-                        <div>
-                            <textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea>
-                        </div>
-                    </div>
-                `;
-            });
-            $(".review_list").html(reviewListHTML);
+                    `;
+                });
+                $(".review_list").html(reviewListHTML);
+            }
         },
         error: function(error) {
             console.log('실패');
@@ -87,6 +91,7 @@ $("#like").on("click", function() {
         }
     });
 });
+
 
 
 /*<div class="review_item">
@@ -134,60 +139,63 @@ $("#recent").on("click", function() {
         },
         dataType: 'json',
         success: function(datas) {
-            console.log('데이터: ' + datas);
-            var reviewListHTML = '';
-            datas.forEach(function(data) {
-                var parts = data.reviewRegdate.split(/[\s,]+/); // "4월 3, 2024"와 같은 문자열을 공백이나 쉼표를 기준으로 분할하여 parts 배열에 저장
-                var monthIndex = parseInt(parts[0].replace("월", "")) - 1; // 월을 숫자로 변환
-                var day = parseInt(parts[1].replace(",", "")); // 일을 숫자로 변환
-                var year = parseInt(parts[2]); // 연도를 숫자로 변환
+            if (datas.length === 0) { // 리뷰가 없을 경우
+                $(".review_list").html('<div class="review_item text-center"><br><br><h4>리뷰가 없습니다.</h4><br><br></div>');
+            } else {
+                var reviewListHTML = '';
+                datas.forEach(function(data) {
+                    var parts = data.reviewRegdate.split(/[\s,]+/); // "4월 3, 2024"와 같은 문자열을 공백이나 쉼표를 기준으로 분할하여 parts 배열에 저장
+                    var monthIndex = parseInt(parts[0].replace("월", "")) - 1; // 월을 숫자로 변환
+                    var day = parseInt(parts[1].replace(",", "")); // 일을 숫자로 변환
+                    var year = parseInt(parts[2]); // 연도를 숫자로 변환
 
-                var reviewDate = new Date(year, monthIndex, day); // Date 객체 생성
+                    var reviewDate = new Date(year, monthIndex, day); // Date 객체 생성
 
-                // YYYY-MM-DD 형식으로 변환
-                var formattedDate = formatDate(reviewDate);
+                    // YYYY-MM-DD 형식으로 변환
+                    var formattedDate = formatDate(reviewDate);
 
-                // 별점을 평점에 맞게 그리기
-                var starHTML = '';
-                for (var i = 0; i < data.reviewScope; i++) {
-                    starHTML += '<i class="fas fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
-                }
-                for (var i = data.reviewScope; i < 5; i++) {
-                    starHTML += '<i class="far fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
-                }
+                    // 별점을 평점에 맞게 그리기
+                    var starHTML = '';
+                    for (var i = 0; i < data.reviewScope; i++) {
+                        starHTML += '<i class="fas fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                    }
+                    for (var i = data.reviewScope; i < 5; i++) {
+                        starHTML += '<i class="far fa-star" style="margin-right: 2px;"></i>'; // 별과 별 사이에 더 넓은 공백 추가
+                    }
 
-                reviewListHTML += `
-                    <div class="review_item">
-                        <div class="media">
-                            <div class="media-body">
-                               <span>${formattedDate}</span>
-                                <br>
-                                <br>
-                                <h4>
-                                    <span>작성자 : ${data.memberNickname}</span>
-                                    <button onclick="reviewLikeClick('${data.reviewPK}','` + document.getElementById('sessionMid').value + `')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
-                                        <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
-                                    </button>
-                                    <span id="reviewCnt${data.reviewPK}">${data.reviewLikeCnt}</span>
-                                </h4>
-                                <br>
-                                <div class="starRating">
-                                    ${starHTML}
+                    reviewListHTML += `
+                        <div class="review_item">
+                            <div class="media">
+                                <div class="media-body">
+                                   <span>${formattedDate}</span>
+                                    <br>
+                                    <br>
+                                    <h4>
+                                        <span>작성자 : ${data.memberNickname}</span>
+                                        <button onclick="reviewLikeClick('${data.reviewPK}','` + document.getElementById('sessionMid').value + `')" class="review-btn-${data.reviewPK}" style="margin-top: 3px; background: #ffffff; border: none;">
+                                            <img src="${data.reviewLike == 1 ? '/resources/reviewLikeRed.png' : '/resources/reviewLike.png'}" alt="좋아요" style="width: 25px;">
+                                        </button>
+                                        <span id="reviewCnt${data.reviewPK}">${data.reviewLikeCnt}</span>
+                                    </h4>
+                                    <br>
+                                    <div class="starRating">
+                                        ${starHTML}
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <!-- 리뷰 작성할 때 사용자가 등록한 이미지 -->
+                                    ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
                                 </div>
                             </div>
-                            <div class="d-flex">
-                                <!-- 리뷰 작성할 때 사용자가 등록한 이미지 -->
-                                ${data.reviewImg ? `<div class="feature-img"><img style="max-width: 200%; max-height: 200px;" class="img-fluid" src="${data.reviewImg}" alt="리뷰작성 이미지"></div>` : ''}
+                            <br>
+                            <div>
+                                <textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea>
                             </div>
                         </div>
-                        <br>
-                        <div>
-                            <textarea class="col-lg-12" rows="3" name="reviewContent" placeholder="리뷰 내용" readonly style="resize: none; border: 2px solid gray; border-radius: 5px; line-height: 2; font-size: large;">${data.reviewContent}</textarea>
-                        </div>
-                    </div>
-                `;
-            });
-            $(".review_list").html(reviewListHTML);
+                    `;
+                });
+                $(".review_list").html(reviewListHTML);
+            }
         },
         error: function(error) {
             console.log('실패');
@@ -195,6 +203,7 @@ $("#recent").on("click", function() {
         }
     });
 });
+
 
 
 
