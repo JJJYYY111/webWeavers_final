@@ -130,7 +130,7 @@ public class ProductDAO {
 			+ "FROM PRODUCT\r\n"
 			+ "ORDER BY PRODUCT_PK ASC\r\n";
 	// Admin_상품총갯수조회
-	private static final String SELECTONE_ADMIN_TOTALPRODUCTNUM = "SELECT COUNT(*) AS total_count FROM PRODUCT WHERE PRODUCT_STATUS = 1"; 
+	private static final String SELECTONE_ADMIN_TOTALPRODUCTNUM = "SELECT COUNT(*) AS TOTAL_PRODUCTNUM FROM PRODUCT WHERE PRODUCT_STATUS = 1"; 
 	// Admin_상품수정페이지
 	private static final String SELECTONE_UPDATE = "SELECT\r\n"
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_REGDATE,\r\n"
@@ -395,7 +395,7 @@ public class ProductDAO {
 			}
 			// Admin_판매중인 상품 총 갯수
 			else if (productDTO.getSearchCondition().equals("adminSalesProductTotalNum")) {
-				return jdbcTemplate.queryForObject(SELECTONE_ADMIN_TOTALPRODUCTNUM, new ProductInsertRowMapper());
+				return jdbcTemplate.queryForObject(SELECTONE_ADMIN_TOTALPRODUCTNUM, new ProductSalesTotalNumAdminRowMapper());
 			}
 			// Admin_오늘 총 매출
 			else if (productDTO.getSearchCondition().equals("adminTodaySales")) {
