@@ -145,7 +145,6 @@
 										<tbody id="salesSearchdatas">
 											<c:forEach var="data" items="${productSaleDatas}">
 												<tr>
-													<!-- 상품 수정 컨트롤러 생기면 href 수정하기  -->
 													<td>${data.productPK}</td>
 													<td>${data.productName}</td>
 													<td>${data.categoryName}</td>

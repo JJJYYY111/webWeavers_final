@@ -21,16 +21,6 @@
 
 <body>
 	<!-- ============================================================== -->
-	<!-- Preloader - style you can find in spinners.css -->
-	<!-- ============================================================== -->
-	<!-- <div class="preloader">
-		<div class="lds-ripple">
-			<div class="lds-pos"></div>
-			;
-			<div class="lds-pos"></div>
-		</div>
-	</div> -->
-	<!-- ============================================================== -->
 	<div id="main-wrapper" data-theme="light" data-layout="vertical"
 		data-navbarbg="skin6" data-sidebartype="full"
 		data-sidebar-position="fixed" data-header-position="fixed"
@@ -164,7 +154,8 @@
 											<h5>
 												<button id="donut-button"
 													style="border: 0; border-color: paleturquoise; background-color: rgb(255, 255, 255); outline: none; text-decoration: none;">
-													<i class="fa fa-circle mr-1 text-cyan"></i> 도낫
+													<i class="far fa-circle mr-1 text-cyan"></i> 도넛
+													
 												</button>
 											</h5>
 										</li>
@@ -187,7 +178,7 @@
 											<h5>
 												<button id="monthly-sales-button"
 													style="border: 0; border-color: paleturquoise; background-color: rgb(255, 255, 255); outline: none; text-decoration: none;">
-													<i class="fa fa-circle mr-1 text-info"></i>월 매출
+													<i class="fa fa-circle mr-1 monthly"></i>월 매출
 												</button>
 											</h5>
 										</li>
@@ -195,13 +186,13 @@
 											<h5>
 												<button id="daily-sales-button"
 													style="border: 0; border-color: paleturquoise; background-color: rgb(255, 255, 255); outline: none; text-decoration: none;">
-													<i class="fa fa-circle mr-1 text-cyan"></i>일 매출
+													<i class="fa fa-circle mr-1 text-info"></i>일 매출
 												</button>
 											</h5>
 										</li>
 									</ul>
 									<canvas id="curve-area-chart" height="150"></canvas>
-									<canvas id="comparison-line-chart"  height="150"></canvas>
+									<canvas id="comparison-line-chart" height="150"></canvas>
 								</div>
 							</div>
 						</div>

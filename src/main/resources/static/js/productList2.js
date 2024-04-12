@@ -5,7 +5,6 @@ var categoryPK;
 var totalPages = 0; // 전체 페이지 수를 저장할 변수 선언
 var currentPage = 1; // 현재 페이지 번호
 var pageSize = 20; // 페이지당 상품 수를 설정
-var isFiltering = 0; // 필터 검색 여부를 저장할 변수. 기본값은 0으로 전체상품목록을 의미
 
 //---------- 페이지 로드시 상품출력(신상순) ----------
 window.onload = function() {
@@ -108,9 +107,6 @@ function onClickFilter() {
 
     // 첫 번째 페이지로 이동
     goToPage(1);
-
-    // 필터링 여부를 나타내는 변수를 업데이트합니다.
-    isFiltering = 1;
 }
 
 

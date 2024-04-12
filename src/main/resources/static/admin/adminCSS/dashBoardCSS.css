@@ -2,3 +2,8 @@
         .card-body {
             overflow: hidden;
         }
+
+        /* 해당 클래스를 가진 요소의 색상을 변경 */
+        .fa.fa-circle.mr-1.monthly {
+            color: rgb(75, 192, 192) !important; /* !important를 사용하여 다른 스타일을 덮어씀 */
+        }
