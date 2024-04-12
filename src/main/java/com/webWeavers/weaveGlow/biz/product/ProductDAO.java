@@ -130,7 +130,7 @@ public class ProductDAO {
 			+ "FROM PRODUCT\r\n"
 			+ "ORDER BY PRODUCT_PK ASC\r\n";
 	// Admin_상품총갯수조회
-	private static final String SELECTALL_ADMIN_TOTALPRODUCTNUM = 
+	private static final String SELECTONE_ADMIN_TOTALPRODUCTNUM = "SELECT COUNT(*) AS total_count FROM PRODUCT WHERE PRODUCT_STATUS = 1"; 
 	// Admin_상품수정페이지
 	private static final String SELECTONE_UPDATE = "SELECT\r\n"
 			+ "	PRODUCT_PK, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_REGDATE,\r\n"
@@ -350,14 +350,7 @@ public class ProductDAO {
 			else if (productDTO.getSearchCondition().equals("adminMonthlySales")) {
 				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminMonthlySales"), new ProductTop10SalesRowMapper());
 			}
-			// Admin_오늘 총 매출
-			else if (productDTO.getSearchCondition().equals("adminTodaySales")) {
-				return jdbcTemplate.query(SELECTONE_TODAYSALES_TOTAL, new ProductSalesTotalTodayAdminRowMapper());
-			}
-			// Admin_어제 총 매출
-			else if (productDTO.getSearchCondition().equals("adminPvdaySales")) {
-				return jdbcTemplate.query(SELECTONE_PVDAYSALES_TOTAL, new ProductSalesTotalPvdayAdminRowMapper());
-			}
+			
 			// Admin_오늘 3시간별 매출(줄 그래프)
 			else if (productDTO.getSearchCondition().equals("adminTodaySalesByHours")) {
 				return jdbcTemplate.query(SELECTALL_TODAYSALES_THREEHOUR, new ProductSalesTodayHourAdminRowMapper());
@@ -365,10 +358,6 @@ public class ProductDAO {
 			// Admin_어제 3시간별 매출(줄 그래프)
 			else if (productDTO.getSearchCondition().equals("adminPvdaySalesByHours")) {
 				return jdbcTemplate.query(SELECTALL_PVDAYSALES_THREEHOUR, new ProductSalesPvdayHourAdminRowMapper());
-			}
-			// Admin_이번달 총 매출
-			else if (productDTO.getSearchCondition().equals("adminSalesThisMonth")) {
-				return jdbcTemplate.query(SELECTONE_SALES_THISMONTH, new ProductSalesThisMonthAdminRowMapper());
 			}
 			// Admin_월별매출(막대 그래프)
 			else if (productDTO.getSearchCondition().equals("adminMonthlySalesGraph")) {
@@ -404,7 +393,23 @@ public class ProductDAO {
 			else if (productDTO.getSearchCondition().equals("productInsert")) {
 				return jdbcTemplate.queryForObject(SELECTONE_INSERT, new ProductInsertRowMapper());
 			}
-
+			// Admin_판매중인 상품 총 갯수
+			else if (productDTO.getSearchCondition().equals("adminSalesProductTotalNum")) {
+				return jdbcTemplate.queryForObject(SELECTONE_ADMIN_TOTALPRODUCTNUM, new ProductInsertRowMapper());
+			}
+			// Admin_오늘 총 매출
+			else if (productDTO.getSearchCondition().equals("adminTodaySales")) {
+				return jdbcTemplate.queryForObject(SELECTONE_TODAYSALES_TOTAL, new ProductSalesTotalTodayAdminRowMapper());
+			}
+			// Admin_어제 총 매출
+			else if (productDTO.getSearchCondition().equals("adminPvdaySales")) {
+				return jdbcTemplate.queryForObject(SELECTONE_PVDAYSALES_TOTAL, new ProductSalesTotalPvdayAdminRowMapper());
+			}
+			// Admin_이번달 총 매출
+			else if (productDTO.getSearchCondition().equals("adminSalesThisMonth")) {
+				return jdbcTemplate.queryForObject(SELECTONE_SALES_THISMONTH, new ProductSalesThisMonthAdminRowMapper());
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -563,6 +568,16 @@ class ProductInsertRowMapper implements RowMapper<ProductDTO> {
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO data = new ProductDTO();
 		data.setProductPK(rs.getInt("PRODUCT_PK"));
+		
+		return data;
+	}
+}
+
+class ProductSalesTotalNumAdminRowMapper implements RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO data = new ProductDTO();
+		data.setTotalPrice(rs.getInt("TOTAL_PRODUCTNUM"));
 		
 		return data;
 	}

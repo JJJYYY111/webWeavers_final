@@ -21,6 +21,7 @@ public class ProductDTO {
 	private String memberID;
 	private String sortType;		// User_상품 정렬 기준
 	private int wish;				// User_로그인한 회원의 찜 유무
+	private int totalProductNum;	// 대시보드 (총 판매 중인 상품 개수)
 	private int categoryPK;			// 매출현황 (필터_카테고리 선택, 쿼리문 조건"?"에 필요)
 	private int subCategoryPK;		// 매출현황 (필터_서브카테고리 선택, 쿼리문 조건"?"에 필요)
 	private String categoryName;	// 매출현황 (카테고리 이름)
