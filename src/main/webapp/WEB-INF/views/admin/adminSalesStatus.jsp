@@ -137,11 +137,6 @@
 												<th class="sorting_asc" style="background-color: #f2f2f2;">금액</th>
 											</tr>
 										</thead>
-
-										<script>
-											/* console.log('[로그2]데이터 확인 '+ ${productSaleDatas}); */
-										</script>
-
 										<tbody id="salesSearchdatas">
 											<c:forEach var="data" items="${productSaleDatas}">
 												<tr>

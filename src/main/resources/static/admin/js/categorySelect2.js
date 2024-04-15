@@ -32,24 +32,33 @@ function changeFirstCategory() {
 }
 
 $(document).on("click", "#searchButton", function () {
-    console.log('들어옴')
+    console.log('들어옴') // 테스트 용 로그
+    
+    // 카테고리 선택 요소 가져오기
     var categorySelectElement = document.getElementById("categorySelect"); // select 요소 가져오기
 
+	// 선택된 카테고리의 값 가져오기
     var categoryPK = categorySelectElement.options[categorySelectElement.selectedIndex].value; // 선택된 option의 값 가져오기
 
-    console.log('로그 카테고리 1 ' + categoryPK);
+    console.log('로그 카테고리 1 ' + categoryPK);  // 테스트 용 로그
 
+	// 서브 카테고리 선택 요소 가져오기
     var subCategorySelectElement = document.getElementById("subCategorySelect"); // select 요소 가져오기
 
+	// 선택된 서브 카테고리의 값 가져오기
     var subCategoryPK = subCategorySelectElement.options[subCategorySelectElement.selectedIndex].value; // 선택된 option의 값 가져오기
 
     console.log('로그 서브카테고리 1 ' + subCategoryPK);
 
+	// 시작 날짜 가져오기
     var startDate = document.getElementById("registFirstDay").value;
     console.log('로그 시작날짜 2 ' + startDate);
+    
+    // 끝 날짜 가져오기
     var endDate = document.getElementById("registLastDay").value;
     console.log('로그 끝날짜 2 ' + endDate);
 
+	// Ajax 요청
     $.ajax({
         type: "POST",
         url: "/async/adminSearchSales",
@@ -109,7 +118,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // 1월 : 0 
     var yyyy = today.getFullYear();
     today = yyyy + '-' + mm + '-' + dd;
     $('#registFirstDay').attr('max', today);

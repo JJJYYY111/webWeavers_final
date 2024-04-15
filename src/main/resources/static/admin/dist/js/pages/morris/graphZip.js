@@ -463,61 +463,56 @@ $(function () {
 	"use strict";
 	// 변경된 데이터
 	var salesData = [0, 0, 0, 0];
-	
+
 	$.ajax({
-                type: 'POST',
-                url: '/async/adminDonutGraph',
-                dataType: 'json',
-                success: function(datas) {
-                    console.log('로그' + datas);
-                    var totlaPrice = 0;
-            datas.forEach(function(data) {
-                salesData[data.categoryPK] = data.categoryTotal;
-                totlaPrice += data.categoryTotal;
-            });
-            salesData[0] = totlaPrice
-           	// Bar chart
-            new Chart(document.getElementById("bar-chart"), {
-		type: 'bar',
-		data: {
-			labels: ["총매출", "스킨케어", "클렌징", "마스크,팩"],
-			datasets: [
-				{
-					label: "가격(원)",
-					backgroundColor: ["#6174d5", "#5f76e8", "#768bf4", "#7385df", "#b1bdfa"],
-					data: salesData // 변경된 데이터를 사용
-				}
-			]
-		},
-		options: {
-			legend: { display: false },
-			/*title: {
-				display: true,
-				text: 'Category Sales Chart',
-				fontSize: 15
-			},*/
-			scales: {
-				xAxes: [{
-					categoryPercentage: 0.5, // 막대 간 간격 설정
-					barPercentage: 0.8 // 막대 너비 설정 (0~1 사이의 비율)
-				}],
-				yAxes: [{
-					ticks: {
-						beginAtZero: true,
-						callback: function(value, index, values) {
-                                    return value.toLocaleString(); // 숫자 형식을 변경하여 반환
-                                }
+		type: 'POST',
+		url: '/async/adminDonutGraph', // 데이터를 전송받을 주소
+		dataType: 'json', // 서버 응답의 데이터 타입
+		success: function (datas) {
+			console.log('로그' + datas);
+			var totlaPrice = 0; //총 가격 변수 0으로 초기화
+			datas.forEach(function (data) {
+				salesData[data.categoryPK] = data.categoryTotal; // 카테고리별 판매량 저장
+				totlaPrice += data.categoryTotal; // 총 가격
+			});
+			salesData[0] = totlaPrice // 변경된 데이터로 갱신
+			
+			// Bar chart
+			new Chart(document.getElementById("bar-chart"), {
+				type: 'bar', // 바 차트 유형
+				data: {
+					labels: ["총매출", "스킨케어", "클렌징", "마스크,팩"], // 차트 레이블
+					datasets: [
+						{
+							label: "가격(원)",
+							backgroundColor: ["#6174d5", "#5f76e8", "#768bf4", "#7385df", "#b1bdfa"],
+							data: salesData // 변경된 데이터를 사용
+						}
+					]
+				},
+				options: {
+					legend: { display: false }, // 범례 표시 여부 설정
+					scales: {
+						xAxes: [{
+							categoryPercentage: 0.5, // 막대 간 간격 설정
+							barPercentage: 0.8 // 막대 너비 설정 (0~1 사이의 비율)
+						}],
+						yAxes: [{
+							ticks: {
+								beginAtZero: true, // y축 값의 시작점을 0으로 설정
+								callback: function (value, index, values) {
+									return value.toLocaleString(); // 숫자 형식을 변경하여 반환
+								}
+							}
+						}]
 					}
-				}]
-			}
+				}
+			});
+		},
+		error: function (error) { // Ajax 요청이 실패했을 때 실행되는 콜백 함수
+			console.log('에러의 종류:' + error);
 		}
 	});
-            
-                },
-                error: function(error) {
-                    console.log('에러의 종류:' + error);
-                }
-            });
 });
 
 
@@ -695,57 +690,49 @@ $(function () {
  //===================================
  //============도넛 ====================
  
-  $(function () {
+$(function () {
 	// // 초기에 차트를 생성합니다.
 	// 데이터 준비
 	var salesData = [0, 0, 0];
-    $.ajax({
-                type: 'POST',
-                url: '/async/adminDonutGraph',
-                dataType: 'json',
-                success: function(datas) {
-                    console.log('로그' + datas);
-                    var totlaPrice = 0;
-            datas.forEach(function(data) {
-                totlaPrice += data.categoryTotal;
-            });
-            
-            datas.forEach(function(data) {
-                salesData[data.categoryPK-1] = Math.round((data.categoryTotal/totlaPrice)*100);
-                console.log(salesData[data.categoryPK-1]);
-            });
-            
-            new Chart(document.getElementById("donut-chart"), {
-	type: 'doughnut',
-	data: {
-	  labels: ['스킨', '클렌징', '마스크팩'],
-	  datasets: [
-		{
-		  label: "donut (chart)",
-		  backgroundColor: ["#e74a3b", "#3498db", "#f1c40f"],
-		  data: salesData,
-		  hoverOffset: 4
-		}
-	  ]
-	},
-	/*options: {
-	  title: {
-		display: true,
-		text: 'Donut Chart'
-	  }
-	}*/
-  });
-            
-            
-                },
-                error: function(error) {
-                    console.log('에러의 종류:' + error);
-                }
-            });
 	
+	// Ajax 요청
+	$.ajax({
+		type: 'POST',
+		url: '/async/adminDonutGraph', // 정보를 전달받을 서버 주소
+		dataType: 'json',
+		success: function (datas) { // Ajax 요청이 성공했을 때 실행되는 콜백 함수
+			console.log('로그' + datas); //테스트 로그
+			var totlaPrice = 0; // 총 가격 변수 초기화
+			datas.forEach(function (data) {
+				totlaPrice += data.categoryTotal;
+			});
 
+			// 각 카테고리의 비율을 계산하여 데이터 배열에 저장
+			datas.forEach(function (data) {
+				salesData[data.categoryPK - 1] = Math.round((data.categoryTotal / totlaPrice) * 100); // 각 카테고리의 비율 계산
+				console.log(salesData[data.categoryPK - 1]); // 각 카테고리의 비율 로그로 출력
+			});
 
- }); 
+			new Chart(document.getElementById("donut-chart"), {
+				type: 'doughnut', // 차트 유형 : 도넛
+				data: {
+					labels: ['스킨', '클렌징', '마스크팩'], // 차트 레이블
+					datasets: [
+						{
+							label: "donut (chart)",
+							backgroundColor: ["#e74a3b", "#3498db", "#f1c40f"],
+							data: salesData, // 차트 데이터
+							hoverOffset: 4
+						}
+					]
+				},
+			});
+		},
+		error: function (error) { // Ajax 요청이 실패했을 때 실행되는 콜백 함수
+			console.log('에러의 종류:' + error);
+		}
+	});
+}); 
  
    $(function () {
 	// // 초기에 차트를 생성합니다.
@@ -773,57 +760,6 @@ $(function () {
             }
         });
  });  
- 
- 
-/*   $(function () {
- // 데이터 준비
-        var labels = ['0~3시', '3~6시', '6~9시', '9~12시', '12~15시', '15~18시', '18~21시', '21~24시'];
-        var datasetYesterday = {
-            label: "어제",
-            data: [0, 0, 0, 0, 0, 0, 0, 0],
-            borderColor: 'rgb(75, 192, 192)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            pointBackgroundColor: 'rgb(75, 192, 192)',
-            pointBorderColor: 'rgb(75, 192, 192)'
-        };
-        var datasetToday = {
-            label: "오늘",
-            data: [0, 0, 0, 0, 0, 0, 0, 0],
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            pointBackgroundColor: 'rgb(255, 99, 132)',
-            pointBorderColor: 'rgb(255, 99, 132)'
-        };
-
-        // 차트 생성
-        new Chart(document.getElementById("comparison-line-chart"), {
-            type: 'line', // 곡선 차트 유형 설정
-            data: {
-                labels: labels,
-                datasets: [datasetYesterday, datasetToday]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Comparison Line Chart'
-                },
-                scales: {
-                    xAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: '시간대'
-                        }
-                    }],
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: '판매량'
-                        }
-                    }]
-                }
-            }
-        });
-  }); */
   
   $(function () {
             // 데이터 준비
@@ -840,7 +776,6 @@ $(function () {
                 label: "오늘",
                 data: [0, 0, 0, 0, 0, 0, 0, 0],
                 borderColor: 'rgb(255, 99, 132)',
-                /*backgroundColor: 'rgba(255, 99, 132, 0.2)',*/
                 backgroundColor: 'rgba(0, 0, 0, 0)',
                 pointBackgroundColor: 'rgb(255, 99, 132)',
                 pointBorderColor: 'rgb(255, 99, 132)'
@@ -855,10 +790,6 @@ $(function () {
                     datasets: [datasetYesterday, datasetToday]
                 },
                 options: {
-                    /*title: {
-                        display: true,
-                        text: 'Comparison Line Chart'
-                    },*/
                     scales: {
                         xAxes: [{
                             scaleLabel: {
@@ -873,10 +804,6 @@ $(function () {
                                     return value.toLocaleString(); // 숫자 형식을 변경하여 반환
                                 }
                             },
-                           /* scaleLabel: {
-                                display: true,
-                                labelString: '판매량',
-                            }*/
                         }]
                     }
                 }
@@ -885,10 +812,10 @@ $(function () {
             // 어제 데이터 요청
             $.ajax({
                 type: 'POST',
-                url: '/async/adminYesterdaySalesGraph',
-                dataType: 'json',
+                url: '/async/adminYesterdaySalesGraph',// 데이터를 전송받을 주소
+				dataType: 'json', // 서버 응답의 데이터 타입
                 success: function(datas) {
-                    datas.forEach(function(data, index) {
+                    datas.forEach(function(data, index) { // 24/3 시간 하여 8분할
                         lineChart.data.datasets[0].data[(data.pvtotalTemp)/3] = data.totalPrice;
                     });
                     lineChart.update(); // 차트 업데이트
@@ -901,10 +828,10 @@ $(function () {
             // 오늘 데이터 요청
             $.ajax({
                 type: 'POST',
-                url: '/async/adminTodaySalesGraph',
-                dataType: 'json',
+                url: '/async/adminTodaySalesGraph',// 데이터를 전송받을 주소
+				dataType: 'json', // 서버 응답의 데이터 타입
                 success: function(datas) {
-                    datas.forEach(function(data, index) {
+                    datas.forEach(function(data, index) { // 24/3 시간 하여 8분할
                         lineChart.data.datasets[1].data[(data.totalTemp)/3] = data.totalPrice;
                     });
                     lineChart.update(); // 차트 업데이트
@@ -992,19 +919,19 @@ $(document).ready(function() {
 
     // adminDashboard 페이지에서만 실행될 스크립트
     if (currentPageURL.indexOf("adminDashboard") !== -1) {
-        // 초기에는 바바 그래프만 보이도록 설정
+        // 초기에는 바 그래프만 보이도록 설정
         $("#donut-chart").hide();
 
-        // 바바 버튼 클릭 시 실행되는 함수
+        // 바 버튼 클릭 시 실행되는 함수
         $("#baba-button").click(function() {
-            // 바바 버튼을 클릭하면 바바 그래프를 보이고 도낫 그래프를 숨김
+            // 바 버튼을 클릭하면 바 그래프를 보이고 도넛 그래프를 숨김
             $("#bar-chart").show();
             $("#donut-chart").hide();
         });
 
-        // 도낫 버튼 클릭 시 실행되는 함수
+        // 도넛 버튼 클릭 시 실행되는 함수
         $("#donut-button").click(function() {
-            // 도낫 버튼을 클릭하면 도낫 그래프를 보이고 바바 그래프를 숨김
+            // 도넛 버튼을 클릭하면 도넛 그래프를 보이고 바 그래프를 숨김
             $("#donut-chart").show();
             $("#bar-chart").hide();
         });

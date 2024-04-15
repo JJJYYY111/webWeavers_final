@@ -137,7 +137,8 @@
 				</div>
 				<div class="row col-lg-12">
 					<!-- column -->
-					<div class="col-lg-6">
+					<div class="col-lg-6" style="padding-left: 0px;">
+						<!-- style="padding-right: 25px;padding-left: 0px;" -->
 						<div class="card h-90">
 							<div class="card">
 								<div class="card-body">
@@ -169,7 +170,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-6" style="padding-left: 0px;">
+						<!--  style="padding-right: 40px;" -->
 						<div class="card h-90">
 							<div class="card">
 								<div class="card-body">
