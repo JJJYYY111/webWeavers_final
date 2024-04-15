@@ -8,19 +8,21 @@ function checkoutSubmit() {
   else if (document.getElementById('checkout_roadAddress').value == "") {
     alert("배송지를 입력해주세요");
   }
-  else {
+  else {	
     requestPay();
   }
 }
 
 function requestPay() {
-  var price = document.getElementById('totalPrice').innerText;
+  var price = parseInt((document.getElementById('totalPrice').innerText).replace(/,/gi, ""));
+  console.log(price);
   var productList = [];
   document.getElementsByName('selectedProducts').forEach(function (data) {
     productList.push(data.value);
   });
   
-  var billingName = document.getElementsByName('productName');
+  var billingName = document.getElementsByClassName('checkoutProductName');
+  console.log(billingName[0]);
   var billing = billingName[0].innerText + "외" + (billingName.length - 1) + "개";
   
   var memberEmail = document.getElementById('checkoutEmail').value;
@@ -33,18 +35,16 @@ function requestPay() {
   
   var today = new Date();
   var dateUid = today.getFullYear().toString() + today.getMonth().toString() + today.getDate().toString() + today.getHours().toString() + today.getMinutes().toString() + today.getSeconds().toString() + today.getMilliseconds().toString() + price
-  console.log(dateUid);
   
-  var address = "[" + memberAddressName + "] " + memberAddressRoad + " "
-    + memberAddressDetail;
+  var address = "[" + memberAddressName + "] " + memberAddressRoad + " " + memberAddressDetail;
   IMP.request_pay(
     {
       pg: "html5_inicis",
       pay_method: "card",
       merchant_uid: dateUid,
-      name: billing, // 이부분 json배열로 던지기
+      name: billing,
       custom_data: productList,
-      amount: 1,
+      amount: price,
       buyer_email: memberEmail,
       buyer_name: memberName,
       buyer_tel: memberPhone,
@@ -53,8 +53,6 @@ function requestPay() {
     },
     function (rsp) {
       if (rsp.success) {
-        console.log(rsp);
-        console.log((rsp.custom_data).toString());
         jQuery.ajax({
           url: "/async/paymentProcess",
           method: "POST",
@@ -65,10 +63,7 @@ function requestPay() {
             serialDeliveryAddress : rsp.buyer_addr,
           },
           success: function (data) {
-            console.log("ajax success 진입");
-
             if (data == 1) {
-              console.log("ajax1진입");
               document.checkoutForm.submit();
             }
             else {
@@ -78,8 +73,6 @@ function requestPay() {
           error: function () {
           }
         })
-
-
       } else {
         alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
       }

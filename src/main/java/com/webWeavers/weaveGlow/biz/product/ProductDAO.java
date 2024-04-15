@@ -317,7 +317,6 @@ public class ProductDAO {
 					+ "WHERE DATE(S.SERIAL_REGDATE) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
 	
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
-		System.out.println(productDTO.getMemberID());
 		Object[] args1 = { productDTO.getMemberID() };
 		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
 		

@@ -162,7 +162,6 @@
 	<section class="checkout_area section-margin--small">
 		<div class="container">
 			<div class="billing_details">
-				<div class="row">
 					<form class="row contact_form" id="checkoutForm" name="checkoutForm" action="checkoutSuccess"
 						 method="post" style="margin: auto;">
 						<!-- 주문자 정보 -->
@@ -201,7 +200,7 @@
 							</div>
 
 							<!-- 주소 검색 -->
-							<div class="col-md-10 form-group">
+							<div class="col-md-12 form-group">
 								<div class="input-group">
 									<input type="text" class="form-control" id="checkout_zonecode"
 										name="addressZonecode" placeholder="우편번호"
@@ -213,19 +212,19 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-10 form-group">
+							<div class="col-md-12 form-group">
 								<input type="text" class="form-control"
 									id="checkout_roadAddress" name="addressRoad"
 									placeholder="도로명주소"
 									style="display: inline-block; background-color: #fff" readonly>
 							</div>
-							<div class="col-md-10 form-group">
+							<div class="col-md-12 form-group">
 								<input type="text" class="form-control"
 									id="checkout_jibunAddress" name="addressJibun"
 									placeholder="지번주소"
 									style="display: inline-block; background-color: #fff" readonly>
 							</div>
-							<div class="col-md-10 form-group">
+							<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="checkout_detail"
 									name="addressDetail" placeholder="상세주소"
 									style="display: inline-block; background-color: #fff" readonly>
@@ -237,8 +236,8 @@
 						</div>
 						<!-- /주문자 정보 -->
 						<!-- 결제 정보 -->
-						<div class="col-lg-5">
-							<div class="order_box">
+						<div class="col-lg-5" style="align-content: center;">
+							<div class="order_box" style="line-height:250%;">
 								<h2>주문 내역</h2>
 								<ul class="list" id="orderList">
 									<li style="font-weight: bold;">상품<span class="last"
@@ -246,8 +245,9 @@
 									<c:if test="${fn:length(cdatas) <= 0}">상품이 없습니다.</c:if>
 									<c:if test="${fn:length(cdatas) > 0}">
 										<c:forEach var='data' items='${cdatas}'>
-											<li><span style="width: 70%; display: inline-block;" name="productName">${data.productName}</span><span style="width: 70%; display: inline-block;">
-													x ${data.cartCnt}</span> <span class="last" style="float: right;"><span
+											<li>
+											<span style="width: 70%; display: inline;" class="checkoutProductName">${data.productName}</span>
+											<span style="width: 70%; display: inline;">x ${data.cartCnt}</span> <span class="last" style="float: right;"><span
 													class="productPrice"><fmt:formatNumber
 															value="${data.productPrice*data.cartCnt}"
 															currencyCode="KRW" /></span>원</span></li>
@@ -260,7 +260,7 @@
 										style="float: right;"><span id="totalPrice"></span>원</span></li>
 								</ul>
 								<!-- 추후에 구현할 예정부분 -->
-								<div class="payment_item">
+								<!-- <div class="payment_item">
 									<div class="radion_btn">
 										<input type="radio" id="f-option5" name="selector"><label
 											for="f-option5">Check payments</label>
@@ -278,20 +278,20 @@
 									</div>
 									<p>Pay via PayPal; you can pay with your credit card if you
 										don’t have a PayPal account.</p>
-								</div>
-								<div class="creat_account">
+								</div> -->
+								<!-- <div class="creat_account">
 									<input type="checkbox" id="f-option4" name="selector" required>
 									<label for="f-option4">결제 정보 확인</label>
-								</div>
+								</div> -->
+								<br><br>
 								<div class="text-center">
-									<button type="button" class="button button-paypal" onclick="checkoutSubmit()">Proceed to Paypal</button>
+									<button type="button" class="button button-paypal" onclick="checkoutSubmit()">결제하기</button>
 								</div>
 							</div>
 						</div>
 						<!-- 결제 정보 -->
 					</form>
 
-				</div>
 			</div>
 		</div>
 	</section>

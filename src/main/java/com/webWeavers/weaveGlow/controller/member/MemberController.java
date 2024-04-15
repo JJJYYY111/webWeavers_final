@@ -3,7 +3,8 @@ package com.webWeavers.weaveGlow.controller.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.webWeavers.weaveGlow.biz.address.AddressDTO;
@@ -28,7 +29,7 @@ public class MemberController {
 	SmsService smsService;
 
 	// id중복검사를 수행하는 메서드
-	@RequestMapping("/async/idCheck")
+	@PostMapping("/async/idCheck")
 	public @ResponseBody String idCheck(MemberDTO memberDTO) {
 		System.out.println("아이디중복검사진입");
 		memberDTO.setSearchCondition("idCheck"); // memberDTO에 검색조건 저장
@@ -41,7 +42,7 @@ public class MemberController {
 	}
 
 	// 닉네임중복검사를 수행하는 메서드
-	@RequestMapping("/async/nickNameCheck")
+	@PostMapping("/async/nickNameCheck")
 	public @ResponseBody String nickNameCheck(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("닉네임중복검사진입");
 		memberDTO.setSearchCondition("memberNickNameCheck"); // mDTO에 검색조건 저장
@@ -56,7 +57,7 @@ public class MemberController {
 	}
 
 	// sms본인인증확인을 진행하는 메서드
-	@RequestMapping("/async/smsCertification")
+	@PostMapping("/async/smsCertification")
 	public @ResponseBody int smsCertification(MemberDTO memberDTO) {
 		System.out.println("[로그] 본인인증번호발송서비스진입");
 
@@ -70,29 +71,16 @@ public class MemberController {
 		} else {
 			return -1; // 메시지발송 실패 : -1 응답
 		}
-
-	}
-
-	// ID찾기페이지로 이동하는 메서드
-	@RequestMapping("/findID")
-	public String findID() {
-		return "user/findId";
-	}
-
-	// 비밀번호찾기페이지로 이동하는 메서드
-	@RequestMapping("/findPW")
-	public String findPW() {
-		return "user/findPw";
 	}
 
 	// 로그인 페이지로 이동하는 메서드
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public String login() {
 		return "user/login";
 	}
 
 	// 로그아웃을 수행하는 메서드
-	@RequestMapping("/logout")
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("sessionMid");
 		session.removeAttribute("grade");
@@ -100,7 +88,7 @@ public class MemberController {
 	}
 
 	// 로그인을 수행하는 메서드
-	@RequestMapping("/memberSelectOne")
+	@PostMapping("/memberSelectOne")
 	public String memberSelectOne(MemberDTO memberDTO, HttpSession session, Model model) {
 		memberDTO.setSearchCondition("login");
 		memberDTO = memberService.selectOne(memberDTO);
@@ -117,7 +105,7 @@ public class MemberController {
 	}
 
 	// 회원정보수정을 수행하는 메서드
-	@RequestMapping("/memberUpdate")
+	@PostMapping("/memberUpdate")
 	public String memberUpdate(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("회원정보수정진입");
 		memberDTO.setSearchCondition("updateInfo");
@@ -129,7 +117,7 @@ public class MemberController {
 	}
 
 	// 마이페이지로 이동하는 메서드
-	@RequestMapping("/mypage")
+	@GetMapping("/mypage")
 	public String myPage(MemberDTO memberDTO, HttpSession session, Model model) {
 		memberDTO.setSearchCondition("memberInfo");
 
@@ -143,19 +131,19 @@ public class MemberController {
 	}
 
 	// 비밀번호확인페이지로 이동하는 메서드 - 회원상태변경 진입시
-	@RequestMapping("/profileChangePasswordCheck")
+	@GetMapping("/profileChangePasswordCheck")
 	public String profileChangePasswordCheck() {
 		return "user/profileChangePasswordCheck";
 	}
 	
 	// 비밀번호확인페이지로 이동하는 메서드 - 회원탈퇴시
-	@RequestMapping("/unregisterPasswordCheck")
+	@GetMapping("/unregisterPasswordCheck")
 	public String unregisterPasswordCheck() {
 		return "user/unregisterPasswordCheck";
 	}
 	
-	// 회원정보수정을 수행하는 메서드
-	@RequestMapping("/profileChange")
+	// 회원정보수정페이지로 이동하는 메서드
+	@PostMapping("/profileChange")
 	public String profileChange(MemberDTO memberDTO, HttpSession session, Model model) {
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 
@@ -177,13 +165,13 @@ public class MemberController {
 	}
 	
 	// 회원가입페이지로 이동하는 메서드
-	@RequestMapping("/register")
+	@GetMapping("/register")
 	public String register() {
 		return "user/register";
 	}
 	
 	// 회원등록완료페이지로 이동하는 메서드
-	@RequestMapping("/registerSuccess") // 얘도 트랜잭션?
+	@PostMapping("/registerSuccess") // 얘도 트랜잭션?
 	public String registerSuccess(MemberDTO memberDTO, AddressDTO addressDTO) {
 
 		if (memberDTO.getMemberMarketing() != null) {
@@ -208,7 +196,7 @@ public class MemberController {
 	}
 	
 	// 회원탈퇴페이지로 이동하는 메서드
-	@RequestMapping("/unregister")
+	@PostMapping("/unregister")
 	public String unregister(MemberDTO memberDTO, HttpSession session) {
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		memberDTO.setSearchCondition("login");
@@ -219,7 +207,7 @@ public class MemberController {
 	}
 	
 	// 회원탈퇴완료페이지로 이동하는 메서드
-	@RequestMapping("/unregisterSuccess")
+	@PostMapping("/unregisterSuccess")
 	public String unregisterSuccess(MemberDTO memberDTO, HttpSession session) {
 		// 유저의 정보를 담는 mDTO에 id와 검색조건을 설정
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));

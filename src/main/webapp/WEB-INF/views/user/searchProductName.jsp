@@ -13,7 +13,7 @@
 <body>
 	<common:header />
 	<common:banner bannerText='"${keyword}"검색결과' /> <!-- 상품을 검색했을때 검색결과 -->
-
+	
 	<!-- ================ 내용 ================= -->
 	<section class="section-margin--small mb-5">
 		<div class="container">
@@ -31,7 +31,7 @@
 											data-product-pk="${data.productPK}">	
 											<div class="card-product__img">
 												<a href="productDetail?productPK=${data.productPK}"><img 
-													class="card-img" src="/resources/${data.productImg}" alt="${data.productPK}번 상품사진"></a> <!-- 상품 사진을 누를경우 상품 상세 페이지로 이동 -->
+													class="card-img" src="${data.productImg}" alt="${data.productPK}번 상품사진"></a> <!-- 상품 사진을 누를경우 상품 상세 페이지로 이동 -->
 												<ul class="card-product__imgOverlay">
 													<li>
 													

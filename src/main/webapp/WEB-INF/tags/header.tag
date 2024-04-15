@@ -18,7 +18,7 @@
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
-					<a class="navbar-brand logo_h" href="main"><img
+					<a class="navbar-brand logo_h" href="/main"><img
 						src="/resources/img/WgLogo.png" alt="" style="width: 200px;"></a>
 					<div class="collapse navbar-collapse offset"
 						id="navbarSupportedContent">
@@ -46,7 +46,7 @@
 							<div id="searchName">
 								<form action="searchProductName" id="insertForm" method="GET"
 									onsubmit="removeSpace()">
-									<input id="searchNameText" type="text" name="content" />
+									<input id="searchNameText" type="text" name="productName" />
 									<button type="submit">
 										<i class="ti-search"></i>
 									</button>

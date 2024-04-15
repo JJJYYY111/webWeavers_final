@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.webWeavers.weaveGlow.biz.categorization.CategorizationDTO;
@@ -34,14 +35,14 @@ public class CommonController {
 	CategorizationService categorizationService;
 	
 	// contact페이지로 이동하는 메서드
-	@RequestMapping("/contact")
+	@GetMapping("/contact")
 	public String contact() {
 		System.out.println("contact진입");
 		return "user/contact";
 	}
 	
 	// index기능을 수행하는 메서드
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String root(ProductDTO productDTO) {
 		System.out.println("로그 : index진입");
 		productDTO.setSearchCondition("userMain");
@@ -53,7 +54,7 @@ public class CommonController {
 	}
 	
 	// 상품테이블에 상품이 존재하지 않을 경우 웹크롤링을 통해 상품테이블에 상품을 넣는 메서드
-	@RequestMapping("/crawling")
+	@GetMapping("/crawling")
 	public String Crawling(SubCategoryDTO subCategoryDTO, CategorizationDTO categorizationDTO) {
 		List<String> urlDatas = new ArrayList<String>();
 		String tonymolySkinCareProductListURL = "https://tonymoly.com/ctgr/subcategory_product_list.do?i_sCategorycd1=L01&i_sCategorynm1=%EA%B8%B0%EC%B4%88&i_sCategorycd2=L01";
@@ -92,8 +93,7 @@ public class CommonController {
 				ProductDTO productDTO = new ProductDTO();
 				Element el = itr.next();
 				String name = el.select("span.prod-name").text();
-				String price1 = el.select("div.selling-price-wrap > em.price-after").text().replace(",", "")
-						.replace("원", "");
+				String price1 = el.select("div.selling-price-wrap > em.price-after").text().replace(",", "").replace("원", "");
 				String img = el.select("img.over").attr("src");
 				String detailImg = "https://tonymoly.com" + el.select("a.link.thumb").attr("href");
 				int price = Integer.parseInt(price1);
@@ -135,9 +135,8 @@ public class CommonController {
 	}
 	
 	// 메인페이지로 이동하는 메서드
-	@RequestMapping("/main")
+	@GetMapping("/main")
 	public String main(ProductDTO productDTO, HttpSession session, Model model) {
-		System.out.println("메인 페이지 진입");
 		
 		productDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		productDTO.setSearchCondition("userMain");

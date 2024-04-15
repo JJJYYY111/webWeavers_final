@@ -1,4 +1,4 @@
-package com.webWeavers.weaveGlow.controller.common;
+package com.webWeavers.weaveGlow.biz.login;
 
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;

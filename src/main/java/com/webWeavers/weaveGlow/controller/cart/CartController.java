@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,12 +22,13 @@ public class CartController {
 	CartService cartService;
 
 	// 장바구니에 상품을 추가하기위한 메서드
-	@RequestMapping("/async/cartInsert")
+	@PostMapping("/async/cartInsert")
 	public @ResponseBody String cartInsert(CartDTO cartDTO, HttpSession session) {
-
+		
 		if ((String) session.getAttribute("sessionMid") == null) {
 			return "false";
 		}
+		
 		cartDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		cartDTO.setSearchCondition("cartCheck");
 		CartDTO data = cartService.selectOne(cartDTO);
@@ -39,8 +40,8 @@ public class CartController {
 		return String.valueOf(cartService.update(cartDTO)); // 장바구니에 상품이 존재하면 수량만 수정
 	}
 
-	// 장바구니에서 수량을 조절하기위한 메서드
-	@RequestMapping("/async/cartUpdate")
+	// 장바구니에서 상품의 수량을 조절하기위한 메서드
+	@PostMapping("/async/cartUpdate")
 	public @ResponseBody String cartUpdate(CartDTO cartDTO, HttpSession session) {
 		cartDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		cartDTO.setSearchCondition("cntUpdate");
@@ -48,7 +49,7 @@ public class CartController {
 	}
 
 	// 장바구니로 이동하는 메서드
-	@RequestMapping("/cart")
+	@GetMapping("/cart")
 	public String cart(CartDTO cartDTO, HttpSession session, Model model) {
 
 		// 장바구니에 담긴 물건 출력
@@ -63,8 +64,8 @@ public class CartController {
 		return "user/cart";
 	}
 
-	// 장바구니에서 특정상품을 삭제하기위한 메서드
-	@RequestMapping("/cartDelete") 
+	// 장바구니에서 특정(1개)상품을 삭제하기위한 메서드
+	@GetMapping("/cartDelete") 
 	public String cartDelete(CartDTO cartDTO) {
 		// 장바구니에서 상품번호, 사용자 ID를 가져와 CartDTO에 설정
 		cartDTO.setSearchCondition("deleteOne");
@@ -75,7 +76,7 @@ public class CartController {
 	}
 	
 	// 장바구니에서 선택한 상품들을 삭제하기위한 메서드
-	@RequestMapping("/cartDeleteSelected") 
+	@PostMapping("/cartDeleteSelected") 
 	public String cartDeleteSelected(CartDTO cartDTO,
 			@RequestParam("selectedProducts") List<Integer> selectedProducts) {
 		if (selectedProducts.size() <= 0) {

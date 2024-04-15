@@ -1,4 +1,4 @@
-package com.webWeavers.weaveGlow.controller.product;
+package com.webWeavers.weaveGlow.controller.checkout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +8,8 @@ import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,11 +22,7 @@ import com.webWeavers.weaveGlow.biz.checkout.CheckoutService;
 import com.webWeavers.weaveGlow.biz.mail.MailService;
 import com.webWeavers.weaveGlow.biz.member.MemberDTO;
 import com.webWeavers.weaveGlow.biz.member.MemberService;
-import com.webWeavers.weaveGlow.biz.product.ProductDTO;
-import com.webWeavers.weaveGlow.biz.product.ProductService;
 import com.webWeavers.weaveGlow.biz.serial.SerialDTO;
-import com.webWeavers.weaveGlow.biz.serial.SerialService;
-
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -44,24 +41,20 @@ public class CheckoutController {
 	MemberService memberService;
 
 	@Autowired
-	ProductService productService;
-
-	@Autowired
 	BuyProductService buyProductService;
-
-	@Autowired
-	SerialService serialService;
-
-	@RequestMapping("/checkout")
+	
+	// 결제페이지로 이동하는 메서드
+	@PostMapping("/checkout")
 	public String checkout(CartDTO cartDTO, MemberDTO memberDTO, HttpSession session, Model model,
 			@RequestParam("selectedProducts") List<Integer> selectedProducts) {
+		
 		List<CartDTO> cdatas = new ArrayList<CartDTO>();
 		cartDTO.setSearchCondition("cartAddPurchaseList");
 		for (int data : selectedProducts) {
 			cartDTO.setCartPK(data);
 			cdatas.add(cartService.selectOne(cartDTO));
 		}
-		if (cdatas.isEmpty()) { // 장바구니에 물품이 없을경우 유효성검사
+		if (cdatas.isEmpty()) {
 			return "user/cart";
 		}
 		model.addAttribute("cdatas", cdatas);
@@ -69,14 +62,15 @@ public class CheckoutController {
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		memberDTO.setSearchCondition("memberInfo");
 		memberDTO = memberService.selectOne(memberDTO);
-		if (memberDTO == null) { // 해당 사용자가 존재하지 않는다면
+		if (memberDTO == null) {
 			return "redirect:/error";
 		}
 		model.addAttribute("memberDTO", memberDTO);
 		return "user/checkout";
 	}
-
-	@RequestMapping("/checkoutList")
+	
+	// 구매목록으로 이동하는 메서드
+	@GetMapping("/checkoutList")
 	public String checkoutList(BuyProductDTO buyProductDTO, HttpSession session, Model model) {
 		buyProductDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		buyProductDTO.setSearchCondition("checkoutList");
@@ -211,33 +205,26 @@ public class CheckoutController {
 	
 	
 //	 @Transactionl을 사용한 결제처리
-	@RequestMapping("/async/paymentProcess")
-	public @ResponseBody String paymentProcess(@RequestParam("custom_data") List<Integer> custom_data, CartDTO cartDTO, HttpSession session, SerialDTO serialDTO) {
-		System.out.println("paymentProcess진입");
-		String mid = (String) session.getAttribute("sessionMid");
-		System.out.println(custom_data);
-		String result;
+	@PostMapping("/async/paymentProcess")
+	public @ResponseBody String paymentProcess(@RequestParam("custom_data") List<Integer> custom_data, 
+												CartDTO cartDTO, HttpSession session, SerialDTO serialDTO) {
 		List<CartDTO> datas = new ArrayList<CartDTO>();
 		cartDTO.setSearchCondition("cartAddPurchaseList");
 		for (int data : custom_data) {
 			cartDTO.setCartPK(data);
-			System.out.println(cartDTO);
 			datas.add(cartService.selectOne(cartDTO));
 		}
-		if (datas.isEmpty()) {
-			return "redirect:/cart";
-		}
-		
 		try {
-			result = checkoutService.checkoutPayment(datas, mid, serialDTO);
+			return checkoutService.checkoutUpdate(datas, serialDTO,(String)session.getAttribute("sessionMid"));
 		}
 		catch(Exception e) {
-			result = "0";
+			System.out.println("에러 throw 받음 : paymentProcess");
+			return "0";
 		}
-		return result;
 	}
 	
-	@RequestMapping("/checkoutSuccess")
+	// 결제에 성공할 경우 결제완료페이지로 이동하는 메서드
+	@PostMapping("/checkoutSuccess")
 	public String checkoutSuccess(AddressDTO addressDTO, BuyProductDTO buyProductDTO, 
 									MemberDTO memberDTO, HttpSession session, Model model) {
 
@@ -249,8 +236,7 @@ public class CheckoutController {
 		buyProductDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		buyProductDTO.setSearchCondition("checkoutSuccess");
 		List<BuyProductDTO> bdatas = buyProductService.selectAll(buyProductDTO);
-		System.out.println(bdatas);
-		model.addAttribute("bdatas", bdatas); // request에 최근 구매한 상품목록을 저장
+		model.addAttribute("bdatas", bdatas);
 
 		if (memberDTO.getMemberMarketing() != null) {
 			mailService.SendMail(addressDTO, bdatas, memberDTO.getMemberEmail());

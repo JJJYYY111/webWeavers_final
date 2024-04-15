@@ -1,4 +1,4 @@
-package com.webWeavers.weaveGlow.controller.common;
+package com.webWeavers.weaveGlow.controller.member;
 
 import java.sql.Date;
 import java.text.ParseException;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.webWeavers.weaveGlow.biz.login.NaverService;
 import com.webWeavers.weaveGlow.biz.member.MemberDTO;
 import com.webWeavers.weaveGlow.biz.member.MemberService;
 

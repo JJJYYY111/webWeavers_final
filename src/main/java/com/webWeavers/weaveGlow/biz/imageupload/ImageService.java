@@ -9,10 +9,11 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-@Service
+@Service("imageService")
 public class ImageService {
 
-	public String imageInsert(MultipartFile multipartFile, String folderName) {
+	// 이미지 업로드 기능을 수행하는 메서드
+	public String imageInsertFolder(MultipartFile multipartFile, String folderName) {
 
 		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/";
 //		File fileCheck = new File(root);
@@ -43,8 +44,9 @@ public class ImageService {
 			return null;
 		}
 	}
-
-	public String imageUpdate(MultipartFile multipartFile, String prevReviewImg, String folderName) {
+	
+	// 이미지 변경 기능을 수행하는 메서드
+	public String imageUpdateFolder(MultipartFile multipartFile, String prevReviewImg, String folderName) {
 
 		String root = "C:/Jiwon/workspaceSpring/weaveGlow_Final/src/main/";
 //		File fileCheck = new File(root);
@@ -59,7 +61,6 @@ public class ImageService {
 			e.printStackTrace();
 		}
 
-		List<Map<String, String>> fileList = new ArrayList<>();
 		String changeFileName = "uploadimg/"+folderName+"/";
 		Calendar calendar = Calendar.getInstance();
 		changeFileName += calendar.get(Calendar.YEAR);
@@ -71,7 +72,6 @@ public class ImageService {
 		changeFileName += calendar.get(Calendar.MILLISECOND);
 		String originFileName = multipartFile.getOriginalFilename();
 		changeFileName += originFileName;
-		System.out.println(fileList);
 		
 		// 파일 업로드
 		try {

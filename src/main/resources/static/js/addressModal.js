@@ -3,7 +3,7 @@
 																																						
 function getAddressList(){	// 비동기처리로 DB의 배송지들을 출력 (DAO => SELECTALL)										
 	$.ajax({																	
-		type: "GET",
+		type: "POST",
 		url: 'async/addressSelectAll',
 		data: {},												
 		success: function(datas) {												

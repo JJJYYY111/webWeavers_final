@@ -16,7 +16,7 @@ import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-@Service
+@Service("mailService")
 public class MailService{
 	
 	@Autowired
@@ -26,9 +26,7 @@ public class MailService{
 	
 	public void SendMail(AddressDTO addressDTO, List<BuyProductDTO> datas, String recipientAddress){
 		
-		MimeMessage message = emailSender.createMimeMessage();
-		System.out.println(addressDTO);
-		System.out.println(datas);
+		// 메일에 담아 보낼 html형식의 내용
 		int totalPrice = 0;
 		String html = "<h3>구매해 주셔서 감사합니다</h3><br><span><b>주문번호 : "+datas.get(0).getSerialPK()+"</b></span><br><span><b>주문날짜 : "+ datas.get(0).getSerialRegdate()+"</b></span><br><span><b>배송지 : ["+addressDTO.getAddressZonecode()+"] " + addressDTO.getAddressRoad()+" " + addressDTO.getAddressDetail() + "</b></span> <br><br>"
 				+ "<div class=\"table-responsive\" id=\"orderList\">\r\n"
@@ -86,8 +84,8 @@ public class MailService{
 				+ "						</tbody>\r\n"
 				+ "					</table>\r\n"
 				+ "				</div>";
-				//(String) model.getAttribute("email")
 				
+				MimeMessage message = emailSender.createMimeMessage();
 				try {
 					message.setFrom(new InternetAddress("wgw1008@gmail.com"));
 					message.addRecipient(Message.RecipientType.TO, new InternetAddress("wgw1997@naver.com"));
@@ -97,48 +95,6 @@ public class MailService{
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
-//		String user = "wgw1008@gmail.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
-//		String password = "bkrcumodnhxdcfjc"; // 패스워드 bkrcumodnhxdcfjc
-	//	
-//		// SMTP 서버 정보를 설정
-//		Properties prop = new Properties(); 
-//		prop.put("mail.smtp.host", "smtp.gmail.com"); // 메일 서버 주소
-//		prop.put("mail.smtp.starttls.enable", "true"); // 두 컴퓨터 사이의 연결 암호화 표준 기술 : TLS라는 보안인증서 활성화
-//		prop.put("mail.smtp.ssl.protocols","TLSv1.2"); // SSL 프로토콜을 TLS1.2로 설정
-//		prop.put("mail.smtp.auth", "true"); // 계정과 비밀번호 넣는 부분으로 사용하겠다는 뜻
-//		prop.put("mail.smtp.port", "587"); // TLS를 통신할 포트 : gmail이므로 587포트
-	//	
-	//	
-	//	
-//		Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
-//			protected PasswordAuthentication getPasswordAuthentication() {
-//				return new PasswordAuthentication(user, password);
-//			}
-//		});
-	//	
-//		try {
-//			MimeMessage message = new MimeMessage(session);
-//			message.setFrom(new InternetAddress(user));   // 발신자메일주소
-//			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); //수신자메일주소
-//			// Subject
-//			message.setSubject(subject); //메일 제목을 입력
-//			// Text
-////			message.setText(text);    //메일 내용을 입력
-//			// HTML
-//			 message.setContent(html, "text/html; charset=UTF-8");
-//			
-//			// send the message
-//			Transport.send(message); //// Transport.send()를 통해 메세지 전송
-//			System.out.println("message sent successfully...");
-//			return "checkoutSuccess";
-//			
-//		} catch (AddressException e) {
-//			e.printStackTrace();
-//			return "checkoutSuccess";
-//		} catch (MessagingException e) {
-//			e.printStackTrace();
-//			return "checkoutSuccess";
-//		}
 	}
 	
 	// 아이디|비밀번호 이메일로 찾기

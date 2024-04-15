@@ -6,49 +6,58 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductDAO;
 import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductDTO;
-import com.webWeavers.weaveGlow.biz.buyproduct.BuyProductService;
 import com.webWeavers.weaveGlow.biz.cart.CartDTO;
 import com.webWeavers.weaveGlow.biz.cart.CartService;
 import com.webWeavers.weaveGlow.biz.product.ProductDTO;
 import com.webWeavers.weaveGlow.biz.product.ProductService;
+import com.webWeavers.weaveGlow.biz.serial.SerialDAO;
 import com.webWeavers.weaveGlow.biz.serial.SerialDTO;
-import com.webWeavers.weaveGlow.biz.serial.SerialService;
 
-@Service
+@Service("checkoutService")
 public class CheckoutService {
 	@Autowired
-	BuyProductService buyProductService;
+	BuyProductDAO buyProductDAO;
+	@Autowired
+	SerialDAO serialDAO;
 	@Autowired
 	CartService cartService;
 	@Autowired
-	SerialService serialService;
-	@Autowired
 	ProductService productService;
 
+	// 결제후 DB의 데이터를 수정하는 메서드
 	@Transactional(rollbackFor = Exception.class)
-	public String checkoutPayment(List<CartDTO> datas, String mid, SerialDTO serialDTO) throws Exception {
-		BuyProductDTO buyProductDTO = new BuyProductDTO();
-		ProductDTO productDTO = new ProductDTO();
-		CartDTO cartDTO = new CartDTO();
-
+	public String checkoutUpdate(List<CartDTO> datas, SerialDTO serialDTO, String mid) throws Exception {
+		
 		try {
 			serialDTO.setMemberID(mid);
-			serialService.insert(serialDTO);
+			serialDAO.insert(serialDTO);
+			System.out.println("serialDAO수행");
 
-			for (int i = 0; i < datas.size(); i++) {
-				buyProductDTO.setProductPK(datas.get(i).getProductPK());
-				buyProductDTO.setBuyProductCnt(datas.get(i).getCartCnt());
-				buyProductService.insert(buyProductDTO);
+			BuyProductDTO buyProductDTO = new BuyProductDTO();
+			for (CartDTO data : datas) {
+				buyProductDTO.setProductPK(data.getProductPK());
+				buyProductDTO.setBuyProductCnt(data.getCartCnt());
+				buyProductDAO.insert(buyProductDTO);
+				System.out.println("buyProductDAO수행");
+				throw new RuntimeException();
 			}
-
+			
+			// 메모리 누수 발견해서 코드 레벨 이동
+			ProductDTO productDTO = new ProductDTO();
 			productDTO.setSearchCondition("updateBySelling");
-			for (int i = 0; i < datas.size(); i++) {
-				productDTO.setProductPK(datas.get(i).getProductPK());
-				productDTO.setProductQuantity(datas.get(i).getCartCnt());
+			//	  의존성 발견해서 DTO 선언문 이동할 수도있음!															
+			//    Service 인터페이스가 없어서 발생한 이슈 == 메서드 시그니쳐를 강제하지않아서 발생한 이슈
+			for (CartDTO data : datas) {
+//				ProductDTO productDTO = new ProductDTO();
+//				productDTO.setSearchCondition("updateBySelling");
+				productDTO.setProductPK(data.getProductPK());
+				productDTO.setProductQuantity(data.getCartCnt());
 				productService.update(productDTO);
 			}
 
+			CartDTO cartDTO = new CartDTO();
 			cartDTO.setSearchCondition("deleteOne");
 			for (CartDTO data : datas) {
 				cartDTO.setCartPK(data.getCartPK());
@@ -56,6 +65,7 @@ public class CheckoutService {
 			}
 
 		} catch (Exception e) {
+			System.out.println("checkoutService에러캐치");
 			throw e;
 		}
 		return "1";

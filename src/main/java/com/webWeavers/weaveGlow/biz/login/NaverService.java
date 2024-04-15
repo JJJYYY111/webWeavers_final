@@ -1,4 +1,4 @@
-package com.webWeavers.weaveGlow.controller.common;
+package com.webWeavers.weaveGlow.biz.login;
 
 import org.springframework.stereotype.Service;
 import com.google.gson.JsonParser;
