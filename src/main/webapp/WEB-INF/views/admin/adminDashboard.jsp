@@ -239,7 +239,7 @@
 		src="/resources/admin/dist/js/pages/dashboards/dashboard1.min.js"></script>
 	<!-- Chart JS -->
 	<script src="/resources/admin/assets/libs/chart.js/dist/Chart.min.js"></script>
-	<script src="/resources/admin/dist/js/pages/morris/graphZip.js"></script>
+	<script src="/resources/admin/js/graphZip.js"></script>
 </body>
 
 </html>

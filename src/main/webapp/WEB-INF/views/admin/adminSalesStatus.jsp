@@ -190,7 +190,7 @@
 	<script
 		src="/resources/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
-	<script src="/resources/admin/js/categorySelect2.js"></script>
+	<script src="/resources/admin/js/categorySelect.js"></script>
 </body>
 
 </html>

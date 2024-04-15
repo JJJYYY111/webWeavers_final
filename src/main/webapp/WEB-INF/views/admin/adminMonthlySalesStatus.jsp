@@ -156,7 +156,7 @@
 	<script src="/resources/admin/assets/libs/raphael/raphael.min.js"></script>
 	<script src="/resources/admin/assets/libs/morris.js/morris.min.js"></script>
 	<!-- <script src="/resources/admin/dist/js/pages/morris/morris-data copy.js"></script> -->
-	<script src="/resources/admin/dist/js/pages/morris/graphZip.js"></script>
+	<script src="/resources/admin/js/graphZip.js"></script>
 </body>
 
 </html>
