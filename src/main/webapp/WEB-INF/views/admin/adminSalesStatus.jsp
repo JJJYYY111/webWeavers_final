@@ -128,7 +128,7 @@
 										class="table table-striped table-bordered no-wrap">
 										<thead>
 											<tr>
-												<th class="sorting_asc" style="background-color: #f2f2f2;">PK</th>
+												<th class="sorting_asc" style="background-color: #f2f2f2;">상품번호</th>
 												<th class="sorting_asc" style="background-color: #f2f2f2;">상품명</th>
 												<th class="sorting_asc" style="background-color: #f2f2f2;">카테고리</th>
 												<th class="sorting_asc" style="background-color: #f2f2f2;">서브카테고리</th>
