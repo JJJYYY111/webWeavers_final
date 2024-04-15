@@ -246,8 +246,8 @@
 									<c:if test="${fn:length(cdatas) > 0}">
 										<c:forEach var='data' items='${cdatas}'>
 											<li>
-											<span style="width: 70%; display: inline;" class="checkoutProductName">${data.productName}</span>
-											<span style="width: 70%; display: inline;">x ${data.cartCnt}</span> <span class="last" style="float: right;"><span
+											<span style="width: 100%; display: inline-block;" class="checkoutProductName">${data.productName}</span>
+											<span style="width: 100%; display: inline;">x ${data.cartCnt}</span> <span class="last" style="float: right;"><span
 													class="productPrice"><fmt:formatNumber
 															value="${data.productPrice*data.cartCnt}"
 															currencyCode="KRW" /></span>원</span></li>
