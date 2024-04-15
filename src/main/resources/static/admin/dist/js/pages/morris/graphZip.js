@@ -492,6 +492,14 @@ $(function () {
 				},
 				options: {
 					legend: { display: false }, // 범례 표시 여부 설정
+					tooltips: {
+       					callbacks: {
+            				label: function(tooltipItem, data) {
+              					  var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+               					 return value.toLocaleString(); // 숫자 형식을 변경하여 반환
+           					 }
+       					 }
+   					 },
 					scales: {
 						xAxes: [{
 							categoryPercentage: 0.5, // 막대 간 간격 설정
@@ -790,6 +798,14 @@ $(function () {
                     datasets: [datasetYesterday, datasetToday]
                 },
                 options: {
+					tooltips: {
+       					callbacks: {
+            				label: function(tooltipItem, data) {
+              					  var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+               					 return value.toLocaleString(); // 숫자 형식을 변경하여 반환
+           					 }
+       					 }
+   					 },
                     scales: {
                         xAxes: [{
                             scaleLabel: {
@@ -877,10 +893,14 @@ $(function () {
                     }]
                 },
                 options: {
-                   /* title: {
-                        display: true,
-                        text: 'Monthly Sales Chart'
-                    },*/
+					tooltips: {
+       					callbacks: {
+            				label: function(tooltipItem, data) {
+              					  var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+               					 return value.toLocaleString(); // 숫자 형식을 변경하여 반환
+           					 }
+       					 }
+   					 },
                     scales: {
                         xAxes: [{
                             scaleLabel: {
@@ -894,11 +914,7 @@ $(function () {
                                 callback: function(value, index, values) {
                                     return value.toLocaleString(); // 숫자 형식을 변경하여 반환
                                 }
-                            },
-                           /* scaleLabel: {
-                                display: true,
-                                labelString: '매출액',
-                            }*/
+                            }
                         }]
                     }
                 }
