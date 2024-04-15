@@ -85,9 +85,9 @@ $(document).on("click", "#searchButton", function () {
                     datas[i].productName,
                     datas[i].categoryName,
                     datas[i].subCategoryName,
-                    datas[i].productPrice,
+                    formatCurrency(datas[i].productPrice),
                     datas[i].totalCnt,
-                    datas[i].totalPrice
+                    formatCurrency(datas[i].totalPrice)
                 ]).draw(false);
             }
 
@@ -99,6 +99,11 @@ $(document).on("click", "#searchButton", function () {
         }
     });
 });
+
+function formatCurrency(amount) {
+    // 숫자를 통화 형식으로 형식화하여 반환함.
+    return '₩' + parseFloat(amount).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
 
 $(document).ready(function() {
     // 리셋 버튼 클릭 시 실행될 함수
