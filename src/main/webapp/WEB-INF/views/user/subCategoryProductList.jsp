@@ -189,7 +189,7 @@
 
 	<common:footer />
 
-	<script src="/resources/js/productList2.js"></script>
+	<script src="/resources/js/productList.js"></script>
 	<link rel="stylesheet" href="/resources/weaveGlowCSS/subCategoryProduceList.css">
 </body>
 </html>

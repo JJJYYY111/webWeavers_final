@@ -111,6 +111,6 @@
 	<!-- ================ /내용 ================= -->
 
 	<common:footer />
-	<script src="/resources/js/productList2.js"></script>
+	<script src="/resources/js/productList.js"></script>
 </body>
 </html>
