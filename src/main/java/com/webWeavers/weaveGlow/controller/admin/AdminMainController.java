@@ -32,6 +32,7 @@ public class AdminMainController {
 	// 관리자페이지 - 관리자메인페이지로 이동하는 메서드
 	@GetMapping("/adminDashboard")
 	public String adminDashboard(ProductDTO productDTO, MemberDTO memberDTO, Model model) {
+		// 메인페이지에 출력할데이터들을 검색조건을 통해 조회하고 해당 데이터들을 Model에 추가한뒤 페이지이동
 		productDTO.setSearchCondition("adminSalesThisMonth");
 		model.addAttribute("monthlyTotalSales", productService.selectOne(productDTO));
 		productDTO.setSearchCondition("adminTodaySales");

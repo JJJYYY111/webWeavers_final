@@ -47,7 +47,7 @@ public class CheckoutController {
 	@PostMapping("/checkout")
 	public String checkout(CartDTO cartDTO, MemberDTO memberDTO, HttpSession session, Model model,
 			@RequestParam("selectedProducts") List<Integer> selectedProducts) {
-		
+		// 결제페이지에 출력할 상품들 조회하고 List로 생성하여 Model에 추가
 		List<CartDTO> cdatas = new ArrayList<CartDTO>();
 		cartDTO.setSearchCondition("cartAddPurchaseList");
 		for (int data : selectedProducts) {
@@ -58,7 +58,8 @@ public class CheckoutController {
 			return "user/cart";
 		}
 		model.addAttribute("cdatas", cdatas);
-
+		
+		// ID값을 통해 결제페이지에 출력할 회원정보를 조회하고 Model에 추가한뒤 페이지이동
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		memberDTO.setSearchCondition("memberInfo");
 		memberDTO = memberService.selectOne(memberDTO);
@@ -72,27 +73,27 @@ public class CheckoutController {
 	// 구매목록으로 이동하는 메서드
 	@GetMapping("/checkoutList")
 	public String checkoutList(BuyProductDTO buyProductDTO, HttpSession session, Model model) {
+		
+		// 사용자의 ID값과 검색조건을 통해 해당 사용자의 구매내역 조회
 		buyProductDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		buyProductDTO.setSearchCondition("checkoutList");
-
-		// 값이 저장된 bDTO를 검색기능인 R(selectAll)기능을 통해서 해당 사용자의 구매내역을 받아옴
 		List<BuyProductDTO> datas = buyProductService.selectAll(buyProductDTO);
-		// 받아온 구매내역을 주문번호별로 묶기 위해 맵형식으로 저장
+		
+		// 조회한 구매내역을 주문번호별로 묶기 위해 맵형식으로 저장
 		TreeMap<Integer, List<BuyProductDTO>> mapData = new TreeMap<>(Collections.reverseOrder());
 
 		for (BuyProductDTO data : datas) { // 반복문을 사용하여 모든 구매내역을 맵으로 저장
 			int serialPK = data.getSerialPK();
-			// 이미 해당 spk(주문번호)로 묶인 리스트가 있는지 확인
+			// 이미 해당 serialPK(주문번호)로 묶인 리스트가 있는지 확인
 			if (mapData.containsKey(serialPK)) { // 해당 구매내역의 주문번호가 이미 key로 존재한다면
 				mapData.get(serialPK).add(data); // 해당 key(주문번호)에 값을 추가
 			} else {
-				// 해당 spk(주문번호)로 묶인 리스트가 없다면 새로 생성하여 추가하여 값(해당 구매내역)을 저장
+				// 해당 serialPK(주문번호)로 묶인 리스트가 없다면 새로 생성하여 추가하여 값(해당 구매내역)을 저장
 				List<BuyProductDTO> newList = new ArrayList<>();
 				newList.add(data);
 				mapData.put(serialPK, newList);
 			}
 		}
-
 		if (datas.size() == 0) { // 구매내역이 존재하지 않을경우 '상품없음'메세지를 보냄
 			model.addAttribute("msg", "구매한 내역이 없습니다.");
 			return "user/checkoutList";
@@ -102,112 +103,11 @@ public class CheckoutController {
 		}
 	}
 	
-	
-//	@RequestMapping("/paymentProcess")
-//	public @ResponseBody String paymentProcess(@RequestParam("custom_data") List<Integer> custom_data, HttpSession session,
-//												CartDTO cartDTO, BuyProductDTO buyProductDTO,
-//												ProductDTO productDTO, SerialDTO serialDTO) {
-//		System.out.println("paymentProcess진입");
-//		System.out.println(custom_data);
-//		System.out.println(serialDTO);
-//		String mid = (String) session.getAttribute("sessionMid");
-//		boolean flag = false;
-//
-//		List<CartDTO> datas = new ArrayList<CartDTO>();
-//		cartDTO.setSearchCondition("cartAddPurchaseList");
-//		for (int data : custom_data) {
-//			cartDTO.setCartPK(data);
-//			System.out.println(cartDTO);
-//			datas.add(cartService.selectOne(cartDTO));
-//		}
-//		if (datas.isEmpty()) {
-//			return "redirect:/cart";
-//		}
-//
-//		
-//		try {
-//			serialDTO.setMemberID(mid);
-//			if (serialService.insert(serialDTO)) { 
-//				System.out.println("SERIAL테이블에 데이터 추가 성공!"); 
-//			} else {
-//				throw new Exception();
-//			}
-//		} catch (Exception e) { 
-//			System.out.println("SERIAL테이블에 데이터 추가 실패");
-//			e.printStackTrace();
-//			return "0";
-//		}
-//
-//		try {
-//			for (int i = 0; i < datas.size(); i++) { 
-//				buyProductDTO.setProductPK(datas.get(i).getProductPK()); 
-//				buyProductDTO.setBuyProductCnt(datas.get(i).getCartCnt()); 
-//				flag = buyProductService.insert(buyProductDTO); 
-//				if (!flag) { 
-//					break; 
-//				}
-//			}
-//			if (!flag) { 
-//				throw new Exception(); 
-//			} else {
-//				System.out.println("BUYPRODUCT테이블에 데이터 추가 성공!");
-//			}
-//		} catch (Exception e) {
-//			System.out.println("BUYPRODUCT테이블에 데이터 추가 실패");
-//			e.printStackTrace();
-//			return "0";
-//		}
-//
-//		try { // 판매에 따른 상품재고수정
-//			productDTO.setSearchCondition("updateBySelling");
-//			for (int i = 0; i < datas.size(); i++) { 
-//				productDTO.setProductPK(datas.get(i).getProductPK()); 
-//				productDTO.setProductQuantity(datas.get(i).getCartCnt()); 
-//				flag = productService.update(productDTO); 
-//				if (!flag) { 
-//					break; 
-//				}
-//			}
-//			if (!flag) { 
-//				throw new Exception(); 
-//			} else { 
-//				System.out.println("PRODUCT테이블 데이터 수정 성공!"); 
-//			}
-//		} catch (Exception e) { 
-//			System.out.println("PRODUCT테이블 데이터 수정 실패");
-//			e.printStackTrace();
-//			return "0";
-//		}
-//		
-//		try {
-//			cartDTO.setSearchCondition("deleteOne");
-//			for (CartDTO data : datas) {
-//				cartDTO.setCartPK(data.getCartPK());
-//				flag = cartService.delete(cartDTO);
-//				if(!flag) {
-//					break;
-//				}
-//			}
-//			if(!flag) {
-//				throw new Exception(); 
-//			} else { 
-//				System.out.println("CART테이블 데이터 수정 성공!"); 
-//			}
-//		}
-//		catch(Exception e) {
-//			System.out.println("CART테이블 데이터 수정 실패");
-//			e.printStackTrace();
-//			return "0";
-//		}
-//		
-//		return "1";
-//	}
-	
-	
 //	 @Transactionl을 사용한 결제처리
 	@PostMapping("/async/paymentProcess")
 	public @ResponseBody String paymentProcess(@RequestParam("custom_data") List<Integer> custom_data, 
 												CartDTO cartDTO, HttpSession session, SerialDTO serialDTO) {
+		// 결제할 상품들을 장바구니에서 조회한뒤 리스트로 생성
 		List<CartDTO> datas = new ArrayList<CartDTO>();
 		cartDTO.setSearchCondition("cartAddPurchaseList");
 		for (int data : custom_data) {
@@ -215,9 +115,10 @@ public class CheckoutController {
 			datas.add(cartService.selectOne(cartDTO));
 		}
 		try {
+			// 결제데이터를 DB에 처리하기위한 서비스를 사용 (기능 정상수행시 '1'을 리턴)
 			return checkoutService.checkoutUpdate(datas, serialDTO,(String)session.getAttribute("sessionMid"));
 		}
-		catch(Exception e) {
+		catch(Exception e) { // 서비스 기능에 에러 발생시 '0'을 리턴
 			System.out.println("에러 throw 받음 : paymentProcess");
 			return "0";
 		}
@@ -227,20 +128,23 @@ public class CheckoutController {
 	@PostMapping("/checkoutSuccess")
 	public String checkoutSuccess(AddressDTO addressDTO, BuyProductDTO buyProductDTO, 
 									MemberDTO memberDTO, HttpSession session, Model model) {
-
+		// 파라미터값을 바인딩한 커맨드객체의 유효성검사 
 		if (addressDTO.getAddressName() == null) { 
 			addressDTO.setAddressName("임시작성배송지"); 
 		}
 		model.addAttribute("addressDTO", addressDTO);
-
+		
+		// 사용자의 ID와 검색조건을통해 해당사용자의 최근구매한 상품들을 Model에 추가
 		buyProductDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		buyProductDTO.setSearchCondition("checkoutSuccess");
 		List<BuyProductDTO> bdatas = buyProductService.selectAll(buyProductDTO);
 		model.addAttribute("bdatas", bdatas);
-
+		
+		// 만약 이메일 수신동의에 체크가 되어있다면 이메일전송서비스진행
 		if (memberDTO.getMemberMarketing() != null) {
 			mailService.SendMail(addressDTO, bdatas, memberDTO.getMemberEmail());
 		}
+		// 페이지이동
 		return "user/checkoutSuccess";
 	}
 }

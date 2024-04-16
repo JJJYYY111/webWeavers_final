@@ -39,9 +39,10 @@ public class ProductController {
 	@GetMapping("/async/productList") // 매핑이 같은경우 오류가 발생할 수 있음
 	public @ResponseBody String productList(ProductDTO productDTO, HttpSession session,
 			@RequestParam("type") String type, Gson gson) { // 멤버의 인자와 객체가 이름이 다를 경우 종종 사용
-
+		
 		System.out.println("비동기 : productList 진입");
-		productDTO.setMemberID((String) session.getAttribute("sessionMid")); // pDTO에 세션ID 저장 (로그인/로그아웃 상태 확인 > 찜)
+		// 사용자의 ID와 검색조건, 정렬조건을 통해 상품목록을 조회한뒤 Json객체로 변환한값을 리턴
+		productDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		productDTO.setSearchCondition("userProductList");
 		if (type.equals("신상순")) {
 			productDTO.setSortType("regdate");
@@ -50,13 +51,15 @@ public class ProductController {
 		} else if (type.equals("인기순")) {
 			productDTO.setSortType("sales");
 		}
-		return gson.toJson(productService.selectAll(productDTO)); // json 문자열을 응답
+		return gson.toJson(productService.selectAll(productDTO)); 
 	}
 
 	// 상품상세페이지로 이동하는 메서드
 	@GetMapping("/productDetail")
 	public String productDetail(ProductDTO productDTO, ReviewDTO reviewDTO, WishListDTO wishListDTO,
 			HttpSession session, Model model) {
+		
+		// 파라미터값을 바인딩한 커맨드객체에 사용자의 ID값과 검색조건을 통해 상품을 조회하여 Model에 추가
 		productDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		productDTO.setSearchCondition("userProduct");
 		productDTO = productService.selectOne(productDTO);
@@ -69,7 +72,8 @@ public class ProductController {
 		model.addAttribute("productPrice", productDTO.getProductPrice());
 		model.addAttribute("productDetailImg", productDTO.getProductDetailImg());
 		model.addAttribute("productImg", productDTO.getProductImg());
-
+		
+		// 사용자의 ID값을 통해 해당상품에 대한 찜여부를 조회하고 Model에 추가
 		wishListDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		if (wishListDTO.getMemberID() == null) {
 			wishListDTO.setMemberID("");
@@ -79,7 +83,8 @@ public class ProductController {
 		} else {
 			model.addAttribute("like", 1);
 		}
-
+		
+		// 상품 상세페이지에 출력할 리뷰목록을 조회하고 Model에 추가하고 페이지 이동
 		reviewDTO.setSearchCondition("regdate");
 		reviewDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		List<ReviewDTO> rdatas = reviewService.selectAll(reviewDTO);
@@ -96,6 +101,8 @@ public class ProductController {
 	// 상품명검색결과페이지로 이동하는 메서드
 	@GetMapping("/searchProductName")
 	public String searchProductName(ProductDTO productDTO, HttpSession session, Model model) {
+		
+		// 사용자의 ID와 검색조건을 통해 해당 상품명을 가진 상품들을 조회하여 Model에 추가하고 페이지이동
 		productDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		productDTO.setSearchCondition("searchName");
 
@@ -109,6 +116,8 @@ public class ProductController {
 	// 세부카테고리별 상품목록페이지로 이동하는 메서드
 	@GetMapping("/subCategoryProductList")
 	public String subCategoryProductList(ProductDTO productDTO, Model model) {
+		
+		// 카테고리별 상품목록과 카테고리종류를 조회하여 Model에 저장하고 페이지이동
 		model.addAttribute("subCategoryPK", productDTO.getSubCategoryPK());
 		model.addAttribute("categoryPK", productDTO.getCategoryPK());
 		return "user/subCategoryProductList";

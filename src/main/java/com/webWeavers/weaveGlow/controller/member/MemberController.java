@@ -32,8 +32,8 @@ public class MemberController {
 	@PostMapping("/async/idCheck")
 	public @ResponseBody String idCheck(MemberDTO memberDTO) {
 		System.out.println("아이디중복검사진입");
-		memberDTO.setSearchCondition("idCheck"); // memberDTO에 검색조건 저장
-
+		// 파라미터값을 바인딩한 커맨드객체에 검색조건을 추가하고 기존유저들중 해당 ID를 가진 유저가 있는지 조회
+		memberDTO.setSearchCondition("idCheck");
 		if (memberService.selectOne(memberDTO) == null) { // memberDTO가 null인 경우(중복x)
 			return "1"; // 1 응답
 		} else { // mDTO가 null이 아닌 경우(중복o),
@@ -45,11 +45,10 @@ public class MemberController {
 	@PostMapping("/async/nickNameCheck")
 	public @ResponseBody String nickNameCheck(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("닉네임중복검사진입");
-		memberDTO.setSearchCondition("memberNickNameCheck"); // mDTO에 검색조건 저장
-
-		memberDTO = memberService.selectOne(memberDTO); // selectOne()을 통해 리턴값(객체) 저장
-
-		if (memberDTO == null || memberDTO.getMemberID().equals(session.getAttribute("sessionMid"))) { // mDTO가 null인
+		// 파라미터값을 바인딩한 커맨드객체에 검색조건을 추가하고 기존유저들중 해당 닉네임을 가진 유저가 있는지 조회
+		memberDTO.setSearchCondition("memberNickNameCheck");
+		memberDTO = memberService.selectOne(memberDTO); 
+		if (memberDTO == null || memberDTO.getMemberID().equals(session.getAttribute("sessionMid"))) { // mDTO가 null인 경우(중복x)
 			return "1"; // 1 응답
 		} else { // mDTO가 null이 아닌 경우(중복o),
 			return "0"; // 0 응답
@@ -82,6 +81,7 @@ public class MemberController {
 	// 로그아웃을 수행하는 메서드
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+		// 세션값 제거
 		session.removeAttribute("sessionMid");
 		session.removeAttribute("grade");
 		return "redirect:/main";
@@ -90,15 +90,17 @@ public class MemberController {
 	// 로그인을 수행하는 메서드
 	@PostMapping("/memberSelectOne")
 	public String memberSelectOne(MemberDTO memberDTO, HttpSession session, Model model) {
+		
+		// 파라미터값을 바인딩한 커맨드객체에 검색조건을 추가하고 해당 회원이 존재하는지 조회
 		memberDTO.setSearchCondition("login");
 		memberDTO = memberService.selectOne(memberDTO);
 
-		// 확인된 사용자 정보가 비어있거나 사용자의 등급이 5등급 인 경우
+		// 확인된 사용자 정보가 비어있거나 사용자의 등급이 5등급(탈퇴상태) 인 경우
 		if (memberDTO == null || memberDTO.getGradePK() == 5) {
 			model.addAttribute("msg", "잘못입력하셨거나 없는 회원입니다.");
 			return "user/login";
 		}
-		// 확인된 사용자 정보가 있거나 사용자의 등급이 5등급 아닌 경우
+		// 확인된 사용자 정보가 있거나 사용자의 등급이 5등급(탈퇴상태)이 아닌 경우
 		session.setAttribute("sessionMid", memberDTO.getMemberID());
 		session.setAttribute("grade", memberDTO.getGradePK());
 		return "redirect:/main";
@@ -108,6 +110,7 @@ public class MemberController {
 	@PostMapping("/memberUpdate")
 	public String memberUpdate(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("회원정보수정진입");
+		// 파라미터값을 바인딩한 커맨드객체에 사용자의 ID값과 검색조건을 추가하고 회원정보수정기능을 수행한뒤 페이지 이동
 		memberDTO.setSearchCondition("updateInfo");
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		if (!memberService.update(memberDTO)) { // 성공했으면 mypage로 이동
@@ -119,8 +122,9 @@ public class MemberController {
 	// 마이페이지로 이동하는 메서드
 	@GetMapping("/mypage")
 	public String myPage(MemberDTO memberDTO, HttpSession session, Model model) {
+		
+		// 사용자의ID값과 검색조건을 통해 회원정보를 조회하여 Model에 추가하고 페이지이동
 		memberDTO.setSearchCondition("memberInfo");
-
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		memberDTO = memberService.selectOne(memberDTO);
 		if (memberDTO == null) {
@@ -145,8 +149,9 @@ public class MemberController {
 	// 회원정보수정페이지로 이동하는 메서드
 	@PostMapping("/profileChange")
 	public String profileChange(MemberDTO memberDTO, HttpSession session, Model model) {
+		
+		// 사용자의 ID와 검색조건을 통해 사용자의 정보를 조회하여 Model에 추가하고 페이지이동
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
-
 		memberDTO.setSearchCondition("login");
 		memberDTO = memberService.selectOne(memberDTO);
 
@@ -171,15 +176,17 @@ public class MemberController {
 	}
 	
 	// 회원등록완료페이지로 이동하는 메서드
-	@PostMapping("/registerSuccess") // 얘도 트랜잭션?
+	@PostMapping("/registerSuccess")
 	public String registerSuccess(MemberDTO memberDTO, AddressDTO addressDTO) {
-
+		
+		// 마케팅 수신동의에 체크를 했으면 'Y'를 저장, 그렇지 않을경우 'N'을 저장
 		if (memberDTO.getMemberMarketing() != null) {
 			memberDTO.setMemberMarketing("Y");
 		} else {
 			memberDTO.setMemberMarketing("N");
 		}
 		
+		// 파라미터값을 바인딩한 커맨드객체를 통해 회원추가기능을 수행
 		if (!memberService.insert(memberDTO)) {
 			return "redirect:/register";
 		}
@@ -189,33 +196,32 @@ public class MemberController {
 		if (addressDTO.getAddressDetail() == null) {
 			addressDTO.setAddressDetail("");
 		}
+		// 파라미터값을 바인딩한 커맨드객체를 통해 주소추가 기능을 수행
 		if (!addressService.insert(addressDTO)) {
 			return "redirect:/register";
 		}
+		// 회원가입 완료 페이지로 페이지 이동
 		return "user/registerSuccess";
 	}
 	
 	// 회원탈퇴페이지로 이동하는 메서드
 	@PostMapping("/unregister")
 	public String unregister(MemberDTO memberDTO, HttpSession session) {
-		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
-		memberDTO.setSearchCondition("login");
-		if (memberService.selectOne(memberDTO) == null) { // 해당 유저가 존재하지 않는다면
-			return "redirect:/error";
-		}
 		return "user/unregister";
 	}
 	
 	// 회원탈퇴완료페이지로 이동하는 메서드
 	@PostMapping("/unregisterSuccess")
 	public String unregisterSuccess(MemberDTO memberDTO, HttpSession session) {
-		// 유저의 정보를 담는 mDTO에 id와 검색조건을 설정
+		
+		// 사용자의 ID값과 검색조건을 통해 회원의 상태를 변경(탈퇴상태로 변경)
 		memberDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		memberDTO.setSearchCondition("unregisterUpdateInfo");
-
-		if (!memberService.update(memberDTO)) { // 탈퇴에 성공했다면 세션에서 사용자의 id를 삭제
+		if (!memberService.update(memberDTO)) { 
 			return "redirect:/unregisterPasswordCheck";
 		}
+		
+		// 탈퇴에 성공했다면 세션에서 사용자의 ID와 GRADE를 삭제하고 페이지 이동
 		session.removeAttribute("sessionMid");
 		session.removeAttribute("grade");
 		return "user/unregisterSuccess";

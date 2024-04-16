@@ -317,61 +317,18 @@ public class ProductDAO {
 					+ "WHERE DATE(S.SERIAL_REGDATE) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
 	
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
-		Object[] args1 = { productDTO.getMemberID() };
-		Object[] args2 = { productDTO.getMemberID(), productDTO.getProductName() };
+		Object[] args1 = {productDTO.getMemberID()};
+		Object[] args2 = {productDTO.getMemberID(),productDTO.getProductName()};
 		
 		try {
-			// User_메인페이지(판매량순, 찜순)
-			if (productDTO.getSearchCondition().equals("userMain")) {	// 쿼리반환함수 인자 : DTO를 줘도되지만 정렬조건만 있어도돼서 개별로줌
-				return jdbcTemplate.query(selectAllMainPageProductList(productDTO.getSortType()), args1, new ProductListUserRowMapper());
-			}
-			// User_상품목록페이지(판매량순, 신상순, 낮은가격순)
-			else if (productDTO.getSearchCondition().equals("userProductList")) {	// 쿼리반환함수 인자 : 줘야할 정보가 많아서 DTO줌
-				return jdbcTemplate.query(selectAllProductListPage(productDTO), args1, new ProductListUserRowMapper());
-			}			
-			// User_상품검색페이지
-			else if (productDTO.getSearchCondition().equals("searchName")) {
-				return jdbcTemplate.query(SELECTALL_SEARCHNAME, args2, new ProductListUserRowMapper());
-			}
-			// Admin_상품현황페이지
-			else if (productDTO.getSearchCondition().equals("adminProductList")) {
-				return jdbcTemplate.query(SELECTALL_ADMIN_PRODUCT, new ProductListAdminRowMapper());
-			}
-			// Admin_매출현황페이지
-			else if (productDTO.getSearchCondition().equals("adminProductSales")) {
-				return jdbcTemplate.query(selectAllProductSalesQuery(productDTO), new ProductSalesAdminRowMapper());
-			}
-			// Admin_전일대비매출페이지 (당일 매출 Top10 상품목록)
-			else if (productDTO.getSearchCondition().equals("adminDailySales")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminDailySales"), new ProductTop10SalesRowMapper());
-			}
-			// Admin_월별매출페이지 (당월 매출 Top10 상품목록)
-			else if (productDTO.getSearchCondition().equals("adminMonthlySales")) {
-				return jdbcTemplate.query(selectAllDailyAndMonthlySales("adminMonthlySales"), new ProductTop10SalesRowMapper());
-			}
-			
-			// Admin_오늘 3시간별 매출(줄 그래프)
-			else if (productDTO.getSearchCondition().equals("adminTodaySalesByHours")) {
-				return jdbcTemplate.query(SELECTALL_TODAYSALES_THREEHOUR, new ProductSalesTodayHourAdminRowMapper());
-			}
-			// Admin_어제 3시간별 매출(줄 그래프)
-			else if (productDTO.getSearchCondition().equals("adminPvdaySalesByHours")) {
-				return jdbcTemplate.query(SELECTALL_PVDAYSALES_THREEHOUR, new ProductSalesPvdayHourAdminRowMapper());
-			}
-			// Admin_월별매출(막대 그래프)
-			else if (productDTO.getSearchCondition().equals("adminMonthlySalesGraph")) {
-				return jdbcTemplate.query(SELECTALL_MONTHLY_SALES, new ProductMonthlySalesAdminRowMapper());
-			}
-			// Admin_카테고리별 매출 백분율(도넛차트)
-			else if (productDTO.getSearchCondition().equals("adminCategorySalesDonut")) {
-				return jdbcTemplate.query(SELECTALL_CATEGORY_SALES, new ProductSalesByCategoryAdminRowMapper());
-			}
-			
+			if (productDTO.getSearchCondition().equals("userMain")) {
+				return jdbcTemplate.query(selectAllMainPageProductList(productDTO.getSortType()),
+											args1, new ProductListUserRowMapper());
+			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
 		return null;
 	}
 

@@ -20,6 +20,7 @@ public class AddressController {
 	// 결제시 배송지에 사용할 주소목록들을 출력하는 메서드
 	@PostMapping("/async/addressSelectAll")
 	public @ResponseBody String addressSelectAll(AddressDTO addressDTO, HttpSession session, Gson gson) {
+		// ID값으로 해당 사용자의 주소목록을 받아와서 Json객체로 변환한값을 리턴
 		addressDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		return gson.toJson(addressService.selectAll(addressDTO));
 	}
@@ -27,6 +28,7 @@ public class AddressController {
 	// 결제시 배송지에 사용할 특정주소를 출력하는 메서드
 	@PostMapping("/async/addressSelectOne")
 	public @ResponseBody String addressSelectOne(AddressDTO addressDTO, Gson gson) {
+		// 커맨드객체에 바인딩된 값을 통해 특정를 주소 조회하여 Json객체로 변환한값을 리턴
 		addressDTO = addressService.selectOne(addressDTO); 
 		if (addressDTO.getAddressJibun() == null) { 
 			addressDTO.setAddressJibun(""); 
@@ -43,6 +45,7 @@ public class AddressController {
 		if (addressDTO.getAddressName() == "") { 
 			addressDTO.setAddressName("이름없는배송지");
 		}
+		// 파라미터값을 바인딩한 커맨드객체에 ID값을 추가한뒤 주소테이블에 해당사용자의 주소를 추가하고 성공시 'true' 실패시 'false'를 리턴
 		addressDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		return String.valueOf(addressService.insert(addressDTO));
 	}
@@ -56,12 +59,14 @@ public class AddressController {
 		if (addressDTO.getAddressDetail() == null) { 
 			addressDTO.setAddressDetail("");
 		}
+		// 파라미터값을 바인딩한 커맨드객체를 주소테이블에서 수정하고 성공시 'true' 실패시 'false'를 리턴
 		return String.valueOf(addressService.update(addressDTO));
 	}
 
 	// 주소를 삭제하기위한 메서드
 	@PostMapping("/async/addressDelete")
 	public @ResponseBody String addressDelete(AddressDTO addressDTO) {
+		// 파라미터값을 바인딩한 커맨드객체를 주소테이블에서 삭제하고 성공시 'true' 실패시 'false'를 리턴
 		return String.valueOf(addressService.delete(addressDTO));
 	}
 }

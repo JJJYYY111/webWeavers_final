@@ -47,6 +47,8 @@ public class CommonController {
 		System.out.println("로그 : index진입");
 		productDTO.setSearchCondition("userMain");
 		productDTO.setSortType("sales");
+		System.out.println("로그[상품테이블데이터확인]: "+productService.selectAll(productDTO));
+		// 상품테이블에 데이터가 존재하지 않을경우 크롤링메서드로 이동
 		if (productService.selectAll(productDTO).size() <= 0) {
 			return "redirect:/crawling";
 		}
@@ -137,10 +139,11 @@ public class CommonController {
 	// 메인페이지로 이동하는 메서드
 	@GetMapping("/main")
 	public String main(ProductDTO productDTO, HttpSession session, Model model) {
-		
+		// preparedstatement를 사용하기위해 ID값을 받아오고 해당 쿼리를 사용하기 위한 검색조건 설정
 		productDTO.setMemberID((String) session.getAttribute("sessionMid"));
 		productDTO.setSearchCondition("userMain");
 		
+		// 메인페이지에 출력할 상품목록을 조회하여 model에 저장
 		productDTO.setSortType("wish");
 		model.addAttribute("wdatas", productService.selectAll(productDTO));
 
